@@ -1,0 +1,40 @@
+{
+  "ReverseProxy": {
+    "Routes": {
+      "productsRoute": {
+        "ClusterId": "apiCluster",
+        "Match": {
+          "Path": "/gateway/products/{pageSize}/{pageIndex}"
+        },
+        "Transforms": [
+          { "PathPattern": "/api/v1/catalog/products/{pageSize}/{pageIndex}" }
+        ]
+      },
+      "authRoute": {
+        "ClusterId": "authCluster",
+        "Match": {
+          "Path": "/gateway/auth"
+        },
+        "Transforms": [
+          { "PathPattern": "/api/v1/auth/login" }
+        ]
+      }
+    },
+    "Clusters": {
+      "apiCluster": {
+        "Destinations": {
+          "apiCluster/dest1": {
+            "Address": "http://localhost:5046"
+          }
+        }
+      },
+      "authCluster": {
+        "Destinations": {
+          "apiCluster/dest1": {
+            "Address": "http://localhost:5074"
+          }
+        }
+      }
+    }
+  }
+}
