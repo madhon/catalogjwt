@@ -9,12 +9,12 @@
     {
         public string SecretKey { get; set; } = string.Empty;
 
-        public IEnumerable<Claim> GetClaims(string token, string issuer, string audience)
+        public IEnumerable<Claim>? GetClaims(string token, string issuer, string audience)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var secToken = tokenHandler.ReadJwtToken(token.Replace("Bearer", string.Empty).Trim());
             bool validate = ValidateToken(token, issuer, audience);
-            return validate == true ? secToken.Claims : null;
+            return validate ? secToken.Claims : null;
         }
 
         bool ValidateToken(string token, string issuer, string audience)

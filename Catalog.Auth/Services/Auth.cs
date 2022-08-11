@@ -18,7 +18,7 @@
             this.auth.SecretKey = _configuration["jwt:secret"];
         }
 
-        public async Task<string> Authenticate(string username, string password, bool hashPassword = true)
+        public async Task<string?> Authenticate(string username, string password, bool hashPassword = true)
         {
             var hashPwd = hashPassword == true ? password.Hash() : password;
 
@@ -61,7 +61,7 @@
             return null;
         }
 
-        string Authenticate(int userId, string role)
+        private string Authenticate(int userId, string role)
         {
             var claims = new ClaimsIdentity(new Claim[]
             {
@@ -71,7 +71,5 @@
             var result = auth.CreateToken(claims, _configuration["jwt:issuer"], _configuration["jwt:audience"], 45);
             return result;
         }
-
-       
     }
 }
