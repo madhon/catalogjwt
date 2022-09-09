@@ -1,0 +1,12 @@
+﻿global using System.Security.Claims;
+global using FastEndpoints;
+global using FastEndpoints.Swagger;
+global using Mapster;
+global using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+global using Microsoft.Extensions.Options;
+global using Microsoft.EntityFrameworkCore;
+global using Catalog.API;
+global using Catalog.API.Endpoints.Requests;
+global using Catalog.API.Infrastructure;
+global using Catalog.API.Model;
+global using Catalog.API.ViewModel;

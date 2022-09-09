@@ -1,8 +1,6 @@
 ﻿namespace Catalog.API.Infrastructure
 {
     using Catalog.API.Infrastructure.EntityConfigurations;
-    using Catalog.API.Model;
-    using Microsoft.EntityFrameworkCore;
 
     public class CatalogContext : DbContext
     {
