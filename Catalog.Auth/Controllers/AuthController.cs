@@ -51,6 +51,7 @@ namespace Catalog.Auth.Controllers
 
             authContext.Users.Add(new User
             {
+                Id = Ulid.NewUlid(),
                 Email = model.Email,
                 Fullname = model.Fullname,
                 Password = model.Password.Hash(),

@@ -10,6 +10,8 @@
         private readonly IAuthenticate auth;
         private readonly IConfiguration _configuration;
         private readonly AuthContext authContext;
+
+
         public Auth(AuthContext authContext,  IAuthenticate auth, IConfiguration configuration)
         {
             this.authContext = authContext;
@@ -20,13 +22,19 @@
 
         public async Task<string?> Authenticate(string username, string password, bool hashPassword = true)
         {
-            var hashPwd = hashPassword == true ? password.Hash() : password;
 
             var user = await authContext.Users.AsNoTracking()
-                .FirstOrDefaultAsync(u => u.Email.ToLower() == username.ToLower() && u.Password == hashPwd)
+                .FirstOrDefaultAsync(u => u.Email.ToLower() == username.ToLower())
                 .ConfigureAwait(false);
 
             if (user is null)
+            {
+                return null;
+            }
+
+            var verified = password.VerifyHash(user.Password);
+
+            if (!verified)
             {
                 return null;
             }
@@ -61,7 +69,7 @@
             return null;
         }
 
-        private string Authenticate(int userId, string role)
+        private string Authenticate(Ulid userId, string role)
         {
             var claims = new ClaimsIdentity(new Claim[]
             {

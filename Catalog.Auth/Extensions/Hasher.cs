@@ -1,16 +1,17 @@
-﻿using System.Security.Cryptography;
-using System.Text;
-
-namespace Catalog.Auth.Extensions
+﻿namespace Catalog.Auth.Extensions
 {
+    using BCrypt.Net;
+
     public static class Hasher
     {
         public static string Hash(this string data)
         {
-            SHA512 myHash = SHA512.Create();
-            byte[] hash = myHash.ComputeHash(Encoding.ASCII.GetBytes(data)); //compute hash
-            string val = Convert.ToBase64String(hash);
-            return val;
+            return BCrypt.HashPassword(data);
+        }
+
+        public static bool VerifyHash(this string data, string hash)
+        {
+            return BCrypt.Verify(data, hash);
         }
     }
 }

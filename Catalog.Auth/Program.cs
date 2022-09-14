@@ -41,6 +41,7 @@ builder.Services.AddDbContext<AuthContext>(options =>
     });
 });
 
+
 builder.Services.AddScoped<IAuthenticate, Authenticate>();
 builder.Services.AddScoped<IAuth, Auth>();
 
