@@ -1,6 +1,6 @@
 ﻿namespace Catalog.API.Endpoints
 {
-    public class ProductsEndpoint : Endpoint<ProductsRequest>
+    public sealed class ProductsEndpoint : Endpoint<ProductsRequest>
     {
         private readonly CatalogContext catalogContext;
 

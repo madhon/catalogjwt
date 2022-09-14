@@ -1,6 +1,6 @@
 ﻿namespace Catalog.API.Endpoints
 {
-    public class AddBrandEndpoint : Endpoint<AddBrandRequest>
+    public sealed class AddBrandEndpoint : Endpoint<AddBrandRequest>
     {
         private readonly CatalogContext catalogContext;
 

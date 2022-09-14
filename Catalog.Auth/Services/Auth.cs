@@ -23,9 +23,11 @@
         public async Task<string?> AuthenticateAsync(string email, string password, bool hashPassword = true)
         {
 
+#pragma warning disable MA0011 // IFormatProvider is missing
             var user = await authContext.Users.AsNoTracking()
-                .FirstOrDefaultAsync(u => u.Email.ToLowerInvariant() == email.ToLowerInvariant())
+                .FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower())
                 .ConfigureAwait(false);
+#pragma warning restore MA0011 // IFormatProvider is missing
 
             if (user is null)
             {

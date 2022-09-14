@@ -1,6 +1,6 @@
 ﻿namespace Catalog.API.Endpoints.Requests
 {
-    public class AddProductRequest
+    public sealed class AddProductRequest
     {
         public int BrandId { get; set; }
         public string Name { get; set; } = string.Empty;

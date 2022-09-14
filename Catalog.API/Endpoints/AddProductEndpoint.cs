@@ -5,7 +5,7 @@
     using Catalog.API.Model;
     using Mapster;
 
-    public class AddProductEndpoint : Endpoint<AddProductRequest>
+    public sealed class AddProductEndpoint : Endpoint<AddProductRequest>
     {
         private readonly CatalogContext catalogContext;
 
