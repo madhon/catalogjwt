@@ -12,13 +12,5 @@
                 convertFromProviderExpression: x => Ulid.Parse(x))
         {
         }
-
-        public UlidToStringConverter(ConverterMappingHints mappingHints = null)
-            : base(
-                convertToProviderExpression: x => x.ToString(),
-                convertFromProviderExpression: x => Ulid.Parse(x),
-                mappingHints: defaultHints.With(mappingHints))
-        {
-        }
     }
 }

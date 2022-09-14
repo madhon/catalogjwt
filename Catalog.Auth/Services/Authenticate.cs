@@ -12,7 +12,7 @@
         public IEnumerable<Claim>? GetClaims(string token, string issuer, string audience)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var secToken = tokenHandler.ReadJwtToken(token.Replace("Bearer", string.Empty).Trim());
+            var secToken = tokenHandler.ReadJwtToken(token.Replace("Bearer", string.Empty, StringComparison.OrdinalIgnoreCase).Trim());
             bool validate = ValidateToken(token, issuer, audience);
             return validate ? secToken.Claims : null;
         }

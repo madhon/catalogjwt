@@ -25,8 +25,8 @@
             item.Brand = null;
 
             catalogContext.Product.Add(item);
-            await catalogContext.SaveChangesAsync().ConfigureAwait(false);
-            await SendOkAsync(ct);
+            await catalogContext.SaveChangesAsync(ct).ConfigureAwait(false);
+            await SendOkAsync(ct).ConfigureAwait(false);
         }
     }
 }

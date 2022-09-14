@@ -20,11 +20,11 @@
             this.auth.SecretKey = _configuration["jwt:secret"];
         }
 
-        public async Task<string?> Authenticate(string username, string password, bool hashPassword = true)
+        public async Task<string?> AuthenticateAsync(string email, string password, bool hashPassword = true)
         {
 
             var user = await authContext.Users.AsNoTracking()
-                .FirstOrDefaultAsync(u => u.Email.ToLower() == username.ToLower())
+                .FirstOrDefaultAsync(u => u.Email.ToLowerInvariant() == email.ToLowerInvariant())
                 .ConfigureAwait(false);
 
             if (user is null)
@@ -45,8 +45,9 @@
 
         public int? GetUserFromToken(string token)
         {
+            var parsedToken = token.Replace("Bearer", string.Empty, StringComparison.OrdinalIgnoreCase).Trim();
 
-            var claims = auth.GetClaims(token.Replace("Bearer", string.Empty).Trim(), _configuration["jwt:issuer"], _configuration["jwt:audience"]);
+            var claims = auth.GetClaims(parsedToken, _configuration["jwt:issuer"], _configuration["jwt:audience"]);
             if (claims is not null)
             {
                 string[] clms = claims.Select(x => x.Value).ToArray();
@@ -58,8 +59,8 @@
 
         public string? GetRoleFromToken(string token)
         {
-
-            var claims = auth.GetClaims(token.Replace("Bearer", string.Empty).Trim(), _configuration["jwt:issuer"], _configuration["jwt:audience"]);
+            var parsedToken = token.Replace("Bearer", string.Empty, StringComparison.OrdinalIgnoreCase).Trim();
+            var claims = auth.GetClaims(parsedToken, _configuration["jwt:issuer"], _configuration["jwt:audience"]);
             if (claims is not null)
             {
                 string[] clms = claims.Select(x => x.Value).ToArray();

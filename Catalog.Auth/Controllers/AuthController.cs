@@ -27,7 +27,7 @@ namespace Catalog.Auth.Controllers
         [Route("[action]")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
-            var login = await _auth.Authenticate(model.Email, model.Password);
+            var login = await _auth.AuthenticateAsync(model.Email, model.Password);
             if (login is null)
             {
                 return BadRequest(new

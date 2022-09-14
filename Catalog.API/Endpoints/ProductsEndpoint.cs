@@ -32,12 +32,12 @@
                 .OrderBy(c => c.Name)
                 .Skip(req.PageSize * req.PageIndex)
                 .Take(req.PageSize)
-                .ToListAsync()
+                .ToListAsync(ct)
                 .ConfigureAwait(false);
 
             var model = new PaginatedItemsViewModel<Product>(req.PageIndex, req.PageSize, totalItem, itemsOnPage);
 
-            await SendAsync(model, 200, ct);
+            await SendAsync(model, 200, ct).ConfigureAwait(false);
         }
     }
 }
