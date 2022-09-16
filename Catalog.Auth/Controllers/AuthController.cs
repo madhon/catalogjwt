@@ -1,10 +1,5 @@
 namespace Catalog.Auth.Controllers
 {
-    using Catalog.Auth.Extensions;
-    using Catalog.Auth.Infrastructure;
-    using Catalog.Auth.Model;
-    using Catalog.Auth.Services;
-    using Catalog.Auth.ViewModel;
     using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
@@ -13,13 +8,14 @@ namespace Catalog.Auth.Controllers
     {
         private readonly ILogger<AuthController> _logger;
         private readonly IAuth _auth;
-
+        private readonly IArgonService argonService;
         private readonly AuthContext authContext;
-
-        public AuthController(ILogger<AuthController> logger, IAuth auth, AuthContext authContext)
+        
+        public AuthController(ILogger<AuthController> logger, IAuth auth, IArgonService argonService, AuthContext authContext)
         {
             _logger = logger;
             _auth = auth;
+            this.argonService = argonService;
             this.authContext = authContext;
         }
 
@@ -27,10 +23,10 @@ namespace Catalog.Auth.Controllers
         [Route("[action]")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
-            var login = await _auth.AuthenticateAsync(model.Email, model.Password);
+            var login = await _auth.AuthenticateAsync(model.Email, model.Password).ConfigureAwait(false);
             if (login is null)
             {
-                return BadRequest(new
+                return Unauthorized(new
                 {
                     Succeeded = false,
                     Message = "User not found"
@@ -48,14 +44,15 @@ namespace Catalog.Auth.Controllers
         [Route("[action]")]
         public async Task<IActionResult> SignUp([FromBody] SignUpModel model)
         {
+            var saltHash = argonService.CreateHashAndSalt(model.Password);
 
             authContext.Users.Add(new User
             {
                 Id = Ulid.NewUlid(),
                 Email = model.Email,
                 Fullname = model.Fullname,
-                Password = model.Password.Hash(),
-
+                Salt = saltHash.Salt,
+                Password = saltHash.Hash,
             });
             
             await authContext.SaveChangesAsync();

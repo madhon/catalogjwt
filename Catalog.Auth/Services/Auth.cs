@@ -1,23 +1,16 @@
 ﻿namespace Catalog.Auth.Services
 {
-    using System.Security.Claims;
-    using Catalog.Auth.Extensions;
-    using Catalog.Auth.Infrastructure;
-    using Microsoft.EntityFrameworkCore;
-
     public class Auth : IAuth
     {
         private readonly IAuthenticate auth;
-        private readonly IConfiguration _configuration;
+        private readonly IArgonService argonService;
         private readonly AuthContext authContext;
 
-
-        public Auth(AuthContext authContext,  IAuthenticate auth, IConfiguration configuration)
+        public Auth(AuthContext authContext,  IAuthenticate auth, IArgonService argonService)
         {
             this.authContext = authContext;
             this.auth = auth;
-            _configuration = configuration;
-            this.auth.SecretKey = _configuration["jwt:secret"];
+            this.argonService = argonService;
         }
 
         public async Task<string?> AuthenticateAsync(string email, string password, bool hashPassword = true)
@@ -34,8 +27,10 @@
                 return null;
             }
 
-            var verified = password.VerifyHash(user.Password);
+            var salt = user.Salt;
+            var hash = user.Password;
 
+            var verified = argonService.VerifyHash(password, salt, hash);
             if (!verified)
             {
                 return null;
@@ -49,7 +44,7 @@
         {
             var parsedToken = token.Replace("Bearer", string.Empty, StringComparison.OrdinalIgnoreCase).Trim();
 
-            var claims = auth.GetClaims(parsedToken, _configuration["jwt:issuer"], _configuration["jwt:audience"]);
+            var claims = auth.GetClaims(parsedToken);
             if (claims is not null)
             {
                 string[] clms = claims.Select(x => x.Value).ToArray();
@@ -62,7 +57,7 @@
         public string? GetRoleFromToken(string token)
         {
             var parsedToken = token.Replace("Bearer", string.Empty, StringComparison.OrdinalIgnoreCase).Trim();
-            var claims = auth.GetClaims(parsedToken, _configuration["jwt:issuer"], _configuration["jwt:audience"]);
+            var claims = auth.GetClaims(parsedToken);
             if (claims is not null)
             {
                 string[] clms = claims.Select(x => x.Value).ToArray();
@@ -79,7 +74,7 @@
                     new Claim(ClaimTypes.Name, userId.ToString()),
                     new Claim(ClaimTypes.Role, role),
             });
-            var result = auth.CreateToken(claims, _configuration["jwt:issuer"], _configuration["jwt:audience"], 45);
+            var result = auth.CreateToken(claims, 45);
             return result;
         }
     }

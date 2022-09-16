@@ -1,8 +1,6 @@
 ﻿namespace Catalog.Auth.Infrastructure
 {
     using Catalog.Auth.Infrastructure.EntityConfigurations;
-    using Catalog.Auth.Model;
-    using Microsoft.EntityFrameworkCore;
 
     public class AuthContext : DbContext
     {
