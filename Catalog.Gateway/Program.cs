@@ -15,10 +15,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ValidAudience = builder.Configuration["jwt:audience"]
     };
 });
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddHeaderPropagation(options => options.Headers.Add("x-custom-correlation-id"));
 
 builder.Configuration.AddJsonFile("yarp.json", optional: false, reloadOnChange: true);
 builder.Services.AddReverseProxy()
     .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
+    
 
 
 var app = builder.Build();
@@ -28,7 +31,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseRouting();
-
+app.UseHeaderPropagation();
 app.MapReverseProxy();
 
 app.Run();

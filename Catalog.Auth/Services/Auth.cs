@@ -5,7 +5,12 @@
         private readonly IAuthenticate auth;
         private readonly IArgonService argonService;
         private readonly AuthContext authContext;
-
+        
+        private static readonly Func<AuthContext, string, User?> getUser =
+            EF.CompileQuery((AuthContext db, string email) =>
+                db.Users.AsNoTracking()
+                    .FirstOrDefault(u => u.Email.ToLower() == email.ToLower()));
+        
         public Auth(AuthContext authContext,  IAuthenticate auth, IArgonService argonService)
         {
             this.authContext = authContext;
@@ -16,11 +21,7 @@
         public async Task<string?> AuthenticateAsync(string email, string password, bool hashPassword = true)
         {
 
-#pragma warning disable MA0011 // IFormatProvider is missing
-            var user = await authContext.Users.AsNoTracking()
-                .FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower())
-                .ConfigureAwait(false);
-#pragma warning restore MA0011 // IFormatProvider is missing
+            var user = getUser(authContext, email);
 
             if (user is null)
             {

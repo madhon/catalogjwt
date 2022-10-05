@@ -1,4 +1,8 @@
+using Microsoft.AspNetCore.DataProtection;
+
 var builder = WebApplication.CreateBuilder(args);
+
+
 
 builder.Services.AddControllers();
 
@@ -40,6 +44,9 @@ builder.Services.AddDbContext<AuthContext>(options =>
         options.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
     });
 });
+
+builder.Services.AddDataProtection()
+    .PersistKeysToDbContext<AuthContext>();
 
 builder.Services.AddScoped<IArgonService, ArgonService>();
 builder.Services.AddScoped<IAuthenticate, Authenticate>();

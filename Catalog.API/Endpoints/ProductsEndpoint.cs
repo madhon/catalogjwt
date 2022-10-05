@@ -3,7 +3,7 @@
     public sealed class ProductsEndpoint : Endpoint<ProductsRequest>
     {
         private readonly CatalogContext catalogContext;
-
+       
         public ProductsEndpoint(CatalogContext context)
         {
             this.catalogContext = context;
@@ -29,9 +29,13 @@
 
             var itemsOnPage = await catalogContext.Product
                 .AsNoTracking()
-                .OrderBy(c => c.Name)
-                .Skip(req.PageSize * req.PageIndex)
-                .Take(req.PageSize)
+                .Where(x=> 
+                    catalogContext.Product
+                        .OrderBy(c=>c.Name)
+                        .Select(y=>y.Id)
+                        .Skip(req.PageSize * req.PageIndex)
+                        .Take(req.PageSize)
+                        .Contains(x.Id))
                 .ToListAsync(ct)
                 .ConfigureAwait(false);
 
