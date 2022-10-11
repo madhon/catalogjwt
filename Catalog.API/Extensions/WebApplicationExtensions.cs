@@ -20,6 +20,7 @@
                 c.Endpoints.RoutePrefix = "api/v1/catalog";
             });
 
+            app.UseHeaderPropagation();
 
             app.UseOpenApi();
             app.UseSwaggerUi3();
