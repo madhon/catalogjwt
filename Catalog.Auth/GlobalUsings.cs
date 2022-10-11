@@ -1,6 +1,7 @@
 ﻿// ReSharper disable RedundantUsingDirective.Global
 #pragma warning disable IDE0065
 
+global using Catalog.Auth;
 global using Catalog.Auth.Model;
 global using Catalog.Auth.ViewModel;
 global using Catalog.Auth.Infrastructure;
@@ -10,6 +11,7 @@ global using FluentValidation.AspNetCore;
 global using Microsoft.AspNetCore.Authentication.JwtBearer;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.IdentityModel.Tokens;
+global using Microsoft.AspNetCore.DataProtection;
 global using System.Text;
 global using System.Security.Cryptography;
 global using System.Security.Claims;

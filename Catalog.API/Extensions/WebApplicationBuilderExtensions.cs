@@ -1,6 +1,7 @@
 ﻿namespace Catalog.API
 {
     using System.Text;
+    using Catalog.Api;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.HttpOverrides;
     using Microsoft.EntityFrameworkCore;
@@ -12,7 +13,7 @@
         {
             var services = builder.Services;
             var configuration = builder.Configuration;
-
+            var environment = builder.Environment;
 
             services.Configure<ForwardedHeadersOptions>(opts =>
             {
@@ -45,7 +46,8 @@
                 });
             });
 
-            services.AddHealthChecks();
+            services.AddHealthChecks()
+                .AddDbContextCheck<CatalogContext>(); 
 
             services.AddFastEndpoints(o =>
             {
@@ -53,8 +55,10 @@
             });
 
             services.AddSwaggerDoc(shortSchemaNames: true);
+
+            services.AddHeaderPropagation(options => options.Headers.Add("x-correlation-id"));
+
+            services.AddOpenTelemetry(environment);
         }
-
-
     }
 }
