@@ -1,7 +1,7 @@
 ﻿namespace Catalog.Auth.Services
 {
     using Microsoft.Extensions.Options;
-    using System.IdentityModel.Tokens.Jwt;
+    using Microsoft.IdentityModel.JsonWebTokens;
 
     public class Authenticate : IAuthenticate
     {
@@ -14,19 +14,18 @@
 
         public IEnumerable<Claim>? GetClaims(string token)
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var secToken = tokenHandler.ReadJwtToken(token.Replace("Bearer", string.Empty, StringComparison.OrdinalIgnoreCase).Trim());
-            bool validate = ValidateToken(token);
-            return validate ? secToken.Claims : null;
+            var tokenHandler = new JsonWebTokenHandler();
+            var validate = ValidateToken(token);
+            return validate.IsValid ? validate.Claims : null;
         }
 
-        private bool ValidateToken(string token)
+        private (bool IsValid, IEnumerable<Claim> Claims) ValidateToken(string token)
         {
             try
             {
                 var key = Encoding.ASCII.GetBytes(jwtOptions.Secret);
-                var tokenHandler = new JwtSecurityTokenHandler();
-                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                var tokenHandler = new JsonWebTokenHandler();
+                var validationResult =  tokenHandler.ValidateToken(token, new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
                     ValidateIssuer = true,
@@ -34,31 +33,30 @@
                     ValidIssuer = jwtOptions.Issuer,
                     ValidAudience = jwtOptions.Audience,
                     IssuerSigningKey = new SymmetricSecurityKey(key)
-                }, out SecurityToken securityToken);
-
-                return securityToken != null;
+                });
+                
+                return (validationResult.IsValid, validationResult.ClaimsIdentity.Claims);
             }
             catch (Exception)
             {
-                return false;
+                return (false, Enumerable.Empty<Claim>());
             }
         }
 
         public string CreateToken(ClaimsIdentity claimsIdentity, int expiresInMinutes = 30)
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
+            var tokenHandler = new JsonWebTokenHandler();
             var key = Encoding.ASCII.GetBytes(jwtOptions.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = claimsIdentity,
                 Expires = DateTime.UtcNow.AddMinutes(expiresInMinutes),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512Signature),
                 Issuer = jwtOptions.Issuer,
                 Audience = jwtOptions.Audience
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            string result = tokenHandler.WriteToken(token);
-            return result;
+            return token;
         }
     }
 }

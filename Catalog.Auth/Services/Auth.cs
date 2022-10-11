@@ -18,7 +18,7 @@
             this.argonService = argonService;
         }
 
-        public async Task<string?> AuthenticateAsync(string email, string password, bool hashPassword = true)
+        public string? Authenticate(string email, string password, bool hashPassword = true)
         {
 
             var user = getUser(authContext, email);
