@@ -31,6 +31,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
     <PackageReference Include="Newtonsoft.Json" />
     <PackageReference Include="System.Text.RegularExpressions" />
+    <PackageReference Include="System.Text.Encodings.Web" />
     <PackageReference Include="OpenTelemetry.Exporter.Console" />
     <PackageReference Include="OpenTelemetry.Extensions.Hosting" />
     <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" />
