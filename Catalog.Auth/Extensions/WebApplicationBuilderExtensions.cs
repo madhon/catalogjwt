@@ -7,16 +7,12 @@
             var services = builder.Services;
             var configuration = builder.Configuration;
 
-            services.AddControllers();
-
-            services.AddFluentValidationAutoValidation(config =>
+            services.AddFastEndpoints(o =>
             {
-                config.DisableDataAnnotationsValidation = true;
+                o.SourceGeneratorDiscoveredTypes = DiscoveredTypes.All;
             });
 
-            services.AddValidatorsFromAssemblyContaining<Program>();
-
-            services.AddEndpointsApiExplorer();
+            services.AddSwaggerDoc(shortSchemaNames: true);
 
             services.Configure<JwtOptions>(configuration.GetSection(JwtOptions.Jwt));
             services.Configure<ArgonOptions>(configuration.GetSection(ArgonOptions.Argon));
@@ -36,8 +32,6 @@
                     ValidAudience = configuration["jwt:audience"]
                 };
             });
-
-            services.AddSwaggerGen();
 
             services.AddDbContext<AuthContext>(options =>
             {

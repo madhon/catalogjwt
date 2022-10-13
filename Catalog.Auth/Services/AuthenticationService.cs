@@ -18,6 +18,23 @@
             this.argonService = argonService;
         }
 
+        public async Task CreateUser(string email, string password, string fullName, CancellationToken ct)
+        {
+            var saltHash = argonService.CreateHashAndSalt(password);
+
+            authContext.Users.Add(new User
+            {
+                Id = Ulid.NewUlid(),
+                Email = email,
+                Fullname = fullName,
+                Salt = saltHash.Salt,
+                Password = saltHash.Hash,
+            });
+
+            await authContext.SaveChangesAsync(ct).ConfigureAwait(false);
+        }
+
+
         public string? Authenticate(string email, string password, bool hashPassword = true)
         {
 

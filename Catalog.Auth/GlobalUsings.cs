@@ -6,8 +6,11 @@ global using Catalog.Auth.Model;
 global using Catalog.Auth.ViewModel;
 global using Catalog.Auth.Infrastructure;
 global using Catalog.Auth.Services;
+
+global using FastEndpoints;
+global using FastEndpoints.Swagger;
+
 global using FluentValidation;
-global using FluentValidation.AspNetCore;
 global using Microsoft.AspNetCore.Authentication.JwtBearer;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.IdentityModel.Tokens;
