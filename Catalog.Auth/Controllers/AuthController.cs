@@ -7,11 +7,11 @@ namespace Catalog.Auth.Controllers
     public class AuthController : ControllerBase
     {
         private readonly ILogger<AuthController> _logger;
-        private readonly IAuth _auth;
+        private readonly IAuthenticationService _auth;
         private readonly IArgonService argonService;
         private readonly AuthContext authContext;
         
-        public AuthController(ILogger<AuthController> logger, IAuth auth, IArgonService argonService, AuthContext authContext)
+        public AuthController(ILogger<AuthController> logger, IAuthenticationService auth, IArgonService argonService, AuthContext authContext)
         {
             _logger = logger;
             _auth = auth;

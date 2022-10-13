@@ -1,6 +1,6 @@
 ﻿namespace Catalog.Auth.Services
 {
-    public interface IAuth
+    public interface IAuthenticationService
     {
         string? Authenticate(string email, string password, bool hashPassword = true);
         int? GetUserFromToken(string token);

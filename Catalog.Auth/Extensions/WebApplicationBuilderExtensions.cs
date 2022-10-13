@@ -1,13 +1,11 @@
 ﻿namespace Catalog.Auth
 {
-
     public static class WebApplicationBuilderExtensions
     {
         public static void RegisterServices(this WebApplicationBuilder builder)
         {
             var services = builder.Services;
             var configuration = builder.Configuration;
-            var environment = builder.Environment;
 
             services.AddControllers();
 
@@ -54,8 +52,8 @@
                 .PersistKeysToDbContext<AuthContext>();
 
             services.AddScoped<IArgonService, ArgonService>();
-            services.AddScoped<IAuthenticate, Authenticate>();
-            services.AddScoped<IAuth, Services.Auth>();
+            services.AddScoped<IJwtTokenService, JwtTokenService>();
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
 
             services.AddHealthChecks()
                 .AddDbContextCheck<AuthContext>();
@@ -64,6 +62,5 @@
             services.AddHeaderPropagation(options => options.Headers.Add("x-correlation-id"));
             services.AddOpenTelemetry(builder.Environment);
         }
-
     }
 }

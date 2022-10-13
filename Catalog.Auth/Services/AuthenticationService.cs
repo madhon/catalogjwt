@@ -1,8 +1,8 @@
 ﻿namespace Catalog.Auth.Services
 {
-    public class Auth : IAuth
+    public class AuthenticationService : IAuthenticationService
     {
-        private readonly IAuthenticate auth;
+        private readonly IJwtTokenService jwtTokenService;
         private readonly IArgonService argonService;
         private readonly AuthContext authContext;
         
@@ -11,10 +11,10 @@
                 db.Users.AsNoTracking()
                     .FirstOrDefault(u => u.Email.ToLower() == email.ToLower()));
         
-        public Auth(AuthContext authContext,  IAuthenticate auth, IArgonService argonService)
+        public AuthenticationService(AuthContext authContext, IJwtTokenService jwtTokenService, IArgonService argonService)
         {
             this.authContext = authContext;
-            this.auth = auth;
+            this.jwtTokenService = jwtTokenService;
             this.argonService = argonService;
         }
 
@@ -45,7 +45,7 @@
         {
             var parsedToken = token.Replace("Bearer", string.Empty, StringComparison.OrdinalIgnoreCase).Trim();
 
-            var claims = auth.GetClaims(parsedToken);
+            var claims = jwtTokenService.GetClaims(parsedToken);
             if (claims is not null)
             {
                 string[] clms = claims.Select(x => x.Value).ToArray();
@@ -58,7 +58,7 @@
         public string? GetRoleFromToken(string token)
         {
             var parsedToken = token.Replace("Bearer", string.Empty, StringComparison.OrdinalIgnoreCase).Trim();
-            var claims = auth.GetClaims(parsedToken);
+            var claims = jwtTokenService.GetClaims(parsedToken);
             if (claims is not null)
             {
                 string[] clms = claims.Select(x => x.Value).ToArray();
@@ -75,7 +75,7 @@
                     new Claim(ClaimTypes.Name, userId.ToString()),
                     new Claim(ClaimTypes.Role, role),
             });
-            var result = auth.CreateToken(claims, 45);
+            var result = jwtTokenService.CreateToken(claims, 45);
             return result;
         }
     }

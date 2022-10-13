@@ -3,11 +3,11 @@
     using Microsoft.Extensions.Options;
     using Microsoft.IdentityModel.JsonWebTokens;
 
-    public class Authenticate : IAuthenticate
+    public class JwtTokenService : IJwtTokenService
     {
         private readonly JwtOptions jwtOptions;
 
-        public Authenticate(IOptions<JwtOptions> jwtOptions)
+        public JwtTokenService(IOptions<JwtOptions> jwtOptions)
         {
             this.jwtOptions = jwtOptions.Value;
         }
@@ -17,30 +17,6 @@
             var tokenHandler = new JsonWebTokenHandler();
             var validate = ValidateToken(token);
             return validate.IsValid ? validate.Claims : null;
-        }
-
-        private (bool IsValid, IEnumerable<Claim> Claims) ValidateToken(string token)
-        {
-            try
-            {
-                var key = Encoding.ASCII.GetBytes(jwtOptions.Secret);
-                var tokenHandler = new JsonWebTokenHandler();
-                var validationResult =  tokenHandler.ValidateToken(token, new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidIssuer = jwtOptions.Issuer,
-                    ValidAudience = jwtOptions.Audience,
-                    IssuerSigningKey = new SymmetricSecurityKey(key)
-                });
-                
-                return (validationResult.IsValid, validationResult.ClaimsIdentity.Claims);
-            }
-            catch (Exception)
-            {
-                return (false, Enumerable.Empty<Claim>());
-            }
         }
 
         public string CreateToken(ClaimsIdentity claimsIdentity, int expiresInMinutes = 30)
@@ -57,6 +33,30 @@
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return token;
+        }
+
+        private (bool IsValid, IEnumerable<Claim> Claims) ValidateToken(string token)
+        {
+            try
+            {
+                var key = Encoding.ASCII.GetBytes(jwtOptions.Secret);
+                var tokenHandler = new JsonWebTokenHandler();
+                var validationResult = tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidIssuer = jwtOptions.Issuer,
+                    ValidAudience = jwtOptions.Audience,
+                    IssuerSigningKey = new SymmetricSecurityKey(key)
+                });
+
+                return (validationResult.IsValid, validationResult.ClaimsIdentity.Claims);
+            }
+            catch (Exception)
+            {
+                return (false, Enumerable.Empty<Claim>());
+            }
         }
     }
 }
