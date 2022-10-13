@@ -11,7 +11,7 @@
             {
                 o.SourceGeneratorDiscoveredTypes = DiscoveredTypes.All;
             });
-
+            
             services.AddSwaggerDoc(shortSchemaNames: true);
 
             services.Configure<JwtOptions>(configuration.GetSection(JwtOptions.Jwt));
