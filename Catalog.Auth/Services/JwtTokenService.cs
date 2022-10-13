@@ -19,7 +19,7 @@
             return validate.IsValid ? validate.Claims : null;
         }
 
-        public string CreateToken(ClaimsIdentity claimsIdentity, int expiresInMinutes = 30)
+        public TokenResult CreateToken(ClaimsIdentity claimsIdentity, IDictionary<string, object> additionalClaims, int expiresInMinutes = 30)
         {
             var tokenHandler = new JsonWebTokenHandler();
             var key = Encoding.ASCII.GetBytes(jwtOptions.Secret);
@@ -29,10 +29,19 @@
                 Expires = DateTime.UtcNow.AddMinutes(expiresInMinutes),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512Signature),
                 Issuer = jwtOptions.Issuer,
-                Audience = jwtOptions.Audience
+                Audience = jwtOptions.Audience,
+                Claims = additionalClaims
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            return token;
+            var expiresIn = TimeSpan.FromMinutes(expiresInMinutes);
+            
+            var result = new TokenResult
+            {
+                Token = token,
+                ExpiresIn =  Convert.ToInt32(expiresIn.TotalSeconds)
+            };
+
+            return result;
         }
 
         private (bool IsValid, IEnumerable<Claim> Claims) ValidateToken(string token)

@@ -3,6 +3,6 @@
     public interface IJwtTokenService
     {
         IEnumerable<Claim>? GetClaims(string token);
-        string CreateToken(ClaimsIdentity claimsIdentity, int expiresInMinutes);
+        TokenResult CreateToken(ClaimsIdentity claimsIdentity, IDictionary<string, object> additionalClaims, int expiresInMinutes);
     }
 }

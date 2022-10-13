@@ -34,8 +34,7 @@
             await authContext.SaveChangesAsync(ct).ConfigureAwait(false);
         }
 
-
-        public string? Authenticate(string email, string password, bool hashPassword = true)
+        public TokenResult? Authenticate(string email, string password, bool hashPassword = true)
         {
 
             var user = getUser(authContext, email);
@@ -54,7 +53,14 @@
                 return null;
             }
 
-            var perform_auth = Authenticate(user.Id, user.Role);
+            var additionalClaims = new Dictionary<string, object>
+            {
+                { JwtClaimTypes.AuthorizedParty, email },
+                { JwtClaimTypes.GrantType, "password" },
+                { JwtClaimTypes.JwtId, Guid.NewGuid().ToString() }
+            };
+
+            var perform_auth = Authenticate(user.Id, user.Role, additionalClaims);
             return perform_auth;
         }
 
@@ -85,14 +91,14 @@
             return null;
         }
 
-        private string Authenticate(Ulid userId, string role)
+        private TokenResult Authenticate(Ulid userId, string role, IDictionary<string, object> additionalClaims)
         {
             var claims = new ClaimsIdentity(new Claim[]
             {
                     new Claim(ClaimTypes.Name, userId.ToString()),
                     new Claim(ClaimTypes.Role, role),
             });
-            var result = jwtTokenService.CreateToken(claims, 45);
+            var result = jwtTokenService.CreateToken(claims, additionalClaims, 45);
             return result;
         }
     }

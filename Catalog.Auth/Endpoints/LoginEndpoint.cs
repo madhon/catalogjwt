@@ -28,12 +28,13 @@
             }
             else
             {
-                await SendAsync(new
+                var response = new TokenResponse
                 {
-                    Result = login,
-                    Succeeded = true,
-                    Message = "User logged in successfully"
-                }, 200, ct).ConfigureAwait(false);
+                    AccessToken = login.Token,
+                    ExpiresIn = login.ExpiresIn
+                };
+
+                await SendAsync(response, 200, ct).ConfigureAwait(false);
             }
         }
     }
