@@ -25,9 +25,6 @@
                 };
             });
 
-            services.AddHttpContextAccessor();
-            services.AddHeaderPropagation(options => options.Headers.Add("x-correlation-id"));
-
             configuration.AddJsonFile("yarp.json", optional: false, reloadOnChange: true);
             services.AddReverseProxy()
                 .LoadFromConfig(configuration.GetSection("ReverseProxy"));

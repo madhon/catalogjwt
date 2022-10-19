@@ -10,7 +10,6 @@
             app.UseAuthorization();
 
             app.UseRouting();
-            app.UseHeaderPropagation();
             app.MapReverseProxy();
         }
     }
