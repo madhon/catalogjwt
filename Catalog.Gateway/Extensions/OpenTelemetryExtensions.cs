@@ -16,10 +16,11 @@
                         .SetResourceBuilder(GetResourceBuilder(webHostEnvironment))
                         .AddHttpClientInstrumentation()
                         .AddAspNetCoreInstrumentation(
-                            options =>
+                            nci =>
                             {
-                                options.Enrich = Enrich;
-                                options.RecordException = true;
+                                nci.EnrichWithHttpRequest = Enrich;
+                                nci.EnrichWithHttpResponse = Enrich;
+                                nci.RecordException = true;
                             });
                     if (webHostEnvironment.IsDevelopment())
                     {
@@ -28,25 +29,22 @@
                 });
         }
 
-        private static void Enrich(Activity activity, string eventName, object obj)
+        private static void Enrich(Activity activity, HttpRequest request)
         {
-            if (obj is HttpRequest request)
-            {
-                var context = request.HttpContext;
-                activity.AddTag("http.flavor", GetHttpFlavour(request.Protocol));
-                activity.AddTag("http.scheme", request.Scheme);
-                activity.AddTag("http.client_ip", context.Connection.RemoteIpAddress);
-                activity.AddTag("http.request_content_length", request.ContentLength);
-                activity.AddTag("http.request_content_type", request.ContentType);
-            }
-            else if (obj is HttpResponse response)
-            {
-                activity.AddTag("http.response_content_length", response.ContentLength);
-                activity.AddTag("http.response_content_type", response.ContentType);
-            }
+            var context = request.HttpContext;
+            activity.AddTag("http.flavor", GetHttpFlavour(request.Protocol));
+            activity.AddTag("http.scheme", request.Scheme);
+            activity.AddTag("http.client_ip", context.Connection.RemoteIpAddress);
+            activity.AddTag("http.request_content_length", request.ContentLength);
+            activity.AddTag("http.request_content_type", request.ContentType);
         }
 
-
+        private static void Enrich(Activity activity, HttpResponse response)
+        {
+            activity.AddTag("http.response_content_length", response.ContentLength);
+            activity.AddTag("http.response_content_type", response.ContentType);
+        }
+        
         public static string GetHttpFlavour(string protocol)
         {
             if (HttpProtocol.IsHttp10(protocol))
