@@ -24,6 +24,7 @@
                     if (webHostEnvironment.IsDevelopment())
                     {
                         options.AddConsoleExporter();
+                        options.AddOtlpExporter();
                     }
                 });
         }
