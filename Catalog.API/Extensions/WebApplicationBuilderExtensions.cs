@@ -5,6 +5,7 @@
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.HttpOverrides;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Options;
     using Microsoft.IdentityModel.Tokens;
 
     public static class WebApplicationBuilderExtensions
@@ -22,7 +23,11 @@
                 opts.KnownProxies.Clear();
             });
 
-            var secret = configuration["jwt:secret"];
+            var jwtOpts = new JwtOptions();
+            configuration.Bind(JwtOptions.Jwt, jwtOpts);
+            services.AddSingleton(Options.Create(jwtOpts));
+
+            var secret = jwtOpts.Secret;
             var key = Encoding.ASCII.GetBytes(secret);
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(x =>
@@ -33,8 +38,8 @@
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = true,
                     ValidateAudience = true,
-                    ValidIssuer = configuration["jwt:issuer"],
-                    ValidAudience = configuration["jwt:audience"]
+                    ValidIssuer = jwtOpts.Issuer,
+                    ValidAudience = jwtOpts.Audience,
                 };
             });
 

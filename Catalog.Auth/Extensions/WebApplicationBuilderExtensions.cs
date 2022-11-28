@@ -1,5 +1,7 @@
 ﻿namespace Catalog.Auth
 {
+    using Microsoft.Extensions.Options;
+
     public static class WebApplicationBuilderExtensions
     {
         public static void RegisterServices(this WebApplicationBuilder builder)
@@ -14,10 +16,16 @@
             
             services.AddSwaggerDoc(shortSchemaNames: true);
 
-            services.Configure<JwtOptions>(configuration.GetSection(JwtOptions.Jwt));
-            services.Configure<ArgonOptions>(configuration.GetSection(ArgonOptions.Argon));
 
-            var secret = configuration["jwt:secret"];
+            var jwtOpts = new JwtOptions();
+            configuration.Bind(JwtOptions.Jwt, jwtOpts);
+            services.AddSingleton(Options.Create(jwtOpts));
+
+            var argonOpts = new ArgonOptions();
+            configuration.Bind(ArgonOptions.Argon, argonOpts);
+            services.AddSingleton(Options.Create(argonOpts));
+
+            var secret = jwtOpts.Secret;
             var key = Encoding.ASCII.GetBytes(secret);
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(x =>
@@ -28,8 +36,8 @@
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = true,
                     ValidateAudience = true,
-                    ValidIssuer = configuration["jwt:issuer"],
-                    ValidAudience = configuration["jwt:audience"]
+                    ValidIssuer = jwtOpts.Issuer,
+                    ValidAudience = jwtOpts.Audience,
                 };
             });
 

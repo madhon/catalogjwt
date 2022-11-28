@@ -1,5 +1,7 @@
 ﻿namespace Catalog.Gateway
 {
+    using Microsoft.Extensions.Options;
+
     public static class WebApplicationBuilderExtensions
     {
         public static void RegisterServices(this WebApplicationBuilder builder)
@@ -8,8 +10,11 @@
             var configuration = builder.Configuration;
             var environment = builder.Environment;
 
+            var jwtOpts = new JwtOptions();
+            configuration.Bind(JwtOptions.Jwt, jwtOpts);
+            services.AddSingleton(Options.Create(jwtOpts));
 
-            var secret = configuration["jwt:secret"];
+            var secret = jwtOpts.Secret;
             var key = Encoding.ASCII.GetBytes(secret);
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(x =>
@@ -20,8 +25,8 @@
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = true,
                     ValidateAudience = true,
-                    ValidIssuer = builder.Configuration["jwt:issuer"],
-                    ValidAudience = builder.Configuration["jwt:audience"]
+                    ValidIssuer = jwtOpts.Issuer,
+                    ValidAudience = jwtOpts.Audience,
                 };
             });
 
