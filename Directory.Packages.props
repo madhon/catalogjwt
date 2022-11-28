@@ -20,7 +20,7 @@
     <PackageVersion Include="Microsoft.Extensions.Options" Version="7.0.0" />
 
     <!-- 3rd party packages -->
-    <PackageVersion Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageVersion Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageVersion Include="FastEndpoints" Version="5.4.1" />
     <PackageVersion Include="FastEndpoints.Generator" Version="5.4.1" />
     <PackageVersion Include="FastEndpoints.Swagger" Version="5.4.1" />
