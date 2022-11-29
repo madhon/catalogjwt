@@ -25,7 +25,9 @@
 
         public override async Task HandleAsync(ProductsRequest req, CancellationToken ct)
         {
-            var totalItem = await catalogContext.Product.LongCountAsync(ct).ConfigureAwait(false);
+            var totalItem = await catalogContext.Product
+                .AsNoTracking()
+                .LongCountAsync(ct).ConfigureAwait(false);
 
             var itemsOnPage = await catalogContext.Product
                 .AsNoTracking()
