@@ -3,12 +3,11 @@
     <!-- System packages -->
     <PackageVersion Include="System.Text.RegularExpressions" Version="4.3.1" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="7.0.0" />
-
     <!-- Microsoft packages -->
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.0" />
     <PackageVersion Include="Microsoft.AspNetCore.DataProtection.EntityFrameworkCore" Version="7.0.0" />
     <PackageVersion Include="Microsoft.AspNetCore.HeaderPropagation" Version="7.0.0" />
-    <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.25.0" />
+    <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.25.1" />
     <PackageVersion Include="Microsoft.Data.SqlClient" Version="5.0.1" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.0" />
@@ -18,7 +17,6 @@
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Options" Version="7.0.0" />
-
     <!-- 3rd party packages -->
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageVersion Include="FastEndpoints" Version="5.4.1" />
@@ -38,14 +36,14 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.0.0-rc9.9" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.EntityFrameworkCore" Version="1.0.0-beta.3" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.0.0-rc9.9" />
-
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Process" Version="1.0.0-alpha.2" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.1.0-beta.1" />
     <PackageVersion Include="Serilog" Version="2.12.0" />
-    <PackageVersion Include="Serilog.AspNetCore" Version="6.0.1" />
+    <PackageVersion Include="Serilog.AspNetCore" Version="6.1.0" />
     <PackageVersion Include="Serilog.Enrichers.Environment" Version="2.2.0" />
     <PackageVersion Include="Serilog.Enrichers.CorrelationId" Version="3.0.1" />
     <PackageVersion Include="Serilog.Exceptions" Version="8.4.0" />
     <PackageVersion Include="Serilog.Sinks.Async" Version="1.5.0" />
     <PackageVersion Include="Serilog.Sinks.Console" Version="4.1.0" />
-
   </ItemGroup>
 </Project>

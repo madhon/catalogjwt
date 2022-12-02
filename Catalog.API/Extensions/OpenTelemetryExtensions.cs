@@ -2,6 +2,7 @@
 {
     using System.Diagnostics;
     using System.Reflection;
+    using OpenTelemetry.Metrics;
     using OpenTelemetry.Resources;
     using OpenTelemetry.Trace;
 
@@ -9,6 +10,16 @@
     {
         public static void AddOpenTelemetry(this IServiceCollection services, IWebHostEnvironment webHostEnvironment)
         {
+
+            services.AddOpenTelemetryMetrics(metrics =>
+            {
+                metrics.SetResourceBuilder(GetResourceBuilder(webHostEnvironment))
+                    .AddAspNetCoreInstrumentation()
+                    .AddHttpClientInstrumentation()
+                    .AddRuntimeInstrumentation();
+            });
+            
+
             services.AddOpenTelemetryTracing(
                 options =>
                 {
@@ -27,6 +38,7 @@
                         options.AddConsoleExporter();
                         options.AddOtlpExporter();
                     }
+                    options.AddSource("Catalog.API");
                 });
         }
 
