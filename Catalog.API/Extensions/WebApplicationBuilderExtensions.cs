@@ -63,7 +63,7 @@
 
             services.AddHeaderPropagation(options => options.Headers.Add("x-correlation-id"));
 
-            services.AddOpenTelemetry(environment);
+            builder.AddOpenTelemetry();
         }
     }
 }

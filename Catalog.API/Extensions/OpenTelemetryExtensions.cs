@@ -8,23 +8,24 @@
 
     public static class OpenTelemetryExtensions
     {
-        public static void AddOpenTelemetry(this IServiceCollection services, IWebHostEnvironment webHostEnvironment)
+        public static void AddOpenTelemetry(this WebApplicationBuilder builder)
         {
+            var services = builder.Services;
+            var environment = builder.Environment;
 
             services.AddOpenTelemetryMetrics(metrics =>
             {
-                metrics.SetResourceBuilder(GetResourceBuilder(webHostEnvironment))
+                metrics.SetResourceBuilder(GetResourceBuilder(environment))
                     .AddAspNetCoreInstrumentation()
                     .AddHttpClientInstrumentation()
                     .AddRuntimeInstrumentation();
             });
             
-
             services.AddOpenTelemetryTracing(
                 options =>
                 {
                     options
-                        .SetResourceBuilder(GetResourceBuilder(webHostEnvironment))
+                        .SetResourceBuilder(GetResourceBuilder(environment))
                         .AddHttpClientInstrumentation()
                         .AddAspNetCoreInstrumentation(
                             nci =>
@@ -33,7 +34,7 @@
                                 nci.EnrichWithHttpResponse = Enrich;
                                 nci.RecordException = true;
                             });
-                    if (webHostEnvironment.IsDevelopment())
+                    if (environment.IsDevelopment())
                     {
                         options.AddConsoleExporter();
                         options.AddOtlpExporter();
