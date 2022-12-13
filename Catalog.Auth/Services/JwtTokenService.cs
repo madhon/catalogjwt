@@ -27,7 +27,7 @@
             {
                 Subject = claimsIdentity,
                 Expires = DateTime.UtcNow.AddMinutes(expiresInMinutes),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512Signature),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
                 Issuer = jwtOptions.Issuer,
                 Audience = jwtOptions.Audience,
                 Claims = additionalClaims
