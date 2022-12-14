@@ -2,32 +2,41 @@
 {
     using System.Diagnostics;
     using System.Reflection;
+    using OpenTelemetry;
+    using OpenTelemetry.Metrics;
     using OpenTelemetry.Resources;
     using OpenTelemetry.Trace;
 
     public static class OpenTelemetryExtensions
     {
-        public static void AddOpenTelemetry(this IServiceCollection services, IWebHostEnvironment webHostEnvironment)
+        public static void AddOpenTelemetry(this IServiceCollection services, IWebHostEnvironment environment)
         {
-            services.AddOpenTelemetryTracing(
-                options =>
+
+            services.AddOpenTelemetry().WithTracing(cfg =>
                 {
-                    options
-                        .SetResourceBuilder(GetResourceBuilder(webHostEnvironment))
+                    cfg.SetResourceBuilder(GetResourceBuilder(environment))
                         .AddHttpClientInstrumentation()
-                        .AddAspNetCoreInstrumentation(
-                            nci =>
-                            {
-                                nci.EnrichWithHttpRequest = Enrich;
-                                nci.EnrichWithHttpResponse = Enrich;
-                                nci.RecordException = true;
-                            });
-                    if (webHostEnvironment.IsDevelopment())
+                        .AddAspNetCoreInstrumentation(nci =>
+                        {
+                            nci.EnrichWithHttpRequest = Enrich;
+                            nci.EnrichWithHttpResponse = Enrich;
+                            nci.RecordException = true;
+                        });
+
+                    if (environment.IsDevelopment())
                     {
-                        options.AddConsoleExporter();
-                        options.AddOtlpExporter();
+                        cfg.AddConsoleExporter();
+                        cfg.AddOtlpExporter();
                     }
-                });
+                    cfg.AddSource("Catalog.Gateway");
+                }).WithMetrics(cfg =>
+                {
+                    cfg.SetResourceBuilder(GetResourceBuilder(environment))
+                        .AddAspNetCoreInstrumentation()
+                        .AddHttpClientInstrumentation()
+                        .AddRuntimeInstrumentation();
+                })
+                .StartWithHost();
         }
 
         private static void Enrich(Activity activity, HttpRequest request)

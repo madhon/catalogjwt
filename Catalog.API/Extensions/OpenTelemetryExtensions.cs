@@ -2,6 +2,7 @@
 {
     using System.Diagnostics;
     using System.Reflection;
+    using OpenTelemetry;
     using OpenTelemetry.Metrics;
     using OpenTelemetry.Resources;
     using OpenTelemetry.Trace;
@@ -13,34 +14,31 @@
             var services = builder.Services;
             var environment = builder.Environment;
 
-            services.AddOpenTelemetryMetrics(metrics =>
-            {
-                metrics.SetResourceBuilder(GetResourceBuilder(environment))
-                    .AddAspNetCoreInstrumentation()
-                    .AddHttpClientInstrumentation()
-                    .AddRuntimeInstrumentation();
-            });
-            
-            services.AddOpenTelemetryTracing(
-                options =>
+            services.AddOpenTelemetry().WithTracing(cfg =>
                 {
-                    options
-                        .SetResourceBuilder(GetResourceBuilder(environment))
+                    cfg.SetResourceBuilder(GetResourceBuilder(environment))
                         .AddHttpClientInstrumentation()
-                        .AddAspNetCoreInstrumentation(
-                            nci =>
-                            {
-                                nci.EnrichWithHttpRequest = Enrich;
-                                nci.EnrichWithHttpResponse = Enrich;
-                                nci.RecordException = true;
-                            });
-                    if (environment.IsDevelopment())
-                    {
-                        options.AddConsoleExporter();
-                        options.AddOtlpExporter();
-                    }
-                    options.AddSource("Catalog.API");
-                });
+                        .AddAspNetCoreInstrumentation(nci =>
+                        {
+                            nci.EnrichWithHttpRequest = Enrich;
+                            nci.EnrichWithHttpResponse = Enrich;
+                            nci.RecordException = true;
+                        });
+                    
+                        if (environment.IsDevelopment())
+                        {
+                            cfg.AddConsoleExporter();
+                            cfg.AddOtlpExporter();
+                        }
+                    cfg.AddSource("Catalog.Api");
+                }).WithMetrics(cfg => 
+                        {
+                            cfg.SetResourceBuilder(GetResourceBuilder(environment))
+                                .AddAspNetCoreInstrumentation()
+                                .AddHttpClientInstrumentation()
+                                .AddRuntimeInstrumentation();
+                        })
+            .StartWithHost();
         }
 
         private static void Enrich(Activity activity, HttpRequest request)
