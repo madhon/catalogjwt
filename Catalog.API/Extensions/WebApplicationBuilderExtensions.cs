@@ -14,7 +14,6 @@
         {
             var services = builder.Services;
             var configuration = builder.Configuration;
-            var environment = builder.Environment;
 
             services.Configure<ForwardedHeadersOptions>(opts =>
             {

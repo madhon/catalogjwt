@@ -8,7 +8,6 @@
         public static void ConfigureHost(this WebApplicationBuilder builder)
         {
             var host = builder.Host;
-            var configuration = builder.Configuration;
 
             host.UseSerilog((ctx, lc) =>
             {

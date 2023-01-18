@@ -14,7 +14,6 @@
 
         public IEnumerable<Claim>? GetClaims(string token)
         {
-            var tokenHandler = new JsonWebTokenHandler();
             var validate = ValidateToken(token);
             return validate.IsValid ? validate.Claims : null;
         }
