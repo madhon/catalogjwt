@@ -17,6 +17,7 @@
             services.AddOpenTelemetry().WithTracing(cfg =>
                 {
                     cfg.SetResourceBuilder(GetResourceBuilder(environment))
+                        .AddEntityFrameworkCoreInstrumentation()
                         .AddHttpClientInstrumentation()
                         .AddAspNetCoreInstrumentation(nci =>
                         {
@@ -31,13 +32,13 @@
                             cfg.AddOtlpExporter();
                         }
                     cfg.AddSource("Catalog.Api");
-                }).WithMetrics(cfg => 
-                        {
-                            cfg.SetResourceBuilder(GetResourceBuilder(environment))
-                                .AddAspNetCoreInstrumentation()
-                                .AddHttpClientInstrumentation()
-                                .AddRuntimeInstrumentation();
-                        })
+                }).WithMetrics(cfg =>
+                {
+                    cfg.SetResourceBuilder(GetResourceBuilder(environment))
+                        .AddAspNetCoreInstrumentation()
+                        .AddHttpClientInstrumentation()
+                        .AddRuntimeInstrumentation();
+                })
             .StartWithHost();
         }
 

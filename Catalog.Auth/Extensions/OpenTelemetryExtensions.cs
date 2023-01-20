@@ -16,6 +16,7 @@
             services.AddOpenTelemetry().WithTracing(cfg =>
                 {
                     cfg.SetResourceBuilder(GetResourceBuilder(environment))
+                        .AddEntityFrameworkCoreInstrumentation()
                         .AddHttpClientInstrumentation()
                         .AddAspNetCoreInstrumentation(nci =>
                         {
