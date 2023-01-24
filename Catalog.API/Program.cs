@@ -1,6 +1,7 @@
 var builder = WebApplication.CreateBuilder(args);
 
-builder.ConfigureHost();
+builder.AddSerilog();
+builder.AddOpenTelemetry();
 builder.RegisterServices();
 
 var app = builder.Build();

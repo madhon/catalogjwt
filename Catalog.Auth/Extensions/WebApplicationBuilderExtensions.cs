@@ -62,8 +62,6 @@
 
             services.AddHttpContextAccessor();
             services.AddHeaderPropagation(options => options.Headers.Add("x-correlation-id"));
-            
-            builder.AddOpenTelemetry();
         }
     }
 }

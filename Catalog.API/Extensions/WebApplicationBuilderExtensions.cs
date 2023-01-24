@@ -1,7 +1,6 @@
 ﻿namespace Catalog.API
 {
     using System.Text;
-    using Catalog.Api;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.HttpOverrides;
     using Microsoft.EntityFrameworkCore;
@@ -62,7 +61,6 @@
 
             services.AddHeaderPropagation(options => options.Headers.Add("x-correlation-id"));
 
-            builder.AddOpenTelemetry();
         }
     }
 }

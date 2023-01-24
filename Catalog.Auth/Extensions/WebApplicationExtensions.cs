@@ -18,7 +18,7 @@
             });
 
             app.UseHeaderPropagation();
-
+            app.MapPrometheusScrapingEndpoint();
             app.UseOpenApi();
             app.UseSwaggerUi3();
 

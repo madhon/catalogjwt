@@ -2,20 +2,30 @@
 {
     using System.Diagnostics;
     using OpenTelemetry;
+    using OpenTelemetry.Logs;
     using OpenTelemetry.Metrics;
     using OpenTelemetry.Resources;
     using OpenTelemetry.Trace;
 
     public static class OpenTelemetryExtensions
     {
-        public static void AddOpenTelemetry(this WebApplicationBuilder builder)
+        public static WebApplicationBuilder AddOpenTelemetry(this WebApplicationBuilder builder)
         {
-            var services = builder.Services;
-            var environment = builder.Environment;
+            var resourceBuilder = GetResourceBuilder(builder.Environment);
+            var otlpEndpoint = builder.Configuration["OTEL_EXPORTER_OTLP_ENDPOINT"];
 
-            services.AddOpenTelemetry().WithTracing(cfg =>
+            if (!string.IsNullOrWhiteSpace(otlpEndpoint))
+            {
+                builder.Logging.AddOpenTelemetry(logging =>
                 {
-                    cfg.SetResourceBuilder(GetResourceBuilder(environment))
+                    logging.SetResourceBuilder(resourceBuilder)
+                        .AddOtlpExporter();
+                });
+            }
+
+            builder.Services.AddOpenTelemetry().WithTracing(tracing =>
+                {
+                    tracing.SetResourceBuilder(resourceBuilder)
                         .AddEntityFrameworkCoreInstrumentation()
                         .AddHttpClientInstrumentation()
                         .AddAspNetCoreInstrumentation(nci =>
@@ -25,20 +35,24 @@
                             nci.RecordException = true;
                         });
 
-                    if (environment.IsDevelopment())
+                    if (!string.IsNullOrWhiteSpace(otlpEndpoint))
                     {
-                        cfg.AddConsoleExporter();
-                        cfg.AddOtlpExporter();
+                        tracing.AddOtlpExporter();
                     }
-                    cfg.AddSource("Catalog.Auth");
-                }).WithMetrics(cfg =>
+
+                    tracing.AddSource("Catalog.Auth");
+                    
+                }).WithMetrics(metrics =>
                 {
-                    cfg.SetResourceBuilder(GetResourceBuilder(environment))
+                    metrics.SetResourceBuilder(resourceBuilder)
+                        .AddPrometheusExporter()
                         .AddAspNetCoreInstrumentation()
                         .AddHttpClientInstrumentation()
                         .AddRuntimeInstrumentation();
                 })
                 .StartWithHost();
+
+            return builder;
         }
 
         private static void Enrich(Activity activity, HttpRequest request)

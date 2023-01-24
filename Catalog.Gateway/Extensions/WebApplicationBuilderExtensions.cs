@@ -6,18 +6,14 @@
     {
         public static void RegisterServices(this WebApplicationBuilder builder)
         {
-            var services = builder.Services;
-            var configuration = builder.Configuration;
-            var environment = builder.Environment;
-
             var jwtOpts = new JwtOptions();
-            configuration.Bind(JwtOptions.Jwt, jwtOpts);
-            services.AddSingleton(Options.Create(jwtOpts));
+            builder.Configuration.Bind(JwtOptions.Jwt, jwtOpts);
+            builder.Services.AddSingleton(Options.Create(jwtOpts));
 
             var secret = jwtOpts.Secret;
             var key = Encoding.ASCII.GetBytes(secret);
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(x =>
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(x =>
             {
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
@@ -30,11 +26,9 @@
                 };
             });
 
-            configuration.AddJsonFile("yarp.json", optional: false, reloadOnChange: true);
-            services.AddReverseProxy()
-                .LoadFromConfig(configuration.GetSection("ReverseProxy"));
-
-            services.AddOpenTelemetry(environment);
+            builder.Configuration.AddJsonFile("yarp.json", optional: false, reloadOnChange: true);
+            builder.Services.AddReverseProxy()
+                .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
         }
 
     }
