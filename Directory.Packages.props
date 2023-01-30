@@ -17,8 +17,8 @@
     <!-- 3rd party packages -->
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageVersion Include="FastEndpoints" Version="5.7.0" />
-    <PackageVersion Include="FastEndpoints.Generator" Version="5.6.0" />
-    <PackageVersion Include="FastEndpoints.Swagger" Version="5.6.0" />
+    <PackageVersion Include="FastEndpoints.Generator" Version="5.7.0" />
+    <PackageVersion Include="FastEndpoints.Swagger" Version="5.7.0" />
     <PackageVersion Include="FastExpressionCompiler" Version="3.3.4" />
     <PackageVersion Include="Mapster" Version="7.3.0" />
     <PackageVersion Include="Ulid" Version="1.2.6" />
