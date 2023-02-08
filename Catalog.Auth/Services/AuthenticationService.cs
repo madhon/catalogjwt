@@ -1,6 +1,7 @@
 ﻿namespace Catalog.Auth.Services
 {
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.IdentityModel.JsonWebTokens;
 
     public class AuthenticationService : IAuthenticationService
     {
@@ -52,53 +53,20 @@
                 return null;
             }
 
+            var x = ClaimTypes.Role;
+
             var additionalClaims = new Dictionary<string, object>
             {
-                { JwtClaimTypes.AuthorizedParty, email },
+                { JwtRegisteredClaimNames.Sub, user.UserName},
+                { JwtClaimTypes.UserId, user.Id},
+                { JwtRegisteredClaimNames.Azp, email },
                 { JwtClaimTypes.GrantType, "password" },
-                { JwtClaimTypes.JwtId, Guid.NewGuid().ToString() }
+                { ClaimTypes.Role, "read"},
+                { JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString() }
             };
 
-            var perform_auth = GetToken(user.Id, "Role", additionalClaims);
-            return perform_auth;
-        }
+            return jwtTokenService.CreateToken(additionalClaims, 45);
 
-        public int? GetUserFromToken(string token)
-        {
-            var parsedToken = token.Replace("Bearer", string.Empty, StringComparison.OrdinalIgnoreCase).Trim();
-
-            var claims = jwtTokenService.GetClaims(parsedToken);
-            if (claims is not null)
-            {
-                string[] clms = claims.Select(x => x.Value).ToArray();
-                var userId = clms[0];
-                return int.Parse(userId);
-            }
-            return null;
-        }
-
-        public string? GetRoleFromToken(string token)
-        {
-            var parsedToken = token.Replace("Bearer", string.Empty, StringComparison.OrdinalIgnoreCase).Trim();
-            var claims = jwtTokenService.GetClaims(parsedToken);
-            if (claims is not null)
-            {
-                string[] clms = claims.Select(x => x.Value).ToArray();
-                string role = clms[1];
-                return role;
-            }
-            return null;
-        }
-
-        private TokenResult GetToken(string userId, string role, IDictionary<string, object> additionalClaims)
-        {
-            var claims = new ClaimsIdentity(new Claim[]
-            {
-                    new Claim(ClaimTypes.Name, userId.ToString()),
-                    new Claim(ClaimTypes.Role, role),
-            });
-            var result = jwtTokenService.CreateToken(claims, additionalClaims, 45);
-            return result;
         }
     }
 }

@@ -6,7 +6,7 @@
     {
         private readonly IMemoryCache cache;
         private readonly CatalogContext catalogContext;
-       
+
         public ProductsEndpoint(IMemoryCache cache, CatalogContext context)
         {
             this.cache = cache;
@@ -25,10 +25,14 @@
                     PageSize = 10
                 };
             });
+            Roles("read");
         }
 
         public override async Task HandleAsync(ProductsRequest req, CancellationToken ct)
         {
+            var n = User.Id();
+            var x = User.Azp();
+
             string cacheKey = $"products-all-{req.PageIndex}-{req.PageSize}";
 
             PaginatedItemsViewModel<Product> model = new PaginatedItemsViewModel<Product>(0, 0, 0, new List<Product>());

@@ -27,6 +27,8 @@
             var secret = jwtOpts.Secret;
             var key = Encoding.ASCII.GetBytes(secret);
 
+
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(x =>
             {
                 x.TokenValidationParameters = new TokenValidationParameters

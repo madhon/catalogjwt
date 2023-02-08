@@ -3,9 +3,6 @@
     using System.Text;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.HttpOverrides;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Options;
-    using Microsoft.IdentityModel.Tokens;
 
     public static class WebApplicationBuilderExtensions
     {
@@ -40,6 +37,8 @@
                     ValidAudience = jwtOpts.Audience,
                 };
             });
+
+            builder.Services.AddHttpContextAccessor();
 
             builder.Services.AddMemoryCache();
 
