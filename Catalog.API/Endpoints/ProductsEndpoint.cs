@@ -1,11 +1,15 @@
 ﻿namespace Catalog.API.Endpoints
 {
+    using Microsoft.Extensions.Caching.Memory;
+
     public sealed class ProductsEndpoint : Endpoint<ProductsRequest>
     {
+        private readonly IMemoryCache cache;
         private readonly CatalogContext catalogContext;
        
-        public ProductsEndpoint(CatalogContext context)
+        public ProductsEndpoint(IMemoryCache cache, CatalogContext context)
         {
+            this.cache = cache;
             this.catalogContext = context;
         }
 
@@ -25,23 +29,33 @@
 
         public override async Task HandleAsync(ProductsRequest req, CancellationToken ct)
         {
-            var totalItem = await catalogContext.Product
-                .AsNoTracking()
-                .LongCountAsync(ct).ConfigureAwait(false);
+            string cacheKey = $"products-all-{req.PageIndex}-{req.PageSize}";
 
-            var itemsOnPage = await catalogContext.Product
-                .AsNoTracking()
-                .Where(x=> 
-                    catalogContext.Product
-                        .OrderBy(c=>c.Name)
-                        .Select(y=>y.Id)
-                        .Skip(req.PageSize * req.PageIndex)
-                        .Take(req.PageSize)
-                        .Contains(x.Id))
-                .ToListAsync(ct)
-                .ConfigureAwait(false);
+            PaginatedItemsViewModel<Product> model = new PaginatedItemsViewModel<Product>(0, 0, 0, new List<Product>());
 
-            var model = new PaginatedItemsViewModel<Product>(req.PageIndex, req.PageSize, totalItem, itemsOnPage);
+            model = await cache.GetOrCreateAsync(cacheKey, async entry =>
+            {
+                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(1);
+
+                var totalItem = await catalogContext.Product
+                    .AsNoTracking()
+                    .LongCountAsync(ct).ConfigureAwait(false);
+
+                var itemsOnPage = await catalogContext.Product
+                    .AsNoTracking()
+                    .Where(x =>
+                        catalogContext.Product
+                            .OrderBy(c => c.Name)
+                            .Select(y => y.Id)
+                            .Skip(req.PageSize * req.PageIndex)
+                            .Take(req.PageSize)
+                            .Contains(x.Id))
+                    .ToListAsync(ct)
+                    .ConfigureAwait(false);
+
+                return new PaginatedItemsViewModel<Product>(req.PageIndex, req.PageSize, totalItem, itemsOnPage);
+
+            }).ConfigureAwait(false);
 
             await SendAsync(model, 200, ct).ConfigureAwait(false);
         }

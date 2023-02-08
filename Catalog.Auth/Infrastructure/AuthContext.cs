@@ -1,20 +1,17 @@
 ﻿namespace Catalog.Auth.Infrastructure
 {
-    using Catalog.Auth.Infrastructure.EntityConfigurations;
+    
     using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-    public class AuthContext : DbContext, IDataProtectionKeyContext
+    public class AuthContext : IdentityDbContext<ApplicationUser, IdentityRole, string>, IDataProtectionKeyContext
     {
         public AuthContext(DbContextOptions<AuthContext> options) : base(options)
         {
         }
-
-        public DbSet<User> Users => Set<User>();
+        
         public DbSet<DataProtectionKey> DataProtectionKeys => Set<DataProtectionKey>();
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.ApplyConfiguration(new UserEntityTypeConfiguration());
-        }
     }
 }

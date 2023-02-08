@@ -17,7 +17,7 @@
 
         public override async Task HandleAsync(LoginModel req, CancellationToken ct)
         {
-            var login = authenticationService.Authenticate(req.Email, req.Password);
+            var login = await authenticationService.Authenticate(req.Email, req.Password).ConfigureAwait(false);
             if (login == null)
             {
                 await SendAsync(new

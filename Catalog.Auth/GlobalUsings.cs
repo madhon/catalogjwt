@@ -15,6 +15,7 @@ global using Microsoft.AspNetCore.Authentication.JwtBearer;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.IdentityModel.Tokens;
 global using Microsoft.AspNetCore.DataProtection;
+global using Microsoft.AspNetCore.Identity;
 global using System.Text;
 global using System.Security.Cryptography;
 global using System.Security.Claims;
