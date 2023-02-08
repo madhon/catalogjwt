@@ -6,7 +6,6 @@
     public class JwtTokenService : IJwtTokenService
     {
         private readonly SigningCredentials signingCredentials;
-        private readonly SymmetricSecurityKey signingKey;
         private readonly string issuer;
         private readonly string audience;
 
@@ -14,7 +13,7 @@
         {
             var signingKeyBase64 = jwtOptions.Value.Secret;
             var signingKeyBytes = Encoding.ASCII.GetBytes(signingKeyBase64);
-            signingKey = new SymmetricSecurityKey(signingKeyBytes);
+            var signingKey = new SymmetricSecurityKey(signingKeyBytes);
             signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256Signature);
             issuer = jwtOptions.Value.Issuer;
             audience = jwtOptions.Value.Audience;
