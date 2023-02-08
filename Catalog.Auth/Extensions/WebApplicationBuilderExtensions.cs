@@ -1,5 +1,6 @@
 ﻿namespace Catalog.Auth
 {
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.Options;
 
     public static class WebApplicationBuilderExtensions
@@ -21,9 +22,7 @@
             configuration.Bind(JwtOptions.Jwt, jwtOpts);
             services.AddSingleton(Options.Create(jwtOpts));
 
-            var argonOpts = new ArgonOptions();
-            configuration.Bind(ArgonOptions.Argon, argonOpts);
-            services.AddSingleton(Options.Create(argonOpts));
+
 
             var secret = jwtOpts.Secret;
             var key = Encoding.ASCII.GetBytes(secret);
@@ -53,7 +52,22 @@
             services.AddDataProtection()
                 .PersistKeysToDbContext<AuthContext>();
 
-            services.AddScoped<IArgonService, ArgonService>();
+            services.AddScoped<IPasswordHasher<ApplicationUser>, Argon2PasswordHasher<ApplicationUser>>();
+
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+                {
+                    options.SignIn.RequireConfirmedAccount = false;
+                    options.User.RequireUniqueEmail = true;
+                    options.Password.RequireDigit = true;
+                    options.Password.RequiredLength = 6;
+                    options.Password.RequireLowercase = true;
+                    options.Password.RequireNonAlphanumeric = true;
+                    options.Password.RequireUppercase = true;
+                    options.Password.RequiredUniqueChars = 1;
+                }).AddEntityFrameworkStores<AuthContext>()
+                .AddDefaultTokenProviders();
+            
+
             services.AddScoped<IJwtTokenService, JwtTokenService>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
 

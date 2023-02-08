@@ -1,54 +1,53 @@
 ﻿namespace Catalog.Auth.Services
 {
+    using Microsoft.AspNetCore.Authorization;
+
     public class AuthenticationService : IAuthenticationService
     {
         private readonly IJwtTokenService jwtTokenService;
-        private readonly IArgonService argonService;
-        private readonly AuthContext authContext;
-        
-        private static readonly Func<AuthContext, string, User?> getUser =
-            EF.CompileQuery((AuthContext db, string email) =>
-                db.Users.AsNoTracking()
-                    .FirstOrDefault(u => u.Email.ToLower() == email.ToLower()));
-        
-        public AuthenticationService(AuthContext authContext, IJwtTokenService jwtTokenService, IArgonService argonService)
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly IAuthorizationService authorizationService;
+        private readonly IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory;
+
+        public AuthenticationService(AuthContext authContext, 
+            IJwtTokenService jwtTokenService, 
+            UserManager<ApplicationUser> userManager, 
+            SignInManager<ApplicationUser> signInManager,
+            IAuthorizationService authorizationService,
+            IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory)
         {
-            this.authContext = authContext;
             this.jwtTokenService = jwtTokenService;
-            this.argonService = argonService;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
+            this.authorizationService = authorizationService;
+            this.userClaimsPrincipalFactory = userClaimsPrincipalFactory;
         }
 
-        public async Task CreateUser(string email, string password, string fullName, CancellationToken ct)
+        public async Task<Result> CreateUser(string email, string password, string fullName, CancellationToken ct)
         {
-            var saltHash = argonService.CreateHashAndSalt(password);
-
-            authContext.Users.Add(new User
+            var user = new ApplicationUser
             {
-                Id = Ulid.NewUlid(),
                 Email = email,
-                Fullname = fullName,
-                Salt = saltHash.Salt,
-                Password = saltHash.Hash,
-            });
+                UserName = email,
+            };
 
-            await authContext.SaveChangesAsync(ct).ConfigureAwait(false);
+            var result = await userManager.CreateAsync(user, password).ConfigureAwait(false);
+
+            return result.ToApplicationResult();
         }
 
-        public TokenResult? Authenticate(string email, string password, bool hashPassword = true)
+        public async Task<TokenResult?> Authenticate(string email, string password, bool hashPassword = true)
         {
-
-            var user = getUser(authContext, email);
-
-            if (user is null)
+            var result = await signInManager.PasswordSignInAsync(email, password, false, false).ConfigureAwait(false);
+            
+            if (!result.Succeeded)
             {
                 return null;
             }
 
-            var salt = user.Salt;
-            var hash = user.Password;
-
-            var verified = argonService.VerifyHash(password, salt, hash);
-            if (!verified)
+            var user = await userManager.FindByEmailAsync(email).ConfigureAwait(false);
+            if (user is null)
             {
                 return null;
             }
@@ -60,7 +59,7 @@
                 { JwtClaimTypes.JwtId, Guid.NewGuid().ToString() }
             };
 
-            var perform_auth = Authenticate(user.Id, user.Role, additionalClaims);
+            var perform_auth = GetToken(user.Id, "Role", additionalClaims);
             return perform_auth;
         }
 
@@ -91,7 +90,7 @@
             return null;
         }
 
-        private TokenResult Authenticate(Ulid userId, string role, IDictionary<string, object> additionalClaims)
+        private TokenResult GetToken(string userId, string role, IDictionary<string, object> additionalClaims)
         {
             var claims = new ClaimsIdentity(new Claim[]
             {

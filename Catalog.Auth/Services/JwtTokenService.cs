@@ -2,6 +2,7 @@
 {
     using Microsoft.Extensions.Options;
     using Microsoft.IdentityModel.JsonWebTokens;
+    using System.IdentityModel.Tokens.Jwt;
 
     public class JwtTokenService : IJwtTokenService
     {
@@ -20,7 +21,7 @@
 
         public TokenResult CreateToken(ClaimsIdentity claimsIdentity, IDictionary<string, object> additionalClaims, int expiresInMinutes = 30)
         {
-            var tokenHandler = new JsonWebTokenHandler();
+            var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(jwtOptions.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -36,7 +37,7 @@
             
             var result = new TokenResult
             {
-                Token = token,
+                Token = tokenHandler.WriteToken(token),
                 ExpiresIn =  Convert.ToInt32(expiresIn.TotalSeconds)
             };
 

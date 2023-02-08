@@ -41,6 +41,8 @@
                 };
             });
 
+            builder.Services.AddMemoryCache();
+
             builder.Services.AddDbContext<CatalogContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration["ConnectionString"], options =>
