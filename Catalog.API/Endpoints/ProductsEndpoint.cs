@@ -32,7 +32,7 @@
             string cacheKey = $"products-all-{req.PageIndex}-{req.PageSize}";
 
             PaginatedItemsViewModel<Product> model = new PaginatedItemsViewModel<Product>(0, 0, 0, new List<Product>());
-            
+
             model = await cache.GetOrCreateAsync(cacheKey, async entry =>
             {
                 entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(1);
@@ -55,7 +55,7 @@
 
                 return new PaginatedItemsViewModel<Product>(req.PageIndex, req.PageSize, totalItem, itemsOnPage);
 
-            }).ConfigureAwait(false)
+            }).ConfigureAwait(false);
 
             await SendAsync(model, 200, ct).ConfigureAwait(false);
         }
