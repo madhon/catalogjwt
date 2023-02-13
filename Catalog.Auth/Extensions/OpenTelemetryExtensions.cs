@@ -49,8 +49,7 @@
                         .AddAspNetCoreInstrumentation()
                         .AddHttpClientInstrumentation()
                         .AddRuntimeInstrumentation();
-                })
-                .StartWithHost();
+                });
 
             return builder;
         }
