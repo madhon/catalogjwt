@@ -32,7 +32,6 @@
     <PackageReference Include="Newtonsoft.Json" />
     <PackageReference Include="System.Text.Encodings.Web" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
-    <PackageReference Include="OpenTelemetry.Api" />
     <PackageReference Include="OpenTelemetry.Exporter.Console" />
     <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol"/>
     <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol.Logs" />
