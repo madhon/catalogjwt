@@ -5,7 +5,7 @@
     public static class ClaimsPrincipalExtensions
     {
         public static string Id(this ClaimsPrincipal user)
-            => user.FindFirst("Name").Value;
+            => user.Claims.First(x => x.Type == "sub").Value;
 
         public static string FullName(this ClaimsPrincipal user)
             => user.Identity.Name;
