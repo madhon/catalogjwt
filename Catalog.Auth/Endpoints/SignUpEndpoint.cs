@@ -1,7 +1,5 @@
 ﻿namespace Catalog.Auth.Endpoints
 {
-    using Serilog;
-
     public class SignUpEndpoint : Endpoint<SignUpModel>
     {
         private readonly IAuthenticationService authenticationService;
@@ -13,7 +11,8 @@
 
         public override void Configure()
         {
-            Post("signup");
+            Version(1);
+            Post("auth/signup");
             AllowAnonymous();
         }
 
@@ -24,7 +23,7 @@
             await SendAsync(new
             {
                 Succeeded = result.Succeeded,
-                Message = result.Succeeded ? "User created successfully" : "User creation failed"
+                Message = result.Succeeded ? "User created successfully" : $"User creation failed" 
             }, 200, ct).ConfigureAwait(false);
         }
 

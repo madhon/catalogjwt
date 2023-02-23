@@ -36,6 +36,7 @@
                     ValidateAudience = true,
                     ValidIssuer = jwtOpts.Issuer,
                     ValidAudience = jwtOpts.Audience,
+                    ClockSkew = TimeSpan.Zero
                 };
             });
 
@@ -45,9 +46,9 @@
 
             builder.Services.AddDbContext<CatalogContext>(options =>
             {
-                options.UseSqlServer(builder.Configuration["ConnectionString"], options =>
+                options.UseSqlServer(builder.Configuration["ConnectionString"], sqlOpts =>
                 {
-                    options.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
+                    sqlOpts.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
                 });
             });
 
@@ -59,7 +60,12 @@
                 o.SourceGeneratorDiscoveredTypes = DiscoveredTypes.All;
             });
 
-            services.AddSwaggerDoc(shortSchemaNames: true);
+            services.AddSwaggerDoc(maxEndpointVersion: 1, settings: s =>
+            {
+                s.DocumentName = "v1.0";
+                s.Title = "Catalog API";
+                s.Version = "v1.0";
+            },  shortSchemaNames: true);
 
             services.AddHeaderPropagation(options => options.Headers.Add("x-correlation-id"));
 

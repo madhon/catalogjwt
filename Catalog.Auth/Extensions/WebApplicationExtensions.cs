@@ -14,7 +14,10 @@
             app.UseFastEndpoints(c =>
             {
                 c.Endpoints.ShortNames = true;
-                c.Endpoints.RoutePrefix = "api/v1/auth";
+                c.Endpoints.RoutePrefix = "api";
+                c.Versioning.Prefix = "v";
+                c.Versioning.DefaultVersion = 1;
+                c.Versioning.PrependToRoute = true;
             });
 
             app.UseHeaderPropagation();

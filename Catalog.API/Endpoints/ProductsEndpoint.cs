@@ -15,7 +15,8 @@
 
         public override void Configure()
         {
-            Get("products/{pageSize}/{PageIndex}");
+            Version(1);
+            Get("catalog/products/{pageSize}/{PageIndex}");
             Summary(s =>
             {
                 s.Summary = "Retrieves paged products";

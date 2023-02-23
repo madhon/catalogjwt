@@ -14,8 +14,13 @@
             {
                 o.SourceGeneratorDiscoveredTypes = DiscoveredTypes.All;
             });
-            
-            services.AddSwaggerDoc(shortSchemaNames: true);
+
+            services.AddSwaggerDoc(maxEndpointVersion: 1, settings: s =>
+            {
+                s.DocumentName = "v1.0";
+                s.Title = "Auth API";
+                s.Version = "v1.0";
+            }, shortSchemaNames: true);
 
 
             var jwtOpts = new JwtOptions();
@@ -26,9 +31,7 @@
 
             var secret = jwtOpts.Secret;
             var key = Encoding.ASCII.GetBytes(secret);
-
-
-
+            
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(x =>
             {
                 x.TokenValidationParameters = new TokenValidationParameters

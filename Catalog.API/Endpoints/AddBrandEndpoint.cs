@@ -11,7 +11,8 @@
 
         public override void Configure()
         {
-            Post("addBrand");
+            Version(1);
+            Post("catalog/addBrand");
         }
 
         public override async Task HandleAsync(AddBrandRequest req, CancellationToken ct)

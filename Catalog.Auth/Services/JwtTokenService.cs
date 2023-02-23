@@ -11,6 +11,8 @@
 
         public JwtTokenService(IOptions<JwtOptions> jwtOptions)
         {
+            ArgumentNullException.ThrowIfNull(jwtOptions);
+
             var signingKeyBase64 = jwtOptions.Value.Secret;
             var signingKeyBytes = Encoding.ASCII.GetBytes(signingKeyBase64);
             var signingKey = new SymmetricSecurityKey(signingKeyBytes);
@@ -22,13 +24,17 @@
         public TokenResult CreateToken(IDictionary<string, object> claims, int expiresInMinutes = 30)
         {
             var tokenHandler = new JsonWebTokenHandler();
+
+            var issuedAt = DateTime.UtcNow;
             
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Expires = DateTime.UtcNow.AddMinutes(expiresInMinutes),
-                SigningCredentials = signingCredentials,
                 Issuer = issuer,
                 Audience = audience,
+                IssuedAt = issuedAt,
+                NotBefore = issuedAt,
+                Expires = issuedAt.AddMinutes(expiresInMinutes),
+                SigningCredentials = signingCredentials,
                 Claims = claims
             };
             

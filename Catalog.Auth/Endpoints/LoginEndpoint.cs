@@ -11,7 +11,8 @@
 
         public override void Configure()
         {
-            Post("login");
+            Version(1);
+            Post("auth/login");
             AllowAnonymous();
         }
 
