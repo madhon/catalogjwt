@@ -18,6 +18,7 @@
 
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+	<AccelerateBuildsInVisualStudio >true</AccelerateBuildsInVisualStudio>
   </PropertyGroup>
 
 
