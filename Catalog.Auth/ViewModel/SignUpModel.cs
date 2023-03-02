@@ -1,9 +1,9 @@
 ﻿namespace Catalog.Auth.ViewModel
 {
-    public class SignUpModel
+    public record SignUpModel
     {
-        public string Email { get; set; } = string.Empty;
-        public string Password { get; set; } = string.Empty;
-        public string Fullname { get; set; } = string.Empty;
+        public string Email { get; init; } = null!;
+        public string Password { get; init; } = null!;
+        public string Fullname { get; init; } = null!;
     }
 }

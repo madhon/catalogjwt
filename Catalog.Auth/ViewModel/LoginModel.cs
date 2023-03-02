@@ -1,8 +1,8 @@
 ﻿namespace Catalog.Auth.ViewModel
 {
-    public class LoginModel
+    public record LoginModel
     {
-        public string Email { get; set; } = string.Empty;
-        public string Password { get; set; } = string.Empty;
+        public string Email { get; init; } = null!;
+        public string Password { get; init; } = null!;
     }
 }
