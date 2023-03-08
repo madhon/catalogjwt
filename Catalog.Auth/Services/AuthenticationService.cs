@@ -1,6 +1,5 @@
 ﻿namespace Catalog.Auth.Services
 {
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.IdentityModel.JsonWebTokens;
 
     public class AuthenticationService : IAuthenticationService
@@ -8,24 +7,18 @@
         private readonly IJwtTokenService jwtTokenService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
-        private readonly IAuthorizationService authorizationService;
-        private readonly IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory;
 
         public AuthenticationService(AuthContext authContext, 
             IJwtTokenService jwtTokenService, 
             UserManager<ApplicationUser> userManager, 
-            SignInManager<ApplicationUser> signInManager,
-            IAuthorizationService authorizationService,
-            IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory)
+            SignInManager<ApplicationUser> signInManager)
         {
             this.jwtTokenService = jwtTokenService;
             this.userManager = userManager;
             this.signInManager = signInManager;
-            this.authorizationService = authorizationService;
-            this.userClaimsPrincipalFactory = userClaimsPrincipalFactory;
         }
 
-        public async Task<Result> CreateUser(string email, string password, string fullName, CancellationToken ct)
+        public async Task<ErrorOr<IdentityResult>> CreateUser(string email, string password, string fullName, CancellationToken ct)
         {
             var user = new ApplicationUser
             {
@@ -35,38 +28,37 @@
 
             var result = await userManager.CreateAsync(user, password).ConfigureAwait(false);
 
-            return result.ToApplicationResult();
+            return result;
         }
 
-        public async Task<TokenResult?> Authenticate(string email, string password, bool hashPassword = true)
+        public async Task<ErrorOr<TokenResult>> Authenticate(string email, string password)
         {
-            var result = await signInManager.PasswordSignInAsync(email, password, false, false).ConfigureAwait(false);
-            
-            if (!result.Succeeded)
-            {
-                return null;
-            }
-
             var user = await userManager.FindByEmailAsync(email).ConfigureAwait(false);
-            if (user is null)
+            if (user is not null && await userManager.CheckPasswordAsync(user, password).ConfigureAwait(false))
             {
-                return null;
+                // allowed to login
+                var userRoles = await userManager.GetRolesAsync(user);
+
+                var additionalClaims = new Dictionary<string, object>
+                {
+                    { JwtRegisteredClaimNames.Sub, user.UserName},
+                    { JwtClaimTypes.UserId, user.Id},
+                    { JwtRegisteredClaimNames.Azp, email },
+                    { JwtClaimTypes.GrantType, "password" },
+                    { ClaimTypes.Role, "read"},
+                    { JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString() }
+                };
+
+                foreach (var userRole in userRoles)
+                {
+                    additionalClaims.Add(ClaimTypes.Role, userRole);
+                }
+
+                return jwtTokenService.CreateToken(additionalClaims, 45);
             }
 
-            var x = ClaimTypes.Role;
-
-            var additionalClaims = new Dictionary<string, object>
-            {
-                { JwtRegisteredClaimNames.Sub, user.UserName},
-                { JwtClaimTypes.UserId, user.Id},
-                { JwtRegisteredClaimNames.Azp, email },
-                { JwtClaimTypes.GrantType, "password" },
-                { ClaimTypes.Role, "read"},
-                { JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString() }
-            };
-
-            return jwtTokenService.CreateToken(additionalClaims, 45);
-
+            return Errors.User.InvalidCredentials;
+           
         }
     }
 }

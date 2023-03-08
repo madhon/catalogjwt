@@ -19,12 +19,16 @@
         public override async Task HandleAsync(SignUpModel req, CancellationToken ct)
         {
             var result = await authenticationService.CreateUser(req.Email, req.Password, req.Fullname, ct).ConfigureAwait(false);
-            
-            await SendAsync(new
+
+            if (!result.IsError && !result.Value.ToString().Any())
             {
-                Succeeded = result.Succeeded,
-                Message = result.Succeeded ? "User created successfully" : $"User creation failed" 
-            }, 200, ct).ConfigureAwait(false);
+                await SendAsync(new { Succeeded = true, Message = "User created successfully" }, 200, ct).ConfigureAwait(false);
+            }
+            else
+            {
+                await SendAsync(new { Succeeded = false, Message = "Error creating user" }, 200, ct).ConfigureAwait(false);
+            }
+
         }
 
     }

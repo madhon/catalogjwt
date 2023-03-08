@@ -18,24 +18,22 @@
 
         public override async Task HandleAsync(LoginModel req, CancellationToken ct)
         {
-            var login = await authenticationService.Authenticate(req.Email, req.Password).ConfigureAwait(false);
-            if (login == null)
+            var authenticationResult = await authenticationService.Authenticate(req.Email, req.Password).ConfigureAwait(false);
+
+            if (authenticationResult.IsError)
             {
                 await SendAsync(new
                 {
                     Succeeded = false,
-                    Message = "User not found"
+                    Message = authenticationResult.Errors.First().Description
                 }, 403, ct).ConfigureAwait(false);
+
             }
             else
             {
-                var response = new TokenResponse
-                {
-                    AccessToken = login.Token,
-                    ExpiresIn = login.ExpiresIn
-                };
+                var response = authenticationResult.Value.Adapt<TokenResponse>();
 
-                await SendAsync(response, 200, ct).ConfigureAwait(false);
+                await SendAsync(response);
             }
         }
     }

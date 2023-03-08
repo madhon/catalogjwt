@@ -11,6 +11,10 @@ global using FastEndpoints;
 global using FastEndpoints.Swagger;
 
 global using FluentValidation;
+
+global using ErrorOr;
+global using Mapster;
+
 global using Microsoft.AspNetCore.Authentication.JwtBearer;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.IdentityModel.Tokens;

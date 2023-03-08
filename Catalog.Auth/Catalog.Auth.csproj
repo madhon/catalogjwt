@@ -57,7 +57,8 @@
     <PackageReference Include="System.Text.Encodings.Web" />
 	<PackageReference Include="System.IdentityModel.Tokens.Jwt" />
     <PackageReference Include="Newtonsoft.Json" />
-
+    <PackageReference Include="ErrorOr" />
+    <PackageReference Include="Mapster" />
     <PackageReference Include="SecurityCodeScan.VS2019" >
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
