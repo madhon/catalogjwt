@@ -17,7 +17,6 @@
     </PackageReference>
     <PackageReference Include="FastEndpoints.Swagger" />
 
-    <PackageReference Include="BCrypt.Net-Next" />
     <PackageReference Include="Sodium.Core" />
 
     <PackageReference Include="Microsoft.AspNetCore.HeaderPropagation" />

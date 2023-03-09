@@ -6,16 +6,13 @@
     {
         private readonly IJwtTokenService jwtTokenService;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly SignInManager<ApplicationUser> signInManager;
 
-        public AuthenticationService(AuthContext authContext, 
+        public AuthenticationService(AuthDbContext authContext, 
             IJwtTokenService jwtTokenService, 
-            UserManager<ApplicationUser> userManager, 
-            SignInManager<ApplicationUser> signInManager)
+            UserManager<ApplicationUser> userManager)
         {
             this.jwtTokenService = jwtTokenService;
             this.userManager = userManager;
-            this.signInManager = signInManager;
         }
 
         public async Task<ErrorOr<IdentityResult>> CreateUser(string email, string password, string fullName, CancellationToken ct)
@@ -37,7 +34,7 @@
             if (user is not null && await userManager.CheckPasswordAsync(user, password).ConfigureAwait(false))
             {
                 // allowed to login
-                var userRoles = await userManager.GetRolesAsync(user);
+                
 
                 var additionalClaims = new Dictionary<string, object>
                 {
@@ -45,16 +42,12 @@
                     { JwtClaimTypes.UserId, user.Id},
                     { JwtRegisteredClaimNames.Azp, email },
                     { JwtClaimTypes.GrantType, "password" },
-                    { ClaimTypes.Role, "read"},
                     { JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString() }
                 };
 
-                foreach (var userRole in userRoles)
-                {
-                    additionalClaims.Add(ClaimTypes.Role, userRole);
-                }
-
-                return jwtTokenService.CreateToken(additionalClaims, 45);
+                var roles = await userManager.GetRolesAsync(user).ConfigureAwait(false);
+                
+                return jwtTokenService.CreateToken(additionalClaims, roles, 45);
             }
 
             return Errors.User.InvalidCredentials;

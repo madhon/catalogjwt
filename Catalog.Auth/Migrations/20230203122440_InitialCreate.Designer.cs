@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Catalog.Auth.Migrations
 {
-    [DbContext(typeof(AuthContext))]
+    [DbContext(typeof(AuthDbContext))]
     [Migration("20230203122440_InitialCreate")]
     partial class InitialCreate
     {

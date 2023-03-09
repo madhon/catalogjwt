@@ -45,7 +45,7 @@
                 };
             });
 
-            services.AddDbContext<AuthContext>(options =>
+            services.AddDbContext<AuthDbContext>(options =>
             {
                 options.UseSqlServer(configuration["ConnectionString"], options =>
                 {
@@ -55,7 +55,7 @@
             });
 
             services.AddDataProtection()
-                .PersistKeysToDbContext<AuthContext>();
+                .PersistKeysToDbContext<AuthDbContext>();
 
             services.AddScoped<IPasswordHasher<ApplicationUser>, Argon2PasswordHasher<ApplicationUser>>();
 
@@ -69,7 +69,7 @@
                     options.Password.RequireNonAlphanumeric = true;
                     options.Password.RequireUppercase = true;
                     options.Password.RequiredUniqueChars = 1;
-                }).AddEntityFrameworkStores<AuthContext>()
+                }).AddEntityFrameworkStores<AuthDbContext>()
                 .AddDefaultTokenProviders();
             
 
@@ -77,7 +77,7 @@
             services.AddScoped<IAuthenticationService, AuthenticationService>();
 
             services.AddHealthChecks()
-                .AddDbContextCheck<AuthContext>();
+                .AddDbContextCheck<AuthDbContext>();
 
             services.AddHttpContextAccessor();
             services.AddHeaderPropagation(options => options.Headers.Add("x-correlation-id"));

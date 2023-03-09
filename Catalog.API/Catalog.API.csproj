@@ -51,6 +51,7 @@
     <PackageReference Include="Serilog.Sinks.Async" />
     <PackageReference Include="Serilog.Sinks.Console" />
     <PackageReference Include="Serilog.Sinks.Seq" />
+    <PackageReference Include="ZiggyCreatures.FusionCache" />
   </ItemGroup>
 
 </Project>

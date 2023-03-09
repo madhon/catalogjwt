@@ -1,8 +1,7 @@
 ﻿namespace Catalog.API
 {
-    using System.Text;
-    using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.HttpOverrides;
+    using ZiggyCreatures.Caching.Fusion;
 
     public static class WebApplicationBuilderExtensions
     {
@@ -18,31 +17,13 @@
                 opts.KnownProxies.Clear();
             });
 
-            var jwtOpts = new JwtOptions();
-            configuration.Bind(JwtOptions.Jwt, jwtOpts);
-            services.AddSingleton(Options.Create(jwtOpts));
-
-            var secret = jwtOpts.Secret;
-            var key = Encoding.ASCII.GetBytes(secret);
-
-            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(x =>
-            {
-                x.MapInboundClaims = false;
-                x.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidIssuer = jwtOpts.Issuer,
-                    ValidAudience = jwtOpts.Audience,
-                    ClockSkew = TimeSpan.Zero
-                };
-            });
-
             builder.Services.AddHttpContextAccessor();
 
             builder.Services.AddMemoryCache();
+            builder.Services.AddFusionCache(opts =>
+            {
+                opts.DefaultEntryOptions = new FusionCacheEntryOptions { Duration = TimeSpan.FromMinutes(2) };
+            });
 
             builder.Services.AddDbContext<CatalogContext>(options =>
             {

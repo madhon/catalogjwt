@@ -2,6 +2,7 @@
 {
     public interface IJwtTokenService
     {
-        TokenResult CreateToken(IDictionary<string, object> claims, int expiresInMinutes = 30);
+        TokenResult CreateToken(IDictionary<string, object> claims, IEnumerable<string> roles,
+            int expiresInMinutes = 30);
     }
 }

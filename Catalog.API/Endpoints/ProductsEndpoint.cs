@@ -1,13 +1,13 @@
 ﻿namespace Catalog.API.Endpoints
 {
-    using Microsoft.Extensions.Caching.Memory;
+    using ZiggyCreatures.Caching.Fusion;
 
     public sealed class ProductsEndpoint : Endpoint<ProductsRequest>
     {
-        private readonly IMemoryCache cache;
+        private readonly IFusionCache cache;
         private readonly CatalogContext catalogContext;
 
-        public ProductsEndpoint(IMemoryCache cache, CatalogContext context)
+        public ProductsEndpoint(IFusionCache cache, CatalogContext context)
         {
             this.cache = cache;
             this.catalogContext = context;
@@ -31,16 +31,14 @@
 
         public override async Task HandleAsync(ProductsRequest req, CancellationToken ct)
         {
-            var n = User.Id();
-            var x = User.Azp();
+            //var n = User.Id();
+            //var x = User.Azp();
 
-            string cacheKey = $"products-all-{req.PageIndex}-{req.PageSize}";
-
-            PaginatedItemsViewModel<Product> model = new PaginatedItemsViewModel<Product>(0, 0, 0, new List<Product>());
-
-            model = await cache.GetOrCreateAsync(cacheKey, async entry =>
+            var cacheKey = $"products-all-{req.PageIndex}-{req.PageSize}";
+            var model = new PaginatedItemsViewModel<Product>(0, 0, 0, new List<Product>());
+            
+            model = await cache.GetOrSetAsync(cacheKey, async _ =>
             {
-                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(1);
 
                 var totalItem = await catalogContext.Product
                     .AsNoTracking()
@@ -60,7 +58,7 @@
 
                 return new PaginatedItemsViewModel<Product>(req.PageIndex, req.PageSize, totalItem, itemsOnPage);
 
-            }).ConfigureAwait(false);
+            }, token: ct).ConfigureAwait(false);
 
             await SendAsync(model, 200, ct).ConfigureAwait(false);
         }

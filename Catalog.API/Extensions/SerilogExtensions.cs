@@ -24,6 +24,15 @@
                 loggerConfiguration.MinimumLevel.Override("Microsoft", LogEventLevel.Information);
                 loggerConfiguration.MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning);
 
+                if (builder.Environment.IsDevelopment())
+                {
+                    loggerConfiguration.MinimumLevel.Override("ZiggyCreatures.Caching.Fusion", LogEventLevel.Debug);
+                }
+                else
+                {
+                    loggerConfiguration.MinimumLevel.Override("ZiggyCreatures.Caching.Fusion", LogEventLevel.Warning);
+                }
+                
                 if (serilogOptions.UseConsole)
                 {
                     loggerConfiguration.WriteTo.Async(writeTo =>

@@ -21,11 +21,17 @@
             audience = jwtOptions.Value.Audience;
         }
 
-        public TokenResult CreateToken(IDictionary<string, object> claims, int expiresInMinutes = 30)
+        public TokenResult CreateToken(IDictionary<string, object> claims, IEnumerable<string> roles, int expiresInMinutes = 30)
         {
             var tokenHandler = new JsonWebTokenHandler();
 
             var issuedAt = DateTime.UtcNow;
+
+            var claimsIdentity = new ClaimsIdentity();
+            foreach (var role in roles)
+            {
+                claimsIdentity.AddClaim(new Claim(ClaimTypes.Role, role));
+            }
             
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -35,7 +41,8 @@
                 NotBefore = issuedAt,
                 Expires = issuedAt.AddMinutes(expiresInMinutes),
                 SigningCredentials = signingCredentials,
-                Claims = claims
+                Claims = claims,
+                Subject = claimsIdentity
             };
             
             var expiresIn = TimeSpan.FromMinutes(expiresInMinutes);

@@ -31,7 +31,11 @@
             }
             else
             {
-                var response = authenticationResult.Value.Adapt<TokenResponse>();
+                var response = new TokenResponse()
+                {
+                    AccessToken = authenticationResult.Value.Token,
+                    ExpiresIn = authenticationResult.Value.ExpiresIn,
+                };
 
                 await SendAsync(response);
             }
