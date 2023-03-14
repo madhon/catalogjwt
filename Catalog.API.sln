@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32516.85
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.API", "Catalog.API\Catalog.API.csproj", "{B2D12725-57E5-4197-AA74-2C6EB8CC816B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.API.Web", "Catalog.API\Catalog.API.Web.csproj", "{B2D12725-57E5-4197-AA74-2C6EB8CC816B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.Auth", "Catalog.Auth\Catalog.Auth.csproj", "{363854AC-F122-4A3C-AD8A-03540701213E}"
 EndProject
@@ -19,6 +19,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Directory.Packages.props = Directory.Packages.props
 		NuGet.config = NuGet.config
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.API.Domain", "Catalog.API.Domain\Catalog.API.Domain.csproj", "{A9A25ACC-9549-491D-9E02-C4EB463F5E28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.API.Application", "Catalog.API.Application\Catalog.API.Application.csproj", "{A6F917AE-4F73-49AD-A480-20BDCDA43A8F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.API.Infrastructure", "Catalog.API.Infrastructure\Catalog.API.Infrastructure.csproj", "{80C240FB-8A2F-4A2A-BFD5-C1CF9F60759B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +44,18 @@ Global
 		{67BDE7C3-6A0F-4439-A878-0C6A8EBBAFDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67BDE7C3-6A0F-4439-A878-0C6A8EBBAFDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67BDE7C3-6A0F-4439-A878-0C6A8EBBAFDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9A25ACC-9549-491D-9E02-C4EB463F5E28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9A25ACC-9549-491D-9E02-C4EB463F5E28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9A25ACC-9549-491D-9E02-C4EB463F5E28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9A25ACC-9549-491D-9E02-C4EB463F5E28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6F917AE-4F73-49AD-A480-20BDCDA43A8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6F917AE-4F73-49AD-A480-20BDCDA43A8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6F917AE-4F73-49AD-A480-20BDCDA43A8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6F917AE-4F73-49AD-A480-20BDCDA43A8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80C240FB-8A2F-4A2A-BFD5-C1CF9F60759B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80C240FB-8A2F-4A2A-BFD5-C1CF9F60759B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80C240FB-8A2F-4A2A-BFD5-C1CF9F60759B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80C240FB-8A2F-4A2A-BFD5-C1CF9F60759B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

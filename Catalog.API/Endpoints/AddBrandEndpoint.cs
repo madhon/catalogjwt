@@ -1,10 +1,13 @@
 ﻿namespace Catalog.API.Endpoints
 {
+    using Catalog.API.Application.Common;
+    using Catalog.API.Domain.Entities;
+
     public sealed class AddBrandEndpoint : Endpoint<AddBrandRequest>
     {
-        private readonly CatalogContext catalogContext;
+        private readonly ICatalogDbContext catalogContext;
 
-        public AddBrandEndpoint(CatalogContext context)
+        public AddBrandEndpoint(ICatalogDbContext context)
         {
             this.catalogContext = context;
         }
@@ -19,7 +22,7 @@
         {
             var item = req.Adapt<Brand>();
 
-            catalogContext.Brand.Add(item);
+            catalogContext.Brands.Add(item);
             await catalogContext.SaveChangesAsync(ct).ConfigureAwait(false);
             await SendOkAsync(ct).ConfigureAwait(false);
         }

@@ -1,6 +1,6 @@
 ﻿namespace Catalog.API.Infrastructure.EntityConfigurations
 {
-    using Catalog.API.Model;
+    using Catalog.API.Domain.Entities;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -8,6 +8,8 @@
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
+            builder.ToTable("Product");
+
             builder.HasKey(p => p.Id);
             builder.Property(p => p.Id).ValueGeneratedOnAdd();
             builder.Property(p => p.Id).IsRequired();

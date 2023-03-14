@@ -11,6 +11,8 @@
 
             app.UseForwardedHeaders();
 
+            app.UseApplicationHeaders(app.Environment, app.Configuration);
+
             app.UseAuthentication();
             app.UseAuthorization();
 

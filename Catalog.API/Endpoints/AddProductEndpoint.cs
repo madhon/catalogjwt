@@ -1,15 +1,15 @@
 ﻿namespace Catalog.API.Endpoints
 {
+    using Catalog.API.Application.Common;
+    using Catalog.API.Domain.Entities;
     using Catalog.API.Endpoints.Requests;
-    using Catalog.API.Infrastructure;
-    using Catalog.API.Model;
     using Mapster;
 
     public sealed class AddProductEndpoint : Endpoint<AddProductRequest>
     {
-        private readonly CatalogContext catalogContext;
+        private readonly ICatalogDbContext catalogContext;
 
-        public AddProductEndpoint(CatalogContext context)
+        public AddProductEndpoint(ICatalogDbContext context)
         {
             this.catalogContext = context;
         }
@@ -25,7 +25,7 @@
             var item = req.Adapt<Product>();
             item.Brand = null;
 
-            catalogContext.Product.Add(item);
+            catalogContext.Products.Add(item);
             await catalogContext.SaveChangesAsync(ct).ConfigureAwait(false);
             await SendOkAsync(ct).ConfigureAwait(false);
         }

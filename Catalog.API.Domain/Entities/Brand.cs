@@ -1,8 +1,7 @@
-﻿namespace Catalog.API.Model
+﻿namespace Catalog.API.Domain.Entities
 {
-    public class Brand
+    public class Brand : BaseEntity
     {
-        public int Id { get; set; }
         public string BrandName { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
     }

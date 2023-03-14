@@ -1,13 +1,15 @@
 ﻿namespace Catalog.API.Endpoints
 {
+    using Catalog.API.Application.Common;
+    using Catalog.API.Domain.Entities;
     using ZiggyCreatures.Caching.Fusion;
 
     public sealed class ProductsEndpoint : Endpoint<ProductsRequest>
     {
         private readonly IFusionCache cache;
-        private readonly CatalogContext catalogContext;
+        private readonly ICatalogDbContext catalogContext;
 
-        public ProductsEndpoint(IFusionCache cache, CatalogContext context)
+        public ProductsEndpoint(IFusionCache cache, ICatalogDbContext context)
         {
             this.cache = cache;
             this.catalogContext = context;
@@ -40,14 +42,14 @@
             model = await cache.GetOrSetAsync(cacheKey, async _ =>
             {
 
-                var totalItem = await catalogContext.Product
+                var totalItem = await catalogContext.Products
                     .AsNoTracking()
                     .LongCountAsync(ct).ConfigureAwait(false);
 
-                var itemsOnPage = await catalogContext.Product
+                var itemsOnPage = await catalogContext.Products
                     .AsNoTracking()
                     .Where(x =>
-                        catalogContext.Product
+                        catalogContext.Products
                             .OrderBy(c => c.Name)
                             .Select(y => y.Id)
                             .Skip(req.PageSize * req.PageIndex)

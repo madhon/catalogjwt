@@ -8,7 +8,6 @@
         public static void RegisterServices(this WebApplicationBuilder builder)
         {
             var services = builder.Services;
-            var configuration = builder.Configuration;
 
             services.Configure<ForwardedHeadersOptions>(opts =>
             {
@@ -25,16 +24,11 @@
                 opts.DefaultEntryOptions = new FusionCacheEntryOptions { Duration = TimeSpan.FromMinutes(2) };
             });
 
-            builder.Services.AddDbContext<CatalogContext>(options =>
-            {
-                options.UseSqlServer(builder.Configuration["ConnectionString"], sqlOpts =>
-                {
-                    sqlOpts.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
-                });
-            });
 
-            services.AddHealthChecks()
-                .AddDbContextCheck<CatalogContext>(); 
+            builder.Services.AddInfrastructure(builder.Configuration);
+
+
+            services.AddHealthChecks(); 
 
             services.AddFastEndpoints(o =>
             {

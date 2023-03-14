@@ -1,6 +1,6 @@
-﻿namespace Catalog.API.Infrastructure.EntityConfigurations
+﻿namespace Catalog.API.Infrastructure.Persistence.EntityConfigurations
 {
-    using Catalog.API.Model;
+    using Catalog.API.Domain.Entities;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
