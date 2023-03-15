@@ -1,18 +1,19 @@
 ﻿namespace Catalog.API.Endpoints
 {
-    using Catalog.API.Application.Common;
+    using Catalog.API.Application.Features.ListProducts;
     using Catalog.API.Domain.Entities;
+    using Mediator;
     using ZiggyCreatures.Caching.Fusion;
 
     public sealed class ProductsEndpoint : Endpoint<ProductsRequest>
     {
         private readonly IFusionCache cache;
-        private readonly ICatalogDbContext catalogContext;
+        private readonly IMediator mediator;
 
-        public ProductsEndpoint(IFusionCache cache, ICatalogDbContext context)
+        public ProductsEndpoint(IFusionCache cache, IMediator mediator)
         {
             this.cache = cache;
-            this.catalogContext = context;
+            this.mediator = mediator;
         }
 
         public override void Configure()
@@ -39,26 +40,12 @@
             var cacheKey = $"products-all-{req.PageIndex}-{req.PageSize}";
             var model = new PaginatedItemsViewModel<Product>(0, 0, 0, new List<Product>());
             
+
             model = await cache.GetOrSetAsync(cacheKey, async _ =>
             {
+                var response = await mediator.Send(new ListProductsRequest(req.PageIndex, req.PageSize), ct);
 
-                var totalItem = await catalogContext.Products
-                    .AsNoTracking()
-                    .LongCountAsync(ct).ConfigureAwait(false);
-
-                var itemsOnPage = await catalogContext.Products
-                    .AsNoTracking()
-                    .Where(x =>
-                        catalogContext.Products
-                            .OrderBy(c => c.Name)
-                            .Select(y => y.Id)
-                            .Skip(req.PageSize * req.PageIndex)
-                            .Take(req.PageSize)
-                            .Contains(x.Id))
-                    .ToListAsync(ct)
-                    .ConfigureAwait(false);
-
-                return new PaginatedItemsViewModel<Product>(req.PageIndex, req.PageSize, totalItem, itemsOnPage);
+                return new PaginatedItemsViewModel<Product>(req.PageIndex, req.PageSize, response.TotalItems, response.Items);
 
             }, token: ct).ConfigureAwait(false);
 

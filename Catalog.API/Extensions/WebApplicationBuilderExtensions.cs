@@ -24,7 +24,7 @@
                 opts.DefaultEntryOptions = new FusionCacheEntryOptions { Duration = TimeSpan.FromMinutes(2) };
             });
 
-
+            builder.Services.AddMediator(opts => opts.ServiceLifetime = ServiceLifetime.Scoped);
             builder.Services.AddInfrastructure(builder.Configuration);
 
 

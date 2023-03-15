@@ -43,6 +43,10 @@
     <PackageReference Include="Serilog.Sinks.Console" />
     <PackageReference Include="Serilog.Sinks.Seq" />
     <PackageReference Include="ZiggyCreatures.FusionCache" />
+    <PackageReference Include="Mediator.SourceGenerator" >
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
