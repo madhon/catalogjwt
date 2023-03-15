@@ -29,15 +29,8 @@
 
         public PasswordVerificationResult VerifyHashedPassword(TUser user, string hashedPassword, string providedPassword)
         {
-            if (string.IsNullOrWhiteSpace(hashedPassword))
-            {
-                throw new ArgumentNullException(nameof(hashedPassword));
-            }
-
-            if (string.IsNullOrWhiteSpace(providedPassword))
-            {
-                throw new ArgumentNullException(nameof(providedPassword));
-            }
+            ArgumentNullException.ThrowIfNull(hashedPassword);
+            ArgumentNullException.ThrowIfNull(providedPassword);
 
             var isValid = PasswordHash.ArgonHashStringVerify(hashedPassword, providedPassword);
 
