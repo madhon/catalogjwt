@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32516.85
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.API.Web", "Catalog.API\Catalog.API.Web.csproj", "{B2D12725-57E5-4197-AA74-2C6EB8CC816B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.API.Web", "Catalog.API.Web\Catalog.API.Web.csproj", "{B2D12725-57E5-4197-AA74-2C6EB8CC816B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.Auth", "Catalog.Auth\Catalog.Auth.csproj", "{363854AC-F122-4A3C-AD8A-03540701213E}"
 EndProject
