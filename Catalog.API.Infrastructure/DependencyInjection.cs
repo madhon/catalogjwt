@@ -1,6 +1,6 @@
 ﻿namespace Catalog.API.Infrastructure
 {
-    using Catalog.API.Application.Common;
+    using Catalog.API.Application.Abstractions;
     using Catalog.API.Infrastructure.Persistence;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
@@ -18,8 +18,8 @@
                 });
             });
 
-
-            services.AddScoped<ICatalogDbContext>(provider => provider.GetService<CatalogContext>()!);
+            services.AddScoped<ICatalogDbContext, CatalogContext>();
+            //services.AddScoped<ICatalogDbContext>(provider => provider.GetRequiredService<CatalogContext>()!);
 
             return services;
         }

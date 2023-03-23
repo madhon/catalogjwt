@@ -1,5 +1,6 @@
 ﻿namespace Catalog.API
 {
+    using Catalog.API.Application;
     using Microsoft.AspNetCore.HttpOverrides;
     using ZiggyCreatures.Caching.Fusion;
 
@@ -25,6 +26,7 @@
             });
 
             builder.Services.AddMediator(opts => opts.ServiceLifetime = ServiceLifetime.Scoped);
+            builder.Services.AddApplicationServices();
             builder.Services.AddInfrastructure(builder.Configuration);
 
 

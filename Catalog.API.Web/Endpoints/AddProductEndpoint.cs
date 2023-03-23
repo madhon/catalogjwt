@@ -1,6 +1,6 @@
 ﻿namespace Catalog.API.Endpoints
 {
-    using Catalog.API.Application.Common;
+    using Catalog.API.Application.Abstractions;
     using Catalog.API.Domain.Entities;
     using Catalog.API.Endpoints.Requests;
     using Mapster;

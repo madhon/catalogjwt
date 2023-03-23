@@ -1,6 +1,6 @@
 ﻿namespace Catalog.API.Application.Features.ListProducts
 {
-    using Catalog.API.Application.Common;
+    using Catalog.API.Application.Abstractions;
     using Mediator;
 
     public sealed class ListProductsHandler : IRequestHandler<ListProductsRequest, ListProductsResponse>
@@ -18,19 +18,25 @@
                 .AsNoTracking()
                 .LongCountAsync(cancellationToken).ConfigureAwait(false);
 
-            var itemsOnPage = await catalogDbContext.Products
-                .AsNoTracking()
-                .Where(x =>
-                    catalogDbContext.Products
-                        .OrderBy(c => c.Name)
-                        .Select(y => y.Id)
-                        .Skip(request.PageSize * request.PageIndex)
-                        .Take(request.PageSize)
-                        .Contains(x.Id))
-                .ToListAsync(cancellationToken)
-                .ConfigureAwait(false);
+
+            var itemsOnPage = catalogDbContext.GetProducts(request.PageSize, request.PageIndex).ToList();
+
+            //var itemsOnPage = await catalogDbContext.Products
+            //    .AsNoTracking()
+            //    .Where(x =>
+            //        catalogDbContext.Products
+            //            .OrderBy(c => c.Name)
+            //            .Select(y => y.Id)
+            //            .Skip(request.PageSize * request.PageIndex)
+            //            .Take(request.PageSize)
+            //            .Contains(x.Id))
+            //    .ToListAsync(cancellationToken)
+            //    .ConfigureAwait(false);
 
             return new ListProductsResponse(totalItem, itemsOnPage);
         }
+
+
+
     }
 }
