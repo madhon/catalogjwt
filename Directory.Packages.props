@@ -23,7 +23,7 @@
     <PackageVersion Include="Azure.Identity" Version="1.8.2" />
     <!-- 3rd party packages -->
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageVersion Include="FastEndpoints" Version="5.8.0" />
+    <PackageVersion Include="FastEndpoints" Version="5.8.1" />
     <PackageVersion Include="FastEndpoints.Generator" Version="5.8.0" />
     <PackageVersion Include="FastEndpoints.Swagger" Version="5.8.0" />
     <PackageVersion Include="FastExpressionCompiler" Version="3.3.4" />
