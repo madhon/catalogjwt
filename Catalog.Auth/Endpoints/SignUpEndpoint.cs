@@ -26,7 +26,7 @@
             }
             else
             {
-                await SendAsync(new { Succeeded = false, Message = "Error creating user" }, 200, ct).ConfigureAwait(false);
+                await SendAsync(new { Succeeded = false, Message = $"Error creating user {result.Value.ToString()}" }, 200, ct).ConfigureAwait(false);
             }
 
         }
