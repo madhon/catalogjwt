@@ -59,17 +59,22 @@
 
             services.AddScoped<IPasswordHasher<ApplicationUser>, Argon2PasswordHasher<ApplicationUser>>();
 
-            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-                {
-                    options.SignIn.RequireConfirmedAccount = false;
-                    options.User.RequireUniqueEmail = true;
-                    options.Password.RequireDigit = true;
-                    options.Password.RequiredLength = 6;
-                    options.Password.RequireLowercase = true;
-                    options.Password.RequireNonAlphanumeric = true;
-                    options.Password.RequireUppercase = true;
-                    options.Password.RequiredUniqueChars = 1;
-                }).AddEntityFrameworkStores<AuthDbContext>()
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = false;
+                options.User.RequireUniqueEmail = true;
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredUniqueChars = 1;
+
+            });
+            
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<AuthDbContext>()
                 .AddDefaultTokenProviders();
             
 
