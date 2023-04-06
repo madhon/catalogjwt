@@ -1,44 +1,57 @@
 ﻿namespace Catalog.Auth.Endpoints
 {
-    public class LoginEndpoint : Endpoint<LoginModel>
+    using Catalog.Auth.Extensions;
+
+    public class LoginEndpoint : EndpointBaseAsync
+        .WithRequest<LoginModel>
+        .WithActionResult<TokenResponse>
     {
+        private readonly IValidator<LoginModel> loginValidator;
         private readonly IAuthenticationService authenticationService;
 
-        public LoginEndpoint(IAuthenticationService authenticationService)
+        public LoginEndpoint(IAuthenticationService authenticationService, IValidator<LoginModel> loginValidator)
         {
             this.authenticationService = authenticationService;
+            this.loginValidator = loginValidator;
         }
 
-        public override void Configure()
+        [ApiVersion(1.0)]
+        [HttpPost("api/v{version:apiVersion}/auth/login")]
+        [AllowAnonymous]
+        [SwaggerOperation(
+            Summary = "Login to API",
+            OperationId = "auth.login",
+            Tags = new [] { "Auth" })]
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(typeof(TokenResponse), (int)HttpStatusCode.OK)]
+        public override async Task<ActionResult<TokenResponse>> HandleAsync(LoginModel request, CancellationToken cancellationToken = new CancellationToken())
         {
-            Version(1);
-            Post("auth/login");
-            AllowAnonymous();
-        }
+            var validationResult = await loginValidator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
 
-        public override async Task HandleAsync(LoginModel req, CancellationToken ct)
-        {
-            var authenticationResult = await authenticationService.Authenticate(req.Email, req.Password).ConfigureAwait(false);
+            if (!validationResult.IsValid)
+            {
+                validationResult.AddToModelState(ModelState);
+                return ValidationProblem();
+            }
+
+            var authenticationResult = await authenticationService.Authenticate(request.Email, request.Password).ConfigureAwait(false);
 
             if (authenticationResult.IsError)
             {
-                await SendAsync(new
-                {
-                    Succeeded = false,
-                    Message = authenticationResult.Errors.First().Description
-                }, 403, ct).ConfigureAwait(false);
-
+                return Problem(
+                    title: "Authentication error",
+                    detail: authenticationResult.Errors.First().Description,
+                    statusCode: StatusCodes.Status401Unauthorized
+                );
             }
-            else
+
+            var response = new TokenResponse
             {
-                var response = new TokenResponse()
-                {
-                    AccessToken = authenticationResult.Value.Token,
-                    ExpiresIn = authenticationResult.Value.ExpiresIn,
-                };
+                AccessToken = authenticationResult.Value.Token,
+                ExpiresIn = authenticationResult.Value.ExpiresIn,
+            };
 
-                await SendAsync(response);
-            }
+            return Ok(response);
         }
     }
 }

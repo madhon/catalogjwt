@@ -1,7 +1,6 @@
 ﻿namespace Catalog.Auth
 {
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.Extensions.Options;
+    using Microsoft.AspNetCore.HttpOverrides;
 
     public static class WebApplicationBuilderExtensions
     {
@@ -10,25 +9,37 @@
             var services = builder.Services;
             var configuration = builder.Configuration;
 
-            services.AddFastEndpoints(o =>
+
+            services.Configure<ForwardedHeadersOptions>(opts =>
             {
-                o.SourceGeneratorDiscoveredTypes = DiscoveredTypes.All;
+                opts.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+                opts.KnownNetworks.Clear();
+                opts.KnownProxies.Clear();
             });
 
-            services.AddSwaggerDoc(maxEndpointVersion: 1, settings: s =>
+            services.AddControllers();
+            services.AddProblemDetails();
+
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddApiVersioning()
+                .AddApiExplorer(options =>
+                {
+                    options.GroupNameFormat = "'v'VV";
+                    options.SubstituteApiVersionInUrl = true;
+                    options.DefaultApiVersion = new ApiVersion(1, 0);
+                });
+
+            builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+
+            builder.Services.AddSwaggerGen(c =>
             {
-                s.DocumentName = "v1.0";
-                s.Title = "Auth API";
-                s.Version = "v1.0";
-            }, shortSchemaNames: true);
-
-
+                c.EnableAnnotations();
+            });
+            
             var jwtOpts = new JwtOptions();
             configuration.Bind(JwtOptions.Jwt, jwtOpts);
             services.AddSingleton(Options.Create(jwtOpts));
-
-
-
+            
             var secret = jwtOpts.Secret;
             var key = Encoding.ASCII.GetBytes(secret);
             
@@ -59,6 +70,7 @@
 
             services.AddScoped<IPasswordHasher<ApplicationUser>, Argon2PasswordHasher<ApplicationUser>>();
 
+            services.AddValidatorsFromAssemblyContaining<Program>();
 
             services.Configure<IdentityOptions>(options =>
             {

@@ -10,13 +10,8 @@
 
   <ItemGroup>
 
-    <PackageReference Include="FastEndpoints" />
-    <PackageReference Include="FastEndpoints.Generator">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="FastEndpoints.Swagger" />
-
+    <PackageReference Include="Ardalis.ApiEndpoints" />
+    <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" />
     <PackageReference Include="Sodium.Core" />
 
     <PackageReference Include="Microsoft.AspNetCore.HeaderPropagation" />
@@ -36,7 +31,7 @@
     <PackageReference Include="Microsoft.Extensions.DependencyModel" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
     <PackageReference Include="OpenTelemetry.Exporter.Console" />
-    <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol"/>
+    <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" />
     <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol.Logs" />
     <PackageReference Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" />
     <PackageReference Include="OpenTelemetry.Extensions.Hosting" />
@@ -54,11 +49,15 @@
     <PackageReference Include="Serilog.Sinks.Console" />
     <PackageReference Include="Serilog.Sinks.Seq" />
     <PackageReference Include="System.Text.Encodings.Web" />
-	<PackageReference Include="System.IdentityModel.Tokens.Jwt" />
-    <PackageReference Include="Newtonsoft.Json" />
+	  <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
     <PackageReference Include="ErrorOr" />
-    <PackageReference Include="Mapster" />
-    <PackageReference Include="SecurityCodeScan.VS2019" >
+
+    <PackageReference Include="Swashbuckle.AspNetCore" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" />
+
+
+    <PackageReference Include="SecurityCodeScan.VS2019">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>

@@ -22,7 +22,7 @@
         }
 
 
-        private static Func<CatalogContext, int, int, IEnumerable<Product>> GetProductsInternal =
+        private static readonly Func<CatalogContext, int, int, IEnumerable<Product>> GetProductsInternal =
             EF.CompileQuery(
                 (CatalogContext context, int pageSize, int pageIndex) =>
                     context.Products

@@ -1,6 +1,5 @@
 ﻿namespace Catalog.Auth
 {
-    using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
     public static class WebApplicationExtensions
     {
@@ -8,27 +7,44 @@
         {
             app.UseForwardedHeaders();
 
+            app.UseStatusCodePages();
+            app.UseExceptionHandler();
+
+            app.UseSerilogRequestLogging();
+
+            app.UseRouting();
+
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseFastEndpoints(c =>
+            if (app.Environment.IsDevelopment())
             {
-                c.Endpoints.ShortNames = true;
-                c.Endpoints.RoutePrefix = "api";
-                c.Versioning.Prefix = "v";
-                c.Versioning.DefaultVersion = 1;
-                c.Versioning.PrependToRoute = true;
-            });
+                app.UseSwagger();
+                app.UseSwaggerUI(
+                    options =>
+                    {
 
+                        foreach (var description in app.DescribeApiVersions())
+                        {
+                            var url = $"/swagger/{description.GroupName}/swagger.json";
+                            var name = description.GroupName.ToUpperInvariant();
+                            options.SwaggerEndpoint(url, name);
+                        }
+                    });
+
+                app.UseDeveloperExceptionPage();
+            }
+            
             app.UseHeaderPropagation();
-            app.MapPrometheusScrapingEndpoint();
-            app.UseOpenApi();
-            app.UseSwaggerUi3();
-
-            app.MapHealthChecks("/health/startup");
-            app.MapHealthChecks("/healthz", new HealthCheckOptions { Predicate = _ => false });
-            app.MapHealthChecks("/ready", new HealthCheckOptions { Predicate = _ => false });
-
+            
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHealthChecks("/health/startup");
+                endpoints.MapHealthChecks("/healthz", new HealthCheckOptions { Predicate = _ => false });
+                endpoints.MapHealthChecks("/ready", new HealthCheckOptions { Predicate = _ => false });
+                endpoints.MapPrometheusScrapingEndpoint();
+                endpoints.MapControllers();
+            });
         }
     }
 }

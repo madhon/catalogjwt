@@ -13,6 +13,8 @@
 
             app.UseApplicationHeaders(app.Environment, app.Configuration);
 
+            app.UseRouting();
+
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -26,13 +28,14 @@
             });
 
             app.UseHeaderPropagation();
-            app.MapPrometheusScrapingEndpoint();
+            
             app.UseOpenApi();
             app.UseSwaggerUi3();
 
             app.MapHealthChecks("/health/startup");
             app.MapHealthChecks("/healthz", new HealthCheckOptions { Predicate = _ => false });
             app.MapHealthChecks("/ready", new HealthCheckOptions { Predicate = _ => false });
+            app.MapPrometheusScrapingEndpoint();
         }
 
     }

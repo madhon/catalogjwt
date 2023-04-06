@@ -1,6 +1,6 @@
 ﻿namespace Catalog.Auth.ViewModel
 {
-    public class LoginModelValidator : Validator<LoginModel>
+    public class LoginModelValidator : AbstractValidator<LoginModel>
     {
         public LoginModelValidator()
         {

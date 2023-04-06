@@ -1,6 +1,7 @@
 <Project>
   <ItemGroup>
     <!-- System packages -->
+    <PackageVersion Include="Ardalis.ApiEndpoints" Version="4.0.1" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="7.0.0" />
     <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="6.28.1" />
     <!-- Microsoft packages -->
@@ -26,6 +27,9 @@
     <PackageVersion Include="FastEndpoints" Version="5.8.1" />
     <PackageVersion Include="FastEndpoints.Generator" Version="5.8.1" />
     <PackageVersion Include="FastEndpoints.Swagger" Version="5.8.1" />
+    <PackageVersion Include="Asp.Versioning.Mvc.ApiExplorer" Version="7.0.0" />
+    <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="11.5.1" />
+
     <PackageVersion Include="FastExpressionCompiler" Version="3.3.4" />
     <PackageVersion Include="Mapster" Version="7.3.0" />
     <PackageVersion Include="Ulid" Version="1.2.6" />
@@ -53,6 +57,10 @@
     <PackageVersion Include="ZiggyCreatures.FusionCache" Version="0.19.0" />
     <PackageVersion Include="Mediator.Abstractions" Version="2.1.1" />
     <PackageVersion Include="Mediator.SourceGenerator" Version="2.1.1" />
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
+
+
     <!-- Analyzers -->
     <PackageVersion Include="AsyncFixer" Version="1.6.0" />
     <PackageVersion Include="Meziantou.Analyzer" Version="2.0.29" />

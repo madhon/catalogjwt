@@ -5,12 +5,17 @@
         public static void ConfigureApplication(this WebApplication app)
         {
             app.UseSerilogRequestLogging();
-            app.MapPrometheusScrapingEndpoint();
-            app.UseAuthentication();
-            app.UseAuthorization();
 
             app.UseRouting();
-            app.MapReverseProxy();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+            
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapReverseProxy();
+                endpoints.MapPrometheusScrapingEndpoint();
+            });
         }
     }
 }
