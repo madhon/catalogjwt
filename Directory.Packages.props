@@ -54,7 +54,7 @@
     <PackageVersion Include="Serilog.Sinks.Console" Version="4.1.0" />
     <PackageVersion Include="Serilog.Sinks.Seq" Version="5.2.2" />
     <PackageVersion Include="ErrorOr" Version="1.2.1" />
-    <PackageVersion Include="ZiggyCreatures.FusionCache" Version="0.19.0" />
+    <PackageVersion Include="ZiggyCreatures.FusionCache" Version="0.20.0" />
     <PackageVersion Include="Mediator.Abstractions" Version="2.1.1" />
     <PackageVersion Include="Mediator.SourceGenerator" Version="2.1.1" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.5.0" />
