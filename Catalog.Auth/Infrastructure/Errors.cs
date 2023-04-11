@@ -6,7 +6,7 @@
     {
         public static class User
         {
-            public static Error InvalidCredentials = Error.Failure("User.InvalidCreds", "Invalid Credentials");
+            public static readonly Error InvalidCredentials = Error.Failure("User.InvalidCreds", "Invalid Credentials");
         }
 
     }

@@ -20,10 +20,11 @@
             builder.Services.AddHttpContextAccessor();
 
             builder.Services.AddMemoryCache();
-            builder.Services.AddFusionCache(opts =>
-            {
-                opts.DefaultEntryOptions = new FusionCacheEntryOptions { Duration = TimeSpan.FromMinutes(2) };
-            });
+            builder.Services.AddFusionCache()
+                .WithOptions(opts =>
+                {
+                    opts.DefaultEntryOptions = new FusionCacheEntryOptions { Duration = TimeSpan.FromMinutes(2) };
+                });
 
             builder.Services.AddMediator(opts => opts.ServiceLifetime = ServiceLifetime.Scoped);
             builder.Services.AddApplicationServices();

@@ -11,11 +11,8 @@
             app.UseAuthentication();
             app.UseAuthorization();
             
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapReverseProxy();
-                endpoints.MapPrometheusScrapingEndpoint();
-            });
+            app.MapReverseProxy();
+            app.MapPrometheusScrapingEndpoint();
         }
     }
 }
