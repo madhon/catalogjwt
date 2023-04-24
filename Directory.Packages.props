@@ -27,7 +27,7 @@
     <PackageVersion Include="Ardalis.ApiEndpoints" Version="4.0.1" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageVersion Include="FastEndpoints" Version="5.8.1" />
-    <PackageVersion Include="FastEndpoints.Generator" Version="5.8.1" />
+    <PackageVersion Include="FastEndpoints.Generator" Version="5.9.0" />
     <PackageVersion Include="FastEndpoints.Swagger" Version="5.8.1" />
     <PackageVersion Include="Asp.Versioning.Mvc.ApiExplorer" Version="7.0.0" />
     <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="11.5.2" />
