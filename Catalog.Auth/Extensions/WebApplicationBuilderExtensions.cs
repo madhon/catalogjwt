@@ -9,7 +9,6 @@
             var services = builder.Services;
             var configuration = builder.Configuration;
 
-
             services.Configure<ForwardedHeadersOptions>(opts =>
             {
                 opts.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;

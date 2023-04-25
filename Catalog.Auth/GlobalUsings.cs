@@ -2,9 +2,7 @@
 #pragma warning disable IDE0065
 
 global using Catalog.Auth;
-global using Catalog.Auth.Extensions;
 global using Catalog.Auth.Model;
-global using Catalog.Auth.ViewModel;
 global using Catalog.Auth.Infrastructure;
 global using Catalog.Auth.Services;
 

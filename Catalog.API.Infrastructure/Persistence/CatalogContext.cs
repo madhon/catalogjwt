@@ -20,8 +20,7 @@
             modelBuilder.ApplyConfiguration(new BrandEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new ProductEntityTypeConfiguration());
         }
-
-
+        
         private static readonly Func<CatalogContext, int, int, IEnumerable<Product>> GetProductsInternal =
             EF.CompileQuery(
                 (CatalogContext context, int pageSize, int pageIndex) =>

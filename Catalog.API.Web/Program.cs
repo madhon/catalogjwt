@@ -1,12 +1,13 @@
 var builder = WebApplication.CreateBuilder(args);
 
-builder.AddSerilog();
-builder.AddOpenTelemetry();
-builder.RegisterJwtAuthServices();
-builder.RegisterServices();
+builder.Host.AddMySerilogLogging();
+
+var startup = new Startup(builder.Configuration, builder.Environment);
+
+startup.ConfigureServices(builder.Services);
 
 var app = builder.Build();
 
-app.ConfigureApplication();
+startup.Configure(app);
 
 app.Run();

@@ -7,9 +7,9 @@
         {
             app.UseForwardedHeaders();
 
-            app.UseStatusCodePages();
             app.UseExceptionHandler();
-
+            app.UseStatusCodePages();
+            
             app.UseSerilogRequestLogging();
 
             app.UseRouting();
