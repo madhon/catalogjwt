@@ -1,6 +1,8 @@
 ﻿namespace Catalog.Auth.Signup
 {
-    public class SignUpEndpoint : EndpointBaseAsync.WithRequest<SignUpModel>.WithActionResult
+    [Produces(MediaTypeNames.Application.Json)]
+    [Consumes(MediaTypeNames.Application.Json)]
+    public class SignUpEndpoint : EndpointBaseAsync.WithRequest<SignupRequest>.WithActionResult<SignupResponse>
     {
         private readonly IAuthenticationService authenticationService;
 
@@ -17,17 +19,19 @@
             OperationId = "auth.signup",
             Tags = new[] { "Auth" })]
         [ProducesDefaultResponseType]
-        public override async Task<ActionResult> HandleAsync(SignUpModel request, CancellationToken cancellationToken = new CancellationToken())
+        [ProducesResponseType(typeof(SignupResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(SignupResponse), StatusCodes.Status400BadRequest)]
+        public override async Task<ActionResult<SignupResponse>> HandleAsync(SignupRequest request, CancellationToken cancellationToken = new CancellationToken())
         {
             var result = await authenticationService.CreateUser(request.Email, request.Password, request.Fullname, cancellationToken).ConfigureAwait(false);
 
             if (!result.IsError && !result.Value.ToString().Any())
             {
-                return Ok(new { Succeeded = true, Message = "User created successfully" });
+                return Ok(new SignupResponse(true, "User created successfully"));
             }
             else
             {
-                return BadRequest(new { Succeeded = false, Message = $"Error creating user {result.Value}" });
+                return BadRequest(new SignupResponse(false, $"Error creating user {result.Value}"));
             }
         }
     }

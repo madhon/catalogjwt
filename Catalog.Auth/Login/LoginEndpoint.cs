@@ -1,15 +1,15 @@
 ﻿namespace Catalog.Auth.Login
 {
-    using Catalog.Auth.Extensions;
-
+    [Produces(MediaTypeNames.Application.Json)]
+    [Consumes(MediaTypeNames.Application.Json)]
     public class LoginEndpoint : EndpointBaseAsync
-        .WithRequest<LoginModel>
-        .WithActionResult<TokenResponse>
+        .WithRequest<LoginRequest>
+        .WithActionResult<LoginResponse>
     {
-        private readonly IValidator<LoginModel> loginValidator;
+        private readonly IValidator<LoginRequest> loginValidator;
         private readonly IAuthenticationService authenticationService;
 
-        public LoginEndpoint(IAuthenticationService authenticationService, IValidator<LoginModel> loginValidator)
+        public LoginEndpoint(IAuthenticationService authenticationService, IValidator<LoginRequest> loginValidator)
         {
             this.authenticationService = authenticationService;
             this.loginValidator = loginValidator;
@@ -23,8 +23,9 @@
             OperationId = "auth.login",
             Tags = new[] { "Auth" })]
         [ProducesDefaultResponseType]
-        [ProducesResponseType(typeof(TokenResponse), (int)HttpStatusCode.OK)]
-        public override async Task<ActionResult<TokenResponse>> HandleAsync(LoginModel request, CancellationToken cancellationToken = new CancellationToken())
+        [ProducesResponseType(typeof(LoginResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public override async Task<ActionResult<LoginResponse>> HandleAsync(LoginRequest request, CancellationToken cancellationToken = new CancellationToken())
         {
             var validationResult = await loginValidator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
 
@@ -45,7 +46,7 @@
                 );
             }
 
-            var response = new TokenResponse
+            var response = new LoginResponse
             {
                 AccessToken = authenticationResult.Value.Token,
                 ExpiresIn = authenticationResult.Value.ExpiresIn,

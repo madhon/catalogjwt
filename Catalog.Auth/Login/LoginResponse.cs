@@ -2,7 +2,7 @@
 {
     using System.Text.Json.Serialization;
 
-    public record TokenResponse
+    public record LoginResponse
     {
         [JsonPropertyName("access_token")]
         public string AccessToken { get; init; } = null!;

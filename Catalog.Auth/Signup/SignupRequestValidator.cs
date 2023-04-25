@@ -1,8 +1,8 @@
 ﻿namespace Catalog.Auth.Signup
 {
-    public class SignUpModelValidator : AbstractValidator<SignUpModel>
+    public class SignUpRequestValidator : AbstractValidator<SignupRequest>
     {
-        public SignUpModelValidator()
+        public SignUpRequestValidator()
         {
             RuleFor(x => x.Email).NotEmpty().EmailAddress();
             RuleFor(x => x.Password).NotEmpty();

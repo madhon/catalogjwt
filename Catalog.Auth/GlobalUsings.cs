@@ -4,12 +4,13 @@
 global using Catalog.Auth;
 global using Catalog.Auth.Model;
 global using Catalog.Auth.Infrastructure;
+global using Catalog.Auth.Extensions;
 global using Catalog.Auth.Services;
 
 global using FluentValidation;
 global using Ardalis.ApiEndpoints;
 global using ErrorOr;
-global using System.Net;
+
 global using Asp.Versioning;
 global using Swashbuckle.AspNetCore.Annotations;
 global using Swashbuckle.AspNetCore.SwaggerGen;
@@ -29,5 +30,6 @@ global using System.Text;
 global using System.Security.Cryptography;
 global using System.Security.Claims;
 global using System.Reflection;
+global using System.Net.Mime;
 #pragma warning restore IDE0065
 // ReSharper restore RedundantUsingDirective.Global
