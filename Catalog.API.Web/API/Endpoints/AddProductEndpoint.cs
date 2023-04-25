@@ -1,9 +1,8 @@
 ﻿namespace Catalog.API.Web.API.Endpoints
 {
     using Catalog.API.Application.Abstractions;
-    using Catalog.API.Domain.Entities;
     using Catalog.API.Web.API.Endpoints.Requests;
-    using Mapster;
+    using Catalog.API.Web.API.Mappers;
 
     public sealed class AddProductEndpoint : Endpoint<AddProductRequest>
     {
@@ -22,7 +21,9 @@
 
         public override async Task HandleAsync(AddProductRequest req, CancellationToken ct)
         {
-            var item = req.Adapt<Product>();
+            var mapper = new ProductMapper();
+            var item = mapper.MapAddProductRequestToProduct(req);
+            
             item.Brand = null;
 
             catalogContext.Products.Add(item);

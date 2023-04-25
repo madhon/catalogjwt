@@ -1,8 +1,8 @@
 ﻿global using FastEndpoints;
 global using FastEndpoints.Swagger;
-global using Mapster;
 global using Serilog;
 global using Serilog.Events;
+global using Riok.Mapperly.Abstractions;
 
 global using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 

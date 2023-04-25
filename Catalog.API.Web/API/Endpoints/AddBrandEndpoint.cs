@@ -1,8 +1,8 @@
 ﻿namespace Catalog.API.Web.API.Endpoints
 {
     using Catalog.API.Application.Abstractions;
-    using Catalog.API.Domain.Entities;
     using Catalog.API.Web.API.Endpoints.Requests;
+    using Catalog.API.Web.API.Mappers;
 
     public sealed class AddBrandEndpoint : Endpoint<AddBrandRequest>
     {
@@ -21,7 +21,8 @@
 
         public override async Task HandleAsync(AddBrandRequest req, CancellationToken ct)
         {
-            var item = req.Adapt<Brand>();
+            var mapper = new BrandMapper();
+            var item = mapper.MapAddBrandRequestToBrand(req);
 
             catalogContext.Brands.Add(item);
             await catalogContext.SaveChangesAsync(ct).ConfigureAwait(false);

@@ -1,6 +1,5 @@
 ﻿namespace Catalog.API.Web.API
 {
-    using FastExpressionCompiler;
     using Microsoft.AspNetCore.HttpOverrides;
     using ZiggyCreatures.Caching.Fusion;
 
@@ -39,8 +38,6 @@
 
         public static void UseMyApi(this IApplicationBuilder app, IConfiguration configuration, IWebHostEnvironment environment)
         {
-            TypeAdapterConfig.GlobalSettings.Compiler = exp => exp.CompileFast();
-
             app.UseForwardedHeaders();
 
             app.UseFastEndpoints(c =>
