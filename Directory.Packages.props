@@ -2,15 +2,15 @@
   <ItemGroup>
     <!-- System packages -->
     <PackageVersion Include="System.Text.Encodings.Web" Version="7.0.0" />
-    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="6.29.0" />
+    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="6.30.0" />
     <!-- Microsoft packages -->
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.5" />
     <PackageVersion Include="Microsoft.AspNetCore.DataProtection.EntityFrameworkCore" Version="7.0.5" />
     <PackageVersion Include="Microsoft.AspNetCore.HeaderPropagation" Version="7.0.5" />
     <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.5" />
     <PackageVersion Include="Microsoft.Identity.Client" Version="4.53.0" />
-    <PackageVersion Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="6.29.0" />
-    <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.29.0" />
+    <PackageVersion Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="6.30.0" />
+    <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.30.0" />
     <PackageVersion Include="Microsoft.Data.SqlClient" Version="5.1.1" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.5" />
@@ -63,8 +63,8 @@
     <PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
     <!-- Analyzers -->
     <PackageVersion Include="AsyncFixer" Version="1.6.0" />
-    <PackageVersion Include="Meziantou.Analyzer" Version="2.0.41" />
-    <PackageVersion Include="SonarAnalyzer.CSharp" Version="8.56.0.67649" />
+    <PackageVersion Include="Meziantou.Analyzer" Version="2.0.43" />
+    <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.0.0.68202" />
     <PackageVersion Include="Google.Protobuf" Version="3.22.3" />
     <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.5.22" />
     <PackageVersion Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="7.0.1" />
