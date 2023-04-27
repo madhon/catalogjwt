@@ -63,7 +63,7 @@
     <PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
     <!-- Analyzers -->
     <PackageVersion Include="AsyncFixer" Version="1.6.0" />
-    <PackageVersion Include="Meziantou.Analyzer" Version="2.0.41" />
+    <PackageVersion Include="Meziantou.Analyzer" Version="2.0.43" />
     <PackageVersion Include="SonarAnalyzer.CSharp" Version="8.56.0.67649" />
     <PackageVersion Include="Google.Protobuf" Version="3.22.3" />
     <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.5.22" />
