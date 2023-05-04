@@ -47,6 +47,7 @@
                 c.Versioning.Prefix = "v";
                 c.Versioning.DefaultVersion = 1;
                 c.Versioning.PrependToRoute = true;
+                c.Errors.UseProblemDetails();
             });
 
             app.UseHeaderPropagation();
