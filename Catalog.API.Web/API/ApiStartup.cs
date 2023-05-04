@@ -20,6 +20,7 @@
 
             services.AddMemoryCache();
             services.AddFusionCache()
+                .TryWithAutoSetup()
                 .WithOptions(opts =>
                 {
                     opts.DefaultEntryOptions = new FusionCacheEntryOptions { Duration = TimeSpan.FromMinutes(2) };
