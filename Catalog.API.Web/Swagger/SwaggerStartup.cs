@@ -4,13 +4,20 @@
     {
         public static void AddMySwagger(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddSwaggerDoc(maxEndpointVersion: 1, settings: s =>
+            services.SwaggerDocument(o =>
             {
-                s.DocumentName = "v1.0";
-                s.Title = "Catalog API";
-                s.Version = "v1.0";
-            }, shortSchemaNames: true);
+                o.MaxEndpointVersion = 1;
+                o.ShortSchemaNames = true;
+                o.DocumentSettings = s =>
+                {
+                    s.DocumentName = "v1.0";
+                    s.Title = "Catalog API";
+                    s.Version = "v1.0";
 
+                };
+
+
+            });
         }
 
         public static void UseMySwagger(this IApplicationBuilder app, IConfiguration configuration)
