@@ -3,6 +3,7 @@
     using Catalog.API.Web.Logging.Helper;
     using Catalog.API.Web.Logging.Settings;
     using Serilog.Exceptions;
+    using Serilog.Settings.Configuration;
 
     public static class LoggingStartup
     {
@@ -12,8 +13,9 @@
             {
                 var serilogOptions = new SerilogOptions();
                 context.Configuration.GetSection("Serilog").Bind(serilogOptions);
-                
-                loggerConfiguration.ReadFrom.Configuration(context.Configuration, sectionName: "Serilog");
+
+                var options = new ConfigurationReaderOptions { SectionName = "Serilog" };
+                loggerConfiguration.ReadFrom.Configuration(context.Configuration, options);
 
                 loggerConfiguration
                     .Enrich.WithProperty("Application", context.HostingEnvironment.ApplicationName)

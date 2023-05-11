@@ -1,6 +1,6 @@
 ﻿namespace Catalog.Auth.Infrastructure
 {
-    public class AuthDbContextSeed
+    public static class AuthDbContextSeed
     {
         public static async Task SeedAsync(AuthDbContext identityDbContext,
             UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)

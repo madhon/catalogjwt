@@ -3,6 +3,7 @@
     using Serilog;
     using Serilog.Events;
     using Serilog.Exceptions;
+    using Serilog.Settings.Configuration;
 
     public static class SerilogExtensions
     {
@@ -13,8 +14,9 @@
 
             builder.Host.UseSerilog((context, loggerConfiguration) =>
             {
-                loggerConfiguration.ReadFrom.Configuration(context.Configuration, sectionName: sectionName);
-                
+                var options = new ConfigurationReaderOptions { SectionName = "Serilog" };
+                loggerConfiguration.ReadFrom.Configuration(context.Configuration, options);
+
                 loggerConfiguration
                     .Enrich.WithProperty("Application", builder.Environment.ApplicationName)
                     .Enrich.FromLogContext()
