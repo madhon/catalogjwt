@@ -16,7 +16,6 @@
                 opts.KnownProxies.Clear();
             });
 
-            services.AddControllers();
             services.AddProblemDetails();
 
             builder.Services.AddEndpointsApiExplorer();
@@ -32,7 +31,7 @@
 
             builder.Services.AddSwaggerGen(c =>
             {
-                c.EnableAnnotations();
+                //c.CustomSchemaIds(type=> type.ToString());
             });
             
             var jwtOpts = new JwtOptions();
@@ -41,7 +40,8 @@
             
             var secret = jwtOpts.Secret;
             var key = Encoding.ASCII.GetBytes(secret);
-            
+
+            services.AddAuthorization();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(x =>
             {
                 x.TokenValidationParameters = new TokenValidationParameters

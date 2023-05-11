@@ -21,7 +21,13 @@
                     new OpenApiInfo()
                     {
                         Title = $"Catalog Auth API {description.ApiVersion}",
+                        Description = "Catalog Authentication API",
                         Version = description.ApiVersion.ToString(),
+                        Contact = new OpenApiContact()
+                        {
+                            Name = "tester",
+                            Email = "tester@tester.com"
+                        }
                     });
             }
         }
