@@ -25,7 +25,18 @@
 
             var result = await userManager.CreateAsync(user, password).ConfigureAwait(false);
 
-            return result;
+            if (result.Succeeded)
+            {
+                return result;
+            }
+
+            var errorString = new StringBuilder();
+            foreach (var r in result.Errors)
+            {
+                errorString.AppendLine(r.Description);
+            }
+
+            return Error.Failure("createuser.error", errorString.ToString());
         }
 
         public async Task<ErrorOr<TokenResult>> Authenticate(string email, string password)

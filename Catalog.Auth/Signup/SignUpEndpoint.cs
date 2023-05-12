@@ -1,11 +1,12 @@
 ﻿namespace Catalog.Auth.Signup
 {
+
     public static class SignUpEndpoint
     {
         public static IEndpointRouteBuilder MapSignUpEndpoint(this IEndpointRouteBuilder app, ApiVersionSet versionSet)
         {
             app.MapPost("api/v{version:apiVersion}/auth/signup",
-                async 
+                async Task<Results<Ok<SignupResponse>, ProblemHttpResult>>
                 (SignupRequest request, IAuthenticationService authenticationService, CancellationToken ct) =>
                 {
 
@@ -13,11 +14,13 @@
 
                 if (!result.IsError)
                 {
-                    return Results.Ok(new SignupResponse(true, "User created successfully"));
+                    return TypedResults.Ok(new SignupResponse(true, "User created successfully"));
                 }
                 else
                 {
-                    return Results.BadRequest(new SignupResponse(false, $"Error creating user {result.Value}"));
+                    return TypedResults.Problem(title: "Error Creating User",
+                        detail: result.Errors.First().Description,
+                        statusCode: 400);
                 }
                 })
                 .AllowAnonymous()
