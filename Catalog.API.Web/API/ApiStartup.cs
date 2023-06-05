@@ -1,6 +1,8 @@
 ﻿namespace Catalog.API.Web.API
 {
     using Microsoft.AspNetCore.HttpOverrides;
+    using Microsoft.AspNetCore.RateLimiting;
+    using System.Threading.RateLimiting;
     using ZiggyCreatures.Caching.Fusion;
 
     public static class ApiStartup
@@ -12,6 +14,20 @@
                 opts.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
                 opts.KnownNetworks.Clear();
                 opts.KnownProxies.Clear();
+            });
+
+
+            services.AddRateLimiter(rlo => {
+
+                rlo.RejectionStatusCode = 429;
+                rlo.AddFixedWindowLimiter(policyName: "fixed", options =>
+                {
+                    options.PermitLimit = 4;
+                    options.Window = TimeSpan.FromSeconds(12);
+                    options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+                    options.QueueLimit = 2;
+                });
+
             });
 
             services.AddHealthChecks();
@@ -40,6 +56,8 @@
         public static void UseMyApi(this IApplicationBuilder app, IConfiguration configuration, IWebHostEnvironment environment)
         {
             app.UseForwardedHeaders();
+
+            app.UseRateLimiter();
 
             app.UseFastEndpoints(c =>
             {

@@ -1,57 +1,56 @@
-﻿namespace Catalog.API.Web.API.Endpoints
+﻿namespace Catalog.API.Web.API.Endpoints;
+
+using Catalog.API.Application.Features.ListProducts;
+using Catalog.API.Domain.Entities;
+using Catalog.API.Web.API.Endpoints.Requests;
+using Catalog.API.Web.API.ViewModel;
+using Mediator;
+using ZiggyCreatures.Caching.Fusion;
+
+public sealed class ProductsEndpoint : Endpoint<ProductsRequest>
 {
-    using Catalog.API.Application.Features.ListProducts;
-    using Catalog.API.Domain.Entities;
-    using Catalog.API.Web.API.Endpoints.Requests;
-    using Catalog.API.Web.API.ViewModel;
-    using Mediator;
-    using ZiggyCreatures.Caching.Fusion;
+    private readonly IFusionCache cache;
+    private readonly IMediator mediator;
 
-    public sealed class ProductsEndpoint : Endpoint<ProductsRequest>
+    public ProductsEndpoint(IFusionCache cache, IMediator mediator)
     {
-        private readonly IFusionCache cache;
-        private readonly IMediator mediator;
+        this.cache = cache;
+        this.mediator = mediator;
+    }
 
-        public ProductsEndpoint(IFusionCache cache, IMediator mediator)
+    public override void Configure()
+    {
+        Version(1);
+        Get("catalog/products/{pageSize}/{PageIndex}");
+        Summary(s =>
         {
-            this.cache = cache;
-            this.mediator = mediator;
-        }
-
-        public override void Configure()
-        {
-            Version(1);
-            Get("catalog/products/{pageSize}/{PageIndex}");
-            Summary(s =>
+            s.Summary = "Retrieves paged products";
+            s.ExampleRequest = new ProductsRequest
             {
-                s.Summary = "Retrieves paged products";
-                s.ExampleRequest = new ProductsRequest
-                {
-                    PageIndex = 0,
-                    PageSize = 10
-                };
-            });
-            Roles("read");
-        }
+                PageIndex = 0,
+                PageSize = 10
+            };
+        });
+        Roles("read");
+        Throttle(hitLimit: 4, durationSeconds: 12);
+    }
 
-        public override async Task HandleAsync(ProductsRequest req, CancellationToken ct)
+    public override async Task HandleAsync(ProductsRequest req, CancellationToken ct)
+    {
+        //var n = User.Id();
+        //var x = User.Azp();
+
+        var cacheKey = $"products-all-{req.PageIndex}-{req.PageSize}";
+       
+
+        var model = await cache.GetOrSetAsync(cacheKey, async _ =>
         {
-            //var n = User.Id();
-            //var x = User.Azp();
+            var response = await mediator.Send(new ListProductsRequest(req.PageIndex, req.PageSize), ct);
 
-            var cacheKey = $"products-all-{req.PageIndex}-{req.PageSize}";
-            var model = new PaginatedItemsViewModel<Product>(0, 0, 0, new List<Product>());
-            
+            return new PaginatedItemsViewModel<Product>(req.PageIndex, req.PageSize, response.TotalItems, response.Items);
 
-            model = await cache.GetOrSetAsync(cacheKey, async _ =>
-            {
-                var response = await mediator.Send(new ListProductsRequest(req.PageIndex, req.PageSize), ct);
+        }, token: ct).ConfigureAwait(false);
 
-                return new PaginatedItemsViewModel<Product>(req.PageIndex, req.PageSize, response.TotalItems, response.Items);
-
-            }, token: ct).ConfigureAwait(false);
-
-            await SendAsync(model, 200, ct).ConfigureAwait(false);
-        }
+        await SendAsync(model!, 200, ct).ConfigureAwait(false);
     }
 }

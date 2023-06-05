@@ -6,7 +6,7 @@
         public static IEndpointRouteBuilder MapSignUpEndpoint(this IEndpointRouteBuilder app, ApiVersionSet versionSet)
         {
             app.MapPost("api/v{version:apiVersion}/auth/signup",
-                async Task<Results<Ok<SignupResponse>, ProblemHttpResult>>
+                async Task<Results<Ok<SignupResponse>, ProblemHttpResult, BadRequest>>
                 (SignupRequest request, IAuthenticationService authenticationService, CancellationToken ct) =>
                 {
 
