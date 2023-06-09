@@ -12,7 +12,7 @@
     <PackageVersion Include="Microsoft.AspNetCore.RateLimiting" Version="7.0.0-rc.2.22476.2" />
     <PackageVersion Include="Microsoft.Identity.Client" Version="4.54.1" />
     <PackageVersion Include="Microsoft.Identity.Client.Extensions.Msal" Version="2.31.0" />
-    <PackageVersion Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="6.30.1" />
+    <PackageVersion Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="6.31.0" />
     <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.30.1" />
     <PackageVersion Include="Microsoft.Data.SqlClient" Version="5.1.1" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
@@ -46,7 +46,7 @@
     <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol.Logs" Version="1.5.0-rc.1" />
     <PackageVersion Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="1.5.0-rc.1" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.5.0-beta.1" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.EntityFrameworkCore" Version="1.0.0-beta.6" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.EntityFrameworkCore" Version="1.0.0-beta.7" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.5.0-beta.1" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.5.0" />
     <PackageVersion Include="Serilog" Version="2.12.0" />
