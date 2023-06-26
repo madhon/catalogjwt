@@ -8,7 +8,7 @@
     <PackageVersion Include="Microsoft.AspNetCore.DataProtection.EntityFrameworkCore" Version="7.0.7" />
     <PackageVersion Include="Microsoft.AspNetCore.HeaderPropagation" Version="7.0.7" />
     <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.7" />
-    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="7.0.7" />
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="7.0.8" />
     <PackageVersion Include="Microsoft.AspNetCore.RateLimiting" Version="7.0.0-rc.2.22476.2" />
     <PackageVersion Include="Microsoft.Identity.Client" Version="4.54.1" />
     <PackageVersion Include="Microsoft.Identity.Client.Extensions.Msal" Version="2.31.0" />
