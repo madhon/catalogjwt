@@ -19,7 +19,7 @@
                 else
                 {
                     return TypedResults.Problem(title: "Error Creating User",
-                        detail: result.Errors.First().Description,
+                        detail: result.Errors[0].Description,
                         statusCode: 400);
                 }
                 })
