@@ -22,13 +22,6 @@
                     if (authenticationResult.IsError)
                     {
                             return TypedResults.Unauthorized();
-
-
-                        //return TypedResults.Problem(
-                        //    title: "Authentication error",
-                        //    detail: authenticationResult.Errors[0].Description,
-                        //    statusCode: StatusCodes.Status401Unauthorized
-                        //);
                     }
 
                     var response = new LoginResponse
@@ -48,7 +41,8 @@
                 .Produces<LoginResponse>(200, "application/json")
                 .Produces<UnauthorizedResult>()
                 .ProducesValidationProblem()
-                .WithOpenApi();
+                .WithOpenApi()
+                .RequireRateLimiting(RateLimiterPolicies.RlPoicy);
 
             return app;
         }

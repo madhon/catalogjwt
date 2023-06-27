@@ -1,6 +1,7 @@
 ﻿namespace Catalog.Auth
 {
-    using Catalog.Auth.Login;
+
+	using Catalog.Auth.Login;
     using Catalog.Auth.Signup;
     using Microsoft.OpenApi.Models;
     using Swashbuckle.AspNetCore.SwaggerUI;
@@ -11,14 +12,16 @@
         {
             app.UseForwardedHeaders();
 
-            app.UseExceptionHandler();
+			app.UseExceptionHandler();
             app.UseStatusCodePages();
 
             app.UseSerilogRequestLogging();
 
             app.UseRouting();
+			
+            app.UseMyRateLimiter();
 
-            app.UseAuthentication();
+			app.UseAuthentication();
             app.UseAuthorization();
 
             if (app.Environment.IsDevelopment())

@@ -49,7 +49,7 @@
 
                 var additionalClaims = new Dictionary<string, object>
                 {
-                    { JwtRegisteredClaimNames.Sub, user.UserName},
+                    { JwtRegisteredClaimNames.Sub, user!.UserName!},
                     { JwtClaimTypes.UserId, user.Id},
                     { JwtRegisteredClaimNames.Azp, email },
                     { JwtClaimTypes.GrantType, "password" },
