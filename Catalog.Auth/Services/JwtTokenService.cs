@@ -9,7 +9,7 @@
         private readonly string issuer;
         private readonly string audience;
 
-        public JwtTokenService(IOptions<JwtOptions> jwtOptions)
+        public JwtTokenService(IOptionsSnapshot<JwtOptions> jwtOptions)
         {
             ArgumentNullException.ThrowIfNull(jwtOptions);
 
@@ -47,6 +47,8 @@
             
             var expiresIn = TimeSpan.FromMinutes(expiresInMinutes);
             
+
+
             var result = new TokenResult
             {
                 Token = tokenHandler.CreateToken(tokenDescriptor),

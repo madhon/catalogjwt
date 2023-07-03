@@ -19,8 +19,13 @@
             AuthenticationSettings authSettings)
         {
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(x =>
+            services.AddAuthentication(auth =>
+            {
+                auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                auth.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
                 {
                     x.MapInboundClaims = false;
                     x.SaveToken = true;
@@ -34,11 +39,26 @@
 
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(authSettings.JwtSigningKey),
-                        ClockSkew = TimeSpan.Zero,
+                        ClockSkew = TimeSpan.FromSeconds(15),
 
                         RequireExpirationTime = true,
                         ValidateLifetime = true
                     };
+
+
+                    x.Events = new JwtBearerEvents
+                    {
+                        OnAuthenticationFailed = context =>
+                        {
+                            if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+                            {
+                                context.Response.Headers.Add("Token-Expired", "true");
+                            }
+
+                            return Task.CompletedTask;
+                        }
+                    };
+
                 });
         }
 
