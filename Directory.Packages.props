@@ -34,7 +34,7 @@
     <PackageVersion Include="FastEndpoints.Generator" Version="5.13.0" />
     <PackageVersion Include="FastEndpoints.Swagger" Version="5.13.0" />
     <PackageVersion Include="Asp.Versioning.Mvc.ApiExplorer" Version="7.0.0" />
-    <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="11.5.2" />
+    <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="11.6.0" />
     <PackageVersion Include="FastExpressionCompiler" Version="3.3.4" />
     <PackageVersion Include="Mapster" Version="7.3.0" />
     <PackageVersion Include="Riok.Mapperly" Version="2.8.0" />
