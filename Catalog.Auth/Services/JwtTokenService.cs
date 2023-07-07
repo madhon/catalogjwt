@@ -9,7 +9,7 @@
         private readonly string issuer;
         private readonly string audience;
 
-        public JwtTokenService(IOptionsSnapshot<JwtOptions> jwtOptions)
+        public JwtTokenService(IOptions<JwtOptions> jwtOptions)
         {
             ArgumentNullException.ThrowIfNull(jwtOptions);
 
