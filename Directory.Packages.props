@@ -6,33 +6,33 @@
     <PackageVersion Include="System.Security.Cryptography.Pkcs" Version="7.0.3" />
     <!-- Microsoft packages -->
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.9" />
-    <PackageVersion Include="Microsoft.AspNetCore.DataProtection.EntityFrameworkCore" Version="7.0.8" />
+    <PackageVersion Include="Microsoft.AspNetCore.DataProtection.EntityFrameworkCore" Version="7.0.9" />
     <PackageVersion Include="Microsoft.AspNetCore.HeaderPropagation" Version="7.0.9" />
-    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.8" />
-    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="7.0.8" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.9" />
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="7.0.9" />
     <PackageVersion Include="Microsoft.AspNetCore.RateLimiting" Version="7.0.0-rc.2.22476.2" />
     <PackageVersion Include="Microsoft.Identity.Client" Version="4.54.1" />
     <PackageVersion Include="Microsoft.Identity.Client.Extensions.Msal" Version="2.31.0" />
-    <PackageVersion Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="6.31.0" />
+    <PackageVersion Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="6.32.0" />
     <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.31.0" />
     <PackageVersion Include="Microsoft.Data.SqlClient" Version="5.1.1" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="7.0.9" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.8" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.8" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.8" />
-    <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="7.0.8" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.9" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.9" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.9" />
+    <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="7.0.9" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.1" />
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
-    <PackageVersion Include="Azure.Core" Version="1.33.0" />
+    <PackageVersion Include="Azure.Core" Version="1.34.0" />
     <PackageVersion Include="Azure.Identity" Version="1.9.0" />
     <!-- 3rd party packages -->
     <PackageVersion Include="Ardalis.ApiEndpoints" Version="4.1.0" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageVersion Include="FastEndpoints" Version="5.13.0" />
-    <PackageVersion Include="FastEndpoints.Generator" Version="5.13.0" />
-    <PackageVersion Include="FastEndpoints.Swagger" Version="5.13.0" />
+    <PackageVersion Include="FastEndpoints" Version="5.14.0" />
+    <PackageVersion Include="FastEndpoints.Generator" Version="5.14.0" />
+    <PackageVersion Include="FastEndpoints.Swagger" Version="5.14.0" />
     <PackageVersion Include="Asp.Versioning.Mvc.ApiExplorer" Version="7.0.0" />
     <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="11.6.0" />
     <PackageVersion Include="FastExpressionCompiler" Version="3.3.4" />
@@ -60,7 +60,7 @@
     <PackageVersion Include="Serilog.Sinks.Console" Version="4.1.0" />
     <PackageVersion Include="Serilog.Sinks.Seq" Version="5.2.2" />
     <PackageVersion Include="ErrorOr" Version="1.2.1" />
-    <PackageVersion Include="ZiggyCreatures.FusionCache" Version="0.21.0" />
+    <PackageVersion Include="ZiggyCreatures.FusionCache" Version="0.22.0" />
     <PackageVersion Include="Mediator.Abstractions" Version="2.1.5" />
     <PackageVersion Include="Mediator.SourceGenerator" Version="2.1.5" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.5.0" />
