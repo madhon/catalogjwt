@@ -17,7 +17,6 @@
 	<PackageReference Include="FastEndpoints.Swagger" />
 	<PackageReference Include="Riok.Mapperly" />
 	<PackageReference Include="Microsoft.AspNetCore.HeaderPropagation" />
-	  <PackageReference Include="Microsoft.AspNetCore.RateLimiting" />	  
 	<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
 	<PackageReference Include="Newtonsoft.Json" />
 	<PackageReference Include="System.Text.Encodings.Web" />
