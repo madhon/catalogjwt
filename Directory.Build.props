@@ -18,12 +18,10 @@
 
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-	<AccelerateBuildsInVisualStudio >true</AccelerateBuildsInVisualStudio>
+    <AccelerateBuildsInVisualStudio >true</AccelerateBuildsInVisualStudio>
   </PropertyGroup>
-
 
   <PropertyGroup Condition="'$(TF_BUILD)' == 'true' or '$(GITHUB_ACTIONS)' == 'true'">
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
-
 </Project>
