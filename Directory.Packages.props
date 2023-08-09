@@ -7,7 +7,7 @@
     <!-- Microsoft packages -->
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.9" />
     <PackageVersion Include="Microsoft.AspNetCore.DataProtection.EntityFrameworkCore" Version="7.0.9" />
-    <PackageVersion Include="Microsoft.AspNetCore.HeaderPropagation" Version="7.0.9" />
+    <PackageVersion Include="Microsoft.AspNetCore.HeaderPropagation" Version="7.0.10" />
     <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.9" />
     <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="7.0.9" />
     <PackageVersion Include="Microsoft.Identity.Client" Version="4.55.0" />
