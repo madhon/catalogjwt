@@ -18,6 +18,7 @@
 	<PackageReference Include="Riok.Mapperly" />
 	<PackageReference Include="Microsoft.AspNetCore.HeaderPropagation" />
 	<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
 	<PackageReference Include="Newtonsoft.Json" />
 	<PackageReference Include="System.Text.Encodings.Web" />
 	<PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" />
