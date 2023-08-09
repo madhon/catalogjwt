@@ -8,10 +8,6 @@ var app = builder.Build();
 
 app.ConfigureApplication();
 
-
-
-
-
 using (var scope = app.Services.CreateScope())
 {
     var scopedProvider = scope.ServiceProvider;
@@ -28,7 +24,5 @@ using (var scope = app.Services.CreateScope())
         Console.WriteLine(e);
     }
 }
-
-
 
 app.Run();
