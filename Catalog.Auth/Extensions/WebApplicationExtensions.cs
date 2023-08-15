@@ -1,6 +1,5 @@
 ﻿namespace Catalog.Auth
 {
-
 	using Catalog.Auth.Login;
     using Catalog.Auth.Signup;
     using Microsoft.OpenApi.Models;
@@ -18,7 +17,7 @@
             app.UseSerilogRequestLogging();
 
             app.UseRouting();
-			
+
             app.UseMyRateLimiter();
 
 			app.UseAuthentication();
@@ -59,12 +58,12 @@
 
                 app.UseHeaderPropagation();
 
-
                 var versionSet = app.NewApiVersionSet()
                     .HasApiVersion(new ApiVersion(1.0))
                     .ReportApiVersions()
                     .Build();
 
+#pragma warning disable ASP0014
                 app.UseEndpoints(endpoints =>
                 {
                     endpoints.MapHealthChecks("/health/startup");
@@ -74,6 +73,7 @@
                     endpoints.MapLoginEndpoint(versionSet);
                     endpoints.MapSignUpEndpoint(versionSet);
                 });
+#pragma warning restore ASP0014
             }
         }
     }
