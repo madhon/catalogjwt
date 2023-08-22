@@ -10,7 +10,7 @@ WORKDIR /src
 COPY ["Catalog.Auth/Catalog.Auth.csproj", "Catalog.Auth/"]
 RUN dotnet restore "Catalog.Auth/Catalog.Auth.csproj"
 COPY . .
-WORKDIR "/src/Catalog.Auth"
+WORKDIR /src/Catalog.Auth
 RUN dotnet build "Catalog.Auth.csproj" -c Release -o /app/build
 
 FROM build AS publish
