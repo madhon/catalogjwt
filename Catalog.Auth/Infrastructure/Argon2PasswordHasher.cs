@@ -12,17 +12,14 @@
         /// Creates a new Argon2PasswordHasher.
         /// </summary>
         /// <param name="optionsAccessor">optional Argon2PasswordHasherOptions</param>
-        public Argon2PasswordHasher(IOptions<Argon2PasswordHasherOptions> optionsAccessor = null)
+        public Argon2PasswordHasher(IOptions<Argon2PasswordHasherOptions>? optionsAccessor = null)
         {
             options = optionsAccessor?.Value ?? new Argon2PasswordHasherOptions();
         }
         
         public string HashPassword(TUser user, string password)
         {
-            if (string.IsNullOrWhiteSpace(password))
-            {
-                throw new ArgumentNullException(nameof(password));
-            }
+            ArgumentNullException.ThrowIfNullOrEmpty(password);
 
             return PasswordHash.ArgonHashString(password, ParseStrength()).TrimEnd('\0');
         }
@@ -55,7 +52,7 @@
                 case Argon2HashStrength.Medium:
                     return PasswordHash.StrengthArgon.Medium;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    return PasswordHash.StrengthArgon.Medium;
             }
         }
     }

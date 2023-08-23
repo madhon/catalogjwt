@@ -29,10 +29,7 @@
 
 			builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 
-			builder.Services.AddSwaggerGen(c =>
-			{
-				//c.CustomSchemaIds(type=> type.ToString());
-			});
+			builder.Services.AddSwaggerGen();
 
 			var jwtOpts = new JwtOptions();
 			configuration.Bind(JwtOptions.Jwt, jwtOpts);

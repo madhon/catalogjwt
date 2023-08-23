@@ -45,11 +45,10 @@
                             options.DisplayRequestDuration();
                             options.DefaultModelExpandDepth(-1);
 
-                            foreach (var description in app.DescribeApiVersions())
+                            foreach (var description in app.DescribeApiVersions().Select(d => d.GroupName))
                             {
-                                var url = $"/docs/{description.GroupName}/openapi.json";
-                                var name = description.GroupName.ToUpperInvariant();
-                                options.SwaggerEndpoint(url, name);
+                                var url = $"/docs/{description}/openapi.json";
+                                options.SwaggerEndpoint(url, description);
                             }
                         });
 
