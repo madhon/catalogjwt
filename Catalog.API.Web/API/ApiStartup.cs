@@ -47,8 +47,8 @@
 
 			services.AddFastEndpoints(o =>
 			{
-				o.SourceGeneratorDiscoveredTypes = DiscoveredTypes.All;
-			});
+                o.SourceGeneratorDiscoveredTypes.AddRange(DiscoveredTypes.All);
+            });
 
 			services.AddHeaderPropagation(options => options.Headers.Add("x-correlation-id"));
 
