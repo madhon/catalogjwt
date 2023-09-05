@@ -67,7 +67,7 @@
     <!-- Analyzers -->
     <PackageVersion Include="AsyncFixer" Version="1.6.0" />
     <PackageVersion Include="Meziantou.Analyzer" Version="2.0.83" />
-    <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.8.0.76515" />
+    <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.9.0.77355" />
     <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.7.30" />
     <PackageVersion Include="SecurityCodeScan.VS2019" Version="5.6.7" />
   </ItemGroup>
