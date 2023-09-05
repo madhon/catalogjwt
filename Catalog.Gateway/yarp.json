@@ -7,7 +7,7 @@
           "Path": "/gateway/products/{pageSize}/{pageIndex}"
         },
         "Transforms": [
-          { "PathPattern": "/api/v1/catalog/products2/{pageSize}/{pageIndex}" }
+          { "PathPattern": "/api/v1/catalog/products/{pageSize}/{pageIndex}" }
         ]
       },
       "authRoute": {
