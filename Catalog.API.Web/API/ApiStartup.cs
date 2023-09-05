@@ -77,6 +77,7 @@
 				endpoints.MapHealthChecks("/health/startup");
 				endpoints.MapHealthChecks("/healthz", new HealthCheckOptions { Predicate = _ => false });
 				endpoints.MapHealthChecks("/ready", new HealthCheckOptions { Predicate = _ => false });
+				endpoints.MapAddBrandEndpoint();
 				endpoints.MapProductsEndpoint();
 				endpoints.MapPrometheusScrapingEndpoint();
 			});
