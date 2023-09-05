@@ -1,56 +1,49 @@
-﻿namespace Catalog.API.Web.API.Endpoints;
-
-using Catalog.API.Application.Features.ListProducts;
-using Catalog.API.Domain.Entities;
-using Catalog.API.Web.API.Endpoints.Requests;
-using Catalog.API.Web.API.ViewModel;
-using Mediator;
-using ZiggyCreatures.Caching.Fusion;
-
-public sealed class ProductsEndpoint : Endpoint<ProductsRequest>
+﻿namespace Catalog.API.Web.API.Endpoints
 {
-    private readonly IFusionCache cache;
-    private readonly IMediator mediator;
+	using Catalog.API.Application.Features.ListProducts;
+	using Catalog.API.Web.API.ViewModel;
+	using Mediator;
+	using Microsoft.AspNetCore.Authorization;
+	using Microsoft.AspNetCore.Http.HttpResults;
+	using ZiggyCreatures.Caching.Fusion;
 
-    public ProductsEndpoint(IFusionCache cache, IMediator mediator)
-    {
-        this.cache = cache;
-        this.mediator = mediator;
-    }
+	public static class ProductsEndpoint
+	{
 
-    public override void Configure()
-    {
-        Version(1);
-        Get("catalog/products/{pageSize}/{PageIndex}");
-        Summary(s =>
-        {
-            s.Summary = "Retrieves paged products";
-            s.ExampleRequest = new ProductsRequest
-            {
-                PageIndex = 0,
-                PageSize = 10
-            };
-        });
-        Roles("read");
-        Throttle(hitLimit: 4, durationSeconds: 12);
-    }
+		public static IEndpointRouteBuilder MapProductsEndpoint(this IEndpointRouteBuilder app)
+		{
+			app.MapGet("api/v1/catalog/products/{pageSize}/{pageIndex}", [Authorize(Roles = "read")]
+			async Task<Results<Ok<PaginatedItemsViewModel<Product>>, ProblemHttpResult, UnauthorizedHttpResult>>
+				(
+					int pageSize,
+					int pageIndex,
+					IFusionCache cache,
+					IMediator mediator,
+					CancellationToken ct
+				)
+				=>
+				{
+					var cacheKey = $"products-all-{pageIndex}-{pageSize}";
 
-    public override async Task HandleAsync(ProductsRequest req, CancellationToken ct)
-    {
-        //var n = User.Id();
-        //var x = User.Azp();
+					var model = await cache.GetOrSetAsync(cacheKey, async _ =>
+					{
+						var response = await mediator.Send(new ListProductsRequest(pageIndex, pageSize), ct);
 
-        var cacheKey = $"products-all-{req.PageIndex}-{req.PageSize}";
-       
+						return new PaginatedItemsViewModel<Product>(pageIndex, pageSize, response.TotalItems, response.Items);
 
-        var model = await cache.GetOrSetAsync(cacheKey, async _ =>
-        {
-            var response = await mediator.Send(new ListProductsRequest(req.PageIndex, req.PageSize), ct);
+					}, token: ct).ConfigureAwait(false);
 
-            return new PaginatedItemsViewModel<Product>(req.PageIndex, req.PageSize, response.TotalItems, response.Items);
+					return TypedResults.Ok(model);
+				})
+				.WithName("products.get")
+				.WithTags("products")
+				.Produces<PaginatedItemsViewModel<Product>>(200, "application/json")
+				.Produces<UnauthorizedHttpResult>()
+				.ProducesProblemDetails()
+				.WithOpenApi()
+				.RequireAuthorization();
 
-        }, token: ct).ConfigureAwait(false);
-
-        await SendAsync(model!, 200, ct).ConfigureAwait(false);
-    }
+			return app;
+		}
+	}
 }
