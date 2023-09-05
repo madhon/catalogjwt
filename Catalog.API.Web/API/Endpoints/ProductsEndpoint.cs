@@ -1,27 +1,27 @@
-﻿namespace Catalog.API.Web.API.Endpoints
+﻿namespace Catalog.API.Web.API.Endpoints;
+
+using Catalog.API.Application.Features.ListProducts;
+using Catalog.API.Web.API.ViewModel;
+using Mediator;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
+using ZiggyCreatures.Caching.Fusion;
+
+public static class ProductsEndpoint
 {
-	using Catalog.API.Application.Features.ListProducts;
-	using Catalog.API.Web.API.ViewModel;
-	using Mediator;
-	using Microsoft.AspNetCore.Authorization;
-	using Microsoft.AspNetCore.Http.HttpResults;
-	using ZiggyCreatures.Caching.Fusion;
 
-	public static class ProductsEndpoint
+	public static IEndpointRouteBuilder MapProductsEndpoint(this IEndpointRouteBuilder app)
 	{
-
-		public static IEndpointRouteBuilder MapProductsEndpoint(this IEndpointRouteBuilder app)
-		{
-			app.MapGet("api/v1/catalog/products/{pageSize}/{pageIndex}", [Authorize(Roles = "read")]
-			async Task<Results<Ok<PaginatedItemsViewModel<Product>>, ProblemHttpResult, UnauthorizedHttpResult>>
-				(
-					int pageSize,
-					int pageIndex,
-					IFusionCache cache,
-					IMediator mediator,
-					CancellationToken ct
-				)
-				=>
+		app.MapGet("api/v1/catalog/products/{pageSize}/{pageIndex}", [Authorize(Roles = "read")]
+				async Task<Results<Ok<PaginatedItemsViewModel<Product>>, ProblemHttpResult, UnauthorizedHttpResult>>
+					(
+						int pageSize,
+						int pageIndex,
+						IFusionCache cache,
+						IMediator mediator,
+						CancellationToken ct
+					)
+					=>
 				{
 					var cacheKey = $"products-all-{pageIndex}-{pageSize}";
 
@@ -35,15 +35,14 @@
 
 					return TypedResults.Ok(model);
 				})
-				.WithName("products.get")
-				.WithTags("products")
-				.Produces<PaginatedItemsViewModel<Product>>(200, "application/json")
-				.Produces<UnauthorizedHttpResult>()
-				.ProducesProblemDetails()
-				.WithOpenApi()
-				.RequireAuthorization();
+			.WithName("products.get")
+			.WithTags("products")
+			.Produces<PaginatedItemsViewModel<Product>>(200, "application/json")
+			.Produces<UnauthorizedHttpResult>()
+			.ProducesProblemDetails()
+			.WithOpenApi()
+			.RequireAuthorization();
 
-			return app;
-		}
+		return app;
 	}
 }

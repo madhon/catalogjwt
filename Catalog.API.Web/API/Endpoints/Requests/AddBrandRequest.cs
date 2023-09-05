@@ -1,8 +1,7 @@
-﻿namespace Catalog.API.Web.API.Endpoints.Requests
+﻿namespace Catalog.API.Web.API.Endpoints.Requests;
+
+public sealed class AddBrandRequest
 {
-    public sealed class AddBrandRequest
-    {
-        public string BrandName { get; set; } = null!;
-        public string Description { get; set; } = null!;
-    }
+    public string BrandName { get; set; } = null!;
+    public string Description { get; set; } = null!;
 }
