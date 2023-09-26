@@ -15,15 +15,6 @@
             var resourceBuilder = GetResourceBuilder(builder.Environment);
             var otlpEndpoint = builder.Configuration["OTEL_EXPORTER_OTLP_ENDPOINT"];
 
-            if (!string.IsNullOrWhiteSpace(otlpEndpoint))
-            {
-                builder.Logging.AddOpenTelemetry(logging =>
-                {
-                    logging.SetResourceBuilder(resourceBuilder)
-                        .AddOtlpExporter();
-                });
-            }
-
             builder.Services.AddOpenTelemetry().WithTracing(tracing =>
                 {
                     tracing.SetResourceBuilder(resourceBuilder)

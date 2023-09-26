@@ -1,7 +1,7 @@
 ﻿namespace Catalog.Auth
 {
     using System.Diagnostics;
-    using OpenTelemetry;
+    using OpenTelemetry.Exporter;
     using OpenTelemetry.Logs;
     using OpenTelemetry.Metrics;
     using OpenTelemetry.Resources;
@@ -13,15 +13,6 @@
         {
             var resourceBuilder = GetResourceBuilder(builder.Environment);
             var otlpEndpoint = builder.Configuration["OTEL_EXPORTER_OTLP_ENDPOINT"];
-
-            if (!string.IsNullOrWhiteSpace(otlpEndpoint))
-            {
-                builder.Logging.AddOpenTelemetry(logging =>
-                {
-                    logging.SetResourceBuilder(resourceBuilder)
-                        .AddOtlpExporter();
-                });
-            }
 
             builder.Services.AddOpenTelemetry().WithTracing(tracing =>
                 {
