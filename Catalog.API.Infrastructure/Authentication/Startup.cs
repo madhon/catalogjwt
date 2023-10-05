@@ -19,6 +19,8 @@
             AuthenticationSettings authSettings)
         {
 
+            services.AddAuthorization();
+
             services.AddAuthentication(auth =>
             {
                 auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
