@@ -32,7 +32,7 @@
     <PackageVersion Include="FastEndpoints" Version="5.18.0" />
     <PackageVersion Include="FastEndpoints.Generator" Version="5.18.0" />
     <PackageVersion Include="FastEndpoints.Swagger" Version="5.18.0" />
-    <PackageVersion Include="Asp.Versioning.Mvc.ApiExplorer" Version="7.0.1" />
+    <PackageVersion Include="Asp.Versioning.Mvc.ApiExplorer" Version="7.1.0" />
     <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="11.7.1" />
     <PackageVersion Include="FastExpressionCompiler" Version="3.3.4" />
     <PackageVersion Include="Mapster" Version="7.4.0" />
