@@ -2,7 +2,6 @@
 {
     using System.Diagnostics;
     using System.Reflection;
-    using OpenTelemetry;
     using OpenTelemetry.Logs;
     using OpenTelemetry.Metrics;
     using OpenTelemetry.Resources;
@@ -15,7 +14,8 @@
             var resourceBuilder = GetResourceBuilder(builder.Environment);
             var otlpEndpoint = builder.Configuration["OTEL_EXPORTER_OTLP_ENDPOINT"];
 
-            builder.Services.AddOpenTelemetry().WithTracing(tracing =>
+            builder.Services.AddOpenTelemetry()
+                .WithTracing(tracing =>
                 {
                     tracing.SetResourceBuilder(resourceBuilder)
                         .AddHttpClientInstrumentation()
@@ -28,7 +28,7 @@
 
                     if (!string.IsNullOrWhiteSpace(otlpEndpoint))
                     {
-                        tracing.AddOtlpExporter();
+                        tracing.AddOtlpExporter(opts => opts.Endpoint = new Uri(otlpEndpoint));
                     }
 
                     tracing.AddSource("Catalog.Gateway");
@@ -40,6 +40,11 @@
                         .AddAspNetCoreInstrumentation()
                         .AddHttpClientInstrumentation()
                         .AddRuntimeInstrumentation();
+
+                    if (!string.IsNullOrWhiteSpace(otlpEndpoint))
+                    {
+                        metrics.AddOtlpExporter(opts => opts.Endpoint = new Uri(otlpEndpoint));
+                    }
                 });
 
             return builder;

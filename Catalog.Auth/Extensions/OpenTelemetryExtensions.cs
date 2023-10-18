@@ -1,7 +1,6 @@
 ﻿namespace Catalog.Auth
 {
     using System.Diagnostics;
-    using OpenTelemetry.Exporter;
     using OpenTelemetry.Logs;
     using OpenTelemetry.Metrics;
     using OpenTelemetry.Resources;
@@ -28,7 +27,7 @@
 
                     if (!string.IsNullOrWhiteSpace(otlpEndpoint))
                     {
-                        tracing.AddOtlpExporter();
+                        tracing.AddOtlpExporter(opts => opts.Endpoint = new Uri(otlpEndpoint));
                     }
 
                     tracing.AddSource("Catalog.Auth");
@@ -40,6 +39,11 @@
                         .AddAspNetCoreInstrumentation()
                         .AddHttpClientInstrumentation()
                         .AddRuntimeInstrumentation();
+
+                    if (!string.IsNullOrWhiteSpace(otlpEndpoint))
+                    {
+                        metrics.AddOtlpExporter(opts => opts.Endpoint = new Uri(otlpEndpoint));
+                    }
                 });
 
             return builder;
