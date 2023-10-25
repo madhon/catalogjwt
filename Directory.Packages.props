@@ -18,7 +18,7 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="7.0.12" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.12" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.12" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.12" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.13" />
     <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="7.0.12" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
