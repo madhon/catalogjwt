@@ -1,18 +1,17 @@
-﻿namespace Catalog.Gateway
+﻿namespace Catalog.Gateway.Extensions;
+
+public static class WebApplicationExtensions
 {
-    public static class WebApplicationExtensions
+    public static void ConfigureApplication(this WebApplication app)
     {
-        public static void ConfigureApplication(this WebApplication app)
-        {
-            app.UseSerilogRequestLogging();
+        app.UseSerilogRequestLogging();
 
-            app.UseRouting();
+        app.UseRouting();
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+        app.UseAuthentication();
+        app.UseAuthorization();
             
-            app.MapReverseProxy();
-            app.MapPrometheusScrapingEndpoint();
-        }
+        app.MapReverseProxy();
+        app.MapPrometheusScrapingEndpoint();
     }
 }

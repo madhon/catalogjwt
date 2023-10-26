@@ -4,6 +4,8 @@ using Catalog.API.Web.API.Endpoints;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.RateLimiting;
 using System.Threading.RateLimiting;
+using Catalog.API.Web.API.Validators;
+using FluentValidation;
 using ZiggyCreatures.Caching.Fusion;
 
 public static class ApiStartup
@@ -33,6 +35,8 @@ public static class ApiStartup
 
 		services.AddHealthChecks();
 
+		services.AddProblemDetails();
+		
 		services.AddHttpContextAccessor();
 
 		services.AddMemoryCache();
@@ -43,15 +47,11 @@ public static class ApiStartup
 				opts.DefaultEntryOptions = new FusionCacheEntryOptions { Duration = TimeSpan.FromMinutes(2) };
 			});
 
+		services.AddValidatorsFromAssemblyContaining<AddBrandValidator>();
+		
 		services.AddMediator(opts => opts.ServiceLifetime = ServiceLifetime.Scoped);
 
-		services.AddFastEndpoints(o =>
-		{
-			o.SourceGeneratorDiscoveredTypes.AddRange(DiscoveredTypes.All);
-		});
-
 		services.AddHeaderPropagation(options => options.Headers.Add("x-correlation-id"));
-
 	}
 
 	public static void UseMyApi(this IApplicationBuilder app, IConfiguration configuration, IWebHostEnvironment environment)
@@ -59,16 +59,6 @@ public static class ApiStartup
 		app.UseForwardedHeaders();
 
 		app.UseRateLimiter();
-
-		app.UseFastEndpoints(c =>
-		{
-			c.Endpoints.ShortNames = true;
-			c.Endpoints.RoutePrefix = "api";
-			c.Versioning.Prefix = "v";
-			c.Versioning.DefaultVersion = 1;
-			c.Versioning.PrependToRoute = true;
-			c.Errors.UseProblemDetails();
-		});
 
 		app.UseHeaderPropagation();
 
@@ -79,6 +69,7 @@ public static class ApiStartup
 			endpoints.MapHealthChecks("/ready", new HealthCheckOptions { Predicate = _ => false });
 			endpoints.MapAddBrandEndpoint();
 			endpoints.MapProductsEndpoint();
+			endpoints.MapAddProductEndpoint();
 			endpoints.MapPrometheusScrapingEndpoint();
 		});
 

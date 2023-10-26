@@ -1,23 +1,25 @@
 ﻿namespace Catalog.API.Web.API.Endpoints;
 
-using Catalog.API.Application.Abstractions;
-using Catalog.API.Web.API.Endpoints.Requests;
-using Catalog.API.Web.API.Mappers;
-using Microsoft.AspNetCore.Http.HttpResults;
-
 public static class AddBrandEndpoint
 {
     public static IEndpointRouteBuilder MapAddBrandEndpoint(this IEndpointRouteBuilder app)
     {
         app.MapPost("api/v1/catalog/addBrand",
-            async Task<Results<Ok, ProblemHttpResult, UnauthorizedHttpResult>>
+            async Task<Results<Ok, ProblemHttpResult, UnauthorizedHttpResult, ValidationProblem>>
                 (
                     AddBrandRequest request,
                     ICatalogDbContext catalogContext,
+                    IValidator<AddBrandRequest> validator,
                     CancellationToken ct
                 )
                 =>
             {
+                var validationResult = await validator.ValidateAsync(request);
+                if (!validationResult.IsValid)
+                {
+                    return TypedResults.ValidationProblem(validationResult.ToDictionary());
+                }
+                
                 var mapper = new BrandMapper();
                 var item = mapper.MapAddBrandRequestToBrand(request);
 
@@ -30,7 +32,7 @@ public static class AddBrandEndpoint
             .WithTags("brands")
             .Produces<Ok>()
             .Produces<UnauthorizedHttpResult>()
-            .ProducesProblemDetails()
+            .ProducesProblem(400)
             .WithOpenApi()
             .RequireAuthorization();
 

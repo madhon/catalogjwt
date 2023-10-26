@@ -1,34 +1,35 @@
-﻿namespace Catalog.API.Web
+﻿namespace Catalog.API.Web;
+
+using Catalog.API.Application;
+using Catalog.API.Web.API;
+using Catalog.API.Web.Swagger;
+using Catalog.API.Web.Telemetry;
+
+public class Startup
 {
-    using Catalog.API.Application;
-    using Catalog.API.Web.API;
-    using Catalog.API.Web.Swagger;
-    using Catalog.API.Web.Telemetry;
+    protected IConfiguration Configuration { get; }
+    protected IWebHostEnvironment Environment { get; }
 
-    public class Startup
+    public Startup(IConfiguration configuration, IWebHostEnvironment environment)
+        => (Configuration, Environment) = (configuration, environment);
+
+    public void ConfigureServices(IServiceCollection services)
     {
-        protected IConfiguration Configuration { get; }
-        protected IWebHostEnvironment Environment { get; }
+        services.AddMyApi();
+        services.AddMySwagger(Configuration);
+        services.AddMyTelemetry(Configuration, Environment);
+        services.AddMyInfrastructureDependencies(Configuration, Environment);
+        services.AddApplicationServices();
+    }
 
-        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
-            => (Configuration, Environment) = (configuration, environment);
-
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddMyApi();
-            services.AddMySwagger(Configuration);
-            services.AddMyTelemetry(Configuration, Environment);
-            services.AddMyInfrastructureDependencies(Configuration, Environment);
-            services.AddApplicationServices();
-        }
-
-        public void Configure(IApplicationBuilder app)
-        {
-            app.UseMyRequestLogging();
-            app.UseRouting();
-            app.UseMyInfrastructure(Configuration, Environment);
-            app.UseMyApi(Configuration, Environment);
-            app.UseMySwagger(Configuration);
-        }
+    public void Configure(IApplicationBuilder app)
+    {
+        app.UseMyRequestLogging();
+        app.UseExceptionHandler();
+        app.UseStatusCodePages();
+        app.UseRouting();
+        app.UseMyInfrastructure(Configuration, Environment);
+        app.UseMyApi(Configuration, Environment);
+        app.UseMySwagger(Configuration);
     }
 }

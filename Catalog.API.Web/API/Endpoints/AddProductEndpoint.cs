@@ -1,33 +1,36 @@
 ﻿namespace Catalog.API.Web.API.Endpoints;
 
-using Catalog.API.Application.Abstractions;
-using Catalog.API.Web.API.Endpoints.Requests;
-using Catalog.API.Web.API.Mappers;
-
-public sealed class AddProductEndpoint : Endpoint<AddProductRequest>
+public static class AddProductEndpoint
 {
-    private readonly ICatalogDbContext catalogContext;
-
-    public AddProductEndpoint(ICatalogDbContext context)
+    public static IEndpointRouteBuilder MapAddProductEndpoint(this IEndpointRouteBuilder app)
     {
-        this.catalogContext = context;
-    }
+        app.MapPost("api/v1/catalog/addProduct",
+                async Task<Results<Ok, ProblemHttpResult, UnauthorizedHttpResult>>
+                    (
+                        AddProductRequest request,
+                        ICatalogDbContext catalogContext,
+                        CancellationToken ct
+                    )
+                    =>
+                {
+                    var mapper = new ProductMapper();
+                    var item = mapper.MapAddProductRequestToProduct(request);
+                    item.Brand = null;
 
-    public override void Configure()
-    {
-        Version(1);
-        Post("catalog/addProduct");
-    }
+                    catalogContext.Products.Add(item);
+                    await catalogContext.SaveChangesAsync(ct).ConfigureAwait(false);
 
-    public override async Task HandleAsync(AddProductRequest req, CancellationToken ct)
-    {
-        var mapper = new ProductMapper();
-        var item = mapper.MapAddProductRequestToProduct(req);
+                    return TypedResults.Ok();
+                })
+            .WithName("products.add")
+            .WithTags("products")
+            .Produces<Ok>()
+            .Produces<UnauthorizedHttpResult>()
+            .ProducesProblem(400)
+            .WithOpenApi()
+            .RequireAuthorization();
+
+        return app;
         
-        item.Brand = null;
-
-        catalogContext.Products.Add(item);
-        await catalogContext.SaveChangesAsync(ct).ConfigureAwait(false);
-        await SendOkAsync(ct).ConfigureAwait(false);
     }
 }

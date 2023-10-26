@@ -4,7 +4,6 @@ using Catalog.API.Application.Features.ListProducts;
 using Catalog.API.Web.API.ViewModel;
 using Mediator;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using ZiggyCreatures.Caching.Fusion;
 
 public static class ProductsEndpoint
@@ -39,7 +38,7 @@ public static class ProductsEndpoint
 			.WithTags("products")
 			.Produces<PaginatedItemsViewModel<Product>>(200, "application/json")
 			.Produces<UnauthorizedHttpResult>()
-			.ProducesProblemDetails()
+			.ProducesProblem(400)
 			.WithOpenApi()
 			.RequireAuthorization();
 

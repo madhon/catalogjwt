@@ -3,7 +3,7 @@
 using Catalog.API.Web.API.Endpoints.Requests;
 using FluentValidation;
 
-public class AddBrandValidator : Validator<AddBrandRequest>
+public class AddBrandValidator : AbstractValidator<AddBrandRequest>
 {
     public AddBrandValidator()
     {
