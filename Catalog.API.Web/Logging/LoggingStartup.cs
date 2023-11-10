@@ -20,7 +20,6 @@ public static class LoggingStartup
             loggerConfiguration
                 .Enrich.WithProperty("Application", context.HostingEnvironment.ApplicationName)
                 .Enrich.FromLogContext()
-                .Enrich.WithCorrelationIdHeader("x-correlation-id")
                 .Enrich.WithExceptionDetails();
 
             loggerConfiguration.MinimumLevel.Override("Microsoft", LogEventLevel.Information);
