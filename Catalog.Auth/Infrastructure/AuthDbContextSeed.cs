@@ -6,14 +6,14 @@
             UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
 
-            if (!await roleManager.RoleExistsAsync("read"))
+            if (!await roleManager.RoleExistsAsync("read").ConfigureAwait(false))
             {
-                await roleManager.CreateAsync(new IdentityRole("read"));
+                await roleManager.CreateAsync(new IdentityRole("read")).ConfigureAwait(false);
             }
 
-            if (!await roleManager.RoleExistsAsync("write"))
+            if (!await roleManager.RoleExistsAsync("write").ConfigureAwait(false))
             {
-                await roleManager.CreateAsync(new IdentityRole("write"));
+                await roleManager.CreateAsync(new IdentityRole("write")).ConfigureAwait(false);
             }
 
         }
