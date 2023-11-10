@@ -47,7 +47,7 @@
                 // allowed to login
                 
 
-                var additionalClaims = new Dictionary<string, object>
+                var additionalClaims = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase)
                 {
                     { JwtRegisteredClaimNames.Sub, user!.UserName!},
                     { JwtClaimTypes.UserId, user.Id},

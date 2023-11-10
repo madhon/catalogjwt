@@ -16,7 +16,7 @@ using (var scope = app.Services.CreateScope())
         var authContext = scopedProvider.GetRequiredService<AuthDbContext>();
         var userManager = scopedProvider.GetRequiredService<UserManager<ApplicationUser>>();
         var roleManager = scopedProvider.GetRequiredService<RoleManager<IdentityRole>>();
-        await AuthDbContextSeed.SeedAsync(authContext, userManager, roleManager);
+        await AuthDbContextSeed.SeedAsync(authContext, userManager, roleManager).ConfigureAwait(false);
 
     }
     catch (Exception e)

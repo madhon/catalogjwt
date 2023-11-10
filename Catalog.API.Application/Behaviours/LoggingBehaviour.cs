@@ -20,7 +20,7 @@
 
             logger.LogInformation("Request: {Name}", requestName);
 
-            return await next(message, cancellationToken);
+            return await next(message, cancellationToken).ConfigureAwait(false);
         }
     }
 }

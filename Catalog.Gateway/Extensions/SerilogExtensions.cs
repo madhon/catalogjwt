@@ -45,7 +45,11 @@ public static class SerilogExtensions
     private sealed class SerilogOptions
     {
         public bool UseConsole { get; set; } = true;
+#pragma warning disable S3459
+#pragma warning disable S1144
         public string? SeqUrl { get; set; }
+#pragma warning restore S1144
+#pragma warning restore S3459
 
         public string LogTemplate { get; set; } =
             "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} {Level:u3} - {Message:lj}{NewLine}{Exception}";

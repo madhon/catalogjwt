@@ -14,7 +14,7 @@ public static class AddBrandEndpoint
                 )
                 =>
             {
-                var validationResult = await validator.ValidateAsync(request);
+                var validationResult = await validator.ValidateAsync(request).ConfigureAwait(false);
                 if (!validationResult.IsValid)
                 {
                     return TypedResults.ValidationProblem(validationResult.ToDictionary());

@@ -26,7 +26,7 @@ public static class ProductsEndpoint
 
 					var model = await cache.GetOrSetAsync(cacheKey, async _ =>
 					{
-						var response = await mediator.Send(new ListProductsRequest(pageIndex, pageSize), ct);
+						var response = await mediator.Send(new ListProductsRequest(pageIndex, pageSize), ct).ConfigureAwait(false);
 
 						return new PaginatedItemsViewModel<Product>(pageIndex, pageSize, response.TotalItems, response.Items);
 

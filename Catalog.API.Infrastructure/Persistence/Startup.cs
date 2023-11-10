@@ -26,7 +26,7 @@
 
         public static void Configure(IApplicationBuilder app, IConfiguration configuration)
         {
-
+            // empty as not currently used
         }
     }
 }
