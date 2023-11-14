@@ -24,8 +24,8 @@
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.1" />
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
-    <PackageVersion Include="Azure.Core" Version="1.35.0" />
-    <PackageVersion Include="Azure.Identity" Version="1.10.3" />
+    <PackageVersion Include="Azure.Core" Version="1.36.0" />
+    <PackageVersion Include="Azure.Identity" Version="1.10.4" />
     <!-- 3rd party packages -->
     <PackageVersion Include="Asp.Versioning.Mvc.ApiExplorer" Version="7.1.0" />
     <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="11.8.0" />
