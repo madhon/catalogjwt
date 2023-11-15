@@ -9,7 +9,7 @@ on:
 jobs:
   analyze:
     name: DevSecOps
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     permissions:
       actions: read
       contents: read
@@ -19,8 +19,8 @@ jobs:
       fail-fast: false
 
     steps:
-
-    - uses: actions/checkout@v4
+    - name: checkout Code
+      uses: actions/checkout@v4
 
     - name: Run Microsoft Security DevOps
       uses: microsoft/security-devops-action@v1
