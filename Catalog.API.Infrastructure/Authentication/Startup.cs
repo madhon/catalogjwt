@@ -1,5 +1,6 @@
 ﻿namespace Catalog.API.Infrastructure.Authentication
 {
+    using System.Linq;
     using Catalog.API.Infrastructure.Authentication.Settings;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
