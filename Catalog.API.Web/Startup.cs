@@ -3,7 +3,6 @@
 using Catalog.API.Application;
 using Catalog.API.Web.API;
 using Catalog.API.Web.Swagger;
-using Catalog.API.Web.Telemetry;
 
 public class Startup
 {
@@ -17,7 +16,6 @@ public class Startup
     {
         services.AddMyApi();
         services.AddMySwagger(Configuration);
-        services.AddMyTelemetry(Configuration, Environment);
         services.AddMyInfrastructureDependencies(Configuration, Environment);
         services.AddApplicationServices();
     }

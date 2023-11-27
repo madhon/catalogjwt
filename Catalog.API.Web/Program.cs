@@ -1,5 +1,7 @@
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+
 builder.Host.AddMySerilogLogging();
 
 var startup = new Startup(builder.Configuration, builder.Environment);
