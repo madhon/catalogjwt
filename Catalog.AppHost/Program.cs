@@ -8,9 +8,10 @@ var authService = builder.AddProject<Projects.Catalog_Auth>("auth")
 var catalogDb = builder.AddSqlServerConnection("CatalogDb", "Server=.;Database=CatalogDb;Trusted_Connection=True;");
 
 var catalogService = builder.AddProject<Projects.Catalog_API_Web>("catalog")
-    .WithReference(catalogDb);
+    .WithReference(catalogDb)
+    .WithReference(authService);
 
-builder.AddProject<Projects.Catalog_Gateway>("gatewat")
+builder.AddProject<Projects.Catalog_Gateway>("gateway")
     .WithReference(authService)
     .WithReference(catalogService);
 

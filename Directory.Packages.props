@@ -65,6 +65,5 @@
     <PackageVersion Include="SecurityCodeScan.VS2019" Version="5.6.7" />
 	  <!-- Aspire-->
 	  <PackageVersion Include="Aspire.Hosting" Version="8.0.0-preview.1.23557.2" />
-	  <PackageVersion Include="Aspire.Hosting.Azure" Version="8.0.0-preview.1.23557.2" />
   </ItemGroup>
 </Project>
