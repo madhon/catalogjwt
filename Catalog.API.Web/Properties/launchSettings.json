@@ -2,7 +2,7 @@
   "profiles": {
     "Catalog.API": {
       "commandName": "Project",
-      "launchUrl": "swagger",
+      "launchUrl": "docs",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
