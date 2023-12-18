@@ -4,6 +4,7 @@
     using Catalog.API.Infrastructure.Authentication.Settings;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
@@ -55,7 +56,7 @@
                         {
                             if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
                             {
-                                context.Response.Headers.Add("Token-Expired", "true");
+                                context.Response.Headers.Append("Token-Expired", "true");
                             }
 
                             return Task.CompletedTask;
