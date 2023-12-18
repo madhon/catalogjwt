@@ -63,5 +63,8 @@
     <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.15.0.81779" />
     <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.8.14" />
     <PackageVersion Include="SecurityCodeScan.VS2019" Version="5.6.7" />
+	  <!-- Aspire-->
+	  <PackageVersion Include="Aspire.Hosting" Version="8.0.0-preview.1.23557.2" />
+	  <PackageVersion Include="Aspire.Hosting.Azure" Version="8.0.0-preview.1.23557.2" />
   </ItemGroup>
 </Project>
