@@ -1,4 +1,6 @@
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateSlimBuilder(args);
+
+builder.WebHost.UseKestrelHttpsConfiguration();
 
 builder.AddServiceDefaults();
 

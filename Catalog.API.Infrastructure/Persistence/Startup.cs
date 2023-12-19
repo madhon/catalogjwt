@@ -1,6 +1,7 @@
 ﻿namespace Catalog.API.Infrastructure.Persistence
 {
     using Catalog.API.Application.Abstractions;
+    using EntityFramework.Exceptions.SqlServer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
@@ -18,6 +19,8 @@
                 {
                     sqlOpts.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
                 });
+
+                options.UseExceptionProcessor();
             });
 
             services.AddScoped<ICatalogDbContext, CatalogContext>();

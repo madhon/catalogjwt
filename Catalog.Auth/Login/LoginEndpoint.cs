@@ -12,7 +12,8 @@
                 .WithApiVersionSet(versionSet)
                 .Accepts<LoginRequest>("application/json")
                 .Produces<LoginResponse>(200, "application/json")
-                .Produces<UnauthorizedResult>()
+                .Produces<UnauthorizedHttpResult>()
+                .Produces<ProblemHttpResult>()
                 .ProducesValidationProblem()
                 .WithOpenApi();
 

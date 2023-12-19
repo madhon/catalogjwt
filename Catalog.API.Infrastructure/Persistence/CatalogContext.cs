@@ -32,7 +32,7 @@
                                 .Select(y => y.Id)
                                 .Skip(pageSize * pageIndex)
                                 .Take(pageSize)
-                                .Contains(x.Id))
+                                .Contains(x.Id)).Include(x=>x.Brand)
             );
 
         public IEnumerable<Product> GetProducts(int pageSize, int pageIndex)

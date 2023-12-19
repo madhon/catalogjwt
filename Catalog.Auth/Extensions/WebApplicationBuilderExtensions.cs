@@ -16,6 +16,11 @@
 				opts.KnownProxies.Clear();
 			});
 
+			services.ConfigureHttpJsonOptions(options =>
+			{
+				options.SerializerOptions.TypeInfoResolverChain.Insert(0, AppJsonSerializerContext.Default);
+			});
+			
 			services.AddProblemDetails();
 
 			builder.Services.AddEndpointsApiExplorer();

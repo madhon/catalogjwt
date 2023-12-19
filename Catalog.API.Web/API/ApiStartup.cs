@@ -18,7 +18,11 @@ public static class ApiStartup
 			opts.KnownNetworks.Clear();
 			opts.KnownProxies.Clear();
 		});
-
+		
+		services.ConfigureHttpJsonOptions(options =>
+		{
+			options.SerializerOptions.TypeInfoResolverChain.Insert(0, AppJsonSerializerContext.Default);
+		});
 
 		services.AddRateLimiter(rlo => {
 

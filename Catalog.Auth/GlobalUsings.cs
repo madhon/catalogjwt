@@ -21,7 +21,6 @@ global using Microsoft.IdentityModel.Tokens;
 global using Microsoft.AspNetCore.DataProtection;
 global using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 global using Microsoft.AspNetCore.Identity;
-global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.Http.HttpResults;
 global using Microsoft.Extensions.Options;
 
