@@ -10,6 +10,24 @@
           { "PathPattern": "/api/v1/catalog/products/{pageSize}/{pageIndex}" }
         ]
       },
+      "addBrandRoute": {
+        "ClusterId": "apiCluster",
+        "Match": {
+          "Path": "/gateway/brands/add"
+        },
+        "Transforms": [
+          { "PathPattern": "/api/v1/catalog/addBrand" }
+        ]
+      },
+      "addProductRoute": {
+        "ClusterId": "apiCluster",
+        "Match": {
+          "Path": "/gateway/products/add"
+        },
+        "Transforms": [
+          { "PathPattern": "/api/v1/catalog/addProduct" }
+        ]
+      },
       "authRoute": {
         "ClusterId": "authCluster",
         "Match": {
