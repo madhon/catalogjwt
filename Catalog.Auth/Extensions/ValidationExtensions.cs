@@ -1,27 +1,26 @@
-﻿namespace Catalog.Auth.Extensions
+﻿namespace Catalog.Auth.Extensions;
+
+using FluentValidation.Results;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+
+internal static class ValidationExtensions
 {
-    using FluentValidation.Results;
-    using Microsoft.AspNetCore.Mvc.ModelBinding;
-
-    public static class ValidationExtensions
+    internal static void AddToModelState(this ValidationResult result, ModelStateDictionary modelState)
     {
-        public static void AddToModelState(this ValidationResult result, ModelStateDictionary modelState)
+        foreach (var error in result.Errors)
         {
-            foreach (var error in result.Errors)
-            {
-                modelState.AddModelError(error.PropertyName, error.ErrorMessage);
-            }
+            modelState.AddModelError(error.PropertyName, error.ErrorMessage);
         }
+    }
 
-        public static IDictionary<string, string[]> ToDictionary(this ValidationResult validationResult)
-        {
-            return validationResult.Errors
-                .GroupBy(x => x.PropertyName, StringComparer.OrdinalIgnoreCase)
-                .ToDictionary(
-                    g => g.Key,
-                    g => g.Select(x => x.ErrorMessage).ToArray()
-                    ,StringComparer.OrdinalIgnoreCase
-                );
-        }
+    internal static IDictionary<string, string[]> ToDictionary(this ValidationResult validationResult)
+    {
+        return validationResult.Errors
+            .GroupBy(x => x.PropertyName, StringComparer.OrdinalIgnoreCase)
+            .ToDictionary(
+                g => g.Key,
+                g => g.Select(x => x.ErrorMessage).ToArray()
+                ,StringComparer.OrdinalIgnoreCase
+            );
     }
 }

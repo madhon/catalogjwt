@@ -1,9 +1,7 @@
-﻿namespace Catalog.Auth
-{
+﻿namespace Catalog.Auth;
+
 	using Catalog.Auth.Login;
     using Catalog.Auth.Signup;
-    using Microsoft.OpenApi.Models;
-    using Swashbuckle.AspNetCore.SwaggerUI;
 
     public static class WebApplicationExtensions
     {
@@ -25,39 +23,12 @@
 
             if (app.Environment.IsDevelopment())
             {
-                app.UseSwagger(c =>
-                {
-                    c.RouteTemplate = "docs/{documentName}/openapi.json";
-                    c.PreSerializeFilters.Add((swagger, httpReq) =>
-                    {
-                        swagger.Servers = new List<OpenApiServer>()
-                        {
-                            new OpenApiServer
-                                { Url = $"{httpReq.Scheme}://{httpReq.Host.Value}{httpReq.PathBase.Value}" }
-                        };
-                    });
-
-                    app.UseSwaggerUI(
-                        options =>
-                        {
-                            options.RoutePrefix = "docs";
-                            options.DocExpansion(DocExpansion.List);
-                            options.DisplayRequestDuration();
-                            options.DefaultModelExpandDepth(-1);
-
-                            foreach (var description in app.DescribeApiVersions().Select(d => d.GroupName))
-                            {
-                                var url = $"/docs/{description}/openapi.json";
-                                options.SwaggerEndpoint(url, description);
-                            }
-                        });
-
-                    app.UseDeveloperExceptionPage();
-                });
-
-                app.UseHeaderPropagation();
-
-                var versionSet = app.NewApiVersionSet()
+                app.UseSwaggerExtension();
+                app.UseDeveloperExceptionPage();
+            }
+            
+            app.UseHeaderPropagation();
+            var versionSet = app.NewApiVersionSet()
                     .HasApiVersion(new ApiVersion(1.0))
                     .ReportApiVersions()
                     .Build();
@@ -75,5 +46,5 @@
 #pragma warning restore ASP0014
             }
         }
-    }
-}
+
+
