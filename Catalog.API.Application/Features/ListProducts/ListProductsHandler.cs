@@ -21,6 +21,7 @@
 
             var itemsOnPage = catalogDbContext.GetProducts(request.PageSize, request.PageIndex).ToList();
 
+#pragma warning disable S125
             //var itemsOnPage = await catalogDbContext.Products
             //    .AsNoTracking()
             //    .Where(x =>
@@ -32,6 +33,7 @@
             //            .Contains(x.Id))
             //    .ToListAsync(cancellationToken)
             //    .ConfigureAwait(false);
+#pragma warning restore S125
 
             return new ListProductsResponse(totalItem, itemsOnPage);
         }

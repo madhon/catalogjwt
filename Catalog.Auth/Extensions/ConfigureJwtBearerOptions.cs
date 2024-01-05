@@ -1,13 +1,8 @@
 ﻿namespace Catalog.Auth.Extensions;
 
-public class ConfigureJwtBearerOptions : IConfigureNamedOptions<JwtBearerOptions>
+public class ConfigureJwtBearerOptions(IOptions<JwtOptions> jwtOptions) : IConfigureNamedOptions<JwtBearerOptions>
 {
-    private readonly JwtOptions jwtOptions;
-
-    public ConfigureJwtBearerOptions(IOptions<JwtOptions> jwtOptions)
-    {
-        this.jwtOptions = jwtOptions.Value;
-    }
+    private readonly JwtOptions jwtOptions = jwtOptions.Value;
 
     public void Configure(JwtBearerOptions options)
     {
@@ -16,7 +11,7 @@ public class ConfigureJwtBearerOptions : IConfigureNamedOptions<JwtBearerOptions
 
     public void Configure(string? name, JwtBearerOptions options)
     {
-        if (name != JwtBearerDefaults.AuthenticationScheme)
+        if (!string.Equals(name, JwtBearerDefaults.AuthenticationScheme, StringComparison.OrdinalIgnoreCase))
         {
             return;
         }

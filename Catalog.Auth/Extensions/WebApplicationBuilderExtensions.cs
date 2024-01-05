@@ -26,14 +26,7 @@ public static class WebApplicationBuilderExtensions
 		services.AddAuthorization();
 		services.AddJwtAuth(configuration);
 
-		services.AddDbContext<AuthDbContext>(options =>
-		{
-			options.UseSqlServer(configuration["ConnectionString"], options =>
-			{
-				options.MigrationsAssembly(typeof(Program).GetTypeInfo().Assembly.GetName().Name);
-				options.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
-			});
-		});
+		services.AddAuthDbContext(configuration);
 
 		services.AddDataProtection()
 			.PersistKeysToDbContext<AuthDbContext>();
