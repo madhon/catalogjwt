@@ -24,6 +24,7 @@
                         IValidator<LoginRequest> loginValidator,
                         IAuthenticationService authenticationService,
                         ILoggerFactory loggerFactory,
+                        ApiMetrics metrics,
                         CancellationToken ct)
         {
             var logger = loggerFactory.CreateLogger("LoginEndpoint");
@@ -41,6 +42,7 @@
 
             if (authenticationResult.IsError)
             {
+                metrics.UserFailedLogin();
                 return TypedResults.Unauthorized();
             }
 
@@ -50,11 +52,12 @@
                 ExpiresIn = authenticationResult.Value.ExpiresIn,
             };
 
+            metrics.UserLoggedIn();
+            
             return TypedResults.Ok(response);
         }
 
-
         [LoggerMessage(0, LogLevel.Information, "Authenticating {userName}")]
-        public static partial void LogAuthenticating(Microsoft.Extensions.Logging.ILogger logger, string userName);
+        public static partial void LogAuthenticating(ILogger logger, string userName);
     }
 }

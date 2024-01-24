@@ -34,7 +34,8 @@ public static class Extensions
                 metrics.AddAspNetCoreInstrumentation()
                     .AddHttpClientInstrumentation()
                     .AddRuntimeInstrumentation()
-                    .AddBuiltInMeters();
+                    .AddBuiltInMeters()
+                    .AddCustomMeters();
             })
             .WithTracing(tracing =>
             {
@@ -100,5 +101,9 @@ public static class Extensions
             "Microsoft.AspNetCore.Hosting",
             "Microsoft.AspNetCore.Server.Kestrel",
             "System.Net.Http");
+
+    private static MeterProviderBuilder AddCustomMeters(this MeterProviderBuilder meterProviderBuilder) =>
+        meterProviderBuilder.AddMeter(
+            "Catalog.Auth");
 
 }

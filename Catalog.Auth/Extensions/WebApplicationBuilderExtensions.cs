@@ -54,6 +54,8 @@ public static class WebApplicationBuilderExtensions
 		services.AddScoped<IJwtTokenService, JwtTokenService>();
 		services.AddScoped<IAuthenticationService, AuthenticationService>();
 
+		services.AddSingleton<ApiMetrics>();
+		
 		services.AddHealthChecks()
 			.AddDbContextCheck<AuthDbContext>();
 

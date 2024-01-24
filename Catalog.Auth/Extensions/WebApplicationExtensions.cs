@@ -2,6 +2,7 @@
 
 	using Catalog.Auth.Login;
     using Catalog.Auth.Signup;
+    using Serilog;
 
     public static class WebApplicationExtensions
     {
