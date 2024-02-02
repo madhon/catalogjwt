@@ -6,11 +6,13 @@ public static class AuthDbContextExtensions
     {
         services.AddDbContext<AuthDbContext>(options =>
         {
-            options.UseSqlServer(configuration["ConnectionString"], options =>
+            options.UseSqlServer(configuration["ConnectionString"], sqlOptions =>
             {
-                options.MigrationsAssembly(typeof(Program).GetTypeInfo().Assembly.GetName().Name);
-                options.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
+                sqlOptions.MigrationsAssembly(typeof(Program).GetTypeInfo().Assembly.GetName().Name);
+                sqlOptions.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
             });
+            options.UseModel(MyCompiledModels.AuthDbContextModel.Instance);
+
         });
 
         return services;
