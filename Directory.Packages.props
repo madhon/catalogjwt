@@ -2,7 +2,7 @@
   <ItemGroup>
     <!-- System packages -->
     <PackageVersion Include="System.Text.Encodings.Web" Version="8.0.0" />
-    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="7.3.0" />
+    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="7.3.1" />
     <PackageVersion Include="System.Security.Cryptography.Pkcs" Version="8.0.0" />
     <!-- Microsoft packages -->
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.1" />
@@ -13,8 +13,8 @@
     <PackageVersion Include="Microsoft.OpenApi" Version="1.6.13" />
     <PackageVersion Include="Microsoft.Identity.Client" Version="4.59.0" />
     <PackageVersion Include="Microsoft.Identity.Client.Extensions.Msal" Version="4.59.0" />
-    <PackageVersion Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="7.3.0" />
-    <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="7.3.0" />
+    <PackageVersion Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="7.3.1" />
+    <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="7.3.1" />
     <PackageVersion Include="Microsoft.Data.SqlClient" Version="5.1.5" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="8.0.1" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.1" />
@@ -45,7 +45,7 @@
     <PackageVersion Include="Serilog.Sinks.Console" Version="5.0.1" />
     <PackageVersion Include="Serilog.Sinks.Seq" Version="6.0.0" />
     <PackageVersion Include="ErrorOr" Version="1.9.0" />
-    <PackageVersion Include="ZiggyCreatures.FusionCache" Version="0.24.0" />
+    <PackageVersion Include="ZiggyCreatures.FusionCache" Version="0.25.0" />
     <PackageVersion Include="Mediator.Abstractions" Version="2.1.7" />
     <PackageVersion Include="Mediator.SourceGenerator" Version="2.1.7" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.5.0" />
@@ -62,8 +62,8 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.7.0" />
     <!-- Analyzers -->
     <PackageVersion Include="AsyncFixer" Version="1.6.0" />
-    <PackageVersion Include="Meziantou.Analyzer" Version="2.0.139" />
-    <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.18.0.83559" />
+    <PackageVersion Include="Meziantou.Analyzer" Version="2.0.140" />
+    <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.19.0.84025" />
     <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.8.14" />
     <PackageVersion Include="SecurityCodeScan.VS2019" Version="5.6.7" />
 	  <!-- Aspire-->
