@@ -62,7 +62,7 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.7.0" />
     <!-- Analyzers -->
     <PackageVersion Include="AsyncFixer" Version="1.6.0" />
-    <PackageVersion Include="Meziantou.Analyzer" Version="2.0.140" />
+    <PackageVersion Include="Meziantou.Analyzer" Version="2.0.141" />
     <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.19.0.84025" />
     <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.8.14" />
     <PackageVersion Include="SecurityCodeScan.VS2019" Version="5.6.7" />
