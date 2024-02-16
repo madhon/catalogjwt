@@ -5,9 +5,9 @@ internal static class JwtAuthExtensions
     internal static IServiceCollection AddJwtAuth(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddOptions<JwtOptions>()
-            .BindConfiguration(JwtOptions.Jwt)
-            .ValidateDataAnnotations()
-            .ValidateOnStart();
+            .BindConfiguration(JwtOptions.Jwt);
+        
+        services.AddSingleton<IValidateOptions<JwtOptions>, ValidateJwtOptions>();
 
         services.AddSingleton<IConfigureOptions<JwtBearerOptions>, ConfigureJwtBearerOptions>();
         
