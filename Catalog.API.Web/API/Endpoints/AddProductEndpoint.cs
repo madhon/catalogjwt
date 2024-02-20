@@ -4,7 +4,7 @@ public static class AddProductEndpoint
 {
     public static IEndpointRouteBuilder MapAddProductEndpoint(this IEndpointRouteBuilder app)
     {
-        app.MapPost("api/v1/catalog/addProduct",
+        app.MapPost("addProduct",
                 async Task<Results<Ok, ProblemHttpResult, UnauthorizedHttpResult>>
                     (
                         AddProductRequest request,

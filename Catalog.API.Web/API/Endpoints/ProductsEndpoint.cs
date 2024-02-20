@@ -11,7 +11,7 @@ public static class ProductsEndpoint
 
 	public static IEndpointRouteBuilder MapProductsEndpoint(this IEndpointRouteBuilder app)
 	{
-		app.MapGet("api/v1/catalog/products/{pageSize}/{pageIndex}", [Authorize(Roles = "read")]
+		app.MapGet("products/{pageSize}/{pageIndex}", [Authorize(Roles = "read")]
 				async Task<Results<Ok<PaginatedItemsViewModel<Product>>, ProblemHttpResult, UnauthorizedHttpResult>>
 					(
 						int pageSize,
