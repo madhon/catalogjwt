@@ -2,14 +2,13 @@
 {
     public static partial class LoginEndpoint
     {
-        public static IEndpointRouteBuilder MapLoginEndpoint(this IEndpointRouteBuilder app, ApiVersionSet versionSet)
+        public static IEndpointRouteBuilder MapLoginEndpoint(this IEndpointRouteBuilder app)
         {
-            app.MapPost("api/v{version:apiVersion}/auth/login", HandleLogin)
+            app.MapPost("auth/login", HandleLogin)
                 .AllowAnonymous()
-                .WithName("auth.login")
+                .WithName(nameof(HandleLogin))
                 .WithDescription("Login to API")
                 .WithTags("Auth")
-                .WithApiVersionSet(versionSet)
                 .Accepts<LoginRequest>("application/json")
                 .Produces<LoginResponse>(200, "application/json")
                 .Produces<UnauthorizedHttpResult>()
@@ -27,7 +26,7 @@
                         ApiMetrics metrics,
                         CancellationToken ct)
         {
-            var logger = loggerFactory.CreateLogger("LoginEndpoint");
+            var logger = loggerFactory.CreateLogger("Catalog.Auth.Login.LoginEndpoint");
 
             LogAuthenticating(logger, request.Email);
 
@@ -58,6 +57,6 @@
         }
 
         [LoggerMessage(0, LogLevel.Information, "Authenticating {userName}")]
-        public static partial void LogAuthenticating(ILogger logger, string userName);
+        private static partial void LogAuthenticating(ILogger logger, string userName);
     }
 }

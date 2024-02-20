@@ -1,9 +1,5 @@
 ﻿namespace Catalog.Auth;
 
-	using Catalog.Auth.Login;
-    using Catalog.Auth.Signup;
-    using Serilog;
-
     public static class WebApplicationExtensions
     {
         public static void ConfigureApplication(this WebApplication app)
@@ -13,7 +9,7 @@
 			app.UseExceptionHandler();
             app.UseStatusCodePages();
 
-            app.UseSerilogRequestLogging();
+            app.UseSerilogRequestLogs();
 
             app.UseRouting();
 
@@ -29,11 +25,12 @@
             }
             
             app.UseHeaderPropagation();
+            
             var versionSet = app.NewApiVersionSet()
                     .HasApiVersion(new ApiVersion(1.0))
                     .ReportApiVersions()
                     .Build();
-
+           
 #pragma warning disable ASP0014
                 app.UseEndpoints(endpoints =>
                 {
@@ -41,8 +38,7 @@
                     endpoints.MapHealthChecks("/healthz", new HealthCheckOptions { Predicate = _ => false });
                     endpoints.MapHealthChecks("/ready", new HealthCheckOptions { Predicate = _ => false });
                     endpoints.MapPrometheusScrapingEndpoint();
-                    endpoints.MapLoginEndpoint(versionSet);
-                    endpoints.MapSignUpEndpoint(versionSet);
+                    endpoints.MapAuthApi(versionSet);
                 });
 #pragma warning restore ASP0014
             }

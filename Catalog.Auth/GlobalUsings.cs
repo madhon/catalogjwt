@@ -22,6 +22,7 @@ global using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 global using Microsoft.AspNetCore.Identity;
 global using Microsoft.AspNetCore.Http.HttpResults;
 global using Microsoft.Extensions.Options;
+global using Microsoft.Extensions.Logging;
 
 global using System.Text;
 global using System.Security.Claims;

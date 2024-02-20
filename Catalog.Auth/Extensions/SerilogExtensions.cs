@@ -41,6 +41,13 @@ internal static class SerilogExtensions
 
         return builder;
     }
+
+
+    internal static WebApplication UseSerilogRequestLogs(this WebApplication app)
+    {
+        app.UseSerilogRequestLogging();
+        return app;
+    }
         
     internal sealed class SerilogOptions
     {
