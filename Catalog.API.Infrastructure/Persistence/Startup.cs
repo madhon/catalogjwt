@@ -13,7 +13,7 @@ internal static class Startup
     public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration,
         IHostEnvironment env)
     {
-        services.AddDbContext<CatalogContext>(options =>
+        services.AddDbContextPool<CatalogContext>(options =>
         {
             options.UseModel(MyCompiledModels.CatalogContextModel.Instance);
             options.UseSqlServer(configuration["ConnectionString"], sqlOpts =>

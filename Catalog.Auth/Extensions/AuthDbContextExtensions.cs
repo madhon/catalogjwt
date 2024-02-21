@@ -4,7 +4,7 @@ public static class AuthDbContextExtensions
 {
     public static IServiceCollection AddAuthDbContext(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<AuthDbContext>(options =>
+        services.AddDbContextPool<AuthDbContext>(options =>
         {
             options.UseModel(MyCompiledModels.AuthDbContextModel.Instance);
             options.UseSqlServer(configuration["ConnectionString"], sqlOptions =>
