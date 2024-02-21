@@ -8,6 +8,7 @@
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddSingleton(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
+            services.AddSingleton(typeof(IPipelineBehavior<,>), typeof(PerformanceBehaviour<,>));
 
             return services;
         }
