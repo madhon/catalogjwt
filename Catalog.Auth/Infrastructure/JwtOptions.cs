@@ -7,13 +7,13 @@
         public const string Jwt = "jwt";
         
         [Required]
-        public string Secret { get; init; } = default!;
+        public string Secret { get; set; } = null!;
         
         [Required]
-        public string Audience { get; init; } = default!;
+        public string Audience { get; set; } = null!;
         
         [Required]
-        public string Issuer { get; init; } = default!;
+        public string Issuer { get; set; } = null!;
         
     }
 }
