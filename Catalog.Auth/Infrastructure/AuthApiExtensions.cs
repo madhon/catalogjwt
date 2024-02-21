@@ -7,8 +7,7 @@ public static class AuthApiExtensions
 {
     public static IEndpointRouteBuilder MapAuthApi(this IEndpointRouteBuilder app, ApiVersionSet apiVersionSet)
     {
-        app.MapGroup("api/v{version:apiVersion}/")
-            .WithApiVersionSet(apiVersionSet)
+        app.MapGroup("api/v1/")
             .MapLoginEndpoint()
             .MapSignUpEndpoint();
         

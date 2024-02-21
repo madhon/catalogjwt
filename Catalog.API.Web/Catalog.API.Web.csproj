@@ -13,7 +13,6 @@
 		<PackageReference Include="Riok.Mapperly" />
 		<PackageReference Include="Microsoft.AspNetCore.HeaderPropagation" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
-		<PackageReference Include="Microsoft.AspNetCore.OpenApi" />
 		<PackageReference Include="Microsoft.Extensions.Telemetry.Abstractions" />
 		<PackageReference Include="System.Text.Encodings.Web" />
 		<PackageReference Include="Serilog" />
@@ -25,7 +24,6 @@
 		<PackageReference Include="Serilog.Sinks.Console" />
 		<PackageReference Include="Serilog.Sinks.Seq" />
 		<PackageReference Include="ZiggyCreatures.FusionCache" />
-		<PackageReference Include="Swashbuckle.AspNetCore" />
 		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
 		<PackageReference Include="Mediator.SourceGenerator">
 			<PrivateAssets>all</PrivateAssets>

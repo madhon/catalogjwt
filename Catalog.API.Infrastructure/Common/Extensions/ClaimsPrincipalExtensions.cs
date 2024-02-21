@@ -1,4 +1,4 @@
-﻿namespace Catalog.API.Infrastructure
+﻿/*namespace Catalog.API.Infrastructure
 {
     using System.Security.Claims;
 
@@ -22,4 +22,4 @@
         public static IEnumerable<string> GetClaims(this ClaimsPrincipal user, string key) => 
             user.Claims.Where(i => i.Type.Equals(key, StringComparison.OrdinalIgnoreCase)).Select(i => i.Value);
     }
-}
+}*/

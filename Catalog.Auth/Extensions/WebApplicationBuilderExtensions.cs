@@ -22,7 +22,7 @@ public static class WebApplicationBuilderExtensions
 		});
 			
 		services.AddProblemDetails();
-		services.AddSwaggerExtension();
+		
 		services.AddAuthorization();
 		services.AddJwtAuth(configuration);
 

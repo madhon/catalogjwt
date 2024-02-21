@@ -20,7 +20,7 @@
 
             if (app.Environment.IsDevelopment())
             {
-                app.UseSwaggerExtension();
+                app.UseDefaultOpenApi();
                 app.UseDeveloperExceptionPage();
             }
             

@@ -2,6 +2,8 @@
 
 using Catalog.API.Web.Logging.Helper;
 using Catalog.API.Web.Logging.Settings;
+using Serilog;
+using Serilog.Events;
 using Serilog.Exceptions;
 using Serilog.Settings.Configuration;
 

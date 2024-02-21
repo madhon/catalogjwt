@@ -28,5 +28,7 @@ global using System.Text;
 global using System.Security.Claims;
 global using System.Reflection;
 
+global using Services.Common;
+
 #pragma warning restore IDE0065
 // ReSharper restore RedundantUsingDirective.Global

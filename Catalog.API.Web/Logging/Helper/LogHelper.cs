@@ -1,5 +1,7 @@
 ﻿namespace Catalog.API.Web.Logging.Helper;
 
+using Serilog.Events;
+
 public static class LogHelper
 {
     public static LogEventLevel ExcludeHealthChecks(HttpContext ctx, double _, Exception? ex)

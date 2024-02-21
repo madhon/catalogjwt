@@ -1,6 +1,4 @@
-﻿global using Serilog;
-global using Serilog.Events;
-global using Riok.Mapperly.Abstractions;
+﻿global using Riok.Mapperly.Abstractions;
 global using FluentValidation;
 
 global using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -14,3 +12,5 @@ global using Catalog.API.Domain.Entities;
 global using Catalog.API.Application.Abstractions;
 global using Catalog.API.Web.API.Endpoints.Requests;
 global using Catalog.API.Web.API.Mappers;
+
+global using Services.Common;

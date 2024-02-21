@@ -2,7 +2,6 @@
 
 using Catalog.API.Application;
 using Catalog.API.Web.API;
-using Catalog.API.Web.Swagger;
 
 public class Startup
 {
@@ -15,7 +14,6 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddMyApi();
-        services.AddMySwagger(Configuration);
         services.AddMyInfrastructureDependencies(Configuration, Environment);
         services.AddApplicationServices();
     }
@@ -28,6 +26,6 @@ public class Startup
         app.UseRouting();
         app.UseMyInfrastructure(Configuration, Environment);
         app.UseMyApi(Configuration, Environment);
-        app.UseMySwagger(Configuration);
+        
     }
 }

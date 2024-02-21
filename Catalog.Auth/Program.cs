@@ -5,6 +5,7 @@ builder.WebHost.UseKestrelHttpsConfiguration();
 
 
 builder.AddServiceDefaults();
+builder.AddDefaultOpenApi();
 
 builder.AddSerilog();
 
