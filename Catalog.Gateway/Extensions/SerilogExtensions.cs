@@ -42,7 +42,7 @@ public static class SerilogExtensions
         return builder;
     }
         
-    private sealed class SerilogOptions
+    internal sealed class SerilogOptions
     {
         public bool UseConsole { get; set; } = true;
 #pragma warning disable S3459
