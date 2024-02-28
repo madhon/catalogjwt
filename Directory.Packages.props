@@ -2,7 +2,7 @@
   <ItemGroup>
     <!-- System packages -->
     <PackageVersion Include="System.Text.Encodings.Web" Version="8.0.0" />
-    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="7.3.1" />
+    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="7.4.0" />
     <PackageVersion Include="System.Security.Cryptography.Pkcs" Version="8.0.0" />
     <!-- Microsoft packages -->
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.2" />
@@ -13,8 +13,8 @@
     <PackageVersion Include="Microsoft.OpenApi" Version="1.6.13" />
     <PackageVersion Include="Microsoft.Identity.Client" Version="4.59.0" />
     <PackageVersion Include="Microsoft.Identity.Client.Extensions.Msal" Version="4.59.0" />
-    <PackageVersion Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="7.3.1" />
-    <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="7.3.1" />
+    <PackageVersion Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="7.4.0" />
+    <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="7.4.0" />
     <PackageVersion Include="Microsoft.Data.SqlClient" Version="5.1.5" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="8.0.2" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.2" />
@@ -27,7 +27,7 @@
     <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Telemetry.Abstractions" Version="8.2.0" />
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
-    <PackageVersion Include="Azure.Core" Version="1.37.0" />
+    <PackageVersion Include="Azure.Core" Version="1.38.0" />
     <PackageVersion Include="Azure.Identity" Version="1.10.4" />
     <PackageVersion Include="Yarp.ReverseProxy" Version="2.1.0" />
     <!-- 3rd party packages -->
@@ -44,6 +44,7 @@
     <PackageVersion Include="Serilog.Sinks.Async" Version="1.5.0" />
     <PackageVersion Include="Serilog.Sinks.Console" Version="5.0.1" />
     <PackageVersion Include="Serilog.Sinks.Seq" Version="6.0.0" />
+    <PackageVersion Include="Serilog.Sinks.PeriodicBatching" Version="4.0.0" />
     <PackageVersion Include="ErrorOr" Version="1.10.0" />
     <PackageVersion Include="ZiggyCreatures.FusionCache" Version="0.26.0" />
     <PackageVersion Include="Mediator.Abstractions" Version="2.1.7" />
@@ -62,7 +63,7 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.7.0" />
     <!-- Analyzers -->
     <PackageVersion Include="AsyncFixer" Version="1.6.0" />
-    <PackageVersion Include="Meziantou.Analyzer" Version="2.0.143" />
+    <PackageVersion Include="Meziantou.Analyzer" Version="2.0.145" />
     <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.20.0.85982" />
     <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.8.14" />
     <PackageVersion Include="SecurityCodeScan.VS2019" Version="5.6.7" />
