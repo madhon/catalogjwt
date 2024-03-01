@@ -41,7 +41,7 @@ public partial class PerformanceBehaviour<TMessage, TResponse> : IPipelineBehavi
     [LoggerMessage(10001, LogLevel.Warning, "{requestName} long running request ({ElapsedMilliseconds} milliseconds) with {message}")]
     public partial void LogLongRunningRequest(string requestName, long? elapsedMilliseconds, TMessage message);
     
-    public static class RequestCounter
+    internal static class RequestCounter
     {
         public static int ExecutionCount;
     }
