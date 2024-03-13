@@ -68,6 +68,6 @@
     <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.8.14" />
     <PackageVersion Include="SecurityCodeScan.VS2019" Version="5.6.7" />
 	  <!-- Aspire-->
-	  <PackageVersion Include="Aspire.Hosting" Version="8.0.0-preview.3.24105.21" />
+	  <PackageVersion Include="Aspire.Hosting" Version="8.0.0-preview.4.24156.9" />
   </ItemGroup>
 </Project>
