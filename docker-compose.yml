@@ -1,0 +1,12 @@
+﻿services:
+  catalog.api.web:
+    image: catalog.api.web
+    build:
+      context: .
+      dockerfile: Catalog.API.Web/Dockerfile
+
+  catalog.auth:
+    image: catalog.auth
+    build:
+      context: .
+      dockerfile: Catalog.Auth/Dockerfile
