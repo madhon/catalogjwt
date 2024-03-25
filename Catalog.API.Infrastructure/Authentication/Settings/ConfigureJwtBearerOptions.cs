@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 
 public class ConfigureJwtBearerOptions(IOptions<AuthenticationSettings> jwtOptions) : IConfigureNamedOptions<JwtBearerOptions>
@@ -25,6 +26,9 @@ public class ConfigureJwtBearerOptions(IOptions<AuthenticationSettings> jwtOptio
         var key = Encoding.ASCII.GetBytes(jwtOptions.Secret);
         
         options.SaveToken = true;
+        // prevent from mapping "sub" claim to nameidentifier.
+        JsonWebTokenHandler.DefaultInboundClaimTypeMap.Remove("sub");
+        
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,

@@ -1,5 +1,6 @@
 ﻿namespace Catalog.Auth.Extensions;
 
+using System.Runtime.InteropServices;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -7,7 +8,7 @@ internal static class ValidationExtensions
 {
     internal static void AddToModelState(this ValidationResult result, ModelStateDictionary modelState)
     {
-        foreach (var error in result.Errors)
+        foreach (ref var error in CollectionsMarshal.AsSpan(result.Errors))
         {
             modelState.AddModelError(error.PropertyName, error.ErrorMessage);
         }

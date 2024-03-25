@@ -45,6 +45,11 @@
 		<PackageReference Include="System.Security.Cryptography.Pkcs" />
 		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
 		<PackageReference Include="ErrorOr" />
+		<PackageReference Include="NetFabric.Hyperlinq" />
+		<PackageReference Include="NetFabric.Hyperlinq.Analyzer" >
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+		</PackageReference>
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,4 +1,8 @@
-﻿var builder = DistributedApplication.CreateBuilder(args);
+﻿using Catalog.AppHost;
+
+var builder = DistributedApplication.CreateBuilder(args);
+
+builder.AddForwardedHeaders();
 
 var authService = builder.AddProject<Projects.Catalog_Auth>("auth");
 
