@@ -31,7 +31,8 @@ public static class Extensions
         builder.Services.AddOpenTelemetry()
             .WithMetrics(metrics =>
             {
-                metrics.AddAspNetCoreInstrumentation()
+                metrics
+                    .AddAspNetCoreInstrumentation()
                     .AddHttpClientInstrumentation()
                     .AddRuntimeInstrumentation()
                     .AddBuiltInMeters()
@@ -44,9 +45,16 @@ public static class Extensions
                     tracing.SetSampler(new AlwaysOnSampler());
                 }
 
-                tracing.AddEntityFrameworkCoreInstrumentation()
+                tracing
+                    .AddAspNetCoreInstrumentation(nci => nci.RecordException = true)
                     .AddHttpClientInstrumentation()
-                    .AddAspNetCoreInstrumentation(nci => nci.RecordException = true);
+                    .AddSqlClientInstrumentation(sci =>
+                    {
+                        sci.RecordException = true;
+                        sci.EnableConnectionLevelAttributes = true;
+                        sci.SetDbStatementForStoredProcedure = true;
+                        sci.SetDbStatementForText = true;
+                    });
             });
 
 
