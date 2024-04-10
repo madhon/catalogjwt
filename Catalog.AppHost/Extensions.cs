@@ -1,5 +1,7 @@
 ﻿namespace Catalog.AppHost;
 
+using Aspire.Hosting;
+using Aspire.Hosting.ApplicationModel;
 using Aspire.Hosting.Lifecycle;
 
 public static class Extensions

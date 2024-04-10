@@ -1,4 +1,5 @@
-﻿using Catalog.AppHost;
+﻿using Aspire.Hosting;
+using Catalog.AppHost;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
