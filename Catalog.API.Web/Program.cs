@@ -1,6 +1,6 @@
+var builder = WebApplication.CreateSlimBuilder(args);
 
-
-var builder = WebApplication.CreateBuilder(args);
+builder.WebHost.UseKestrelHttpsConfiguration();
 
 builder.AddServiceDefaults();
 builder.AddDefaultOpenApi();
