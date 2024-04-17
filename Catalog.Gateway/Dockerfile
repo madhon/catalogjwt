@@ -14,14 +14,13 @@ WORKDIR /src
 COPY "Directory.Packages.props" "Directory.Packages.props"
 COPY "Directory.Build.props" "Directory.Build.props"
 COPY "NuGet.config" "NuGet.config"
-COPY ["Services.Common/Services.Common.csproj", "Services.Common/Services.Common.csproj"]
-COPY ["Catalog.Auth/Catalog.Auth.csproj", "Catalog.Auth/Catalog.Auth.csproj"]
+COPY ["Catalog.Gateway/Catalog.Gateway.csproj", "Catalog.Gateway/Catalog.Gateway.csproj"]
 
-RUN dotnet restore "Catalog.Auth/Catalog.Auth.csproj"
+RUN dotnet restore "Catalog.Gateway/Catalog.Gateway.csproj"
 
 COPY . .
-WORKDIR /src/Catalog.Auth
-RUN dotnet publish "Catalog.Auth.csproj" -c Release -o /app/publish
+WORKDIR /src/Catalog.Gateway
+RUN dotnet publish "Catalog.Gateway.csproj" --no-restore -c Release -o /app/publish /p:UseAppHost=false
 
 FROM build AS publish
 
@@ -29,4 +28,4 @@ FROM base AS final
 USER $APP_UID
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Catalog.Auth.dll"]
+ENTRYPOINT ["dotnet", "Catalog.Gateway.dll"]

@@ -28,4 +28,11 @@
 	<PackageReference Include="System.Text.Encodings.Web" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="..\.dockerignore">
+      <DependentUpon>Dockerfile</DependentUpon>
+      <Link>.dockerignore</Link>
+    </None>
+  </ItemGroup>
+
 </Project>

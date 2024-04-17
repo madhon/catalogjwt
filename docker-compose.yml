@@ -1,12 +1,20 @@
 ﻿services:
   catalog.api.web:
-    image: catalog.api.web
+    container_name: catalog.api.web
     build:
       context: .
       dockerfile: Catalog.API.Web/Dockerfile
 
   catalog.auth:
-    image: catalog.auth
+    container_name: catalog.auth
     build:
       context: .
       dockerfile: Catalog.Auth/Dockerfile
+
+  catalog.gateway:
+    container_name: catalog.gateway
+    build:
+      context: .
+      dockerfile: Catalog.Gateway/Dockerfile
+    ports:
+      - "7060:8080"
