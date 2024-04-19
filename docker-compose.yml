@@ -1,20 +1,32 @@
 ﻿services:
-  catalog.api.web:
-    container_name: catalog.api.web
+  catalog.api:
+    container_name: catalog.api
     build:
       context: .
       dockerfile: Catalog.API.Web/Dockerfile
+    pull_policy: build      
+    restart: unless-stopped
 
   catalog.auth:
     container_name: catalog.auth
     build:
       context: .
       dockerfile: Catalog.Auth/Dockerfile
+    pull_policy: build
+    restart: unless-stopped
 
-  catalog.gateway:
-    container_name: catalog.gateway
-    build:
-      context: .
-      dockerfile: Catalog.Gateway/Dockerfile
+  envoygateway:
+    container_name: envoygateway
+    image: envoyproxy/envoy-distroless:v1.30.1
+    depends_on:
+      - catalog.api
+      - catalog.auth
+    pull_policy: missing
+    restart: unless-stopped
     ports:
-      - "7060:8080"
+      - "9901:9901"
+      - "10000:10000"
+    volumes:
+      - ./Envoy/envoy.yaml:/etc/envoy/envoy.yaml
+      - ./Envoy/envoy.crt:/etc/ssl/certs/envoy.crt
+      - ./Envoy/envoy_key.pem:/etc/ssl/certs/envoy_key.pem
