@@ -56,7 +56,7 @@
     <PackageVersion Include="NetFabric.Hyperlinq.Analyzer" Version="2.3.0" />
     <!-- OpenTelemetry-->
     <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.8.1" />
-    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.8.0" />
+    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.8.1" />
     <PackageVersion Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="1.8.0-rc.1" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.8.1" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.SqlClient" Version="1.8.0-beta.1" />
