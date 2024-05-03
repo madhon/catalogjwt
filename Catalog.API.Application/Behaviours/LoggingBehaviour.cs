@@ -6,9 +6,9 @@
     public partial class LoggingBehaviour<TMessage, TResponse> : IPipelineBehavior<TMessage, TResponse>
         where TMessage : IMessage
     {
-        private readonly ILogger<TMessage> logger;
+        private readonly ILogger<LoggingBehaviour<TMessage, TResponse>> logger;
 
-        public LoggingBehaviour(ILogger<TMessage> logger)
+        public LoggingBehaviour(ILogger<LoggingBehaviour<TMessage, TResponse>> logger)
         {
             this.logger = logger;
         }

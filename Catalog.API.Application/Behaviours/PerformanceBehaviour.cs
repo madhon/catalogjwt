@@ -7,9 +7,9 @@ using Microsoft.Extensions.Logging;
 public partial class PerformanceBehaviour<TMessage, TResponse> : IPipelineBehavior<TMessage, TResponse>
     where TMessage : IMessage
 {
-    private readonly ILogger<TMessage> logger;
+    private readonly ILogger<PerformanceBehaviour<TMessage, TResponse>> logger;
     
-    public PerformanceBehaviour(ILogger<TMessage> logger)
+    public PerformanceBehaviour(ILogger<PerformanceBehaviour<TMessage, TResponse>> logger)
     {
         this.logger = logger;
     }
