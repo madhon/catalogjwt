@@ -20,7 +20,8 @@ public static class WebApplicationBuilderExtensions
 		{
 			options.SerializerOptions.TypeInfoResolverChain.Insert(0, AppJsonSerializerContext.Default);
 		});
-			
+
+		services.AddExceptionHandler<GlobalExceptionHandler>();
 		services.AddProblemDetails();
 		
 		services.AddAuthorization();
