@@ -11,7 +11,7 @@
     <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.5" />
     <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="8.0.5" />
     <PackageVersion Include="Microsoft.OpenApi" Version="1.6.14" />
-    <PackageVersion Include="Microsoft.Identity.Client" Version="4.61.0" />
+    <PackageVersion Include="Microsoft.Identity.Client" Version="4.61.2" />
     <PackageVersion Include="Microsoft.Identity.Client.Extensions.Msal" Version="4.61.0" />
     <PackageVersion Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="7.5.2" />
     <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="7.5.2" />
