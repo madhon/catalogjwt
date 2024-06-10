@@ -39,7 +39,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Catalog.API.Application\Catalog.API.Application.csproj" />
 		<ProjectReference Include="..\Catalog.API.Infrastructure\Catalog.API.Infrastructure.csproj" />
-		<ProjectReference Include="..\Services.Common\Services.Common.csproj" />
+		<ProjectReference Include="..\Catalog.ServiceDefaults\Catalog.ServiceDefaults.csproj" />
 	</ItemGroup>
 
 </Project>
