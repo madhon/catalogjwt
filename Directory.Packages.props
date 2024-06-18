@@ -2,7 +2,7 @@
   <ItemGroup>
     <!-- System packages -->
     <PackageVersion Include="System.Text.Encodings.Web" Version="8.0.0" />
-    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="7.6.0" />
+    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="7.6.1" />
     <PackageVersion Include="System.Security.Cryptography.Pkcs" Version="8.0.0" />
     <!-- Microsoft packages -->
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.6" />
@@ -13,8 +13,8 @@
     <PackageVersion Include="Microsoft.OpenApi" Version="1.6.14" />
     <PackageVersion Include="Microsoft.Identity.Client" Version="4.61.3" />
     <PackageVersion Include="Microsoft.Identity.Client.Extensions.Msal" Version="4.61.3" />
-    <PackageVersion Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="7.6.0" />
-    <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="7.6.0" />
+    <PackageVersion Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="7.6.1" />
+    <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="7.6.1" />
     <PackageVersion Include="Microsoft.Data.SqlClient" Version="5.2.1" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.6" />
@@ -30,7 +30,7 @@
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="8.0.1" />
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.20.1" />
     <PackageVersion Include="Azure.Core" Version="1.40.0" />
-    <PackageVersion Include="Azure.Identity" Version="1.11.4" />
+    <PackageVersion Include="Azure.Identity" Version="1.12.0" />
     <PackageVersion Include="Yarp.ReverseProxy" Version="2.1.0" />
     <!-- 3rd party packages -->
     <PackageVersion Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
@@ -57,15 +57,15 @@
     <PackageVersion Include="NetFabric.Hyperlinq" Version="3.0.0-beta48" />
     <PackageVersion Include="NetFabric.Hyperlinq.Analyzer" Version="2.3.0" />
     <!-- OpenTelemetry-->
-    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.8.1" />
-    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.8.1" />
-    <PackageVersion Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="1.8.0-rc.1" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.8.1" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.SqlClient" Version="1.8.0-beta.1" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.8.1" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.8.1" />
+    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.9.0" />
+    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.9.0" />
+    <PackageVersion Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="1.9.0-beta.1" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.9.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.SqlClient" Version="1.9.0-beta.1" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.9.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.9.0" />
     <!-- Analyzers -->
-    <PackageVersion Include="Meziantou.Analyzer" Version="2.0.155" />
+    <PackageVersion Include="Meziantou.Analyzer" Version="2.0.158" />
     <PackageVersion Include="Roslynator.Analyzers" Version="4.12.4" />
     <PackageVersion Include="Roslynator.Formatting.Analyzers" Version="4.12.4" />
     <PackageVersion Include="Roslynator.CodeFixes" Version="4.12.4" />
