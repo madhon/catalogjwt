@@ -70,7 +70,7 @@
     <PackageVersion Include="Roslynator.Analyzers" Version="4.12.4" />
     <PackageVersion Include="Roslynator.Formatting.Analyzers" Version="4.12.4" />
     <PackageVersion Include="Roslynator.CodeFixes" Version="4.12.4" />
-    <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.28.0.94264" />
+    <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.29.0.95321" />
     <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.8.14" />
     <PackageVersion Include="SecurityCodeScan.VS2019" Version="5.6.7" />
 	  <!-- Aspire-->
