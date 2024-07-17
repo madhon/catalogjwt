@@ -2,7 +2,7 @@
   <ItemGroup>
     <!-- System packages -->
     <PackageVersion Include="System.Text.Encodings.Web" Version="8.0.0" />
-    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="7.6.3" />
+    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.0.0" />
     <PackageVersion Include="System.Security.Cryptography.Pkcs" Version="8.0.0" />
     <PackageVersion Include="System.Text.Json" Version="8.0.4" />
     <PackageVersion Include="System.Formats.Asn1" Version="8.0.1" />
@@ -15,8 +15,8 @@
     <PackageVersion Include="Microsoft.OpenApi" Version="1.6.15" />
     <PackageVersion Include="Microsoft.Identity.Client" Version="4.61.3" />
     <PackageVersion Include="Microsoft.Identity.Client.Extensions.Msal" Version="4.61.3" />
-    <PackageVersion Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="7.6.3" />
-    <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="7.6.3" />
+    <PackageVersion Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Data.SqlClient" Version="5.2.1" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="8.0.7" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.7" />
@@ -66,11 +66,11 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.9.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.9.0" />
     <!-- Analyzers -->
-    <PackageVersion Include="Meziantou.Analyzer" Version="2.0.160" />
+    <PackageVersion Include="Meziantou.Analyzer" Version="2.0.161" />
     <PackageVersion Include="Roslynator.Analyzers" Version="4.12.4" />
     <PackageVersion Include="Roslynator.Formatting.Analyzers" Version="4.12.4" />
     <PackageVersion Include="Roslynator.CodeFixes" Version="4.12.4" />
-    <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.28.0.94264" />
+    <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.29.0.95321" />
     <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.8.14" />
     <PackageVersion Include="SecurityCodeScan.VS2019" Version="5.6.7" />
 	  <!-- Aspire-->
