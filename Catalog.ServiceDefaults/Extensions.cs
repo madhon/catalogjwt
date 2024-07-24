@@ -82,7 +82,9 @@ public static class Extensions
             builder.Services.AddOpenTelemetry().UseOtlpExporter();
         }
 
-        builder.Services.AddOpenTelemetry().WithMetrics(metrics => metrics.AddPrometheusExporter());
+        builder.Services.AddOpenTelemetry()
+            .WithMetrics(metrics => 
+                metrics.AddPrometheusExporter(options => options.DisableTotalNameSuffixForCounters = true));
         
         return builder;
     }
