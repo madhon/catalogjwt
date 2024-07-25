@@ -10,6 +10,4 @@ using Catalog.Auth.Signup;
 [JsonSerializable(typeof(LoginResponse))]
 [JsonSerializable(typeof(SignupRequest))]
 [JsonSerializable(typeof(SignupResponse))]
-internal partial class AppJsonSerializerContext : JsonSerializerContext
-{
-}
+internal sealed partial class AppJsonSerializerContext : JsonSerializerContext;

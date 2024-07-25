@@ -8,6 +8,4 @@ using System.Text.Json.Serialization;
 [JsonSerializable(typeof(AddProductRequest))]
 [JsonSerializable(typeof(Product))]
 [JsonSerializable(typeof(Brand))]
-internal partial class AppJsonSerializerContext : JsonSerializerContext
-{
-}
+internal sealed partial class AppJsonSerializerContext : JsonSerializerContext;
