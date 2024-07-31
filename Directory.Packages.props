@@ -12,7 +12,7 @@
     <PackageVersion Include="Microsoft.AspNetCore.HeaderPropagation" Version="8.0.7" />
     <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.7" />
     <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="8.0.7" />
-    <PackageVersion Include="Microsoft.OpenApi" Version="1.6.15" />
+    <PackageVersion Include="Microsoft.OpenApi" Version="1.6.16" />
     <PackageVersion Include="Microsoft.Identity.Client" Version="4.62.0" />
     <PackageVersion Include="Microsoft.Identity.Client.Extensions.Msal" Version="4.62.0" />
     <PackageVersion Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="8.0.1" />
@@ -66,7 +66,7 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.9.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.9.0" />
     <!-- Analyzers -->
-    <PackageVersion Include="Meziantou.Analyzer" Version="2.0.161" />
+    <PackageVersion Include="Meziantou.Analyzer" Version="2.0.163" />
     <PackageVersion Include="Roslynator.Analyzers" Version="4.12.4" />
     <PackageVersion Include="Roslynator.Formatting.Analyzers" Version="4.12.4" />
     <PackageVersion Include="Roslynator.CodeFixes" Version="4.12.4" />
