@@ -12,9 +12,9 @@
     <PackageVersion Include="Microsoft.AspNetCore.HeaderPropagation" Version="8.0.7" />
     <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.7" />
     <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="8.0.7" />
-    <PackageVersion Include="Microsoft.OpenApi" Version="1.6.16" />
-    <PackageVersion Include="Microsoft.Identity.Client" Version="4.62.0" />
-    <PackageVersion Include="Microsoft.Identity.Client.Extensions.Msal" Version="4.62.0" />
+    <PackageVersion Include="Microsoft.OpenApi" Version="1.6.17" />
+    <PackageVersion Include="Microsoft.Identity.Client" Version="4.63.0" />
+    <PackageVersion Include="Microsoft.Identity.Client.Extensions.Msal" Version="4.63.0" />
     <PackageVersion Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="8.0.1" />
     <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.0.1" />
     <PackageVersion Include="Microsoft.Data.SqlClient" Version="5.2.1" />
@@ -70,7 +70,7 @@
     <PackageVersion Include="Roslynator.Analyzers" Version="4.12.4" />
     <PackageVersion Include="Roslynator.Formatting.Analyzers" Version="4.12.4" />
     <PackageVersion Include="Roslynator.CodeFixes" Version="4.12.4" />
-    <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.30.0.95878" />
+    <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.31.0.96804" />
     <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.8.14" />
     <PackageVersion Include="SecurityCodeScan.VS2019" Version="5.6.7" />
 	  <!-- Aspire-->
