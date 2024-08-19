@@ -14,11 +14,6 @@
 	<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
 	  <PackageReference Include="Microsoft.Extensions.Telemetry.Abstractions" />
 	<PackageReference Include="Mediator.Abstractions" />
-	  <PackageReference Include="NetFabric.Hyperlinq" />
-	  <PackageReference Include="NetFabric.Hyperlinq.Analyzer" >
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-	  </PackageReference>
   </ItemGroup>
 
   <ItemGroup>

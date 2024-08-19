@@ -17,7 +17,8 @@
 	<PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" />
 	<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
 	<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
-	<PackageReference Include="Microsoft.Data.SqlClient" />
+	  <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+	  <PackageReference Include="Microsoft.Data.SqlClient" />
 	<PackageReference Include="Microsoft.EntityFrameworkCore" />
 	<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
 	<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
@@ -26,11 +27,6 @@
 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	</PackageReference>
 	  <PackageReference Include="EntityFrameworkCore.Exceptions.SqlServer" />
-	  <PackageReference Include="NetFabric.Hyperlinq" />
-	  <PackageReference Include="NetFabric.Hyperlinq.Analyzer" >
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-	  </PackageReference>
   </ItemGroup>
 
   <ItemGroup>

@@ -7,11 +7,4 @@
 	<Nullable>enable</Nullable>
   </PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="NetFabric.Hyperlinq" />
-		<PackageReference Include="NetFabric.Hyperlinq.Analyzer" >
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-		</PackageReference>
-	</ItemGroup>
 </Project>
