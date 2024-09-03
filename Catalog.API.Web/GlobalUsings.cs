@@ -4,6 +4,9 @@ global using FluentValidation;
 global using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 global using Microsoft.AspNetCore.Http.HttpResults;
 
+global using System.Text.Json;
+global using System.Text.Json.Serialization;
+
 global using Catalog.API;
 global using Catalog.API.Web;
 global using Catalog.API.Web.Logging;
