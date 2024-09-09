@@ -6,6 +6,9 @@ using Catalog.API.Infrastructure.EntityConfigurations;
 using Catalog.API.Infrastructure.Persistence.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
 
+/// <summary>
+///  dotnet ef dbcontext optimize --output-dir .\Persistence\CompiledModels --data-context CatalogContext --namespace Catalog.API.Infrastructure.Persistence.CompiledModels --force
+/// </summary>
 public class CatalogContext : DbContext, ICatalogDbContext
 {
     public CatalogContext(DbContextOptions<CatalogContext> options) : base(options)

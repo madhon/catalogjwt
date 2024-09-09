@@ -14,9 +14,10 @@
 	  <PackageReference Include="Microsoft.Identity.Client" />
 	  <PackageReference Include="Microsoft.Identity.Client.Extensions.Msal" />
 	  <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
-	<PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" />
-	<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
-	<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+	  <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" />
+	  <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
+	  <PackageReference Include="Microsoft.Extensions.Configuration.Binder" />
+	  <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
 	  <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
 	  <PackageReference Include="Microsoft.Data.SqlClient" />
 	<PackageReference Include="Microsoft.EntityFrameworkCore" />
@@ -31,6 +32,10 @@
 
   <ItemGroup>
 	<ProjectReference Include="..\Catalog.API.Application\Catalog.API.Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Persistence\Migrations\" />
   </ItemGroup>
 
 </Project>

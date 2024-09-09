@@ -1,12 +1,11 @@
-﻿namespace Catalog.Auth.Signup
+﻿namespace Catalog.Auth.Signup;
+
+public class SignUpRequestValidator : AbstractValidator<SignupRequest>
 {
-    public class SignUpRequestValidator : AbstractValidator<SignupRequest>
+    public SignUpRequestValidator()
     {
-        public SignUpRequestValidator()
-        {
-            RuleFor(x => x.Email).NotEmpty().EmailAddress();
-            RuleFor(x => x.Password).NotEmpty();
-            RuleFor(x => x.Fullname).NotEmpty().MaximumLength(20);
-        }
+        RuleFor(x => x.Email).NotEmpty().EmailAddress();
+        RuleFor(x => x.Password).NotEmpty();
+        RuleFor(x => x.Fullname).NotEmpty().MaximumLength(20);
     }
 }

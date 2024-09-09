@@ -1,17 +1,13 @@
-﻿namespace Catalog.Auth.Login
+﻿namespace Catalog.Auth.Login;
+
+public record LoginResponse
 {
-    using System.Text.Json.Serialization;
+    [JsonPropertyName("access_token")]
+    public string AccessToken { get; init; } = null!;
 
-    public record LoginResponse
-    {
-        [JsonPropertyName("access_token")]
-        public string AccessToken { get; init; } = null!;
+    [JsonPropertyName("expires_in")]
+    public int ExpiresIn { get; init; }
 
-        [JsonPropertyName("expires_in")]
-        public int ExpiresIn { get; init; }
-
-        [JsonPropertyName("token_type")]
-        public string TokenType { get; init; } = "Bearer";
-
-    }
+    [JsonPropertyName("token_type")]
+    public string TokenType { get; init; } = "Bearer";
 }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 #pragma warning disable 219, 612, 618
 #nullable disable
 
-namespace MyCompiledModels
+namespace Catalog.API.Infrastructure.Persistence.CompiledModels
 {
     internal partial class ProductEntityType
     {

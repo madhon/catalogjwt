@@ -1,7 +1,6 @@
-﻿namespace Catalog.Auth
+﻿namespace Catalog.Auth;
+
+public static class RateLimiterPolicies
 {
-	public static class RateLimiterPolicies
-	{
-		public static readonly string RlPoicy = "rlPolicy";
-	}
+	public static readonly string RlPoicy = "rlPolicy";
 }

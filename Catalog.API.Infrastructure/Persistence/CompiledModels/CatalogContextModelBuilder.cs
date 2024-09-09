@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 #pragma warning disable 219, 612, 618
 #nullable disable
 
-namespace MyCompiledModels
+namespace Catalog.API.Infrastructure.Persistence.CompiledModels
 {
     public partial class CatalogContextModel
     {
@@ -24,7 +24,7 @@ namespace MyCompiledModels
             BrandEntityType.CreateAnnotations(brand);
             ProductEntityType.CreateAnnotations(product);
 
-            AddAnnotation("ProductVersion", "8.0.2");
+            AddAnnotation("ProductVersion", "8.0.8");
             AddAnnotation("Relational:MaxIdentifierLength", 128);
             AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
             AddRuntimeAnnotation("Relational:RelationalModel", CreateRelationalModel());

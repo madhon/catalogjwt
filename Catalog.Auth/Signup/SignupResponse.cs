@@ -1,4 +1,3 @@
-﻿namespace Catalog.Auth.Signup
-{
-    public record SignupResponse(bool Success, string Message);
-}
+﻿namespace Catalog.Auth.Signup;
+
+public record SignupResponse(bool Success, string Message);

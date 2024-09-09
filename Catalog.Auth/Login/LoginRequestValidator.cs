@@ -1,11 +1,10 @@
-﻿namespace Catalog.Auth.Login
+﻿namespace Catalog.Auth.Login;
+
+public class LoginRequestValidator : AbstractValidator<LoginRequest>
 {
-    public class LoginRequestValidator : AbstractValidator<LoginRequest>
+    public LoginRequestValidator()
     {
-        public LoginRequestValidator()
-        {
-            RuleFor(x => x.Email).NotEmpty().EmailAddress();
-            RuleFor(x => x.Password).NotEmpty();
-        }
+        RuleFor(x => x.Email).NotEmpty().EmailAddress();
+        RuleFor(x => x.Password).NotEmpty();
     }
 }
