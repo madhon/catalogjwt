@@ -13,4 +13,4 @@ builder.AddProject<Projects.Catalog_Gateway>("gateway")
     .WithReference(authService)
     .WithReference(catalogService);
 
-builder.Build().Run();
+await builder.Build().RunAsync().ConfigureAwait(false);

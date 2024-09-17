@@ -17,4 +17,4 @@ app.UseDefaultOpenApi();
 
 startup.Configure(app);
 
-app.Run();
+await app.RunAsync().ConfigureAwait(false);
