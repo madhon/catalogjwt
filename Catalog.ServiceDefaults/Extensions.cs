@@ -1,12 +1,12 @@
 ﻿namespace Microsoft.Extensions.Hosting;
 
+using Catalog.ServiceDefaults;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Logging;
 using OpenTelemetry;
-using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
 
@@ -16,7 +16,7 @@ public static class Extensions
     {
         builder.ConfigureOpenTelemetry();
         builder.Services.AddServiceDiscovery();
-        
+
         builder.Services.ConfigureHttpClientDefaults(http =>
         {
             // Turn on resilience by default
@@ -25,7 +25,7 @@ public static class Extensions
             // Turn on service discovery by default
             http.AddServiceDiscovery();
         });
-        
+
         builder.AddDefaultHealthChecks();
 
         return builder;
@@ -68,7 +68,6 @@ public static class Extensions
                     });
             });
 
-
         builder.AddOpenTelemetryExporters();
 
         return builder;
@@ -85,7 +84,7 @@ public static class Extensions
         builder.Services.AddOpenTelemetry()
             .WithMetrics(metrics => 
                 metrics.AddPrometheusExporter(options => options.DisableTotalNameSuffixForCounters = true));
-        
+
         return builder;
     }
 
@@ -114,6 +113,12 @@ public static class Extensions
             });          
         }
 
+        return app;
+    }
+
+    public static WebApplication AddDefaultSecurityHeaders(this WebApplication app)
+    {
+        app.UseSecurityHeaders(SecurityHeaderDefinitions.AddDefaultApiSecurityHeaders());
         return app;
     }
 

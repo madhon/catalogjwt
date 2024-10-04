@@ -37,4 +37,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Catalog.ServiceDefaults\Catalog.ServiceDefaults.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -6,11 +6,12 @@ public static class WebApplicationExtensions
     {
         app.UseSerilogRequestLogging();
 
+        app.AddDefaultSecurityHeaders();
         app.UseRouting();
 
         app.UseAuthentication();
         app.UseAuthorization();
-            
+
         app.MapReverseProxy();
         app.MapPrometheusScrapingEndpoint();
     }

@@ -26,6 +26,5 @@ public class Startup
         app.UseRouting();
         app.UseMyInfrastructure(Configuration, Environment);
         app.UseMyApi(Configuration, Environment);
-        
     }
 }

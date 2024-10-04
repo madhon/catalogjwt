@@ -6,6 +6,7 @@ global using Catalog.Auth.Model;
 global using Catalog.Auth.Infrastructure;
 global using Catalog.Auth.Extensions;
 global using Catalog.Auth.Services;
+global using Catalog.ServiceDefaults;
 
 global using FluentValidation;
 global using ErrorOr;
@@ -29,8 +30,6 @@ global using System.Security.Claims;
 global using System.Reflection;
 global using System.Text.Json;
 global using System.Text.Json.Serialization;
-
-global using Services.Common;
 
 #pragma warning restore IDE0065
 // ReSharper restore RedundantUsingDirective.Global

@@ -15,5 +15,4 @@ global using Catalog.API.Domain.Entities;
 global using Catalog.API.Application.Abstractions;
 global using Catalog.API.Web.API.Endpoints.Requests;
 global using Catalog.API.Web.API.Mappers;
-
-global using Services.Common;
+global using Catalog.ServiceDefaults;

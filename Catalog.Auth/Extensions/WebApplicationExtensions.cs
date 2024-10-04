@@ -11,6 +11,8 @@ public static class WebApplicationExtensions
 
         app.UseSerilogRequestLogs();
 
+        app.AddDefaultSecurityHeaders();
+
         app.UseRouting();
 
         app.UseMyRateLimiter();
@@ -23,14 +25,14 @@ public static class WebApplicationExtensions
             app.UseDefaultOpenApi();
             app.UseDeveloperExceptionPage();
         }
-            
+
         app.UseHeaderPropagation();
-            
+
         var versionSet = app.NewApiVersionSet()
             .HasApiVersion(new ApiVersion(1.0))
             .ReportApiVersions()
             .Build();
-           
+
 #pragma warning disable ASP0014
         app.UseEndpoints(endpoints =>
         {

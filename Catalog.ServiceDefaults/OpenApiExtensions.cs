@@ -1,4 +1,4 @@
-﻿namespace Services.Common;
+﻿namespace Catalog.ServiceDefaults;
 
 using Asp.Versioning;
 using Microsoft.AspNetCore.Builder;
