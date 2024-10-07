@@ -110,7 +110,7 @@ public static class Extensions
             app.MapHealthChecks("/alive", new HealthCheckOptions
             {
                 Predicate = r => r.Tags.Contains("live")
-            });          
+            });
         }
 
         return app;
