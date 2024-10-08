@@ -8,7 +8,6 @@ using ZiggyCreatures.Caching.Fusion;
 
 public static class ProductsEndpoint
 {
-
 	public static IEndpointRouteBuilder MapProductsEndpoint(this IEndpointRouteBuilder app)
 	{
 		app.MapGet("products/{pageSize}/{pageIndex}", [Authorize(Roles = "read")]
@@ -27,9 +26,7 @@ public static class ProductsEndpoint
 					var model = await cache.GetOrSetAsync(cacheKey, async _ =>
 					{
 						var response = await mediator.Send(new ListProductsRequest(pageIndex, pageSize), ct).ConfigureAwait(false);
-
 						return new PaginatedItemsViewModel<Product>(pageIndex, pageSize, response.TotalItems, response.Items);
-
 					}, token: ct).ConfigureAwait(false);
 
 					return TypedResults.Ok(model);

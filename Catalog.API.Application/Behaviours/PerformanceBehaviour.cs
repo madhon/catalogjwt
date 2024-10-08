@@ -8,7 +8,7 @@ public partial class PerformanceBehaviour<TMessage, TResponse> : IPipelineBehavi
     where TMessage : IMessage
 {
     private readonly ILogger<PerformanceBehaviour<TMessage, TResponse>> logger;
-    
+
     public PerformanceBehaviour(ILogger<PerformanceBehaviour<TMessage, TResponse>> logger)
     {
         this.logger = logger;
@@ -17,7 +17,7 @@ public partial class PerformanceBehaviour<TMessage, TResponse> : IPipelineBehavi
     public async ValueTask<TResponse> Handle(TMessage message, CancellationToken cancellationToken, MessageHandlerDelegate<TMessage, TResponse> next)
     {
         Stopwatch? timer = null;
-        
+
         Interlocked.Increment(ref RequestCounter.ExecutionCount);
         if (RequestCounter.ExecutionCount > 3) 
         {
@@ -37,14 +37,12 @@ public partial class PerformanceBehaviour<TMessage, TResponse> : IPipelineBehavi
 
         return response;
     }
-    
+
     [LoggerMessage(10001, LogLevel.Warning, "{requestName} long running request ({ElapsedMilliseconds} milliseconds) with {message}")]
     public partial void LogLongRunningRequest(string requestName, long? elapsedMilliseconds, TMessage message);
-    
+
     internal static class RequestCounter
     {
         public static int ExecutionCount;
     }
-
 }
-

@@ -52,7 +52,7 @@ public static partial class LoginEndpoint
         };
 
         metrics.UserLoggedIn();
-            
+
         return TypedResults.Ok(response);
     }
 

@@ -15,7 +15,7 @@ public class ConfigureJwtBearerOptions(IOptions<AuthenticationSettings> jwtOptio
     {
         Configure(string.Empty, options);
     }
-    
+
     public void Configure(string? name, JwtBearerOptions options)
     {
         if (!string.Equals(name, JwtBearerDefaults.AuthenticationScheme, StringComparison.OrdinalIgnoreCase))
@@ -24,11 +24,11 @@ public class ConfigureJwtBearerOptions(IOptions<AuthenticationSettings> jwtOptio
         }
 
         var key = Encoding.ASCII.GetBytes(jwtOptions.Secret);
-        
+
         options.SaveToken = true;
         // prevent from mapping "sub" claim to nameidentifier.
         JsonWebTokenHandler.DefaultInboundClaimTypeMap.Remove("sub");
-        
+
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
@@ -39,7 +39,7 @@ public class ConfigureJwtBearerOptions(IOptions<AuthenticationSettings> jwtOptio
             IssuerSigningKey = new SymmetricSecurityKey(key),
             ClockSkew = TimeSpan.FromSeconds(15)
         };
-        
+
         options.Events = new JwtBearerEvents
         {
             OnAuthenticationFailed = context =>

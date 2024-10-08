@@ -3,7 +3,4 @@
 using Microsoft.Extensions.Options;
 
 [OptionsValidator]
-public partial class AuthenticationSettingsValidator : IValidateOptions<AuthenticationSettings>
-{
-    
-}
+public partial class AuthenticationSettingsValidator : IValidateOptions<AuthenticationSettings>;

@@ -17,28 +17,29 @@ internal static class Startup
     {
         services.AddOptions<PersistenceOptions>()
             .BindConfiguration(PersistenceOptions.SectionName);
-        
+
         services.AddSingleton<IValidateOptions<PersistenceOptions>, PersistenceOptionsValidator>();
-        
+
         var persistenceOptions = configuration
             .GetSection(PersistenceOptions.SectionName)
             .Get<PersistenceOptions>();
-        
+
         services.AddDbContextPool<CatalogContext>(options =>
         {
             options.UseModel(CatalogContextModel.Instance);
+
             options.UseSqlServer(persistenceOptions!.CatalogDb, sqlOpts =>
             {
                 sqlOpts.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
             });
 
             options.UseExceptionProcessor();
-            
+
             if (persistenceOptions.EnableDetailedErrors)
             {
                 options.EnableDetailedErrors();
             }
-            
+
             if (persistenceOptions.EnableSensitiveDataLogging)
             {
                 options.EnableSensitiveDataLogging();

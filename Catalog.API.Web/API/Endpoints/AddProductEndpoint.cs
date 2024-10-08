@@ -31,6 +31,5 @@ public static class AddProductEndpoint
             .RequireAuthorization();
 
         return app;
-        
     }
 }

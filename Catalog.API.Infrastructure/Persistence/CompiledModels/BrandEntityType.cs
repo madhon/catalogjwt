@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.Json;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #pragma warning disable 219, 612, 618
 #nullable disable
@@ -24,26 +26,34 @@ namespace Catalog.API.Infrastructure.Persistence.CompiledModels
 
             var id = runtimeEntityType.AddProperty(
                 "Id",
-                typeof(int),
-                propertyInfo: typeof(BaseEntity).GetProperty("Id", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(BaseEntity).GetField("<Id>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                valueGenerated: ValueGenerated.OnAdd,
+                typeof(BrandId),
+                propertyInfo: typeof(BaseEntity<BrandId>).GetProperty("Id", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(BaseEntity<BrandId>).GetField("<Id>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 afterSaveBehavior: PropertySaveBehavior.Throw,
-                sentinel: 0);
+                valueConverter: new BrandId.EfCoreValueConverter());
             id.TypeMapping = IntTypeMapping.Default.Clone(
-                comparer: new ValueComparer<int>(
-                    (int v1, int v2) => v1 == v2,
-                    (int v) => v,
-                    (int v) => v),
-                keyComparer: new ValueComparer<int>(
-                    (int v1, int v2) => v1 == v2,
-                    (int v) => v,
-                    (int v) => v),
+                comparer: new ValueComparer<BrandId>(
+                    (BrandId v1, BrandId v2) => v1.Equals(v2),
+                    (BrandId v) => v.GetHashCode(),
+                    (BrandId v) => v),
+                keyComparer: new ValueComparer<BrandId>(
+                    (BrandId v1, BrandId v2) => v1.Equals(v2),
+                    (BrandId v) => v.GetHashCode(),
+                    (BrandId v) => v),
                 providerValueComparer: new ValueComparer<int>(
                     (int v1, int v2) => v1 == v2,
                     (int v) => v,
-                    (int v) => v));
-            id.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    (int v) => v),
+                converter: new ValueConverter<BrandId, int>(
+                    (BrandId id) => id.Value,
+                    (int value) => new BrandId(value)),
+                jsonValueReaderWriter: new JsonConvertedValueReaderWriter<BrandId, int>(
+                    JsonInt32ReaderWriter.Instance,
+                    new ValueConverter<BrandId, int>(
+                        (BrandId id) => id.Value,
+                        (int value) => new BrandId(value))));
+            id.SetSentinelFromProviderValue(0);
+            id.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
             var brandName = runtimeEntityType.AddProperty(
                 "BrandName",
@@ -75,7 +85,8 @@ namespace Catalog.API.Infrastructure.Persistence.CompiledModels
                 "Description",
                 typeof(string),
                 propertyInfo: typeof(Brand).GetProperty("Description", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(Brand).GetField("<Description>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+                fieldInfo: typeof(Brand).GetField("<Description>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                maxLength: 2147483647);
             description.TypeMapping = SqlServerStringTypeMapping.Default.Clone(
                 comparer: new ValueComparer<string>(
                     (string v1, string v2) => v1 == v2,
@@ -91,6 +102,7 @@ namespace Catalog.API.Infrastructure.Persistence.CompiledModels
                     (string v) => v),
                 mappingInfo: new RelationalTypeMappingInfo(
                     storeTypeName: "nvarchar(max)",
+                    size: 2147483647,
                     unicode: true,
                     dbType: System.Data.DbType.String),
                 storeTypePostfix: StoreTypePostfix.None);

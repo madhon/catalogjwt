@@ -1,12 +1,11 @@
-﻿namespace Catalog.API.Application.Abstractions
+﻿namespace Catalog.API.Application.Abstractions;
+
+public interface ICatalogDbContext
 {
-    public interface ICatalogDbContext
-    {
-        DbSet<Brand> Brands { get; }
-        DbSet<Product> Products { get; }
+    DbSet<Brand> Brands { get; }
+    DbSet<Product> Products { get; }
 
-        IEnumerable<Product> GetProducts(int pageSize, int pageIndex);
+    IEnumerable<Product> GetProducts(int pageSize, int pageIndex);
 
-        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
-    }
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

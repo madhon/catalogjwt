@@ -1,44 +1,39 @@
-﻿namespace Catalog.API.Application.Features.ListProducts
+﻿namespace Catalog.API.Application.Features.ListProducts;
+
+using Catalog.API.Application.Abstractions;
+using Mediator;
+
+public sealed class ListProductsHandler : IRequestHandler<ListProductsRequest, ListProductsResponse>
 {
-    using Catalog.API.Application.Abstractions;
-    using Mediator;
+    private readonly ICatalogDbContext catalogDbContext;
 
-    public sealed class ListProductsHandler : IRequestHandler<ListProductsRequest, ListProductsResponse>
+    public ListProductsHandler(ICatalogDbContext catalogDbContext)
     {
-        private readonly ICatalogDbContext catalogDbContext;
+        this.catalogDbContext = catalogDbContext;
+    }
 
-        public ListProductsHandler(ICatalogDbContext catalogDbContext)
-        {
-            this.catalogDbContext = catalogDbContext;
-        }
-        
-        public async ValueTask<ListProductsResponse> Handle(ListProductsRequest request, CancellationToken cancellationToken)
-        {
-            var totalItem = await catalogDbContext.Products
-                .AsNoTracking()
-                .LongCountAsync(cancellationToken).ConfigureAwait(false);
+    public async ValueTask<ListProductsResponse> Handle(ListProductsRequest request, CancellationToken cancellationToken)
+    {
+        var totalItem = await catalogDbContext.Products
+            .AsNoTracking()
+            .LongCountAsync(cancellationToken).ConfigureAwait(false);
 
-
-            var itemsOnPage = catalogDbContext.GetProducts(request.PageSize, request.PageIndex).ToList();
+        var itemsOnPage = catalogDbContext.GetProducts(request.PageSize, request.PageIndex).ToList();
 
 #pragma warning disable S125
-            //var itemsOnPage = await catalogDbContext.Products
-            //    .AsNoTracking()
-            //    .Where(x =>
-            //        catalogDbContext.Products
-            //            .OrderBy(c => c.Name)
-            //            .Select(y => y.Id)
-            //            .Skip(request.PageSize * request.PageIndex)
-            //            .Take(request.PageSize)
-            //            .Contains(x.Id))
-            //    .ToListAsync(cancellationToken)
-            //    .ConfigureAwait(false);
+        //var itemsOnPage = await catalogDbContext.Products
+        //    .AsNoTracking()
+        //    .Where(x =>
+        //        catalogDbContext.Products
+        //            .OrderBy(c => c.Name)
+        //            .Select(y => y.Id)
+        //            .Skip(request.PageSize * request.PageIndex)
+        //            .Take(request.PageSize)
+        //            .Contains(x.Id))
+        //    .ToListAsync(cancellationToken)
+        //    .ConfigureAwait(false);
 #pragma warning restore S125
 
-            return new ListProductsResponse(totalItem, itemsOnPage);
-        }
-
-
-
+        return new ListProductsResponse(totalItem, itemsOnPage);
     }
 }

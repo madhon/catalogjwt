@@ -18,14 +18,13 @@ public static class ApiStartup
 			opts.KnownNetworks.Clear();
 			opts.KnownProxies.Clear();
 		});
-		
+
 		services.ConfigureHttpJsonOptions(options =>
 		{
 			options.SerializerOptions.TypeInfoResolverChain.Insert(0, AppJsonSerializerContext.Default);
 		});
 
 		services.AddRateLimiter(rlo => {
-
 			rlo.RejectionStatusCode = 429;
 			rlo.AddFixedWindowLimiter(policyName: "fixed", options =>
 			{
@@ -34,13 +33,12 @@ public static class ApiStartup
 				options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
 				options.QueueLimit = 2;
 			});
-
 		});
 
 		services.AddHealthChecks();
 
 		services.AddProblemDetails();
-		
+
 		services.AddHttpContextAccessor();
 
 		services.AddMemoryCache();
@@ -52,7 +50,7 @@ public static class ApiStartup
 			});
 
 		services.AddValidatorsFromAssemblyContaining<AddBrandValidator>();
-		
+
 		services.AddMediator(opts => opts.ServiceLifetime = ServiceLifetime.Scoped);
 
 		services.AddHeaderPropagation(options => options.Headers.Add("x-correlation-id"));
@@ -71,13 +69,11 @@ public static class ApiStartup
 			endpoints.MapHealthChecks("/health/startup");
 			endpoints.MapHealthChecks("/healthz", new HealthCheckOptions { Predicate = _ => false });
 			endpoints.MapHealthChecks("/ready", new HealthCheckOptions { Predicate = _ => false });
-			
+
 			endpoints.MapGroup("api/v1/catalog/")
 				.MapCatalogApi();
 
 			endpoints.MapPrometheusScrapingEndpoint();
 		});
-
-			
 	}
 }

@@ -10,7 +10,9 @@ public class BrandEntityTypeConfiguration : IEntityTypeConfiguration<Brand>
     {
         builder.ToTable("CatalogBrand");
         builder.HasKey(b => b.Id);
-        builder.Property(b => b.Id).IsRequired();
+        builder.Property(b => b.Id).IsRequired()
+            .HasConversion( typeof(BrandId.EfCoreValueConverter));
         builder.Property(b => b.BrandName).IsRequired().HasMaxLength(100);
+        builder.Property(b => b.Description).IsRequired().HasMaxLength(int.MaxValue);
     }
 }

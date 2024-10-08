@@ -6,5 +6,4 @@ using Catalog.API.Web.API.Endpoints.Requests;
 public partial class ProductMapper
 {
     public partial Product MapAddProductRequestToProduct(AddProductRequest request);
-
 }

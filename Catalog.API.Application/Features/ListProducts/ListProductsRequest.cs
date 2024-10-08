@@ -1,8 +1,5 @@
-﻿namespace Catalog.API.Application.Features.ListProducts
-{
-    using Mediator;
+﻿namespace Catalog.API.Application.Features.ListProducts;
 
-    public sealed record ListProductsRequest(int PageIndex, int PageSize) : IRequest<ListProductsResponse>
-    {
-    }
-}
+using Mediator;
+
+public sealed record ListProductsRequest(int PageIndex, int PageSize) : IRequest<ListProductsResponse>;

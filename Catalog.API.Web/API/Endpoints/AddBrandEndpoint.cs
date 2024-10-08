@@ -14,12 +14,12 @@ public static class AddBrandEndpoint
                 )
                 =>
             {
-                var validationResult = await validator.ValidateAsync(request).ConfigureAwait(false);
+                var validationResult = await validator.ValidateAsync(request, ct).ConfigureAwait(false);
                 if (!validationResult.IsValid)
                 {
                     return TypedResults.ValidationProblem(validationResult.ToDictionary());
                 }
-                
+
                 var mapper = new BrandMapper();
                 var item = mapper.MapAddBrandRequestToBrand(request);
 
@@ -38,5 +38,4 @@ public static class AddBrandEndpoint
 
         return app;
     }
-    
 }

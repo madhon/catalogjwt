@@ -15,9 +15,9 @@ internal static class Startup
             .Bind(configuration.GetSection(AuthenticationSettings.SectionName));
 
         services.AddSingleton<IValidateOptions<AuthenticationSettings>, AuthenticationSettingsValidator>();
-            
+
         services.AddSingleton<IConfigureOptions<JwtBearerOptions>, ConfigureJwtBearerOptions>();
-            
+
         services.AddAuthorization();
         services.AddAuthentication(auth =>
             {
@@ -28,7 +28,7 @@ internal static class Startup
 
         return services;
     }
-        
+
     public static void Configure(IApplicationBuilder app)
     {
         app.UseAuthentication();

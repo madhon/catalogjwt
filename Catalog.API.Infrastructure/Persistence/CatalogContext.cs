@@ -2,12 +2,11 @@
 
 using Catalog.API.Application.Abstractions;
 using Catalog.API.Domain.Entities;
-using Catalog.API.Infrastructure.EntityConfigurations;
 using Catalog.API.Infrastructure.Persistence.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
 
 /// <summary>
-///  dotnet ef dbcontext optimize --output-dir .\Persistence\CompiledModels --data-context CatalogContext --namespace Catalog.API.Infrastructure.Persistence.CompiledModels --force
+///  dotnet ef dbcontext optimize --output-dir .\Persistence\CompiledModels --context CatalogContext --namespace Catalog.API.Infrastructure.Persistence.CompiledModels
 /// </summary>
 public class CatalogContext : DbContext, ICatalogDbContext
 {
@@ -23,7 +22,7 @@ public class CatalogContext : DbContext, ICatalogDbContext
         modelBuilder.ApplyConfiguration(new BrandEntityTypeConfiguration());
         modelBuilder.ApplyConfiguration(new ProductEntityTypeConfiguration());
     }
-        
+
     private static readonly Func<CatalogContext, int, int, IEnumerable<Product>> GetProductsInternal =
         EF.CompileQuery(
             (CatalogContext context, int pageSize, int pageIndex) =>
@@ -42,5 +41,4 @@ public class CatalogContext : DbContext, ICatalogDbContext
     {
         return GetProductsInternal(this, pageSize, pageIndex);
     }
-
 }
