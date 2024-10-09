@@ -2,34 +2,34 @@
   <ItemGroup>
     <!-- System packages -->
     <PackageVersion Include="System.Text.Encodings.Web" Version="8.0.0" />
-    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.1.1" />
-    <PackageVersion Include="System.Security.Cryptography.Pkcs" Version="8.0.0" />
-    <PackageVersion Include="System.Text.Json" Version="8.0.4" />
+    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.1.2" />
+    <PackageVersion Include="System.Security.Cryptography.Pkcs" Version="8.0.1" />
+    <PackageVersion Include="System.Text.Json" Version="8.0.5" />
     <PackageVersion Include="System.Formats.Asn1" Version="8.0.1" />
     <!-- Microsoft packages -->
-    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
-    <PackageVersion Include="Microsoft.AspNetCore.DataProtection.EntityFrameworkCore" Version="8.0.8" />
-    <PackageVersion Include="Microsoft.AspNetCore.HeaderPropagation" Version="8.0.8" />
-    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.8" />
-    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="8.0.8" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.10" />
+    <PackageVersion Include="Microsoft.AspNetCore.DataProtection.EntityFrameworkCore" Version="8.0.10" />
+    <PackageVersion Include="Microsoft.AspNetCore.HeaderPropagation" Version="8.0.10" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.10" />
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="8.0.10" />
     <PackageVersion Include="Microsoft.OpenApi" Version="1.6.22" />
     <PackageVersion Include="Microsoft.Identity.Client" Version="4.65.0" />
     <PackageVersion Include="Microsoft.Identity.Client.Extensions.Msal" Version="4.65.0" />
-    <PackageVersion Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="8.1.1" />
-    <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.1.1" />
+    <PackageVersion Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="8.1.2" />
+    <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.1.2" />
     <PackageVersion Include="Microsoft.Data.SqlClient" Version="5.2.2" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.8" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.8" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8" />
-    <PackageVersion Include="Microsoft.Extensions.ApiDescription.Server" Version="8.0.8" />
-    <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="8.0.8" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.10" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.10" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.10" />
+    <PackageVersion Include="Microsoft.Extensions.ApiDescription.Server" Version="8.0.10" />
+    <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="8.0.10" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.2" />
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
-    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
-    <PackageVersion Include="Microsoft.Extensions.Telemetry.Abstractions" Version="8.9.1" />
-    <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="8.9.1" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.2" />
+    <PackageVersion Include="Microsoft.Extensions.Telemetry.Abstractions" Version="8.10.0" />
+    <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="8.10.0" />
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
     <PackageVersion Include="Azure.Core" Version="1.44.0" />
     <PackageVersion Include="Azure.Identity" Version="1.12.1" />
@@ -47,6 +47,8 @@
     <PackageVersion Include="Serilog.Exceptions" Version="8.4.0" />
     <PackageVersion Include="Serilog.Sinks.Async" Version="2.0.0" />
     <PackageVersion Include="Serilog.Sinks.Console" Version="6.0.0" />
+    <PackageVersion Include="Serilog.Sinks.Debug" Version="3.0.0" />
+    <PackageVersion Include="Serilog.Sinks.File" Version="6.0.0" />
     <PackageVersion Include="Serilog.Sinks.Seq" Version="8.0.0" />
     <PackageVersion Include="Serilog.Sinks.PeriodicBatching" Version="4.1.0" />
     <PackageVersion Include="ErrorOr" Version="2.0.1" />
@@ -59,6 +61,9 @@
     <PackageVersion Include="NetEscapades.AspNetCore.SecurityHeaders" Version="0.24.0" />
     <PackageVersion Include="StronglyTypedId" Version="1.0.0-beta08" />
     <PackageVersion Include="StronglyTypedId.Templates" Version="1.0.0-beta08" />
+    <PackageVersion Include="Polly.Core" Version="8.4.2" />
+    <PackageVersion Include="Polly.Extensions" Version="8.4.2" />
+    <PackageVersion Include="Polly.RateLimiting" Version="8.4.2" />
     <!-- OpenTelemetry-->
     <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.9.0" />
     <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.9.0" />
