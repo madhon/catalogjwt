@@ -33,7 +33,7 @@
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="8.10.0" />
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
     <PackageVersion Include="Azure.Core" Version="1.44.1" />
-    <PackageVersion Include="Azure.Identity" Version="1.13.0" />
+    <PackageVersion Include="Azure.Identity" Version="1.13.1" />
     <PackageVersion Include="Yarp.ReverseProxy" Version="2.2.0" />
     <!-- 3rd party packages -->
     <PackageVersion Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
@@ -53,7 +53,7 @@
     <PackageVersion Include="Serilog.Sinks.Seq" Version="8.0.0" />
     <PackageVersion Include="Serilog.Sinks.PeriodicBatching" Version="4.1.0" />
     <PackageVersion Include="ErrorOr" Version="2.0.1" />
-    <PackageVersion Include="ZiggyCreatures.FusionCache" Version="1.4.0" />
+    <PackageVersion Include="ZiggyCreatures.FusionCache" Version="1.4.1" />
     <PackageVersion Include="Mediator.Abstractions" Version="2.1.7" />
     <PackageVersion Include="Mediator.SourceGenerator" Version="2.1.7" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.9.0" />
@@ -74,9 +74,9 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.9.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.9.0" />
     <!-- Analyzers -->
-    <PackageVersion Include="Meziantou.Analyzer" Version="2.0.175" />
-    <PackageVersion Include="Roslynator.Analyzers" Version="4.12.8" />
-    <PackageVersion Include="Roslynator.Formatting.Analyzers" Version="4.12.8" />
+    <PackageVersion Include="Meziantou.Analyzer" Version="2.0.177" />
+    <PackageVersion Include="Roslynator.Analyzers" Version="4.12.9" />
+    <PackageVersion Include="Roslynator.Formatting.Analyzers" Version="4.12.9" />
     <PackageVersion Include="Roslynator.CodeFixes" Version="4.12.4" />
     <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.32.0.97167" />
     <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.11.20" />
