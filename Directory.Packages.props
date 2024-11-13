@@ -1,12 +1,12 @@
 <Project>
   <ItemGroup>
     <!-- System packages -->
-    <PackageVersion Include="System.Text.Encodings.Web" Version="8.0.0" />
+    <PackageVersion Include="System.Text.Encodings.Web" Version="9.0.0" />
     <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.2.0" />
     <PackageVersion Include="System.Runtime.Caching" Version="8.0.1" />
     <PackageVersion Include="System.Security.Cryptography.Pkcs" Version="8.0.1" />
-    <PackageVersion Include="System.Text.Json" Version="8.0.5" />
-    <PackageVersion Include="System.Formats.Asn1" Version="8.0.1" />
+    <PackageVersion Include="System.Text.Json" Version="9.0.0" />
+    <PackageVersion Include="System.Formats.Asn1" Version="9.0.0" />
     <!-- Microsoft packages -->
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.10" />
     <PackageVersion Include="Microsoft.AspNetCore.DataProtection.EntityFrameworkCore" Version="8.0.10" />
@@ -19,16 +19,16 @@
     <PackageVersion Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="8.2.0" />
     <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.2.0" />
     <PackageVersion Include="Microsoft.Data.SqlClient" Version="5.2.2" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.10" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.10" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.10" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0" />
     <PackageVersion Include="Microsoft.Extensions.ApiDescription.Server" Version="8.0.10" />
     <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="8.0.10" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.2" />
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
-    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.2" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Telemetry.Abstractions" Version="8.10.0" />
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="8.10.0" />
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
