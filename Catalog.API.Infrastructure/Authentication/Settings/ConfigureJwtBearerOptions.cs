@@ -37,7 +37,7 @@ public class ConfigureJwtBearerOptions(IOptions<AuthenticationSettings> jwtOptio
             ValidAudience = jwtOptions.Audience,
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(key),
-            ClockSkew = TimeSpan.FromSeconds(15)
+            ClockSkew = TimeSpan.FromSeconds(15),
         };
 
         options.Events = new JwtBearerEvents
