@@ -35,7 +35,7 @@ namespace MyCompiledModels
             }
 
             model.Customize();
-            _instance = model;
+            _instance = (AuthDbContextModel)model.FinalizeModel();
         }
 
         private static AuthDbContextModel _instance;

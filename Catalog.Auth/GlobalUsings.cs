@@ -13,7 +13,6 @@ global using ErrorOr;
 
 global using Asp.Versioning;
 global using Asp.Versioning.Builder;
-global using Swashbuckle.AspNetCore.SwaggerGen;
 
 global using Microsoft.AspNetCore.Authentication.JwtBearer;
 global using Microsoft.EntityFrameworkCore;

@@ -1,4 +1,4 @@
-﻿namespace Catalog.Auth.Infrastructure;
+﻿/*namespace Catalog.Auth.Infrastructure;
 
 using Asp.Versioning.ApiExplorer;
 using Microsoft.Extensions.Options;
@@ -31,4 +31,4 @@ public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
                 });
         }
     }
-}
+}*/

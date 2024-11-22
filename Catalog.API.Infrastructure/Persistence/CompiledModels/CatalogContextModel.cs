@@ -34,7 +34,7 @@ namespace Catalog.API.Infrastructure.Persistence.CompiledModels
             }
 
             model.Customize();
-            _instance = model;
+            _instance = (CatalogContextModel)model.FinalizeModel();
         }
 
         private static CatalogContextModel _instance;

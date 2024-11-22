@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.SwaggerUI;
+using Scalar.AspNetCore;
 
 public static class OpenApiExtensions
 {
@@ -14,38 +14,17 @@ public static class OpenApiExtensions
     {
         var configuration = app.Configuration;
         var openApiSection = configuration.GetSection("OpenApi");
-        
+
         if (openApiSection is null)
         {
-            return app; 
+            return app;
         }
-        
-        app.UseSwagger(c =>
-        {
-            c.RouteTemplate = "docs/{documentName}/swagger.json";
-            
-            c.PreSerializeFilters.Add((swagger, httpReq) =>
-            {
-                swagger.Servers = new List<OpenApiServer>()
-                {
-                    new OpenApiServer
-                        { Url = $"{httpReq.Scheme}://{httpReq.Host.Value}{httpReq.PathBase.Value}" }
-                };
-            });
-            
-        });
-        
-        app.UseSwaggerUI(ui =>
-        {
-            ui.RoutePrefix = "docs";
-            ui.DocExpansion(DocExpansion.List);
-            ui.DisplayRequestDuration();
-            ui.DefaultModelExpandDepth(-1);
-            
-        });
+
+        app.MapOpenApi();
+        app.MapScalarApiReference(opts => opts.DefaultFonts = false);
 
         // Add a redirect from the root of the app to the swagger endpoint
-        app.MapGet("/", () => Results.Redirect("/docs")).ExcludeFromDescription();
+        app.MapGet("/", () => Results.Redirect("~/scalar/v1")).ExcludeFromDescription();
 
         return app;
     }
@@ -54,11 +33,11 @@ public static class OpenApiExtensions
     {
         var services = builder.Services;
         var configuration = builder.Configuration;
-        
+
         var openApi = configuration.GetSection("OpenApi");
         if (openApi is null)
         {
-            return builder; 
+            return builder;
         }
         services.AddEndpointsApiExplorer();
         services.AddApiVersioning()
@@ -69,20 +48,30 @@ public static class OpenApiExtensions
                 options.DefaultApiVersion = new ApiVersion(1, 0);
             });
 
-        services.AddSwaggerGen(options =>
+        services.AddOpenApi(options =>
         {
-            var document = openApi.GetRequiredSection("Document");
+            var apidoc = openApi.GetRequiredSection("Document");
 
-            var version = document.GetRequiredValue("Version") ?? "v1";
+            var version = apidoc.GetRequiredValue("Version") ?? "v1";
 
-            options.SwaggerDoc(version, new OpenApiInfo
+            options.AddDocumentTransformer((document, _, _) =>
             {
-                Title = document.GetRequiredValue("Title"),
-                Version = version,
-                Description = document.GetRequiredValue("Description")
+                document.Info = new OpenApiInfo
+                {
+                    Title = apidoc.GetRequiredValue("Title"),
+                    Version = version,
+                    Description = apidoc.GetRequiredValue("Description"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = $"{apidoc.GetRequiredValue("Description")} Team",
+                    },
+                };
+
+                document.Servers = [];
+
+                return Task.CompletedTask;
             });
         });
-
         return builder;
     }
 }

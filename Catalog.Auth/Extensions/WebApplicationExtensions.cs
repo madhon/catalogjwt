@@ -11,7 +11,7 @@ public static class WebApplicationExtensions
 
         app.UseSerilogRequestLogs();
 
-        app.AddDefaultSecurityHeaders();
+        //app.AddDefaultSecurityHeaders();
 
         app.UseRouting();
 

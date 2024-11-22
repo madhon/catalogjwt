@@ -4,26 +4,28 @@ using System.Reflection;
 using Catalog.API.Domain.Common;
 using Catalog.API.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.EntityFrameworkCore.Storage.Json;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #pragma warning disable 219, 612, 618
 #nullable disable
 
 namespace Catalog.API.Infrastructure.Persistence.CompiledModels
 {
-    internal partial class ProductEntityType
+    [EntityFrameworkInternal]
+    public partial class ProductEntityType
     {
         public static RuntimeEntityType Create(RuntimeModel model, RuntimeEntityType baseEntityType = null)
         {
             var runtimeEntityType = model.AddEntityType(
                 "Catalog.API.Domain.Entities.Product",
                 typeof(Product),
-                baseEntityType);
+                baseEntityType,
+                propertyCount: 6,
+                navigationCount: 1,
+                foreignKeyCount: 1,
+                unnamedIndexCount: 1,
+                keyCount: 1);
 
             var id = runtimeEntityType.AddProperty(
                 "Id",
@@ -33,27 +35,6 @@ namespace Catalog.API.Infrastructure.Persistence.CompiledModels
                 valueGenerated: ValueGenerated.OnAdd,
                 afterSaveBehavior: PropertySaveBehavior.Throw,
                 valueConverter: new ProductId.EfCoreValueConverter());
-            id.TypeMapping = IntTypeMapping.Default.Clone(
-                comparer: new ValueComparer<ProductId>(
-                    (ProductId v1, ProductId v2) => v1.Equals(v2),
-                    (ProductId v) => v.GetHashCode(),
-                    (ProductId v) => v),
-                keyComparer: new ValueComparer<ProductId>(
-                    (ProductId v1, ProductId v2) => v1.Equals(v2),
-                    (ProductId v) => v.GetHashCode(),
-                    (ProductId v) => v),
-                providerValueComparer: new ValueComparer<int>(
-                    (int v1, int v2) => v1 == v2,
-                    (int v) => v,
-                    (int v) => v),
-                converter: new ValueConverter<ProductId, int>(
-                    (ProductId id) => id.Value,
-                    (int value) => new ProductId(value)),
-                jsonValueReaderWriter: new JsonConvertedValueReaderWriter<ProductId, int>(
-                    JsonInt32ReaderWriter.Instance,
-                    new ValueConverter<ProductId, int>(
-                        (ProductId id) => id.Value,
-                        (int value) => new ProductId(value))));
             id.SetSentinelFromProviderValue(0);
             id.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -63,27 +44,6 @@ namespace Catalog.API.Infrastructure.Persistence.CompiledModels
                 propertyInfo: typeof(Product).GetProperty("BrandId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(Product).GetField("<BrandId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 valueConverter: new BrandId.EfCoreValueConverter());
-            brandId.TypeMapping = IntTypeMapping.Default.Clone(
-                comparer: new ValueComparer<BrandId>(
-                    (BrandId v1, BrandId v2) => v1.Equals(v2),
-                    (BrandId v) => v.GetHashCode(),
-                    (BrandId v) => v),
-                keyComparer: new ValueComparer<BrandId>(
-                    (BrandId v1, BrandId v2) => v1.Equals(v2),
-                    (BrandId v) => v.GetHashCode(),
-                    (BrandId v) => v),
-                providerValueComparer: new ValueComparer<int>(
-                    (int v1, int v2) => v1 == v2,
-                    (int v) => v,
-                    (int v) => v),
-                converter: new ValueConverter<BrandId, int>(
-                    (BrandId id) => id.Value,
-                    (int value) => new BrandId(value)),
-                jsonValueReaderWriter: new JsonConvertedValueReaderWriter<BrandId, int>(
-                    JsonInt32ReaderWriter.Instance,
-                    new ValueConverter<BrandId, int>(
-                        (BrandId id) => id.Value,
-                        (int value) => new BrandId(value))));
             brandId.SetSentinelFromProviderValue(0);
             brandId.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
@@ -93,25 +53,6 @@ namespace Catalog.API.Infrastructure.Persistence.CompiledModels
                 propertyInfo: typeof(Product).GetProperty("Description", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(Product).GetField("<Description>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 maxLength: 2147483647);
-            description.TypeMapping = SqlServerStringTypeMapping.Default.Clone(
-                comparer: new ValueComparer<string>(
-                    (string v1, string v2) => v1 == v2,
-                    (string v) => v.GetHashCode(),
-                    (string v) => v),
-                keyComparer: new ValueComparer<string>(
-                    (string v1, string v2) => v1 == v2,
-                    (string v) => v.GetHashCode(),
-                    (string v) => v),
-                providerValueComparer: new ValueComparer<string>(
-                    (string v1, string v2) => v1 == v2,
-                    (string v) => v.GetHashCode(),
-                    (string v) => v),
-                mappingInfo: new RelationalTypeMappingInfo(
-                    storeTypeName: "nvarchar(max)",
-                    size: 2147483647,
-                    unicode: true,
-                    dbType: System.Data.DbType.String),
-                storeTypePostfix: StoreTypePostfix.None);
             description.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
             var name = runtimeEntityType.AddProperty(
@@ -120,24 +61,6 @@ namespace Catalog.API.Infrastructure.Persistence.CompiledModels
                 propertyInfo: typeof(Product).GetProperty("Name", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(Product).GetField("<Name>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 maxLength: 50);
-            name.TypeMapping = SqlServerStringTypeMapping.Default.Clone(
-                comparer: new ValueComparer<string>(
-                    (string v1, string v2) => v1 == v2,
-                    (string v) => v.GetHashCode(),
-                    (string v) => v),
-                keyComparer: new ValueComparer<string>(
-                    (string v1, string v2) => v1 == v2,
-                    (string v) => v.GetHashCode(),
-                    (string v) => v),
-                providerValueComparer: new ValueComparer<string>(
-                    (string v1, string v2) => v1 == v2,
-                    (string v) => v.GetHashCode(),
-                    (string v) => v),
-                mappingInfo: new RelationalTypeMappingInfo(
-                    storeTypeName: "nvarchar(50)",
-                    size: 50,
-                    unicode: true,
-                    dbType: System.Data.DbType.String));
             name.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
             var pictureUri = runtimeEntityType.AddProperty(
@@ -147,25 +70,6 @@ namespace Catalog.API.Infrastructure.Persistence.CompiledModels
                 fieldInfo: typeof(Product).GetField("<PictureUri>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 nullable: true,
                 maxLength: 2147483647);
-            pictureUri.TypeMapping = SqlServerStringTypeMapping.Default.Clone(
-                comparer: new ValueComparer<string>(
-                    (string v1, string v2) => v1 == v2,
-                    (string v) => v.GetHashCode(),
-                    (string v) => v),
-                keyComparer: new ValueComparer<string>(
-                    (string v1, string v2) => v1 == v2,
-                    (string v) => v.GetHashCode(),
-                    (string v) => v),
-                providerValueComparer: new ValueComparer<string>(
-                    (string v1, string v2) => v1 == v2,
-                    (string v) => v.GetHashCode(),
-                    (string v) => v),
-                mappingInfo: new RelationalTypeMappingInfo(
-                    storeTypeName: "nvarchar(max)",
-                    size: 2147483647,
-                    unicode: true,
-                    dbType: System.Data.DbType.String),
-                storeTypePostfix: StoreTypePostfix.None);
             pictureUri.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
             var price = runtimeEntityType.AddProperty(
@@ -176,19 +80,6 @@ namespace Catalog.API.Infrastructure.Persistence.CompiledModels
                 precision: 18,
                 scale: 2,
                 sentinel: 0m);
-            price.TypeMapping = SqlServerDecimalTypeMapping.Default.Clone(
-                comparer: new ValueComparer<decimal>(
-                    (decimal v1, decimal v2) => v1 == v2,
-                    (decimal v) => v.GetHashCode(),
-                    (decimal v) => v),
-                keyComparer: new ValueComparer<decimal>(
-                    (decimal v1, decimal v2) => v1 == v2,
-                    (decimal v) => v.GetHashCode(),
-                    (decimal v) => v),
-                providerValueComparer: new ValueComparer<decimal>(
-                    (decimal v1, decimal v2) => v1 == v2,
-                    (decimal v) => v.GetHashCode(),
-                    (decimal v) => v));
             price.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
             var key = runtimeEntityType.AddKey(

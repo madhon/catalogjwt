@@ -3,26 +3,25 @@ using System;
 using System.Reflection;
 using Catalog.API.Domain.Common;
 using Catalog.API.Domain.Entities;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.EntityFrameworkCore.Storage.Json;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #pragma warning disable 219, 612, 618
 #nullable disable
 
 namespace Catalog.API.Infrastructure.Persistence.CompiledModels
 {
-    internal partial class BrandEntityType
+    [EntityFrameworkInternal]
+    public partial class BrandEntityType
     {
         public static RuntimeEntityType Create(RuntimeModel model, RuntimeEntityType baseEntityType = null)
         {
             var runtimeEntityType = model.AddEntityType(
                 "Catalog.API.Domain.Entities.Brand",
                 typeof(Brand),
-                baseEntityType);
+                baseEntityType,
+                propertyCount: 3,
+                keyCount: 1);
 
             var id = runtimeEntityType.AddProperty(
                 "Id",
@@ -31,27 +30,6 @@ namespace Catalog.API.Infrastructure.Persistence.CompiledModels
                 fieldInfo: typeof(BaseEntity<BrandId>).GetField("<Id>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 afterSaveBehavior: PropertySaveBehavior.Throw,
                 valueConverter: new BrandId.EfCoreValueConverter());
-            id.TypeMapping = IntTypeMapping.Default.Clone(
-                comparer: new ValueComparer<BrandId>(
-                    (BrandId v1, BrandId v2) => v1.Equals(v2),
-                    (BrandId v) => v.GetHashCode(),
-                    (BrandId v) => v),
-                keyComparer: new ValueComparer<BrandId>(
-                    (BrandId v1, BrandId v2) => v1.Equals(v2),
-                    (BrandId v) => v.GetHashCode(),
-                    (BrandId v) => v),
-                providerValueComparer: new ValueComparer<int>(
-                    (int v1, int v2) => v1 == v2,
-                    (int v) => v,
-                    (int v) => v),
-                converter: new ValueConverter<BrandId, int>(
-                    (BrandId id) => id.Value,
-                    (int value) => new BrandId(value)),
-                jsonValueReaderWriter: new JsonConvertedValueReaderWriter<BrandId, int>(
-                    JsonInt32ReaderWriter.Instance,
-                    new ValueConverter<BrandId, int>(
-                        (BrandId id) => id.Value,
-                        (int value) => new BrandId(value))));
             id.SetSentinelFromProviderValue(0);
             id.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
@@ -61,24 +39,6 @@ namespace Catalog.API.Infrastructure.Persistence.CompiledModels
                 propertyInfo: typeof(Brand).GetProperty("BrandName", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(Brand).GetField("<BrandName>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 maxLength: 100);
-            brandName.TypeMapping = SqlServerStringTypeMapping.Default.Clone(
-                comparer: new ValueComparer<string>(
-                    (string v1, string v2) => v1 == v2,
-                    (string v) => v.GetHashCode(),
-                    (string v) => v),
-                keyComparer: new ValueComparer<string>(
-                    (string v1, string v2) => v1 == v2,
-                    (string v) => v.GetHashCode(),
-                    (string v) => v),
-                providerValueComparer: new ValueComparer<string>(
-                    (string v1, string v2) => v1 == v2,
-                    (string v) => v.GetHashCode(),
-                    (string v) => v),
-                mappingInfo: new RelationalTypeMappingInfo(
-                    storeTypeName: "nvarchar(100)",
-                    size: 100,
-                    unicode: true,
-                    dbType: System.Data.DbType.String));
             brandName.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
             var description = runtimeEntityType.AddProperty(
@@ -87,25 +47,6 @@ namespace Catalog.API.Infrastructure.Persistence.CompiledModels
                 propertyInfo: typeof(Brand).GetProperty("Description", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(Brand).GetField("<Description>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 maxLength: 2147483647);
-            description.TypeMapping = SqlServerStringTypeMapping.Default.Clone(
-                comparer: new ValueComparer<string>(
-                    (string v1, string v2) => v1 == v2,
-                    (string v) => v.GetHashCode(),
-                    (string v) => v),
-                keyComparer: new ValueComparer<string>(
-                    (string v1, string v2) => v1 == v2,
-                    (string v) => v.GetHashCode(),
-                    (string v) => v),
-                providerValueComparer: new ValueComparer<string>(
-                    (string v1, string v2) => v1 == v2,
-                    (string v) => v.GetHashCode(),
-                    (string v) => v),
-                mappingInfo: new RelationalTypeMappingInfo(
-                    storeTypeName: "nvarchar(max)",
-                    size: 2147483647,
-                    unicode: true,
-                    dbType: System.Data.DbType.String),
-                storeTypePostfix: StoreTypePostfix.None);
             description.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
             var key = runtimeEntityType.AddKey(
