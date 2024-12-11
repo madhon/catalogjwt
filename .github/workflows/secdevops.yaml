@@ -5,7 +5,10 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-
+  workflow_dispatch:
+  schedule:
+    - cron: '41 2 * * 4'
+    
 permissions: read-all
 
 jobs:
