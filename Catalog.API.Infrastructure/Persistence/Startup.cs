@@ -24,7 +24,9 @@ internal static class Startup
             .GetSection(PersistenceOptions.SectionName)
             .Get<PersistenceOptions>();
 
-        services.AddDbContextPool<CatalogContext>(options =>
+        services.AddScoped<SlowQueryInterceptor>();
+
+        services.AddDbContextPool<CatalogContext>((sp, options) =>
         {
             options.UseModel(CatalogContextModel.Instance);
 
@@ -32,6 +34,8 @@ internal static class Startup
             {
                 sqlOpts.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
             });
+
+            options.AddInterceptors(sp.GetRequiredService<SlowQueryInterceptor>());
 
             options.UseExceptionProcessor();
 

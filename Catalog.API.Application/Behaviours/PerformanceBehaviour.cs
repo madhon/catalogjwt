@@ -19,7 +19,7 @@ public partial class PerformanceBehaviour<TMessage, TResponse> : IPipelineBehavi
         Stopwatch? timer = null;
 
         Interlocked.Increment(ref RequestCounter.ExecutionCount);
-        if (RequestCounter.ExecutionCount > 3) 
+        if (RequestCounter.ExecutionCount > 3)
         {
             timer = Stopwatch.StartNew();
         }
