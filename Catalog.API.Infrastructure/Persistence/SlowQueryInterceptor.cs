@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 public sealed partial class SlowQueryInterceptor : DbCommandInterceptor
 {
-    private const int SlowQueryThreshold = 1000;
+    private const int SlowQueryThreshold = 200;
     private readonly ILogger<SlowQueryInterceptor> logger;
 
     public SlowQueryInterceptor(ILogger<SlowQueryInterceptor> logger)
