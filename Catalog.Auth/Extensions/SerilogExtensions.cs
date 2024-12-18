@@ -15,14 +15,14 @@ internal static class SerilogExtensions
         var serilogOptions = new SerilogOptions();
         builder.Configuration.GetSection(sectionName).Bind(serilogOptions);
 
-        Serilog.Debugging.SelfLog.Enable(msg => Console.WriteLine(msg));
+        Serilog.Debugging.SelfLog.Enable(Console.WriteLine);
 
         builder.Host.UseSerilog((context, loggerConfiguration) =>
         {
             var options = new ConfigurationReaderOptions { SectionName = "Serilog" };
             loggerConfiguration.ReadFrom.Configuration(context.Configuration, options)
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Error)
-                .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Error)
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+                .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Information)
                 .MinimumLevel.Override("Serilog", LogEventLevel.Information)
                 .MinimumLevel.Override("ZiggyCreatures.Caching.Fusion.FusionCache", LogEventLevel.Error)
                 .Enrich.WithProperty("Application", builder.Environment.ApplicationName)
@@ -75,9 +75,9 @@ internal static class SerilogExtensions
 
 internal sealed class UtcTimestampEnricher : ILogEventEnricher
 {
-    public void Enrich(LogEvent logEvent, ILogEventPropertyFactory pf)
+    public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
     {
-        logEvent.AddOrUpdateProperty(pf.CreateProperty("TimeStamp", logEvent.Timestamp.UtcDateTime));
+        logEvent.AddOrUpdateProperty(propertyFactory.CreateProperty("TimeStamp", logEvent.Timestamp.UtcDateTime));
     }
 }
 
@@ -91,15 +91,16 @@ internal sealed class UserInfoEnricher : ILogEventEnricher
     {
         _httpContextAccessor = httpContextAccessor;
     }
+    
     public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
     {
         var userName = _httpContextAccessor.HttpContext?.User?.Identity?.Name ?? "";
         var headers = _httpContextAccessor.HttpContext?.Request?.Headers;
-        var clientIp = headers != null && headers.ContainsKey("X-Forwarded-For")
-            ? headers["X-Forwarded-For"].ToString().Split(',').First().Trim()
+        var clientIp = headers?.ContainsKey("X-Forwarded-For") == true
+            ? headers["X-Forwarded-For"].ToString().Split(',')[0].Trim()
             : _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString() ?? "";
-        var clientAgent = headers != null && headers.ContainsKey("User-Agent")
-            ? headers["User-Agent"].ToString()
+        var clientAgent = headers?.ContainsKey("User-Agent") == true
+            ? headers.UserAgent.ToString()
             : "";
         var activity = _httpContextAccessor.HttpContext?.Features.Get<IHttpActivityFeature>()?.Activity;
         if (activity != null)
