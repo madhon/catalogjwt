@@ -62,8 +62,6 @@ public static class Extensions
                     .AddSqlClientInstrumentation(sci =>
                     {
                         sci.RecordException = true;
-                        sci.EnableConnectionLevelAttributes = true;
-                        sci.SetDbStatementForStoredProcedure = true;
                         sci.SetDbStatementForText = true;
                     });
             });
