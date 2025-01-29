@@ -75,7 +75,7 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.11.0" />
     <!-- Analyzers -->
     <PackageVersion Include="Meziantou.Analyzer" Version="2.0.186" />
-    <PackageVersion Include="Roslynator.Analyzers" Version="4.12.10" />
+    <PackageVersion Include="Roslynator.Analyzers" Version="4.12.11" />
     <PackageVersion Include="Roslynator.Formatting.Analyzers" Version="4.12.10" />
     <PackageVersion Include="Roslynator.CodeFixes" Version="4.12.4" />
     <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.5.0.109200" />
