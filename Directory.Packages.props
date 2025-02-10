@@ -76,7 +76,7 @@
     <!-- Analyzers -->
     <PackageVersion Include="Meziantou.Analyzer" Version="2.0.186" />
     <PackageVersion Include="Roslynator.Analyzers" Version="4.12.11" />
-    <PackageVersion Include="Roslynator.Formatting.Analyzers" Version="4.12.11" />
+    <PackageVersion Include="Roslynator.Formatting.Analyzers" Version="4.13.0" />
     <PackageVersion Include="Roslynator.CodeFixes" Version="4.12.4" />
     <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.6.0.109712" />
     <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.11.20" />
