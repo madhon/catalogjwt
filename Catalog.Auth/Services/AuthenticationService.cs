@@ -7,9 +7,7 @@ public class AuthenticationService : IAuthenticationService
     private readonly IJwtTokenService jwtTokenService;
     private readonly UserManager<ApplicationUser> userManager;
 
-    public AuthenticationService(AuthDbContext authContext, 
-        IJwtTokenService jwtTokenService, 
-        UserManager<ApplicationUser> userManager)
+    public AuthenticationService(IJwtTokenService jwtTokenService, UserManager<ApplicationUser> userManager)
     {
         this.jwtTokenService = jwtTokenService;
         this.userManager = userManager;
@@ -23,9 +21,7 @@ public class AuthenticationService : IAuthenticationService
             UserName = email,
         };
 
-        IdentityResult result;
-        result = await userManager.CreateAsync(user, password).ConfigureAwait(false);
-            
+        var result = await CreateUserAsync(user, password).ConfigureAwait(false);
         if (result.Succeeded)
         {
             result = await userManager.AddToRoleAsync(user, "read").ConfigureAwait(false);
@@ -35,13 +31,22 @@ public class AuthenticationService : IAuthenticationService
             }
         }
 
-        var errorString = new StringBuilder();
-        foreach (var r in result.Errors)
-        {
-            errorString.AppendLine(r.Description);
-        }
+        return Error.Failure("createuser.error", GenerateErrorString(result));
+    }
 
-        return Error.Failure("createuser.error", errorString.ToString());
+    private async Task<IdentityResult> CreateUserAsync(ApplicationUser user, string password)
+    {
+        return await userManager.CreateAsync(user, password).ConfigureAwait(false);
+    }
+
+    private static string GenerateErrorString(IdentityResult result)
+    {
+        var errorString = new StringBuilder();
+        foreach (var error in result.Errors)
+        {
+            errorString.AppendLine(error.Description);
+        }
+        return errorString.ToString();
     }
 
     public async Task<ErrorOr<TokenResult>> Authenticate(string email, string password)
@@ -49,21 +54,24 @@ public class AuthenticationService : IAuthenticationService
         var user = await userManager.FindByEmailAsync(email).ConfigureAwait(false);
         if (user is not null && await userManager.CheckPasswordAsync(user, password).ConfigureAwait(false))
         {
-            // allowed to log in
-            var additionalClaims = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase)
-            {
-                { JwtRegisteredClaimNames.Sub, user!.UserName!},
-                { JwtClaimTypes.UserId, user.Id},
-                { JwtRegisteredClaimNames.Azp, email },
-                { JwtClaimTypes.GrantType, "password" },
-                { JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString() },
-            };
-
+            var additionalClaims = GenerateClaims(user, email);
             var roles = await userManager.GetRolesAsync(user).ConfigureAwait(false);
-                
+
             return jwtTokenService.CreateToken(additionalClaims, roles, 45);
         }
 
         return Errors.User.InvalidCredentials;
+    }
+
+    private static Dictionary<string, object> GenerateClaims(ApplicationUser user, string email)
+    {
+        return new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase)
+        {
+            { JwtRegisteredClaimNames.Sub, user.UserName! },
+            { JwtClaimTypes.UserId, user.Id },
+            { JwtRegisteredClaimNames.Azp, email },
+            { JwtClaimTypes.GrantType, "password" },
+            { JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString() },
+        };
     }
 }

@@ -2,6 +2,9 @@
 
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.JsonWebTokens;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
+using System.Text;
 
 public class JwtTokenService : IJwtTokenService
 {
@@ -13,8 +16,7 @@ public class JwtTokenService : IJwtTokenService
     {
         ArgumentNullException.ThrowIfNull(jwtOptions);
 
-        var signingKeyBase64 = jwtOptions.Value.Secret;
-        var signingKeyBytes = Encoding.ASCII.GetBytes(signingKeyBase64);
+        var signingKeyBytes = Encoding.ASCII.GetBytes(jwtOptions.Value.Secret);
         var signingKey = new SymmetricSecurityKey(signingKeyBytes);
         signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256Signature);
         issuer = jwtOptions.Value.Issuer;
@@ -24,15 +26,10 @@ public class JwtTokenService : IJwtTokenService
     public TokenResult CreateToken(IDictionary<string, object> claims, IEnumerable<string> roles, int expiresInMinutes = 30)
     {
         var tokenHandler = new JsonWebTokenHandler();
-
         var issuedAt = DateTime.UtcNow;
 
-        var claimsIdentity = new ClaimsIdentity();
-        foreach (var role in roles)
-        {
-            claimsIdentity.AddClaim(new Claim(ClaimTypes.Role, role));
-        }
-            
+        var claimsIdentity = new ClaimsIdentity(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Issuer = issuer,
@@ -44,17 +41,13 @@ public class JwtTokenService : IJwtTokenService
             Claims = claims,
             Subject = claimsIdentity
         };
-            
+
         var expiresIn = TimeSpan.FromMinutes(expiresInMinutes);
-            
 
-
-        var result = new TokenResult
+        return new TokenResult
         {
             Token = tokenHandler.CreateToken(tokenDescriptor),
-            ExpiresIn =  Convert.ToInt32(expiresIn.TotalSeconds)
+            ExpiresIn = Convert.ToInt32(expiresIn.TotalSeconds)
         };
-
-        return result;
     }
 }

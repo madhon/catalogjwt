@@ -21,7 +21,7 @@ public class Argon2PasswordHasher<TUser> : IPasswordHasher<TUser> where TUser : 
     {
         ArgumentNullException.ThrowIfNullOrEmpty(password);
 
-        return PasswordHash.ArgonHashString(password, ParseStrength()).TrimEnd('\0');
+        return PasswordHash.ArgonHashString(password, options.Strength.ToStrengthArgon()).TrimEnd('\0');
     }
 
     public PasswordVerificationResult VerifyHashedPassword(TUser user, string hashedPassword, string providedPassword)
@@ -31,28 +31,27 @@ public class Argon2PasswordHasher<TUser> : IPasswordHasher<TUser> where TUser : 
 
         var isValid = PasswordHash.ArgonHashStringVerify(hashedPassword, providedPassword);
 
-        if (isValid && PasswordHash.ArgonPasswordNeedsRehash(hashedPassword, ParseStrength()))
+        if (isValid && PasswordHash.ArgonPasswordNeedsRehash(hashedPassword, options.Strength.ToStrengthArgon()))
         {
             return PasswordVerificationResult.SuccessRehashNeeded;
         }
 
         return isValid ? PasswordVerificationResult.Success : PasswordVerificationResult.Failed;
     }
+}
 
-    private PasswordHash.StrengthArgon ParseStrength()
+// Extension method to convert Argon2HashStrength to PasswordHash.StrengthArgon
+public static class Argon2HashStrengthExtensions
+{
+    public static PasswordHash.StrengthArgon ToStrengthArgon(this Argon2HashStrength strength)
     {
-        switch (options.Strength)
+        return strength switch
         {
-            case Argon2HashStrength.Interactive:
-                return PasswordHash.StrengthArgon.Interactive;
-            case Argon2HashStrength.Moderate:
-                return PasswordHash.StrengthArgon.Moderate;
-            case Argon2HashStrength.Sensitive:
-                return PasswordHash.StrengthArgon.Sensitive;
-            case Argon2HashStrength.Medium:
-                return PasswordHash.StrengthArgon.Medium;
-            default:
-                return PasswordHash.StrengthArgon.Medium;
-        }
+            Argon2HashStrength.Interactive => PasswordHash.StrengthArgon.Interactive,
+            Argon2HashStrength.Moderate => PasswordHash.StrengthArgon.Moderate,
+            Argon2HashStrength.Sensitive => PasswordHash.StrengthArgon.Sensitive,
+            Argon2HashStrength.Medium => PasswordHash.StrengthArgon.Medium,
+            _ => PasswordHash.StrengthArgon.Medium,
+        };
     }
 }
