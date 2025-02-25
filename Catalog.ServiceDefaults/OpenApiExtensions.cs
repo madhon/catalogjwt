@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Scalar.AspNetCore;
 
@@ -15,32 +16,28 @@ public static class OpenApiExtensions
         var configuration = app.Configuration;
         var openApiSection = configuration.GetSection("OpenApi");
 
-        if (openApiSection is null)
+        if (!openApiSection.Exists())
         {
             return app;
         }
 
         app.MapOpenApi();
         app.MapScalarApiReference(opts => opts.DefaultFonts = false);
-
-        // Add a redirect from the root of the app to the swagger endpoint
         app.MapGet("/", () => Results.Redirect("~/scalar/v1")).ExcludeFromDescription();
 
         return app;
     }
 
-    public static WebApplicationBuilder AddDefaultOpenApi(this WebApplicationBuilder builder)
+    public static IHostApplicationBuilder  AddDefaultOpenApi(this IHostApplicationBuilder  builder)
     {
-        var services = builder.Services;
-        var configuration = builder.Configuration;
-
-        var openApi = configuration.GetSection("OpenApi");
-        if (openApi is null)
+        var openApi = builder.Configuration.GetSection("OpenApi");
+        if (!openApi.Exists())
         {
             return builder;
         }
-        services.AddEndpointsApiExplorer();
-        services.AddApiVersioning()
+
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddApiVersioning()
             .AddApiExplorer(options =>
             {
                 options.GroupNameFormat = "'v'VV";
@@ -48,22 +45,22 @@ public static class OpenApiExtensions
                 options.DefaultApiVersion = new ApiVersion(1, 0);
             });
 
-        services.AddOpenApi(options =>
+        builder.Services.AddOpenApi(options =>
         {
-            var apidoc = openApi.GetRequiredSection("Document");
+            var apiDoc = openApi.GetRequiredSection("Document");
 
-            var version = apidoc.GetRequiredValue("Version") ?? "v1";
+            var version = apiDoc.GetRequiredValue("Version");
 
             options.AddDocumentTransformer((document, _, _) =>
             {
                 document.Info = new OpenApiInfo
                 {
-                    Title = apidoc.GetRequiredValue("Title"),
+                    Title = apiDoc.GetRequiredValue("Title"),
                     Version = version,
-                    Description = apidoc.GetRequiredValue("Description"),
+                    Description = apiDoc.GetRequiredValue("Description"),
                     Contact = new OpenApiContact
                     {
-                        Name = $"{apidoc.GetRequiredValue("Description")} Team",
+                        Name = $"{apiDoc.GetRequiredValue("Description")} Team",
                     },
                 };
 
@@ -72,6 +69,7 @@ public static class OpenApiExtensions
                 return Task.CompletedTask;
             });
         });
+
         return builder;
     }
 }
