@@ -24,7 +24,7 @@ internal static class Startup
             .GetSection(PersistenceOptions.SectionName)
             .Get<PersistenceOptions>();
 
-        services.AddScoped<SlowQueryInterceptor>();
+        services.AddSingleton<SlowQueryInterceptor>();
 
         services.AddDbContextPool<CatalogContext>((sp, options) =>
         {
