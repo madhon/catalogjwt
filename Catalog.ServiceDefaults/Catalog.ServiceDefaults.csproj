@@ -6,9 +6,11 @@
 	<Nullable>enable</Nullable>
 	  <InterceptorsPreviewNamespaces>$(InterceptorsPreviewNamespaces);Microsoft.AspNetCore.Http.Generated</InterceptorsPreviewNamespaces>
 	  <RootNamespace>Catalog.ServiceDefaults</RootNamespace>
+	  <IsAspireSharedProject>true</IsAspireSharedProject>
   </PropertyGroup>
 
 	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 		<PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" />
 		<PackageReference Include="Microsoft.Extensions.Http.Resilience" />
