@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 
 public static class WebApplicationBuilderExtensions
 {
-	public static void RegisterServices(this WebApplicationBuilder builder)
+	public static IHostApplicationBuilder RegisterServices(this IHostApplicationBuilder builder)
 	{
 		var services = builder.Services;
 		var configuration = builder.Configuration;
@@ -23,7 +23,7 @@ public static class WebApplicationBuilderExtensions
 
 		services.AddExceptionHandler<GlobalExceptionHandler>();
 		services.AddProblemDetails();
-		
+
 		services.AddAuthorization();
 		services.AddJwtAuth(configuration);
 
@@ -56,7 +56,7 @@ public static class WebApplicationBuilderExtensions
 		services.AddScoped<IAuthenticationService, AuthenticationService>();
 
 		services.AddSingleton<ApiMetrics>();
-		
+
 		services.AddHealthChecks()
 			.AddDbContextCheck<AuthDbContext>();
 
@@ -64,5 +64,7 @@ public static class WebApplicationBuilderExtensions
 		services.AddHeaderPropagation(options => options.Headers.Add("x-correlation-id"));
 
 		services.AddMyRateLimter();
+
+		return builder;
 	}
 }

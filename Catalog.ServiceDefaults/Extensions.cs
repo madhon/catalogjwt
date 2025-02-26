@@ -10,11 +10,12 @@ using OpenTelemetry;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
 
-public static class Extensions
+public static partial class Extensions
 {
     public static IHostApplicationBuilder AddServiceDefaults(this IHostApplicationBuilder builder)
     {
-        builder.ConfigureOpenTelemetry();
+        builder.AddBasicServiceDefaults();
+
         builder.Services.AddServiceDiscovery();
 
         builder.Services.ConfigureHttpClientDefaults(http =>
@@ -26,7 +27,20 @@ public static class Extensions
             http.AddServiceDiscovery();
         });
 
+        return builder;
+    }
+
+    /// <summary>
+    /// Adds the services except for making outgoing HTTP calls.
+    /// </summary>
+    /// <remarks>
+    /// This allows for things like Polly to be trimmed out of the app if it isn't used.
+    /// </remarks>
+    public static IHostApplicationBuilder AddBasicServiceDefaults(this IHostApplicationBuilder builder)
+    {
         builder.AddDefaultHealthChecks();
+
+        builder.ConfigureOpenTelemetry();
 
         return builder;
     }

@@ -33,15 +33,7 @@ public static class WebApplicationExtensions
             .ReportApiVersions()
             .Build();
 
-#pragma warning disable ASP0014
-        app.UseEndpoints(endpoints =>
-        {
-            endpoints.MapHealthChecks("/health/startup");
-            endpoints.MapHealthChecks("/healthz", new HealthCheckOptions { Predicate = _ => false });
-            endpoints.MapHealthChecks("/ready", new HealthCheckOptions { Predicate = _ => false });
-            endpoints.MapPrometheusScrapingEndpoint();
-            endpoints.MapAuthApi(versionSet);
-        });
-#pragma warning restore ASP0014
+        app.MapDefaultEndpoints();
+        app.MapAuthApi(versionSet);
     }
 }

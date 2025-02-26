@@ -56,7 +56,7 @@ public static class ApiStartup
 		services.AddHeaderPropagation(options => options.Headers.Add("x-correlation-id"));
 	}
 
-	public static void UseMyApi(this IApplicationBuilder app, IConfiguration configuration, IWebHostEnvironment environment)
+	public static void UseMyApi(this WebApplication app, IConfiguration configuration, IWebHostEnvironment environment)
 	{
 		app.UseForwardedHeaders();
 
@@ -64,16 +64,9 @@ public static class ApiStartup
 
 		app.UseHeaderPropagation();
 
-		app.UseEndpoints(endpoints =>
-		{
-			endpoints.MapHealthChecks("/health/startup");
-			endpoints.MapHealthChecks("/healthz", new HealthCheckOptions { Predicate = _ => false });
-			endpoints.MapHealthChecks("/ready", new HealthCheckOptions { Predicate = _ => false });
+		app.MapDefaultEndpoints();
 
-			endpoints.MapGroup("api/v1/catalog/")
-				.MapCatalogApi();
-
-			endpoints.MapPrometheusScrapingEndpoint();
-		});
+		app.MapGroup("api/v1/catalog/")
+			.MapCatalogApi();
 	}
 }

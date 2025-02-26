@@ -18,7 +18,7 @@ public class Startup
         services.AddApplicationServices();
     }
 
-    public void Configure(IApplicationBuilder app)
+    public void Configure(WebApplication app)
     {
         app.UseMyRequestLogging();
         app.UseExceptionHandler();
