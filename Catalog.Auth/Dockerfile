@@ -1,4 +1,5 @@
-ARG VERSION=9.0-alpine
+ARG RUNTIMEVERSION=9.0-azurelinux3.0-distroless
+ARG SDKVERSION=9.0-azurelinux3.0
 
 FROM mcr.microsoft.com/dotnet/aspnet:$VERSION AS base
 WORKDIR /app
@@ -8,7 +9,7 @@ ENV DOTNET_RUNNING_IN_CONTAINER="true"
 ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT="0"
 EXPOSE 8080/tcp
 
-FROM mcr.microsoft.com/dotnet/sdk:$VERSION AS build
+FROM mcr.microsoft.com/dotnet/sdk:$SDKVERSION AS build
 WORKDIR /src
 
 COPY "Directory.Packages.props" "Directory.Packages.props"
