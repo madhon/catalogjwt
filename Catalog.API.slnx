@@ -1,0 +1,20 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="docker-compose.yml" />
+    <File Path="global.json" />
+    <File Path="NuGet.config" />
+  </Folder>
+  <Project Path="Catalog.API.Application/Catalog.API.Application.csproj" />
+  <Project Path="Catalog.API.Domain/Catalog.API.Domain.csproj" />
+  <Project Path="Catalog.API.Infrastructure/Catalog.API.Infrastructure.csproj" />
+  <Project Path="Catalog.API.Web/Catalog.API.Web.csproj" />
+  <Project Path="Catalog.AppHost/Catalog.AppHost.csproj" />
+  <Project Path="Catalog.Auth/Catalog.Auth.csproj" />
+  <Project Path="Catalog.Gateway/Catalog.Gateway.csproj">
+    <BuildDependency Project="Catalog.API.Web/Catalog.API.Web.csproj" />
+    <BuildDependency Project="Catalog.Auth/Catalog.Auth.csproj" />
+  </Project>
+  <Project Path="Catalog.ServiceDefaults/Catalog.ServiceDefaults.csproj" />
+</Solution>
