@@ -39,7 +39,7 @@ public class JwtTokenService : IJwtTokenService
             Expires = issuedAt.AddMinutes(expiresInMinutes),
             SigningCredentials = signingCredentials,
             Claims = claims,
-            Subject = claimsIdentity
+            Subject = claimsIdentity,
         };
 
         var expiresIn = TimeSpan.FromMinutes(expiresInMinutes);
@@ -47,7 +47,7 @@ public class JwtTokenService : IJwtTokenService
         return new TokenResult
         {
             Token = tokenHandler.CreateToken(tokenDescriptor),
-            ExpiresIn = Convert.ToInt32(expiresIn.TotalSeconds)
+            ExpiresIn = Convert.ToInt32(expiresIn.TotalSeconds),
         };
     }
 }

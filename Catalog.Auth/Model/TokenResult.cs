@@ -2,6 +2,6 @@
 
 public class TokenResult
 {
-    public string Token { get; set; } = null!;
+    public required  string Token { get; set; } = null!;
     public int ExpiresIn { get; set; }
 }

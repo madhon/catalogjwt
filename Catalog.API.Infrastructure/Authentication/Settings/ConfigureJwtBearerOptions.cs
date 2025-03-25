@@ -49,7 +49,7 @@ public class ConfigureJwtBearerOptions(IOptions<AuthenticationSettings> jwtOptio
                     context.Response.Headers.Append("Token-Expired", "true");
                 }
                 return Task.CompletedTask;
-            }
+            },
         };
     }
 }

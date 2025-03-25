@@ -21,6 +21,9 @@ public static class WebApplicationBuilderExtensions
 			options.SerializerOptions.TypeInfoResolverChain.Insert(0, AppJsonSerializerContext.Default);
 		});
 
+		services.AddSingleton<IClockService, ClockService>();
+		services.AddSingleton(TimeProvider.System);
+
 		services.AddExceptionHandler<GlobalExceptionHandler>();
 		services.AddProblemDetails();
 
