@@ -7,7 +7,7 @@ public class ClockService : IClockService
 {
     private readonly IClock _clock;
 
-    public DateTimeZone TimeZone { get; }
+    public DateTimeZone? TimeZone { get; }
 
     public ClockService()
         : this(SystemClock.Instance)

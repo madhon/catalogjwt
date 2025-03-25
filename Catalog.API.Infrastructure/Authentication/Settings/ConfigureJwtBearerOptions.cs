@@ -3,11 +3,12 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 
-public class ConfigureJwtBearerOptions(IOptions<AuthenticationSettings> jwtOptions) : IConfigureNamedOptions<JwtBearerOptions>
+public partial class ConfigureJwtBearerOptions(IOptions<AuthenticationSettings> jwtOptions, ILogger<ConfigureJwtBearerOptions> logger) : IConfigureNamedOptions<JwtBearerOptions>
 {
     private readonly AuthenticationSettings jwtOptions = jwtOptions.Value;
 
@@ -23,7 +24,7 @@ public class ConfigureJwtBearerOptions(IOptions<AuthenticationSettings> jwtOptio
             return;
         }
 
-        var key = Encoding.ASCII.GetBytes(jwtOptions.Secret);
+        var key = Encoding.UTF8.GetBytes(jwtOptions.Secret);
 
         options.SaveToken = true;
         // prevent from mapping "sub" claim to nameidentifier.
@@ -37,7 +38,7 @@ public class ConfigureJwtBearerOptions(IOptions<AuthenticationSettings> jwtOptio
             ValidAudience = jwtOptions.Audience,
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(key),
-            ClockSkew = TimeSpan.FromSeconds(15),
+            ClockSkew = TimeSpan.FromSeconds(5),
         };
 
         options.Events = new JwtBearerEvents
@@ -50,6 +51,18 @@ public class ConfigureJwtBearerOptions(IOptions<AuthenticationSettings> jwtOptio
                 }
                 return Task.CompletedTask;
             },
+            OnChallenge = context =>
+            {
+                if (context.AuthenticateFailure != null)
+                {
+                    LogAuthenticationFailed(context.AuthenticateFailure.Message);
+                }
+
+                return Task.CompletedTask;
+            },
         };
     }
+
+    [LoggerMessage(EventId = 1001, Level = LogLevel.Error, Message = "Authentication challenge: {message}")]
+    private partial void LogAuthenticationFailed(string message);
 }

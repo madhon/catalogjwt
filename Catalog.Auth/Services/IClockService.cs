@@ -4,7 +4,7 @@ using NodaTime;
 
 public interface IClockService
 {
-    DateTimeZone TimeZone { get; }
+    DateTimeZone? TimeZone { get; }
 
     Instant Now { get; }
 

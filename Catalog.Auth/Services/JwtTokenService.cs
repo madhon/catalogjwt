@@ -16,9 +16,9 @@ public class JwtTokenService : IJwtTokenService
     {
         ArgumentNullException.ThrowIfNull(jwtOptions);
 
-        var signingKeyBytes = Encoding.ASCII.GetBytes(jwtOptions.Value.Secret);
+        var signingKeyBytes = Encoding.UTF8.GetBytes(jwtOptions.Value.Secret);
         var signingKey = new SymmetricSecurityKey(signingKeyBytes);
-        signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256Signature);
+        signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
         issuer = jwtOptions.Value.Issuer;
         audience = jwtOptions.Value.Audience;
     }
