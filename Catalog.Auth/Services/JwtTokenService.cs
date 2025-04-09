@@ -12,7 +12,9 @@ public class JwtTokenService : IJwtTokenService
     private readonly string issuer;
     private readonly string audience;
 
-    public JwtTokenService(IOptions<JwtOptions> jwtOptions)
+    private readonly TimeProvider timeProvider;
+
+    public JwtTokenService(IOptions<JwtOptions> jwtOptions, TimeProvider timeProvider)
     {
         ArgumentNullException.ThrowIfNull(jwtOptions);
 
@@ -21,12 +23,13 @@ public class JwtTokenService : IJwtTokenService
         signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
         issuer = jwtOptions.Value.Issuer;
         audience = jwtOptions.Value.Audience;
+        this.timeProvider = timeProvider;
     }
 
     public TokenResult CreateToken(IDictionary<string, object> claims, IEnumerable<string> roles, int expiresInMinutes = 30)
     {
         var tokenHandler = new JsonWebTokenHandler();
-        var issuedAt = DateTime.UtcNow;
+        var issuedAt = timeProvider.GetUtcNow();
 
         var claimsIdentity = new ClaimsIdentity(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
@@ -34,9 +37,9 @@ public class JwtTokenService : IJwtTokenService
         {
             Issuer = issuer,
             Audience = audience,
-            IssuedAt = issuedAt,
-            NotBefore = issuedAt,
-            Expires = issuedAt.AddMinutes(expiresInMinutes),
+            IssuedAt = issuedAt.DateTime,
+            NotBefore = issuedAt.DateTime,
+            Expires = issuedAt.AddMinutes(expiresInMinutes).DateTime,
             SigningCredentials = signingCredentials,
             Claims = claims,
             Subject = claimsIdentity,
