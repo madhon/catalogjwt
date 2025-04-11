@@ -5,6 +5,7 @@
     <File Path="docker-compose.yml" />
     <File Path="global.json" />
     <File Path="NuGet.config" />
+    <File Path="adr.config.json" />
   </Folder>
   <Project Path="Catalog.API.Application/Catalog.API.Application.csproj" />
   <Project Path="Catalog.API.Domain/Catalog.API.Domain.csproj" />
