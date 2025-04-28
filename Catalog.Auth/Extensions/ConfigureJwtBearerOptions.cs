@@ -17,7 +17,7 @@ public class ConfigureJwtBearerOptions(IOptions<JwtOptions> jwtOptions) : IConfi
         }
 
         var key = Encoding.ASCII.GetBytes(jwtOptions.Secret);
-        
+
         options.SaveToken = true;
         options.TokenValidationParameters = new TokenValidationParameters
         {
@@ -27,9 +27,9 @@ public class ConfigureJwtBearerOptions(IOptions<JwtOptions> jwtOptions) : IConfi
             ValidAudience = jwtOptions.Audience,
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(key),
-            ClockSkew = TimeSpan.FromSeconds(15)
+            ClockSkew = TimeSpan.FromSeconds(15),
         };
-        
+
         options.Events = new JwtBearerEvents
         {
             OnAuthenticationFailed = context =>
@@ -42,5 +42,4 @@ public class ConfigureJwtBearerOptions(IOptions<JwtOptions> jwtOptions) : IConfi
             }
         };
     }
-
 }

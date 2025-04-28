@@ -6,7 +6,6 @@ using Serilog.Configuration;
 using Serilog.Core;
 using Serilog.Events;
 using Serilog.Exceptions;
-using Serilog.Settings.Configuration;
 
 internal static class SerilogExtensions
 {
@@ -17,12 +16,13 @@ internal static class SerilogExtensions
 
         Serilog.Debugging.SelfLog.Enable(Console.WriteLine);
 
-        builder.Host.UseSerilog((context, loggerConfiguration) =>
+        builder.Services.AddSerilog(loggerConfiguration =>
         {
-            var options = new ConfigurationReaderOptions { SectionName = "Serilog" };
-            loggerConfiguration.ReadFrom.Configuration(context.Configuration, options)
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-                .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Information)
+            //var options = new ConfigurationReaderOptions { SectionName = "Serilog" };
+            loggerConfiguration
+                .MinimumLevel.Override("Microsoft.AspNetCore.Hosting", LogEventLevel.Warning)
+                .MinimumLevel.Override("Microsoft.AspNetCore.Mvc", LogEventLevel.Warning)
+                .MinimumLevel.Override("Microsoft.AspNetCore.Routing", LogEventLevel.Warning)
                 .MinimumLevel.Override("Serilog", LogEventLevel.Information)
                 .MinimumLevel.Override("ZiggyCreatures.Caching.Fusion.FusionCache", LogEventLevel.Error)
                 .Enrich.WithProperty("Application", builder.Environment.ApplicationName)
@@ -34,9 +34,7 @@ internal static class SerilogExtensions
             if (serilogOptions.UseConsole)
             {
                 loggerConfiguration.WriteTo.Async(writeTo =>
-                {
-                    writeTo.Console(outputTemplate: serilogOptions.LogTemplate);
-                });
+                    writeTo.Console(outputTemplate: serilogOptions.LogTemplate));
             }
 
             if (!string.IsNullOrEmpty(serilogOptions.SeqUrl))
@@ -87,11 +85,12 @@ internal sealed class UserInfoEnricher : ILogEventEnricher
     public UserInfoEnricher() : this(new HttpContextAccessor())
     {
     }
+
     public UserInfoEnricher(IHttpContextAccessor httpContextAccessor)
     {
         _httpContextAccessor = httpContextAccessor;
     }
-    
+
     public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
     {
         var userName = _httpContextAccessor.HttpContext?.User?.Identity?.Name ?? "";

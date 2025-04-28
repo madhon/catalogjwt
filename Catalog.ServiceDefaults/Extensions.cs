@@ -60,6 +60,7 @@ public static partial class Extensions
                     .AddAspNetCoreInstrumentation()
                     .AddHttpClientInstrumentation()
                     .AddRuntimeInstrumentation()
+                    .AddFusionCacheInstrumentation()
                     .AddBuiltInMeters()
                     .AddCustomMeters();
             })
@@ -73,6 +74,7 @@ public static partial class Extensions
                 tracing
                     .AddAspNetCoreInstrumentation(nci => nci.RecordException = true)
                     .AddHttpClientInstrumentation()
+                    .AddFusionCacheInstrumentation()
                     .AddSqlClientInstrumentation(sci =>
                     {
                         sci.RecordException = true;

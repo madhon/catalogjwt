@@ -24,5 +24,6 @@
 		<PackageReference Include="OpenTelemetry.Instrumentation.Runtime" />
 		<PackageReference Include="NetEscapades.AspNetCore.SecurityHeaders" />
 		<PackageReference Include="Scalar.AspNetCore" />
+		<PackageReference Include="ZiggyCreatures.FusionCache.OpenTelemetry" />
 	</ItemGroup>
 </Project>

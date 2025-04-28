@@ -47,7 +47,8 @@ public static class ApiStartup
 			.WithOptions(opts =>
 			{
 				opts.DefaultEntryOptions = new FusionCacheEntryOptions { Duration = TimeSpan.FromMinutes(2) };
-			});
+			})
+			.AsHybridCache();
 
 		services.AddValidatorsFromAssemblyContaining<AddBrandValidator>();
 
