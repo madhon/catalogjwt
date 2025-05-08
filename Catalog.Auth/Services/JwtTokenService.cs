@@ -26,7 +26,7 @@ public class JwtTokenService : IJwtTokenService
         this.timeProvider = timeProvider;
     }
 
-    public TokenResult CreateToken(IDictionary<string, object> claims, IEnumerable<string> roles, int expiresInMinutes = 60)
+    public TokenResult CreateToken(IDictionary<string, object> claims, IEnumerable<string> roles, int expiresInMinutes = 120)
     {
         var tokenHandler = new JsonWebTokenHandler();
         var issuedAt = timeProvider.GetUtcNow();
