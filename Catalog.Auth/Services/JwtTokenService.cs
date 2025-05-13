@@ -29,7 +29,7 @@ public class JwtTokenService : IJwtTokenService
     public TokenResult CreateToken(IDictionary<string, object> claims, IEnumerable<string> roles, int expiresInMinutes = 120)
     {
         var tokenHandler = new JsonWebTokenHandler();
-        var issuedAt = timeProvider.GetUtcNow();
+        var issuedAt = DateTime.UtcNow;
 
         var claimsIdentity = new ClaimsIdentity(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
@@ -37,9 +37,9 @@ public class JwtTokenService : IJwtTokenService
         {
             Issuer = issuer,
             Audience = audience,
-            IssuedAt = issuedAt.DateTime,
-            NotBefore = issuedAt.DateTime,
-            Expires = issuedAt.AddMinutes(expiresInMinutes).DateTime,
+            IssuedAt = issuedAt,
+            NotBefore = issuedAt,
+            Expires = issuedAt.AddMinutes(expiresInMinutes),
             SigningCredentials = signingCredentials,
             Claims = claims,
             Subject = claimsIdentity,
