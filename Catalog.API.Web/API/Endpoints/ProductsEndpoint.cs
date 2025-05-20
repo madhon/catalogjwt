@@ -1,5 +1,6 @@
 ﻿namespace Catalog.API.Web.API.Endpoints;
 
+using System.Globalization;
 using Catalog.API.Application.Features.ListProducts;
 using Catalog.API.Web.API.ViewModel;
 using Mediator;
@@ -22,20 +23,16 @@ public static class ProductsEndpoint
 					)
 					=>
 				{
-					var cacheKey = $"products-all-{pageIndex}-{pageSize}";
+					var cacheKey = string.Create(CultureInfo.InvariantCulture, $"products-all-{pageIndex}-{pageSize}");
 
-					// var model = await cache.GetOrSetAsync(cacheKey, async _ =>
-					// {
-					// 	var response = await mediator.Send(new ListProductsRequest(pageIndex, pageSize), ct).ConfigureAwait(false);
-					// 	return new PaginatedItemsViewModel<Product>(pageIndex, pageSize, response.TotalItems, response.Items);
-					// }, token: ct).ConfigureAwait(false);
-
-					var model = await cache.GetOrCreateAsync(cacheKey, async _ =>
-					{
-						var response = await mediator.Send(new ListProductsRequest(pageIndex, pageSize), ct).ConfigureAwait(false);
-						return new PaginatedItemsViewModel<Product>(pageIndex, pageSize, response.TotalItems, response.Items);
-					}, cancellationToken: ct).ConfigureAwait(false);
-
+					var model = await cache.GetOrCreateAsync(
+						cacheKey,
+						async token =>
+						{
+							var response = await mediator.Send(new ListProductsRequest(pageIndex, pageSize), token).ConfigureAwait(false);
+							return new PaginatedItemsViewModel<Product>(pageIndex, pageSize, response.TotalItems, response.Items);
+						},
+						cancellationToken: ct).ConfigureAwait(false);
 					return TypedResults.Ok(model);
 				})
 			.WithName("products.get")

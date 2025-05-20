@@ -55,8 +55,6 @@ public static class WebApplicationBuilderExtensions
 			.AddEntityFrameworkStores<AuthDbContext>()
 			.AddDefaultTokenProviders();
 
-		services.AddSingleton<TimeProvider>(TimeProvider.System);
-
 		services.AddScoped<IJwtTokenService, JwtTokenService>();
 		services.AddScoped<IAuthenticationService, AuthenticationService>();
 
