@@ -7,10 +7,15 @@ builder.AddForwardedHeaders();
 var authService = builder.AddProject<Projects.Catalog_Auth>("auth");
 
 var catalogService = builder.AddProject<Projects.Catalog_API_Web>("catalog")
-    .WithReference(authService);
+    .WithReference(authService)
+    .WaitFor(authService);
 
 builder.AddProject<Projects.Catalog_Gateway>("gateway")
     .WithReference(authService)
-    .WithReference(catalogService);
+    .WaitFor(authService)
+    .WithReference(catalogService)
+    .WaitFor(catalogService);
+
+builder.AddDockerComposeEnvironment("catalog-env");
 
 await builder.Build().RunAsync().ConfigureAwait(false);
