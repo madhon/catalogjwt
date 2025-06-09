@@ -9,25 +9,25 @@ using Serilog.Settings.Configuration;
 
 public static class LoggingStartup
 {
-    public static IHostBuilder AddMySerilogLogging(this IHostBuilder builder)
+    public static IHostApplicationBuilder AddMySerilogLogging(this IHostApplicationBuilder builder)
     {
-        builder.UseSerilog((context, loggerConfiguration) =>
+        builder.Services.AddSerilog(loggerConfiguration =>
         {
             var serilogOptions = new SerilogOptions();
-            context.Configuration.GetSection("Serilog").Bind(serilogOptions);
+            builder.Configuration.GetSection("Serilog").Bind(serilogOptions);
 
             var options = new ConfigurationReaderOptions { SectionName = "Serilog" };
-            loggerConfiguration.ReadFrom.Configuration(context.Configuration, options);
+            loggerConfiguration.ReadFrom.Configuration(builder.Configuration, options);
 
             loggerConfiguration
-                .Enrich.WithProperty("Application", context.HostingEnvironment.ApplicationName)
+                .Enrich.WithProperty("Application", builder.Environment.ApplicationName)
                 .Enrich.FromLogContext()
                 .Enrich.WithExceptionDetails();
 
             loggerConfiguration.MinimumLevel.Override("Microsoft", LogEventLevel.Information);
             loggerConfiguration.MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning);
 
-            if (context.HostingEnvironment.IsDevelopment())
+            if (builder.Environment.IsDevelopment())
             {
                 loggerConfiguration.MinimumLevel.Override("ZiggyCreatures.Caching.Fusion", LogEventLevel.Debug);
             }

@@ -23,16 +23,8 @@ public static class ProductsEndpoint
 					)
 					=>
 				{
-					var cacheKey = string.Create(CultureInfo.InvariantCulture, $"products-all-{pageIndex}-{pageSize}");
-
-					var model = await cache.GetOrCreateAsync(
-						cacheKey,
-						async token =>
-						{
-							var response = await mediator.Send(new ListProductsRequest(pageIndex, pageSize), token).ConfigureAwait(false);
-							return new PaginatedItemsViewModel<Product>(pageIndex, pageSize, response.TotalItems, response.Items);
-						},
-						cancellationToken: ct).ConfigureAwait(false);
+					var response = await mediator.Send(new ListProductsRequest(pageIndex, pageSize), ct).ConfigureAwait(false);
+					var model = new PaginatedItemsViewModel<Product>(pageIndex, pageSize, response.TotalItems, response.Items);
 					return TypedResults.Ok(model);
 				})
 			.WithName("products.get")

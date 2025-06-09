@@ -5,7 +5,7 @@ builder.WebHost.UseKestrelHttpsConfiguration();
 builder.AddServiceDefaults();
 builder.AddDefaultOpenApi();
 
-builder.Host.AddMySerilogLogging();
+builder.AddMySerilogLogging();
 
 var startup = new Startup(builder.Configuration, builder.Environment);
 
