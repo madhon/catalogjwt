@@ -17,7 +17,7 @@
 
   envoygateway:
     container_name: envoygateway
-    image: envoyproxy/envoy-distroless:v1.32.2
+    image: envoyproxy/envoy-distroless:v1.34.1
     depends_on:
       - catalog.api
       - catalog.auth
