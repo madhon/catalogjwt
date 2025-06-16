@@ -11,7 +11,7 @@ namespace MyCompiledModels
     public partial class AuthDbContextModel
     {
         private AuthDbContextModel()
-            : base(skipDetectChanges: false, modelId: new Guid("7538f5d2-5003-4685-a63c-82ee797ad276"), entityTypeCount: 8)
+            : base(skipDetectChanges: false, modelId: new Guid("8e7aad75-bf48-4882-8ffa-05c7c97f8e5a"), entityTypeCount: 8)
         {
         }
 
@@ -42,7 +42,7 @@ namespace MyCompiledModels
             IdentityUserRoleEntityType.CreateAnnotations(identityUserRole);
             IdentityUserTokenEntityType.CreateAnnotations(identityUserToken);
 
-            AddAnnotation("ProductVersion", "9.0.2");
+            AddAnnotation("ProductVersion", "9.0.6");
             AddAnnotation("Relational:MaxIdentifierLength", 128);
             AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
         }
