@@ -6,6 +6,7 @@
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:15888",
       "environmentVariables": {
+        "ASPIRE_DASHBOARD_AI_DISABLED": "true",
         "ASPNETCORE_ENVIRONMENT": "Development",
         "DOTNET_ENVIRONMENT": "Development",
         "DOTNET_DASHBOARD_OTLP_ENDPOINT_URL": "https://localhost:16031",

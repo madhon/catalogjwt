@@ -32,7 +32,7 @@ public sealed partial class FusionCacheBehaviour<TRequest, TResponse> : IPipelin
     /// <returns>The response instance.</returns>
     public async ValueTask<TResponse> Handle(TRequest message, CancellationToken cancellationToken, MessageHandlerDelegate<TRequest, TResponse> next)
     {
-        LogHandlingRequest(nameof(message), message.CacheKey);
+        LogHandlingRequest(typeof(TRequest).Name, message.CacheKey);
         var response = await _fusionCache.GetOrSetAsync<TResponse>(
             message.CacheKey,
             async (ctx, token) => await next(message, token),
