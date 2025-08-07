@@ -1,6 +1,6 @@
 ﻿namespace Catalog.Gateway.Extensions;
 
-public class JwtOptions
+internal sealed class JwtOptions
 {
     public const string Jwt = "jwt";
     public string Secret { get; set; } = string.Empty;

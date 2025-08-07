@@ -3,7 +3,7 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-public sealed partial class GlobalExceptionHandler : IExceptionHandler
+internal sealed partial class GlobalExceptionHandler : IExceptionHandler
 {
     private readonly ILogger<GlobalExceptionHandler> logger;
 

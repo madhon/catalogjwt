@@ -1,6 +1,6 @@
 ﻿namespace Catalog.Auth.Extensions;
 
-public static class AuthDbContextExtensions
+internal static class AuthDbContextExtensions
 {
     public static IServiceCollection AddAuthDbContext(this IServiceCollection services, IConfiguration configuration)
     {

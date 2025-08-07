@@ -6,7 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
 
-public class JwtTokenService : IJwtTokenService
+internal sealed class JwtTokenService : IJwtTokenService
 {
     private readonly SigningCredentials signingCredentials;
     private readonly string issuer;
@@ -29,6 +29,7 @@ public class JwtTokenService : IJwtTokenService
     public TokenResult CreateToken(IDictionary<string, object> claims, IEnumerable<string> roles, int expiresInMinutes = 120)
     {
         var tokenHandler = new JsonWebTokenHandler();
+
         var issuedAt = DateTime.UtcNow;
 
         var claimsIdentity = new ClaimsIdentity(roles.Select(role => new Claim(ClaimTypes.Role, role)));

@@ -10,10 +10,12 @@ using OpenTelemetry;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
 
-public static partial class Extensions
+public static partial class ServiceDefaultsExtensions
 {
     public static IHostApplicationBuilder AddServiceDefaults(this IHostApplicationBuilder builder)
     {
+        ArgumentNullException.ThrowIfNull(builder);
+
         builder.AddBasicServiceDefaults();
 
         builder.Services.AddServiceDiscovery();
@@ -38,6 +40,8 @@ public static partial class Extensions
     /// </remarks>
     public static IHostApplicationBuilder AddBasicServiceDefaults(this IHostApplicationBuilder builder)
     {
+        ArgumentNullException.ThrowIfNull(builder);
+
         builder.AddDefaultHealthChecks();
 
         builder.ConfigureOpenTelemetry();
@@ -104,6 +108,8 @@ public static partial class Extensions
 
     public static IHostApplicationBuilder AddDefaultHealthChecks(this IHostApplicationBuilder builder)
     {
+        ArgumentNullException.ThrowIfNull(builder);
+
         builder.Services.AddHealthChecks()
             // Add a default liveness check to ensure app is responsive
             .AddCheck("self", () => HealthCheckResult.Healthy(), ["live"]);
@@ -113,6 +119,8 @@ public static partial class Extensions
 
     public static WebApplication MapDefaultEndpoints(this WebApplication app)
     {
+        ArgumentNullException.ThrowIfNull(app);
+
         app.MapPrometheusScrapingEndpoint();
 
         if (app.Environment.IsDevelopment())

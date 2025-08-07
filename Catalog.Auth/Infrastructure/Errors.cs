@@ -2,9 +2,9 @@
 
 using ErrorOr;
 
-public static partial class Errors
+internal static partial class Errors
 {
-    public static class User
+    internal static class User
     {
         public static readonly Error InvalidCredentials = Error.Failure("User.InvalidCreds", "Invalid Credentials");
     }

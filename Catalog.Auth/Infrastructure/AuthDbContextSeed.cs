@@ -1,10 +1,13 @@
 ﻿namespace Catalog.Auth.Infrastructure;
 
-public static class AuthDbContextSeed
+internal static class AuthDbContextSeed
 {
     public static async Task SeedAsync(AuthDbContext identityDbContext,
         UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
     {
+        ArgumentNullException.ThrowIfNull(identityDbContext);
+        ArgumentNullException.ThrowIfNull(userManager);
+        ArgumentNullException.ThrowIfNull(roleManager);
 
         if (!await roleManager.RoleExistsAsync("read").ConfigureAwait(false))
         {

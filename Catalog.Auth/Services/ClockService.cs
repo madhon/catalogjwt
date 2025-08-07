@@ -26,10 +26,10 @@ public class ClockService : IClockService
         => _clock.GetCurrentInstant();
 
     public LocalDateTime LocalNow
-        => Now.InZone(TimeZone).LocalDateTime;
+        => Now.InZone(TimeZone!).LocalDateTime;
 
     public Instant? ToInstant(LocalDateTime? local)
-        => local?.InZone(TimeZone, Resolvers.LenientResolver).ToInstant();
+        => local?.InZone(TimeZone!, Resolvers.LenientResolver).ToInstant();
 
     public LocalDateTime? ToLocal(Instant? instant)
         => instant?.InZone(TimeZone).LocalDateTime;

@@ -14,8 +14,10 @@ public partial class PerformanceBehaviour<TMessage, TResponse> : IPipelineBehavi
         this.logger = logger;
     }
 
-    public async ValueTask<TResponse> Handle(TMessage message, CancellationToken cancellationToken, MessageHandlerDelegate<TMessage, TResponse> next)
+    public async ValueTask<TResponse> Handle(TMessage message, MessageHandlerDelegate<TMessage, TResponse> next, CancellationToken cancellationToken)
     {
+        ArgumentNullException.ThrowIfNull(next);
+
         Stopwatch? timer = null;
 
         Interlocked.Increment(ref RequestCounter.ExecutionCount);
@@ -43,6 +45,9 @@ public partial class PerformanceBehaviour<TMessage, TResponse> : IPipelineBehavi
 
     internal static class RequestCounter
     {
+        // ReSharper disable once StaticMemberInGenericType
+#pragma warning disable S2223, S2743
         public static int ExecutionCount;
+#pragma warning restore S2743, S2223
     }
 }

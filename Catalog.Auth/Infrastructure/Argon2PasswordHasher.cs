@@ -3,11 +3,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Sodium;
-    
-public class Argon2PasswordHasher<TUser> : IPasswordHasher<TUser> where TUser : class
+
+internal sealed class Argon2PasswordHasher<TUser> : IPasswordHasher<TUser> where TUser : class
 {
     private readonly Argon2PasswordHasherOptions options;
-        
+
     /// <summary>
     /// Creates a new Argon2PasswordHasher.
     /// </summary>
@@ -16,7 +16,7 @@ public class Argon2PasswordHasher<TUser> : IPasswordHasher<TUser> where TUser : 
     {
         options = optionsAccessor?.Value ?? new Argon2PasswordHasherOptions();
     }
-        
+
     public string HashPassword(TUser user, string password)
     {
         ArgumentNullException.ThrowIfNullOrEmpty(password);
@@ -41,7 +41,7 @@ public class Argon2PasswordHasher<TUser> : IPasswordHasher<TUser> where TUser : 
 }
 
 // Extension method to convert Argon2HashStrength to PasswordHash.StrengthArgon
-public static class Argon2HashStrengthExtensions
+internal static class Argon2HashStrengthExtensions
 {
     public static PasswordHash.StrengthArgon ToStrengthArgon(this Argon2HashStrength strength)
     {

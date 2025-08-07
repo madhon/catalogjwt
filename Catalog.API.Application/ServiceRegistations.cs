@@ -3,7 +3,7 @@
 using Catalog.API.Application.Behaviours;
 using Mediator;
 
-public static class DependencyInjection
+public static class ServiceRegistations
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {

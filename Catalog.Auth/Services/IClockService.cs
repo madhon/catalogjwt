@@ -2,7 +2,7 @@
 
 using NodaTime;
 
-public interface IClockService
+internal interface IClockService
 {
     DateTimeZone? TimeZone { get; }
 

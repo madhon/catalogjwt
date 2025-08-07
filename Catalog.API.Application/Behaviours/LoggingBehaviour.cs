@@ -13,8 +13,10 @@ public partial class LoggingBehaviour<TMessage, TResponse> : IPipelineBehavior<T
         this.logger = logger;
     }
 
-    public async ValueTask<TResponse> Handle(TMessage message, CancellationToken cancellationToken, MessageHandlerDelegate<TMessage, TResponse> next)
+    public async ValueTask<TResponse> Handle(TMessage message, MessageHandlerDelegate<TMessage, TResponse> next, CancellationToken cancellationToken)
     {
+        ArgumentNullException.ThrowIfNull(next);
+
         var requestName = typeof(TMessage).Name;
         LogRequestName(requestName);
         return await next(message, cancellationToken).ConfigureAwait(false);

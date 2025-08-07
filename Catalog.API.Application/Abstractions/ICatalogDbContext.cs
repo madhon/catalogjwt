@@ -5,7 +5,7 @@ public interface ICatalogDbContext
     DbSet<Brand> Brands { get; }
     DbSet<Product> Products { get; }
 
-    IEnumerable<Product> GetProducts(int pageSize, int pageIndex);
+    IEnumerable<Product> GetAllProducts(int pageSize, int pageIndex);
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

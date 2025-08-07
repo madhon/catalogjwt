@@ -1,6 +1,6 @@
 ﻿namespace Catalog.Gateway.Extensions;
 
-public static class WebApplicationExtensions
+internal static class WebApplicationExtensions
 {
     public static void ConfigureApplication(this WebApplication app)
     {

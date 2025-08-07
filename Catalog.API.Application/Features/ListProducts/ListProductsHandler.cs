@@ -14,11 +14,13 @@ public sealed class ListProductsHandler : IRequestHandler<ListProductsRequest, L
 
     public async ValueTask<ListProductsResponse> Handle(ListProductsRequest request, CancellationToken cancellationToken)
     {
+        ArgumentNullException.ThrowIfNull(request);
+        
         var totalItem = await catalogDbContext.Products
             .AsNoTracking()
             .LongCountAsync(cancellationToken).ConfigureAwait(false);
 
-        var itemsOnPage = catalogDbContext.GetProducts(request.PageSize, request.PageIndex).ToList();
+        var itemsOnPage = catalogDbContext.GetAllProducts(request.PageSize, request.PageIndex).ToList();
 
 #pragma warning disable S125
         //var itemsOnPage = await catalogDbContext.Products

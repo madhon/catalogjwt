@@ -5,7 +5,7 @@ using Serilog.Events;
 using Serilog.Exceptions;
 using Serilog.Settings.Configuration;
 
-public static class SerilogExtensions
+internal static class SerilogExtensions
 {
     public static WebApplicationBuilder AddSerilog(this WebApplicationBuilder builder, string sectionName = "Serilog")
     {

@@ -1,9 +1,11 @@
 ﻿namespace Catalog.Auth;
 
-public static class WebApplicationExtensions
+internal static class WebApplicationExtensions
 {
     public static void ConfigureApplication(this WebApplication app)
     {
+        ArgumentNullException.ThrowIfNull(app);
+
         app.UseForwardedHeaders();
 
         app.UseExceptionHandler();

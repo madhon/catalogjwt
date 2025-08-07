@@ -2,15 +2,15 @@
 
 using System.Diagnostics.Metrics;
 
-public sealed class ApiMetrics
+internal sealed class ApiMetrics
 {
     private readonly Counter<int> loginCounter;
     private readonly Counter<int> failedLogings;
 
-    public static readonly string MeterName = "Catalog.Auth";
-    public static readonly string LoginCounterMeterName = "Catalog.Auth.Logins.Count";
-    public static readonly string LoginFailedCounterMeterName = "Catalog.Auth.Logins.Failed.Count";
-    
+    private const string MeterName = "Catalog.Auth";
+    private const string LoginCounterMeterName = "Catalog.Auth.Logins.Count";
+    private const string LoginFailedCounterMeterName = "Catalog.Auth.Logins.Failed.Count";
+
     public ApiMetrics(IMeterFactory meterFactory)
     {
         var meter = meterFactory.Create(MeterName);

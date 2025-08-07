@@ -14,13 +14,16 @@ public class ProductEntityTypeConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(p => p.Id)
             .ValueGeneratedOnAdd()
             .IsRequired()
-            .HasConversion(typeof(ProductId.EfCoreValueConverter));
+            .HasConversion<ProductId.EfCoreValueConverter>();
+
         builder.Property(p => p.Name).IsRequired().HasMaxLength(50);
         builder.Property(p => p.Description).IsRequired().HasMaxLength(int.MaxValue);
         builder.Property(p => p.Price).IsRequired().HasPrecision(18,2);
+
         builder.Property(p => p.PictureUri).IsRequired(false).HasMaxLength(int.MaxValue);
+
         builder.Property(b => b.BrandId).IsRequired()
-            .HasConversion(typeof(BrandId.EfCoreValueConverter));
+            .HasConversion<BrandId.EfCoreValueConverter>();
         builder.HasOne(p => p.Brand).WithMany().HasForeignKey(p => p.BrandId);
     }
 }

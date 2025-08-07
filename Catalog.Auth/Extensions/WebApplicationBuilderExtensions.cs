@@ -2,10 +2,12 @@
 
 using Microsoft.AspNetCore.HttpOverrides;
 
-public static class WebApplicationBuilderExtensions
+internal static class WebApplicationBuilderExtensions
 {
 	public static IHostApplicationBuilder RegisterServices(this IHostApplicationBuilder builder)
 	{
+		ArgumentNullException.ThrowIfNull(builder);
+
 		var services = builder.Services;
 		var configuration = builder.Configuration;
 

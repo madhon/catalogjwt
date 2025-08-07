@@ -1,6 +1,6 @@
 ﻿namespace Catalog.Auth.Extensions;
 
-public class ConfigureJwtBearerOptions(IOptions<JwtOptions> jwtOptions) : IConfigureNamedOptions<JwtBearerOptions>
+internal sealed class ConfigureJwtBearerOptions(IOptions<JwtOptions> jwtOptions) : IConfigureNamedOptions<JwtBearerOptions>
 {
     private readonly JwtOptions jwtOptions = jwtOptions.Value;
 
@@ -11,6 +11,8 @@ public class ConfigureJwtBearerOptions(IOptions<JwtOptions> jwtOptions) : IConfi
 
     public void Configure(string? name, JwtBearerOptions options)
     {
+        ArgumentNullException.ThrowIfNull(options);
+
         if (!string.Equals(name, JwtBearerDefaults.AuthenticationScheme, StringComparison.OrdinalIgnoreCase))
         {
             return;
@@ -39,7 +41,7 @@ public class ConfigureJwtBearerOptions(IOptions<JwtOptions> jwtOptions) : IConfi
                     context.Response.Headers.Append("Token-Expired", "true");
                 }
                 return Task.CompletedTask;
-            }
+            },
         };
     }
 }

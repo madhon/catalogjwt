@@ -2,7 +2,7 @@
 
 using Microsoft.Extensions.Options;
 
-public static class WebApplicationBuilderExtensions
+internal static class WebApplicationBuilderExtensions
 {
     public static void RegisterServices(this WebApplicationBuilder builder)
     {

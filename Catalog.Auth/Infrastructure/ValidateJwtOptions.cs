@@ -1,7 +1,4 @@
 ﻿namespace Catalog.Auth.Infrastructure;
 
 [OptionsValidator]
-public partial class ValidateJwtOptions : IValidateOptions<JwtOptions>
-{
-    
-}
+internal sealed partial class ValidateJwtOptions : IValidateOptions<JwtOptions>;

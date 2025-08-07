@@ -1,6 +1,6 @@
 ﻿namespace Catalog.Auth.Services;
 
-public static class JwtClaimTypes
+internal static class JwtClaimTypes
 {
     /// <summary>
     /// The type of grant requested, eg client credentials or password

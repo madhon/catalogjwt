@@ -1,5 +1,7 @@
 <Project>
   <PropertyGroup>
+    <NetRuntimeVersion>9.0.8</NetRuntimeVersion>
+    <NetExtensionVersion>9.7.0</NetExtensionVersion>
     <MSIdentityClientVersion>4.74.1</MSIdentityClientVersion>
     <JwtTokenHandlerVersion>8.13.0</JwtTokenHandlerVersion>
     <RoslynatorVersion>4.14.0</RoslynatorVersion>
@@ -9,45 +11,45 @@
   <ItemGroup>
     <!-- System packages -->
     
-    <PackageVersion Include="System.Text.Encodings.Web" Version="9.0.7" />
+    <PackageVersion Include="System.Text.Encodings.Web" Version="$(NetRuntimeVersion)" />
     <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="$(JwtTokenHandlerVersion)" />
-    <PackageVersion Include="System.Runtime.Caching" Version="9.0.7" />
-    <PackageVersion Include="System.Security.Cryptography.Pkcs" Version="9.0.7" />
-    <PackageVersion Include="System.Text.Json" Version="9.0.7" />
-    <PackageVersion Include="System.Formats.Asn1" Version="9.0.7" />
-    <PackageVersion Include="System.IO.Pipelines" Version="9.0.7" />
+    <PackageVersion Include="System.Runtime.Caching" Version="$(NetRuntimeVersion)" />
+    <PackageVersion Include="System.Security.Cryptography.Pkcs" Version="$(NetRuntimeVersion)" />
+    <PackageVersion Include="System.Text.Json" Version="$(NetRuntimeVersion)" />
+    <PackageVersion Include="System.Formats.Asn1" Version="$(NetRuntimeVersion)" />
+    <PackageVersion Include="System.IO.Pipelines" Version="$(NetRuntimeVersion)" />
     <PackageVersion Include="System.Memory" Version="4.6.3" />
-    <PackageVersion Include="System.Threading.RateLimiting" Version="9.0.7" />
+    <PackageVersion Include="System.Threading.RateLimiting" Version="$(NetRuntimeVersion)" />
     <PackageVersion Include="System.Threading.Tasks.Extensions" Version="4.6.3" />
     <!-- Microsoft packages -->
-    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.7" />
-    <PackageVersion Include="Microsoft.AspNetCore.DataProtection.EntityFrameworkCore" Version="9.0.7" />
-    <PackageVersion Include="Microsoft.AspNetCore.HeaderPropagation" Version="9.0.7" />
-    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.7" />
-    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.7" />
-    <PackageVersion Include="Microsoft.Bcl.TimeProvider" Version="9.0.7" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="$(NetRuntimeVersion)" />
+    <PackageVersion Include="Microsoft.AspNetCore.DataProtection.EntityFrameworkCore" Version="$(NetRuntimeVersion)" />
+    <PackageVersion Include="Microsoft.AspNetCore.HeaderPropagation" Version="$(NetRuntimeVersion)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="$(NetRuntimeVersion)" />
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="$(NetRuntimeVersion)" />
+    <PackageVersion Include="Microsoft.Bcl.TimeProvider" Version="$(NetRuntimeVersion)" />
     <PackageVersion Include="Microsoft.OpenApi" Version="[1.6.24,2)" />
     <PackageVersion Include="Microsoft.Identity.Client" Version="$(MSIdentityClientVersion)" />
     <PackageVersion Include="Microsoft.Identity.Client.Extensions.Msal" Version="$(MSIdentityClientVersion)" />
     <PackageVersion Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="$(JwtTokenHandlerVersion)" />
     <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="$(JwtTokenHandlerVersion)" />
-    <PackageVersion Include="Microsoft.Data.SqlClient" Version="6.1.0" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="9.0.7" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.7" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.7" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.7" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tasks" Version="9.0.7" />
-    <PackageVersion Include="Microsoft.Extensions.ApiDescription.Server" Version="9.0.7" />
-    <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="9.0.7" />
-    <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="9.0.7" />
-    <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="9.0.7" />
-    <PackageVersion Include="Microsoft.Extensions.Caching.Hybrid" Version="9.5.0" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.7" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.7" />
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.7" />
-    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.7" />
-    <PackageVersion Include="Microsoft.Extensions.Telemetry.Abstractions" Version="9.7.0" />
-    <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="9.7.0" />
+    <PackageVersion Include="Microsoft.Data.SqlClient" Version="6.0.2" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(NetRuntimeVersion)" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="$(NetRuntimeVersion)" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(NetRuntimeVersion)" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="$(NetRuntimeVersion)" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tasks" Version="$(NetRuntimeVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.ApiDescription.Server" Version="$(NetRuntimeVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="$(NetRuntimeVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="$(NetRuntimeVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="$(NetRuntimeVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Caching.Hybrid" Version="$(NetExtensionVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="$(NetRuntimeVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Binder" Version="$(NetRuntimeVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="$(NetRuntimeVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="$(NetRuntimeVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Telemetry.Abstractions" Version="$(NetExtensionVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="$(NetExtensionVersion)" />
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
     <PackageVersion Include="Azure.Core" Version="1.47.1" />
     <PackageVersion Include="Azure.Identity" Version="1.14.2" />
@@ -73,9 +75,9 @@
     <PackageVersion Include="ErrorOr" Version="2.0.1" />
     <PackageVersion Include="ZiggyCreatures.FusionCache" Version="$(FusionCacheVersion)" />
     <PackageVersion Include="ZiggyCreatures.FusionCache.OpenTelemetry" Version="$(FusionCacheVersion)" />
-    <PackageVersion Include="Mediator.Abstractions" Version="2.1.7" />
-    <PackageVersion Include="Mediator.SourceGenerator" Version="2.1.7" />
-    <PackageVersion Include="Scalar.AspNetCore" Version="2.6.5" />
+    <PackageVersion Include="Mediator.Abstractions" Version="3.0.1" />
+    <PackageVersion Include="Mediator.SourceGenerator" Version="3.0.1" />
+    <PackageVersion Include="Scalar.AspNetCore" Version="2.6.8" />
     <PackageVersion Include="EntityFrameworkCore.Exceptions.SqlServer" Version="8.1.3" />
     <PackageVersion Include="NetEscapades.AspNetCore.SecurityHeaders" Version="1.1.0" />
     <PackageVersion Include="StronglyTypedId" Version="1.0.0-beta08" />
@@ -93,7 +95,7 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.12.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.12.0" />
     <!-- Analyzers -->
-    <PackageVersion Include="Meziantou.Analyzer" Version="2.0.208" />
+    <PackageVersion Include="Meziantou.Analyzer" Version="2.0.211" />
     <PackageVersion Include="Roslynator.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.Formatting.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.CodeFixes" Version="$(RoslynatorVersion)" />

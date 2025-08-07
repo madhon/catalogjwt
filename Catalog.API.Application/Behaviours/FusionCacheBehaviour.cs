@@ -23,20 +23,14 @@ public sealed partial class FusionCacheBehaviour<TRequest, TResponse> : IPipelin
         _logger = logger;
     }
 
-    /// <summary>
-    /// Handles the request by attempting to retrieve the response from the cache, or invoking the next handler if not found.
-    /// </summary>
-    /// <param name="message">The request instance.</param>
-    /// <param name="cancellationToken">The cancellation token.</param>
-    /// <param name="next">The next handler delegate.</param>
-    /// <returns>The response instance.</returns>
-    public async ValueTask<TResponse> Handle(TRequest message, CancellationToken cancellationToken, MessageHandlerDelegate<TRequest, TResponse> next)
+    public async ValueTask<TResponse> Handle(TRequest message, MessageHandlerDelegate<TRequest, TResponse> next, CancellationToken cancellationToken)
     {
         LogHandlingRequest(typeof(TRequest).Name, message.CacheKey);
         var response = await _fusionCache.GetOrSetAsync<TResponse>(
             message.CacheKey,
             async (ctx, token) => await next(message, token),
-            tags: message.Tags
+            tags: message.Tags,
+            token: cancellationToken
         ).ConfigureAwait(false);
 
         return response;

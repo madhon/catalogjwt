@@ -1,6 +1,6 @@
 ﻿namespace Catalog.Auth.Infrastructure;
 
-public class Argon2PasswordHasherOptions
+internal sealed class Argon2PasswordHasherOptions
 {
     /// <summary>
     /// Hash strength using pre-defined strengths from libsodium

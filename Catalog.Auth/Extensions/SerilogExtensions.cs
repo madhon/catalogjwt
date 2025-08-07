@@ -1,5 +1,6 @@
 ﻿namespace Catalog.Auth;
 
+using System.Globalization;
 using Microsoft.AspNetCore.Http.Features;
 using Serilog;
 using Serilog.Configuration;
@@ -11,6 +12,8 @@ internal static class SerilogExtensions
 {
     internal static WebApplicationBuilder AddSerilog(this WebApplicationBuilder builder, string sectionName = "Serilog")
     {
+        ArgumentNullException.ThrowIfNull(builder);
+
         var serilogOptions = new SerilogOptions();
         builder.Configuration.GetSection(sectionName).Bind(serilogOptions);
 
@@ -18,7 +21,9 @@ internal static class SerilogExtensions
 
         builder.Services.AddSerilog(loggerConfiguration =>
         {
+#pragma warning disable S125
             //var options = new ConfigurationReaderOptions { SectionName = "Serilog" };
+#pragma warning restore S125
             loggerConfiguration
                 .MinimumLevel.Override("Microsoft.AspNetCore.Hosting", LogEventLevel.Warning)
                 .MinimumLevel.Override("Microsoft.AspNetCore.Mvc", LogEventLevel.Warning)
@@ -34,12 +39,12 @@ internal static class SerilogExtensions
             if (serilogOptions.UseConsole)
             {
                 loggerConfiguration.WriteTo.Async(writeTo =>
-                    writeTo.Console(outputTemplate: serilogOptions.LogTemplate));
+                    writeTo.Console(outputTemplate: serilogOptions.LogTemplate, formatProvider: CultureInfo.InvariantCulture));
             }
 
             if (!string.IsNullOrEmpty(serilogOptions.SeqUrl))
             {
-                loggerConfiguration.WriteTo.Seq(serilogOptions.SeqUrl);
+                loggerConfiguration.WriteTo.Seq(serilogOptions.SeqUrl, formatProvider: CultureInfo.InvariantCulture);
             }
         });
 

@@ -37,7 +37,7 @@ public class CatalogContext : DbContext, ICatalogDbContext
                             .Contains(x.Id)).Include(x=>x.Brand)
         );
 
-    public IEnumerable<Product> GetProducts(int pageSize, int pageIndex)
+    public IEnumerable<Product> GetAllProducts(int pageSize, int pageIndex)
     {
         return GetProductsInternal(this, pageSize, pageIndex);
     }

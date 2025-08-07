@@ -2,7 +2,7 @@
 
 using ErrorOr;
 
-public interface IAuthenticationService
+internal interface IAuthenticationService
 {
     Task<ErrorOr<IdentityResult>> CreateUser(string email, string password, string fullName, CancellationToken ct);
     Task<ErrorOr<TokenResult>> Authenticate(string email, string password);

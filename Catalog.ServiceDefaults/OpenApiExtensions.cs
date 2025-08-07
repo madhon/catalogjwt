@@ -13,6 +13,8 @@ public static class OpenApiExtensions
 {
     public static IApplicationBuilder UseDefaultOpenApi(this WebApplication app)
     {
+        ArgumentNullException.ThrowIfNull(app);
+
         var configuration = app.Configuration;
         var openApiSection = configuration.GetSection("OpenApi");
 
@@ -30,6 +32,8 @@ public static class OpenApiExtensions
 
     public static IHostApplicationBuilder  AddDefaultOpenApi(this IHostApplicationBuilder  builder)
     {
+        ArgumentNullException.ThrowIfNull(builder);
+
         var openApi = builder.Configuration.GetSection("OpenApi");
         if (!openApi.Exists())
         {

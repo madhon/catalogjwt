@@ -4,7 +4,7 @@ using Aspire.Hosting;
 using Aspire.Hosting.ApplicationModel;
 using Aspire.Hosting.Lifecycle;
 
-public static class Extensions
+internal static class Extensions
 {
     public static IDistributedApplicationBuilder AddForwardedHeaders(this IDistributedApplicationBuilder builder)
     {
@@ -12,6 +12,7 @@ public static class Extensions
         return builder;
     }
 
+    // ReSharper disable once ClassNeverInstantiated.Local
     private sealed class AddForwardHeadersHook : IDistributedApplicationLifecycleHook
     {
         public Task BeforeStartAsync(DistributedApplicationModel appModel, CancellationToken cancellationToken = default)

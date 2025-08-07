@@ -22,6 +22,8 @@
     <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
     <EnableRequestDelegateGenerator>true</EnableRequestDelegateGenerator>
     <EnableConfigurationBindingGenerator>true</EnableConfigurationBindingGenerator>
+    <AnalysisLevel>latest-all</AnalysisLevel>
+    <RestoreUseStaticGraphEvaluation>true</RestoreUseStaticGraphEvaluation>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TF_BUILD)' == 'true' or '$(GITHUB_ACTIONS)' == 'true'">
@@ -30,6 +32,7 @@
 
   <PropertyGroup>
     <WarningsAsErrors>$(WarningsAsErrors);SYSLIB1045;CA1309;CA1310;CA1831;CA1832;CA1833;CA1827;CA1860;CA1820;CA1829;CA1845;CA1846;CA1848;CA1851;CA1852;IDE0028</WarningsAsErrors>
+    <NoWarn>$(NoWarn);MA0004;CA1812;CA2007</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -55,5 +58,11 @@
     </PackageReference>
   </ItemGroup>
   
+  <ItemGroup>
+    <GlobalPackageReference  Include="Microsoft.CodeAnalysis.BannedApiAnalyzers" Version="4.14.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </GlobalPackageReference >
+  </ItemGroup>
   
 </Project>
