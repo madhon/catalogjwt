@@ -1,4 +1,5 @@
-﻿/*namespace Catalog.Auth.Infrastructure;
+﻿#pragma warning disable S125
+/*namespace Catalog.Auth.Infrastructure;
 
 using Asp.Versioning.ApiExplorer;
 using Microsoft.Extensions.Options;
@@ -32,3 +33,4 @@ public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
         }
     }
 }*/
+#pragma warning restore S125

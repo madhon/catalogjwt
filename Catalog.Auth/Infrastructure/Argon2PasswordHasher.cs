@@ -41,7 +41,9 @@ internal sealed class Argon2PasswordHasher<TUser> : IPasswordHasher<TUser> where
 }
 
 // Extension method to convert Argon2HashStrength to PasswordHash.StrengthArgon
+#pragma warning disable MA0048
 internal static class Argon2HashStrengthExtensions
+#pragma warning restore MA0048
 {
     public static PasswordHash.StrengthArgon ToStrengthArgon(this Argon2HashStrength strength)
     {

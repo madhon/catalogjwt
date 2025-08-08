@@ -1,6 +1,6 @@
 ﻿namespace Catalog.Auth.Login;
 
-public static partial class LoginEndpoint
+internal static partial class LoginEndpoint
 {
     public static IEndpointRouteBuilder MapLoginEndpoint(this IEndpointRouteBuilder app)
     {

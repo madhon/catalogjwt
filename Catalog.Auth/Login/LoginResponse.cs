@@ -1,6 +1,6 @@
 ﻿namespace Catalog.Auth.Login;
 
-public record LoginResponse
+internal sealed record LoginResponse
 {
     [JsonPropertyName("access_token")]
     public string AccessToken { get; init; } = null!;

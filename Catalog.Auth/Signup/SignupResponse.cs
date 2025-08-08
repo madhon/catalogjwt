@@ -1,3 +1,3 @@
 ﻿namespace Catalog.Auth.Signup;
 
-public record SignupResponse(bool Success, string Message);
+internal sealed record SignupResponse(bool Success, string Message);

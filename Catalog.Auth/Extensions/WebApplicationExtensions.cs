@@ -13,7 +13,9 @@ internal static class WebApplicationExtensions
 
         app.UseSerilogRequestLogs();
 
+#pragma warning disable S125
         //app.AddDefaultSecurityHeaders();
+#pragma warning restore S125
 
         app.UseRouting();
 

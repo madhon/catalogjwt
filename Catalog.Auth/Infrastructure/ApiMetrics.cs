@@ -13,7 +13,9 @@ internal sealed class ApiMetrics
 
     public ApiMetrics(IMeterFactory meterFactory)
     {
+#pragma warning disable CA2000
         var meter = meterFactory.Create(MeterName);
+#pragma warning restore CA2000
         loginCounter = meter.CreateCounter<int>(LoginCounterMeterName);
         failedLogings = meter.CreateCounter<int>(LoginFailedCounterMeterName);
     }

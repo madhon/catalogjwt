@@ -1,6 +1,6 @@
 ﻿namespace Catalog.Auth.Signup;
 
-public static partial class SignUpEndpoint
+internal static partial class SignUpEndpoint
 {
     public static IEndpointRouteBuilder MapSignUpEndpoint(this IEndpointRouteBuilder app)
     {

@@ -23,7 +23,9 @@ using (var scope = app.Services.CreateScope())
         var roleManager = scopedProvider.GetRequiredService<RoleManager<IdentityRole>>();
         await AuthDbContextSeed.SeedAsync(authContext, userManager, roleManager).ConfigureAwait(false);
     }
+#pragma warning disable CA1031
     catch (Exception e)
+#pragma warning restore CA1031
     {
         Console.WriteLine(e);
     }

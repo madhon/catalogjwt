@@ -76,7 +76,9 @@ internal static class SerilogExtensions
     }
 }
 
+#pragma warning disable MA0048
 internal sealed class UtcTimestampEnricher : ILogEventEnricher
+#pragma warning restore MA0048
 {
     public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
     {
@@ -84,7 +86,9 @@ internal sealed class UtcTimestampEnricher : ILogEventEnricher
     }
 }
 
+#pragma warning disable MA0048
 internal sealed class UserInfoEnricher : ILogEventEnricher
+#pragma warning restore MA0048
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
     public UserInfoEnricher() : this(new HttpContextAccessor())

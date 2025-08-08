@@ -3,7 +3,7 @@
 using NodaTime;
 using NodaTime.TimeZones;
 
-public class ClockService : IClockService
+internal sealed class ClockService : IClockService
 {
     private readonly IClock _clock;
 
@@ -32,5 +32,5 @@ public class ClockService : IClockService
         => local?.InZone(TimeZone!, Resolvers.LenientResolver).ToInstant();
 
     public LocalDateTime? ToLocal(Instant? instant)
-        => instant?.InZone(TimeZone).LocalDateTime;
+        => instant?.InZone(TimeZone!).LocalDateTime;
 }
