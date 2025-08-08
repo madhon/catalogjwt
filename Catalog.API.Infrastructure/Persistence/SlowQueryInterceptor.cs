@@ -16,6 +16,9 @@ public sealed partial class SlowQueryInterceptor : DbCommandInterceptor
 
     public override DbDataReader ReaderExecuted(DbCommand command, CommandExecutedEventData eventData, DbDataReader result)
     {
+        ArgumentNullException.ThrowIfNull(command);
+        ArgumentNullException.ThrowIfNull(eventData);
+
         if (eventData.Duration.TotalMilliseconds > SlowQueryThreshold)
         {
             LogSlowQuery(eventData.Duration.TotalMilliseconds, command.CommandText);

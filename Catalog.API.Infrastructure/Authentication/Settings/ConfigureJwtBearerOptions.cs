@@ -19,6 +19,8 @@ public partial class ConfigureJwtBearerOptions(IOptions<AuthenticationSettings> 
 
     public void Configure(string? name, JwtBearerOptions options)
     {
+        ArgumentNullException.ThrowIfNull(options);
+
         if (!string.Equals(name, JwtBearerDefaults.AuthenticationScheme, StringComparison.OrdinalIgnoreCase))
         {
             return;

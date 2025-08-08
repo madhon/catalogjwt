@@ -11,13 +11,19 @@
         public static void AddMyInfrastructureDependencies(this IServiceCollection services,
             IConfiguration configuration, IHostEnvironment environment)
         {
+            ArgumentNullException.ThrowIfNull(configuration);
+            ArgumentNullException.ThrowIfNull(environment);
+
             Authentication.Startup.ConfigureServices(services, configuration);
             Persistence.Startup.ConfigureServices(services, configuration, environment);
         }
 
         public static void UseMyInfrastructure(this IApplicationBuilder app, IConfiguration configuration,
-            IWebHostEnvironment env)
+            IWebHostEnvironment environment)
         {
+            ArgumentNullException.ThrowIfNull(configuration);
+            ArgumentNullException.ThrowIfNull(environment);
+
             Authentication.Startup.Configure(app);
             Persistence.Startup.Configure(app, configuration);
         }

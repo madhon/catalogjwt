@@ -23,6 +23,7 @@
     <EnableRequestDelegateGenerator>true</EnableRequestDelegateGenerator>
     <EnableConfigurationBindingGenerator>true</EnableConfigurationBindingGenerator>
     <AnalysisLevel>latest-all</AnalysisLevel>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <RestoreUseStaticGraphEvaluation>true</RestoreUseStaticGraphEvaluation>
   </PropertyGroup>
 

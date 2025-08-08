@@ -8,6 +8,8 @@ public class ProductEntityTypeConfiguration : IEntityTypeConfiguration<Product>
 {
     public void Configure(EntityTypeBuilder<Product> builder)
     {
+        ArgumentNullException.ThrowIfNull(builder);
+
         builder.ToTable("Product");
 
         builder.HasKey(p => p.Id);

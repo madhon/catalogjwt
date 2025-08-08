@@ -9,6 +9,6 @@ public class PersistenceOptions
     [Required, MinLength(5), Display(Name = "DB Connection String")]
     public string CatalogDb { get; set; } = null!;
 
-    public bool EnableDetailedErrors { get; set; } = false;
-    public bool EnableSensitiveDataLogging { get; set; } = false;
+    public bool EnableDetailedErrors { get; set; }
+    public bool EnableSensitiveDataLogging { get; set; }
 }

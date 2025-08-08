@@ -19,6 +19,8 @@ public class CatalogContext : DbContext, ICatalogDbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        ArgumentNullException.ThrowIfNull(modelBuilder);
+
         modelBuilder.ApplyConfiguration(new BrandEntityTypeConfiguration());
         modelBuilder.ApplyConfiguration(new ProductEntityTypeConfiguration());
     }
