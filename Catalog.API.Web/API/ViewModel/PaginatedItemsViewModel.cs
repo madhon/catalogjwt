@@ -1,6 +1,6 @@
 ﻿namespace Catalog.API.Web.API.ViewModel;
 
-public class PaginatedItemsViewModel<TEntity> where TEntity : class
+internal sealed class PaginatedItemsViewModel<TEntity> where TEntity : class
 {
     public int PageIndex { get; private set; }
 

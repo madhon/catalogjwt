@@ -3,10 +3,10 @@
 using Catalog.API.Application;
 using Catalog.API.Web.API;
 
-public class Startup
+internal sealed class Startup
 {
-    protected IConfiguration Configuration { get; }
-    protected IWebHostEnvironment Environment { get; }
+    private IConfiguration Configuration { get; }
+    private IWebHostEnvironment Environment { get; }
 
     public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         => (Configuration, Environment) = (configuration, environment);

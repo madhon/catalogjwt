@@ -2,7 +2,7 @@
 
 using Serilog.Events;
 
-public static class LogHelper
+internal static class LogHelper
 {
     public static LogEventLevel ExcludeHealthChecks(HttpContext ctx, double _, Exception? ex)
     {

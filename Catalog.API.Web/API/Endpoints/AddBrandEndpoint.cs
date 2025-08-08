@@ -1,6 +1,6 @@
 ﻿namespace Catalog.API.Web.API.Endpoints;
 
-public static class AddBrandEndpoint
+internal static class AddBrandEndpoint
 {
     public static IEndpointRouteBuilder MapAddBrandEndpoint(this IEndpointRouteBuilder app)
     {

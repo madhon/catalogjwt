@@ -2,7 +2,7 @@
 
 using FluentValidation.Results;
 
-public static class FluentValidationExtensions
+internal static class FluentValidationExtensions
 {
     public static IDictionary<string, string[]> ToDictionary(this ValidationResult validationResult)
     {

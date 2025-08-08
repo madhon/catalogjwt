@@ -8,7 +8,7 @@ using Catalog.API.Web.API.Validators;
 using FluentValidation;
 using ZiggyCreatures.Caching.Fusion;
 
-public static class ApiStartup
+internal static class ApiStartup
 {
 	public static void AddMyApi(this IServiceCollection services)
 	{

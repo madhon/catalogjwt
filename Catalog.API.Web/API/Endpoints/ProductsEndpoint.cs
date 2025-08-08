@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Caching.Hybrid;
 using ZiggyCreatures.Caching.Fusion;
 
-public static class ProductsEndpoint
+internal static class ProductsEndpoint
 {
 	public static IEndpointRouteBuilder MapProductsEndpoint(this IEndpointRouteBuilder app)
 	{

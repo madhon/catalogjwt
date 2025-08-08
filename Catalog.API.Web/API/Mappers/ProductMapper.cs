@@ -3,7 +3,7 @@
 using Catalog.API.Web.API.Endpoints.Requests;
 
 [Mapper]
-public partial class ProductMapper
+internal sealed partial class ProductMapper
 {
     [MapperIgnoreTarget(nameof(Product.Id))]
     [MapperIgnoreTarget(nameof(Product.Brand))]

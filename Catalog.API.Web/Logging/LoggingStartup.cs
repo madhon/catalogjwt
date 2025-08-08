@@ -1,5 +1,6 @@
 ﻿namespace Catalog.API.Web.Logging;
 
+using System.Globalization;
 using Catalog.API.Web.Logging.Helper;
 using Catalog.API.Web.Logging.Settings;
 using Serilog;
@@ -7,7 +8,7 @@ using Serilog.Events;
 using Serilog.Exceptions;
 using Serilog.Settings.Configuration;
 
-public static class LoggingStartup
+internal static class LoggingStartup
 {
     public static IHostApplicationBuilder AddMySerilogLogging(this IHostApplicationBuilder builder)
     {
@@ -40,13 +41,13 @@ public static class LoggingStartup
             {
                 loggerConfiguration.WriteTo.Async(writeTo =>
                 {
-                    writeTo.Console(outputTemplate: serilogOptions.LogTemplate);
+                    writeTo.Console(outputTemplate: serilogOptions.LogTemplate, formatProvider: CultureInfo.InvariantCulture);
                 });
             }
 
             if (!string.IsNullOrEmpty(serilogOptions.SeqUrl))
             {
-                loggerConfiguration.WriteTo.Seq(serilogOptions.SeqUrl);
+                loggerConfiguration.WriteTo.Seq(serilogOptions.SeqUrl, formatProvider: CultureInfo.InvariantCulture);
             }
         });
 

@@ -3,7 +3,7 @@
 using Catalog.API.Web.API.Endpoints.Requests;
 
 [Mapper]
-public partial class BrandMapper
+internal sealed partial class BrandMapper
 {
     [MapperIgnoreTarget(nameof(Brand.Id))]
     public partial Brand MapAddBrandRequestToBrand(AddBrandRequest request);

@@ -15,7 +15,9 @@ var app = builder.Build();
 
 app.UseDefaultOpenApi();
 
+#pragma warning disable S125
 //app.AddDefaultSecurityHeaders();
+#pragma warning restore S125
 
 startup.Configure(app);
 
