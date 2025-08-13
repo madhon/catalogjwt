@@ -1,5 +1,6 @@
 ﻿namespace Catalog.Gateway.Extensions;
 
+using System.Globalization;
 using Serilog;
 using Serilog.Events;
 using Serilog.Exceptions;
@@ -29,13 +30,13 @@ internal static class SerilogExtensions
             {
                 loggerConfiguration.WriteTo.Async(writeTo =>
                 {
-                    writeTo.Console(outputTemplate: serilogOptions.LogTemplate);
+                    writeTo.Console(outputTemplate: serilogOptions.LogTemplate, formatProvider: CultureInfo.InvariantCulture);
                 });
             }
 
             if (!string.IsNullOrEmpty(serilogOptions.SeqUrl))
             {
-                loggerConfiguration.WriteTo.Seq(serilogOptions.SeqUrl);
+                loggerConfiguration.WriteTo.Seq(serilogOptions.SeqUrl, formatProvider: CultureInfo.InvariantCulture);
             }
         });
 
