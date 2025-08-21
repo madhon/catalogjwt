@@ -1,6 +1,8 @@
 ﻿namespace Catalog.Auth.Login;
 
-internal sealed class LoginRequestValidator : AbstractValidator<LoginRequest>
+#pragma warning disable CA1515
+public sealed class LoginRequestValidator : AbstractValidator<LoginRequest>
+#pragma warning restore CA1515
 {
     public LoginRequestValidator()
     {
