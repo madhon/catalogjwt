@@ -2,11 +2,11 @@
   <PropertyGroup>
     <NetRuntimeVersion>9.0.8</NetRuntimeVersion>
     <NetExtensionVersion>9.8.0</NetExtensionVersion>
-    <MSIdentityClientVersion>4.74.1</MSIdentityClientVersion>
-    <JwtTokenHandlerVersion>8.13.1</JwtTokenHandlerVersion>
+    <MSIdentityClientVersion>4.76.0</MSIdentityClientVersion>
+    <JwtTokenHandlerVersion>8.14.0</JwtTokenHandlerVersion>
     <RoslynatorVersion>4.14.0</RoslynatorVersion>
     <PollyVersion>8.6.2</PollyVersion>
-    <FusionCacheVersion>2.3.0</FusionCacheVersion>
+    <FusionCacheVersion>2.4.0</FusionCacheVersion>
   </PropertyGroup>
   <ItemGroup>
     <!-- System packages -->
@@ -51,7 +51,7 @@
     <PackageVersion Include="Microsoft.Extensions.Telemetry.Abstractions" Version="$(NetExtensionVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="$(NetExtensionVersion)" />
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
-    <PackageVersion Include="Azure.Core" Version="1.47.2" />
+    <PackageVersion Include="Azure.Core" Version="1.47.3" />
     <PackageVersion Include="Azure.Identity" Version="1.15.0" />
     <PackageVersion Include="Yarp.ReverseProxy" Version="2.3.0" />
     <!-- 3rd party packages -->
