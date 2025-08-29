@@ -39,6 +39,7 @@ public partial class ConfigureJwtBearerOptions(IOptions<AuthenticationSettings> 
             ValidateAudience = true,
             ValidAudience = jwtOptions.Audience,
             ValidateIssuerSigningKey = true,
+            ValidateLifetime = true,
             IssuerSigningKey = new SymmetricSecurityKey(key),
             ClockSkew = TimeSpan.FromSeconds(5),
         };

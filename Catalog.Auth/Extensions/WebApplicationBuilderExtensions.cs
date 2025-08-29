@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.HttpOverrides;
 
 internal static class WebApplicationBuilderExtensions
 {
+#pragma warning disable MA0051
 	public static IHostApplicationBuilder RegisterServices(this IHostApplicationBuilder builder)
+#pragma warning restore MA0051
 	{
 		ArgumentNullException.ThrowIfNull(builder);
 
@@ -23,7 +25,6 @@ internal static class WebApplicationBuilderExtensions
 			options.SerializerOptions.TypeInfoResolverChain.Insert(0, AppJsonSerializerContext.Default);
 		});
 
-		services.AddSingleton<IClockService, ClockService>();
 		services.AddSingleton(TimeProvider.System);
 
 		services.AddExceptionHandler<GlobalExceptionHandler>();

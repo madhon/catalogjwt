@@ -30,7 +30,7 @@ internal sealed class JwtTokenService : IJwtTokenService
     {
         var tokenHandler = new JsonWebTokenHandler();
 
-        var issuedAt = DateTime.UtcNow;
+        var issuedAt = timeProvider.GetUtcNow().DateTime;
 
         var claimsIdentity = new ClaimsIdentity(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 

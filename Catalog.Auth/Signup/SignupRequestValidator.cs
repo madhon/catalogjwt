@@ -1,6 +1,6 @@
 ﻿namespace Catalog.Auth.Signup;
 
-public sealed class SignUpRequestValidator : AbstractValidator<SignupRequest>
+internal sealed class SignUpRequestValidator : AbstractValidator<SignupRequest>
 {
     public SignUpRequestValidator()
     {

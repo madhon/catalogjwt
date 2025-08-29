@@ -57,7 +57,7 @@ internal sealed class AuthenticationService : IAuthenticationService
             var additionalClaims = GenerateClaims(user, email);
             var roles = await userManager.GetRolesAsync(user).ConfigureAwait(false);
 
-            return jwtTokenService.CreateToken(additionalClaims, roles, 45);
+            return jwtTokenService.CreateToken(additionalClaims, roles);
         }
 
         return Errors.User.InvalidCredentials;

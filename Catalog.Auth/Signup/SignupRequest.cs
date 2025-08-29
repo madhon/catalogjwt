@@ -1,3 +1,3 @@
 ﻿namespace Catalog.Auth.Signup;
 
-public sealed record SignupRequest(string Email, string Password, string Fullname);
+internal sealed record SignupRequest(string Email, string Password, string Fullname);
