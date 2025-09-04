@@ -5,7 +5,7 @@
     <MSIdentityClientVersion>4.76.0</MSIdentityClientVersion>
     <JwtTokenHandlerVersion>8.14.0</JwtTokenHandlerVersion>
     <RoslynatorVersion>4.14.0</RoslynatorVersion>
-    <PollyVersion>8.6.2</PollyVersion>
+    <PollyVersion>8.6.3</PollyVersion>
     <FusionCacheVersion>2.4.0</FusionCacheVersion>
   </PropertyGroup>
   <ItemGroup>
@@ -95,7 +95,7 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.12.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.12.0" />
     <!-- Analyzers -->
-    <PackageVersion Include="Meziantou.Analyzer" Version="2.0.213" />
+    <PackageVersion Include="Meziantou.Analyzer" Version="2.0.215" />
     <PackageVersion Include="Roslynator.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.Formatting.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.CodeFixes" Version="$(RoslynatorVersion)" />
@@ -103,8 +103,8 @@
     <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.11.20" />
     <PackageVersion Include="SecurityCodeScan.VS2019" Version="5.6.7" />
     <!-- Aspire-->
-    <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="9.4.1" />
-    <PackageVersion Include="Aspire.Hosting.AppHost" Version="9.4.1" />
-    <PackageVersion Include="Aspire.Hosting.Docker" Version="9.4.1-preview.1.25408.4" />
+    <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="9.4.2" />
+    <PackageVersion Include="Aspire.Hosting.AppHost" Version="9.4.2" />
+    <PackageVersion Include="Aspire.Hosting.Docker" Version="9.4.2-preview.1.25428.12" />
   </ItemGroup>
 </Project>

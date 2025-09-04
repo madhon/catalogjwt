@@ -1,6 +1,5 @@
 ﻿namespace Catalog.API.Web.API;
 
-using Catalog.API.Web.API.Endpoints;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.RateLimiting;
 using System.Threading.RateLimiting;
