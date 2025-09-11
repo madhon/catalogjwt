@@ -1,5 +1,6 @@
 ﻿namespace Catalog.API.Web.API;
 
+using Catalog.API.Application.Features.Products;
 using Catalog.API.Web.API.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 

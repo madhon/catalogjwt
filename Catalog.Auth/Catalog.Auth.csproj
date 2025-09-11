@@ -46,7 +46,7 @@
 		<PackageReference Include="Serilog.Sinks.Seq" />
 		<PackageReference Include="System.Text.Encodings.Web" />
 		<PackageReference Include="System.Security.Cryptography.Pkcs" />
-		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+		<PackageReference Include="FluentValidation" />
 		<PackageReference Include="ErrorOr" />
 	</ItemGroup>
 

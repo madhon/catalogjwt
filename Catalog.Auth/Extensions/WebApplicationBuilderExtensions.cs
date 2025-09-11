@@ -1,5 +1,7 @@
 ﻿namespace Catalog.Auth;
 
+using Catalog.Auth.Login;
+using Catalog.Auth.Signup;
 using Microsoft.AspNetCore.HttpOverrides;
 
 internal static class WebApplicationBuilderExtensions
@@ -40,7 +42,8 @@ internal static class WebApplicationBuilderExtensions
 
 		services.AddScoped<IPasswordHasher<ApplicationUser>, Argon2PasswordHasher<ApplicationUser>>();
 
-		services.AddValidatorsFromAssemblyContaining<Program>();
+		services.AddScoped<IValidator<LoginRequest>, LoginRequestValidator>();
+		services.AddScoped<IValidator<SignupRequest>, SignUpRequestValidator>();
 
 		services.Configure<IdentityOptions>(options =>
 		{

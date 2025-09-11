@@ -1,6 +1,6 @@
 ﻿namespace Catalog.API.Web.API.Mappers;
 
-using Catalog.API.Web.API.Endpoints.Requests;
+using Catalog.API.Application.Features.Products;
 
 [Mapper]
 internal sealed partial class ProductMapper

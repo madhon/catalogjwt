@@ -1,5 +1,8 @@
 ﻿namespace Catalog.API.Web.API.Endpoints;
 
+using System.Threading.Channels;
+using Catalog.API.Application.Features.Products;
+
 internal static class AddProductEndpoint
 {
     public static IEndpointRouteBuilder MapAddProductEndpoint(this IEndpointRouteBuilder app)
@@ -8,7 +11,7 @@ internal static class AddProductEndpoint
                 async Task<Results<Ok, ProblemHttpResult, UnauthorizedHttpResult>>
                     (
                         AddProductRequest request,
-                        ICatalogDbContext catalogContext,
+                        Channel<Product> productChannel,
                         CancellationToken ct
                     )
                     =>
@@ -17,8 +20,7 @@ internal static class AddProductEndpoint
                     var item = mapper.MapAddProductRequestToProduct(request);
                     item.Brand = null;
 
-                    catalogContext.Products.Add(item);
-                    await catalogContext.SaveChangesAsync(ct).ConfigureAwait(false);
+                    await productChannel.Writer.WriteAsync(item, ct);
 
                     return TypedResults.Ok();
                 })

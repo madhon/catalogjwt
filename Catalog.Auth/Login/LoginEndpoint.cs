@@ -1,5 +1,7 @@
 ﻿namespace Catalog.Auth.Login;
 
+using Microsoft.AspNetCore.Mvc;
+
 internal static partial class LoginEndpoint
 {
     public static IEndpointRouteBuilder MapLoginEndpoint(this IEndpointRouteBuilder app)
@@ -20,10 +22,10 @@ internal static partial class LoginEndpoint
     }
 
     private static async Task<Results<Ok<LoginResponse>, ValidationProblem, ProblemHttpResult, UnauthorizedHttpResult>> HandleLogin(LoginRequest request,
-        IValidator<LoginRequest> loginValidator,
-        IAuthenticationService authenticationService,
-        ILoggerFactory loggerFactory,
-        ApiMetrics metrics,
+        [FromServices] IValidator<LoginRequest> loginValidator,
+        [FromServices] IAuthenticationService authenticationService,
+        [FromServices] ILoggerFactory loggerFactory,
+        [FromServices] ApiMetrics metrics,
         CancellationToken ct)
     {
         var logger = loggerFactory.CreateLogger("Catalog.Auth.Login.LoginEndpoint");
