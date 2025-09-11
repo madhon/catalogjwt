@@ -10,7 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- System packages -->
-    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="9.0.9" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="$(NetRuntimeVersion)" />
     <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="$(JwtTokenHandlerVersion)" />
     <PackageVersion Include="System.Runtime.Caching" Version="$(NetRuntimeVersion)" />
@@ -19,7 +18,7 @@
     <PackageVersion Include="System.Formats.Asn1" Version="$(NetRuntimeVersion)" />
     <PackageVersion Include="System.IO.Pipelines" Version="$(NetRuntimeVersion)" />
     <PackageVersion Include="System.Memory" Version="4.6.3" />
-    <PackageVersion Include="System.Threading.Channels" Version="9.0.9" />
+    <PackageVersion Include="System.Threading.Channels" Version="$(NetRuntimeVersion)" />
     <PackageVersion Include="System.Threading.RateLimiting" Version="$(NetRuntimeVersion)" />
     <PackageVersion Include="System.Threading.Tasks.Extensions" Version="4.6.3" />
     <!-- Microsoft packages -->
@@ -51,11 +50,13 @@
     <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="$(NetRuntimeVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Telemetry.Abstractions" Version="$(NetExtensionVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="$(NetExtensionVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="9.0.9" />
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
     <PackageVersion Include="Azure.Core" Version="1.48.0" />
     <PackageVersion Include="Azure.Identity" Version="1.16.0" />
     <PackageVersion Include="Yarp.ReverseProxy" Version="2.3.0" />
     <!-- 3rd party packages -->
+    <PackageVersion Include="AutoRegisterInject" Version="1.4.1" />
     <PackageVersion Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
     <PackageVersion Include="FluentValidation" Version="12.0.0" />
     <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />

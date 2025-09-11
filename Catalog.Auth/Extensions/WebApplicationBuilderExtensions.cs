@@ -42,9 +42,6 @@ internal static class WebApplicationBuilderExtensions
 
 		services.AddScoped<IPasswordHasher<ApplicationUser>, Argon2PasswordHasher<ApplicationUser>>();
 
-		services.AddScoped<IValidator<LoginRequest>, LoginRequestValidator>();
-		services.AddScoped<IValidator<SignupRequest>, SignUpRequestValidator>();
-
 		services.Configure<IdentityOptions>(options =>
 		{
 			options.SignIn.RequireConfirmedAccount = false;
@@ -61,10 +58,7 @@ internal static class WebApplicationBuilderExtensions
 			.AddEntityFrameworkStores<AuthDbContext>()
 			.AddDefaultTokenProviders();
 
-		services.AddScoped<IJwtTokenService, JwtTokenService>();
-		services.AddScoped<IAuthenticationService, AuthenticationService>();
-
-		services.AddSingleton<ApiMetrics>();
+		services.AutoRegisterFromCatalogAuth();
 
 		services.AddHealthChecks()
 			.AddDbContextCheck<AuthDbContext>();

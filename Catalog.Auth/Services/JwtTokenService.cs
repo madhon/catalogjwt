@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
 
+[RegisterScoped]
 internal sealed class JwtTokenService : IJwtTokenService
 {
     private readonly SigningCredentials signingCredentials;

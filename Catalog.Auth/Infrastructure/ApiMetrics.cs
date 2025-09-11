@@ -2,6 +2,7 @@
 
 using System.Diagnostics.Metrics;
 
+[RegisterSingleton]
 internal sealed class ApiMetrics
 {
     private readonly Counter<int> loginCounter;

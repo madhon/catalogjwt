@@ -2,6 +2,7 @@
 
 using Microsoft.IdentityModel.JsonWebTokens;
 
+[RegisterScoped]
 internal sealed class AuthenticationService : IAuthenticationService
 {
     private readonly IJwtTokenService jwtTokenService;
