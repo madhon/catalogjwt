@@ -13,7 +13,7 @@ var app = builder.Build();
 
 app.ConfigureApplication();
 
-using (var scope = app.Services.CreateScope())
+await using (var scope = app.Services.CreateAsyncScope())
 {
     var scopedProvider = scope.ServiceProvider;
     try

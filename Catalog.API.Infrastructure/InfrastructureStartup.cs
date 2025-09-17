@@ -8,24 +8,23 @@
 
     public static class InfrastructureStartup
     {
-        public static void AddMyInfrastructureDependencies(this IServiceCollection services,
-            IConfiguration configuration, IHostEnvironment environment)
+        public static IServiceCollection AddMyInfrastructureDependencies(this IServiceCollection services)
         {
-            ArgumentNullException.ThrowIfNull(configuration);
-            ArgumentNullException.ThrowIfNull(environment);
+            ArgumentNullException.ThrowIfNull(services);
 
-            Authentication.Startup.ConfigureServices(services, configuration);
-            Persistence.Startup.ConfigureServices(services, configuration, environment);
+            Authentication.Startup.ConfigureServices(services);
+            Persistence.Startup.ConfigureServices(services);
+
+            return services;
         }
 
-        public static void UseMyInfrastructure(this IApplicationBuilder app, IConfiguration configuration,
-            IWebHostEnvironment environment)
+        public static IApplicationBuilder UseMyInfrastructure(this IApplicationBuilder app)
         {
-            ArgumentNullException.ThrowIfNull(configuration);
-            ArgumentNullException.ThrowIfNull(environment);
+            ArgumentNullException.ThrowIfNull(app);
 
             Authentication.Startup.Configure(app);
-            Persistence.Startup.Configure(app, configuration);
+
+            return app;
         }
     }
 }

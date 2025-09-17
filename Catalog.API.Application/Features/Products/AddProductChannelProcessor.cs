@@ -21,12 +21,10 @@ public class AddProductChannelProcessor : BackgroundService
         {
             var item = await channel.Reader.ReadAsync(stoppingToken);
 
-            await using (var scope = services.CreateAsyncScope())
-            {
-                var catalogContext = scope.ServiceProvider.GetRequiredService<ICatalogDbContext>();
-                catalogContext.Products.Add(item);
-                await catalogContext.SaveChangesAsync(stoppingToken).ConfigureAwait(false);
-            }
+            await using var scope = services.CreateAsyncScope();
+            var catalogContext = scope.ServiceProvider.GetRequiredService<ICatalogDbContext>();
+            catalogContext.Products.Add(item);
+            await catalogContext.SaveChangesAsync(stoppingToken).ConfigureAwait(false);
         }
     }
 }

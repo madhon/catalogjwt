@@ -9,10 +9,10 @@ using Microsoft.Extensions.Options;
 
 internal static class Startup
 {
-    public static IServiceCollection ConfigureServices(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection ConfigureServices(this IServiceCollection services)
     {
         services.AddOptions<AuthenticationSettings>()
-            .Bind(configuration.GetSection(AuthenticationSettings.SectionName));
+            .BindConfiguration(AuthenticationSettings.SectionName);
 
         services.AddSingleton<IValidateOptions<AuthenticationSettings>, AuthenticationSettingsValidator>();
 

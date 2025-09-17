@@ -9,8 +9,10 @@ using ZiggyCreatures.Caching.Fusion;
 
 internal static class ApiStartup
 {
-	public static void AddMyApi(this IServiceCollection services)
+	public static IServiceCollection AddMyApi(this IServiceCollection services)
 	{
+		ArgumentNullException.ThrowIfNull(services);
+
 		services.Configure<ForwardedHeadersOptions>(opts =>
 		{
 			opts.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
@@ -54,9 +56,11 @@ internal static class ApiStartup
 		services.AddMediator(opts => opts.ServiceLifetime = ServiceLifetime.Scoped);
 
 		services.AddHeaderPropagation(options => options.Headers.Add("x-correlation-id"));
+
+		return services;
 	}
 
-	public static void UseMyApi(this WebApplication app, IConfiguration configuration, IWebHostEnvironment environment)
+	public static void UseMyApi(this WebApplication app)
 	{
 		app.UseForwardedHeaders();
 

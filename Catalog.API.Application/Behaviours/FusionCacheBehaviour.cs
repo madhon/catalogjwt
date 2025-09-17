@@ -6,8 +6,8 @@ using Microsoft.Extensions.Logging;
 public sealed partial class FusionCacheBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IFusionCacheRequest<TResponse>
 {
-    private readonly IFusionCache _fusionCache;
-    private readonly ILogger<FusionCacheBehaviour<TRequest, TResponse>> _logger;
+    private readonly IFusionCache fusionCache;
+    private readonly ILogger<FusionCacheBehaviour<TRequest, TResponse>> logger;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FusionCacheBehaviour{TRequest, TResponse}"/> class.
@@ -19,16 +19,16 @@ public sealed partial class FusionCacheBehaviour<TRequest, TResponse> : IPipelin
         ILogger<FusionCacheBehaviour<TRequest, TResponse>> logger
     )
     {
-        _fusionCache = fusionCache;
-        _logger = logger;
+        this.fusionCache = fusionCache;
+        this.logger = logger;
     }
 
     public async ValueTask<TResponse> Handle(TRequest message, MessageHandlerDelegate<TRequest, TResponse> next, CancellationToken cancellationToken)
     {
         LogHandlingRequest(typeof(TRequest).Name, message.CacheKey);
-        var response = await _fusionCache.GetOrSetAsync<TResponse>(
+        var response = await fusionCache.GetOrSetAsync<TResponse>(
             message.CacheKey,
-            async (ctx, token) => await next(message, token),
+            async (_, token) => await next(message, token),
             tags: message.Tags,
             token: cancellationToken
         ).ConfigureAwait(false);

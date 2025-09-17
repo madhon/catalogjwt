@@ -7,9 +7,9 @@ builder.AddDefaultOpenApi();
 
 builder.AddMySerilogLogging();
 
-var startup = new Startup(builder.Configuration, builder.Environment);
-
-startup.ConfigureServices(builder.Services);
+builder.Services.AddMyApi()
+    .AddMyInfrastructureDependencies()
+    .AddApplicationServices();
 
 var app = builder.Build();
 
@@ -19,6 +19,11 @@ app.UseDefaultOpenApi();
 //app.AddDefaultSecurityHeaders();
 #pragma warning restore S125
 
-startup.Configure(app);
+app.UseMyRequestLogging();
+app.UseExceptionHandler();
+app.UseStatusCodePages();
+app.UseRouting();
+app.UseMyInfrastructure();
+app.UseMyApi();
 
 await app.RunAsync().ConfigureAwait(false);

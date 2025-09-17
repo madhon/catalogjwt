@@ -9,6 +9,8 @@ global using System.Text.Json.Serialization;
 
 global using Catalog.API;
 global using Catalog.API.Web;
+global using Catalog.API.Application;
+global using Catalog.API.Web.API;
 global using Catalog.API.Web.Logging;
 global using Catalog.API.Infrastructure;
 global using Catalog.API.Domain.Entities;
