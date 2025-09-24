@@ -1,6 +1,5 @@
 ﻿namespace Catalog.Auth.Signup;
 
-[RegisterScoped(typeof(IValidator<SignupRequest>))]
 internal sealed class SignUpRequestValidator : AbstractValidator<SignupRequest>
 {
     public SignUpRequestValidator()

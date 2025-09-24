@@ -11,7 +11,7 @@
 	</PropertyGroup>
 	
 	<ItemGroup>
-        <PackageReference Include="AutoRegisterInject" />
+        
 		<PackageReference Include="Microsoft.Bcl.TimeProvider" />
 		<PackageReference Include="Sodium.Core" />
 		<PackageReference Include="Azure.Core" />
@@ -49,7 +49,12 @@
 		<PackageReference Include="System.Security.Cryptography.Pkcs" />
 		<PackageReference Include="FluentValidation" />
 		<PackageReference Include="ErrorOr" />
-	</ItemGroup>
+        <PackageReference Include="AutoRegisterInject" />
+        <PackageReference Include="ServiceScan.SourceGenerator" >
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Catalog.ServiceDefaults\Catalog.ServiceDefaults.csproj" />

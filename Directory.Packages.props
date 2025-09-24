@@ -90,6 +90,7 @@
     <PackageVersion Include="Polly.Extensions" Version="$(PollyVersion)" />
     <PackageVersion Include="Polly.RateLimiting" Version="$(PollyVersion)" />
     <PackageVersion Include="NodaTime" Version="3.2.2" />
+    <PackageVersion Include="ServiceScan.SourceGenerator" Version="1.4.5" />      
     <!-- OpenTelemetry-->
     <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.12.0" />
     <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.12.0" />

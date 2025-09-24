@@ -3,8 +3,9 @@
 using System.Runtime.InteropServices;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using ServiceScan.SourceGenerator;
 
-internal static class ValidationExtensions
+internal static partial class ValidationExtensions
 {
     internal static void AddToModelState(this ValidationResult result, ModelStateDictionary modelState)
     {
@@ -24,4 +25,7 @@ internal static class ValidationExtensions
                 ,StringComparer.OrdinalIgnoreCase
             );
     }
+
+    [GenerateServiceRegistrations(AssignableTo = typeof(IValidator<>), Lifetime = ServiceLifetime.Singleton)]
+    public static partial IServiceCollection AddValidators(this IServiceCollection services);
 }

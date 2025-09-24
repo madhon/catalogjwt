@@ -60,6 +60,8 @@ internal static class WebApplicationBuilderExtensions
 
 		services.AutoRegisterFromCatalogAuth();
 
+		services.AddValidators();
+
 		services.AddHealthChecks()
 			.AddDbContextCheck<AuthDbContext>();
 
