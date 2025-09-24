@@ -12,6 +12,9 @@ using OpenTelemetry.Trace;
 
 public static partial class ServiceDefaultsExtensions
 {
+    private const string HealthEndpointPath = "/healthz";
+    private const string AlivenessEndpointPath = "/alive";
+
     public static IHostApplicationBuilder AddServiceDefaults(this IHostApplicationBuilder builder)
     {
         ArgumentNullException.ThrowIfNull(builder);
@@ -76,7 +79,15 @@ public static partial class ServiceDefaultsExtensions
                 }
 
                 tracing
-                    .AddAspNetCoreInstrumentation(nci => nci.RecordException = true)
+                    .AddAspNetCoreInstrumentation(nci =>
+                    {
+                        nci.RecordException = true;
+                        nci.Filter = httpContext =>
+                            !(httpContext.Request.Path.StartsWithSegments(HealthEndpointPath,
+                                  StringComparison.OrdinalIgnoreCase)
+                              || httpContext.Request.Path.StartsWithSegments(AlivenessEndpointPath,
+                                  StringComparison.OrdinalIgnoreCase));
+                    })
                     .AddHttpClientInstrumentation()
                     .AddFusionCacheInstrumentation()
                     .AddSqlClientInstrumentation(sci =>
@@ -123,17 +134,19 @@ public static partial class ServiceDefaultsExtensions
 
         app.MapPrometheusScrapingEndpoint();
 
-        if (app.Environment.IsDevelopment())
+        if (app.Environment.IsProduction())
         {
-            // All health checks must pass for app to be considered ready to accept traffic after starting
-            app.MapHealthChecks("/healthz");
-
-            // Only health checks tagged with the "live" tag must pass for app to be considered alive
-            app.MapHealthChecks("/alive", new HealthCheckOptions
-            {
-                Predicate = r => r.Tags.Contains("live"),
-            });
+            return app;
         }
+
+        // All health checks must pass for app to be considered ready to accept traffic after starting
+        app.MapHealthChecks(HealthEndpointPath);
+
+        // Only health checks tagged with the "live" tag must pass for app to be considered alive
+        app.MapHealthChecks(AlivenessEndpointPath, new HealthCheckOptions
+        {
+            Predicate = r => r.Tags.Contains("live"),
+        });
 
         return app;
     }

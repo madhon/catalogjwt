@@ -2,6 +2,7 @@
   <PropertyGroup>
     <NetRuntimeVersion>9.0.9</NetRuntimeVersion>
     <NetExtensionVersion>9.9.0</NetExtensionVersion>
+    <AspireVersion>9.4.2</AspireVersion>
     <MSIdentityClientVersion>4.77.0</MSIdentityClientVersion>
     <JwtTokenHandlerVersion>8.14.0</JwtTokenHandlerVersion>
     <RoslynatorVersion>4.14.0</RoslynatorVersion>
@@ -52,7 +53,7 @@
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="$(NetExtensionVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="9.0.9" />
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
-    <PackageVersion Include="Azure.Core" Version="1.48.0" />
+    <PackageVersion Include="Azure.Core" Version="1.49.0" />
     <PackageVersion Include="Azure.Identity" Version="1.16.0" />
     <PackageVersion Include="Yarp.ReverseProxy" Version="2.3.0" />
     <!-- 3rd party packages -->
@@ -80,9 +81,9 @@
     <PackageVersion Include="ZiggyCreatures.FusionCache.OpenTelemetry" Version="$(FusionCacheVersion)" />
     <PackageVersion Include="Mediator.Abstractions" Version="3.0.1" />
     <PackageVersion Include="Mediator.SourceGenerator" Version="3.0.1" />
-    <PackageVersion Include="Scalar.AspNetCore" Version="2.8.4" />
+    <PackageVersion Include="Scalar.AspNetCore" Version="2.8.6" />
     <PackageVersion Include="EntityFrameworkCore.Exceptions.SqlServer" Version="8.1.3" />
-    <PackageVersion Include="NetEscapades.AspNetCore.SecurityHeaders" Version="1.1.0" />
+    <PackageVersion Include="NetEscapades.AspNetCore.SecurityHeaders" Version="1.2.0" />
     <PackageVersion Include="StronglyTypedId" Version="1.0.0-beta08" />
     <PackageVersion Include="StronglyTypedId.Templates" Version="1.0.0-beta08" />
     <PackageVersion Include="Polly.Core" Version="$(PollyVersion)" />
@@ -98,7 +99,7 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.12.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.12.0" />
     <!-- Analyzers -->
-    <PackageVersion Include="Meziantou.Analyzer" Version="2.0.219" />
+    <PackageVersion Include="Meziantou.Analyzer" Version="2.0.220" />
     <PackageVersion Include="Roslynator.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.Formatting.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.CodeFixes" Version="$(RoslynatorVersion)" />
@@ -106,8 +107,8 @@
     <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.11.20" />
     <PackageVersion Include="SecurityCodeScan.VS2019" Version="5.6.7" />
     <!-- Aspire-->
-    <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="9.4.2" />
-    <PackageVersion Include="Aspire.Hosting.AppHost" Version="9.4.2" />
+    <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="$(AspireVersion)" />
+    <PackageVersion Include="Aspire.Hosting.AppHost" Version="$(AspireVersion)" />
     <PackageVersion Include="Aspire.Hosting.Docker" Version="9.4.2-preview.1.25428.12" />
   </ItemGroup>
 </Project>
