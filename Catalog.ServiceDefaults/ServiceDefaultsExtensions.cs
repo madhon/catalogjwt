@@ -93,7 +93,6 @@ public static partial class ServiceDefaultsExtensions
                     .AddSqlClientInstrumentation(sci =>
                     {
                         sci.RecordException = true;
-                        sci.SetDbStatementForText = true;
                     });
             });
 
