@@ -65,11 +65,12 @@ namespace Catalog.API.Infrastructure.Persistence.CompiledModels
 
             var pictureUri = runtimeEntityType.AddProperty(
                 "PictureUri",
-                typeof(string),
+                typeof(Uri),
                 propertyInfo: typeof(Product).GetProperty("PictureUri", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(Product).GetField("<PictureUri>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 nullable: true,
-                maxLength: 2147483647);
+                maxLength: 2147483647,
+                providerPropertyType: typeof(string));
             pictureUri.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
             var price = runtimeEntityType.AddProperty(

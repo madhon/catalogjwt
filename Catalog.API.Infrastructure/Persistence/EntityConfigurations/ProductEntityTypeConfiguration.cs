@@ -22,7 +22,10 @@ public class ProductEntityTypeConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(p => p.Description).IsRequired().HasMaxLength(int.MaxValue);
         builder.Property(p => p.Price).IsRequired().HasPrecision(18,2);
 
-        builder.Property(p => p.PictureUri).IsRequired(false).HasMaxLength(int.MaxValue);
+        builder.Property(p => p.PictureUri)
+            .IsRequired(false)
+            .HasConversion<string>()
+            .HasMaxLength(int.MaxValue);
 
         builder.Property(b => b.BrandId).IsRequired()
             .HasConversion<BrandId.EfCoreValueConverter>();
