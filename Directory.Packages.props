@@ -2,8 +2,8 @@
   <PropertyGroup>
     <NetRuntimeVersion>9.0.9</NetRuntimeVersion>
     <NetExtensionVersion>9.9.0</NetExtensionVersion>
-    <AspireVersion>9.4.2</AspireVersion>
-    <MSIdentityClientVersion>4.77.0</MSIdentityClientVersion>
+    <AspireVersion>9.5.0</AspireVersion>
+    <MSIdentityClientVersion>4.77.1</MSIdentityClientVersion>
     <JwtTokenHandlerVersion>8.14.0</JwtTokenHandlerVersion>
     <RoslynatorVersion>4.14.0</RoslynatorVersion>
     <PollyVersion>8.6.3</PollyVersion>
@@ -96,11 +96,11 @@
     <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.12.0" />
     <PackageVersion Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="1.12.0-beta.1" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.12.0" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.SqlClient" Version="1.12.0-beta.2" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.SqlClient" Version="1.12.0-beta.3" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.12.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.12.0" />
     <!-- Analyzers -->
-    <PackageVersion Include="Meziantou.Analyzer" Version="2.0.220" />
+    <PackageVersion Include="Meziantou.Analyzer" Version="2.0.221" />
     <PackageVersion Include="Roslynator.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.Formatting.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.CodeFixes" Version="$(RoslynatorVersion)" />
@@ -110,6 +110,6 @@
     <!-- Aspire-->
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="$(AspireVersion)" />
     <PackageVersion Include="Aspire.Hosting.AppHost" Version="$(AspireVersion)" />
-    <PackageVersion Include="Aspire.Hosting.Docker" Version="9.4.2-preview.1.25428.12" />
+    <PackageVersion Include="Aspire.Hosting.Docker" Version="9.5.0-preview.1.25474.7" />
   </ItemGroup>
 </Project>
