@@ -27,6 +27,23 @@ public sealed partial class SlowQueryInterceptor : DbCommandInterceptor
         return base.ReaderExecuted(command, eventData, result);
     }
 
-    [LoggerMessage(EventId = 1956, Level = LogLevel.Warning, Message = "Slow query ({ms} ms:) {query}")]
-    private partial void LogSlowQuery(double ms, string query);
+    public override ValueTask<DbDataReader> ReaderExecutedAsync(DbCommand command, CommandExecutedEventData eventData, DbDataReader result,
+        CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(command);
+        ArgumentNullException.ThrowIfNull(eventData);
+
+        if (eventData.Duration.TotalMilliseconds > SlowQueryThreshold)
+        {
+            LogSlowQuery(eventData.Duration.TotalMilliseconds, command.CommandText);
+        }
+
+        return base.ReaderExecutedAsync(command, eventData, result, cancellationToken);
+    }
+
+    [LoggerMessage(
+        EventId = 1956, 
+        Level = LogLevel.Warning,
+        Message = "Slow query detected (Duration: {Duration} ms): {CommandText}")]
+    private partial void LogSlowQuery(double duration, string commandText);
 }

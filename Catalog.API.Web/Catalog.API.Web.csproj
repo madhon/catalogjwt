@@ -25,11 +25,15 @@
 		<PackageReference Include="Serilog.Sinks.Console" />
 		<PackageReference Include="Serilog.Sinks.Seq" />
 		<PackageReference Include="ZiggyCreatures.FusionCache" />
-		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+        <PackageReference Include="FluentValidation" />        
 		<PackageReference Include="Mediator.SourceGenerator">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 		</PackageReference>
+        <PackageReference Include="ServiceScan.SourceGenerator" >
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+        </PackageReference>        
 	</ItemGroup>
 
 	<ItemGroup>

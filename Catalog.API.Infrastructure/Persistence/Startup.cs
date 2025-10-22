@@ -25,10 +25,8 @@ internal static class Startup
             options.UseModel(CatalogContextModel.Instance);
             options.UseSqlServer(persistenceOptions.CatalogDb, sqlOpts =>
             {
-                sqlOpts.EnableRetryOnFailure(
-                    maxRetryCount: 15,
-                    maxRetryDelay: TimeSpan.FromSeconds(30),
-                    errorNumbersToAdd: null);
+                sqlOpts.EnableRetryOnFailure();
+                sqlOpts.UseCompatibilityLevel(160);
             });
 
             options.AddInterceptors(sp.GetRequiredService<SlowQueryInterceptor>());

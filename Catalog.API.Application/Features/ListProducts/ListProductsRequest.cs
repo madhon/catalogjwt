@@ -2,7 +2,6 @@
 
 using System.Globalization;
 using Catalog.API.Application.Abstractions;
-using Mediator;
 
 public sealed record ListProductsRequest(int PageIndex, int PageSize) : IFusionCacheRequest<ListProductsResponse>
 {

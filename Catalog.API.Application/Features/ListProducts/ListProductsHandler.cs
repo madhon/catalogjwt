@@ -1,7 +1,6 @@
 ﻿namespace Catalog.API.Application.Features.ListProducts;
 
 using Catalog.API.Application.Abstractions;
-using Mediator;
 
 public sealed class ListProductsHandler : IRequestHandler<ListProductsRequest, ListProductsResponse>
 {
@@ -15,7 +14,7 @@ public sealed class ListProductsHandler : IRequestHandler<ListProductsRequest, L
     public async ValueTask<ListProductsResponse> Handle(ListProductsRequest request, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(request);
-        
+
         var totalItem = await catalogDbContext.Products
             .AsNoTracking()
             .LongCountAsync(cancellationToken).ConfigureAwait(false);
