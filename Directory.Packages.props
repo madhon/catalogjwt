@@ -3,7 +3,7 @@
     <NetRuntimeVersion>9.0.10</NetRuntimeVersion>
     <NetExtensionVersion>9.10.0</NetExtensionVersion>
     <AspireVersion>9.5.2</AspireVersion>
-    <MSIdentityClientVersion>4.77.1</MSIdentityClientVersion>
+    <MSIdentityClientVersion>4.78.0</MSIdentityClientVersion>
     <JwtTokenHandlerVersion>8.14.0</JwtTokenHandlerVersion>
     <RoslynatorVersion>4.14.1</RoslynatorVersion>
     <PollyVersion>8.6.4</PollyVersion>
@@ -99,7 +99,7 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.13.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.13.0" />
     <!-- Analyzers -->
-    <PackageVersion Include="Meziantou.Analyzer" Version="2.0.234" />
+    <PackageVersion Include="Meziantou.Analyzer" Version="2.0.239" />
     <PackageVersion Include="Roslynator.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.Formatting.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.CodeFixes" Version="$(RoslynatorVersion)" />
