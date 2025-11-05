@@ -26,6 +26,6 @@ internal static partial class ValidationExtensions
             );
     }
 
-    [GenerateServiceRegistrations(AssignableTo = typeof(IValidator<>), Lifetime = ServiceLifetime.Singleton)]
+    [GenerateServiceRegistrations(AssignableTo = typeof(IValidator<>), Lifetime = ServiceLifetime.Singleton, AssemblyNameFilter = "Catalog.Auth")]
     public static partial IServiceCollection AddValidators(this IServiceCollection services);
 }

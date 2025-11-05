@@ -17,7 +17,6 @@
 		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" />
 		<PackageReference Include="System.Text.Encodings.Web" />
 		<PackageReference Include="Serilog" />
-		<PackageReference Include="Serilog.AspNetCore" />
 		<PackageReference Include="Serilog.Settings.Configuration" />
 		<PackageReference Include="Serilog.Enrichers.Environment" />
 		<PackageReference Include="Serilog.Exceptions" />
@@ -30,7 +29,7 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 		</PackageReference>
-        <PackageReference Include="ServiceScan.SourceGenerator" >
+        <PackageReference Include="ServiceScan.SourceGenerator">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
         </PackageReference>        

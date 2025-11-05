@@ -37,7 +37,6 @@
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
 		<PackageReference Include="NodaTime" />
 		<PackageReference Include="Serilog" />
-		<PackageReference Include="Serilog.AspNetCore" />
 		<PackageReference Include="Serilog.Settings.Configuration" />
 		<PackageReference Include="Serilog.Enrichers.Environment" />
 		<PackageReference Include="Serilog.Exceptions" />

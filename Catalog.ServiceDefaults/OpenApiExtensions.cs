@@ -54,6 +54,7 @@ public static class OpenApiExtensions
             var apiDoc = openApi.GetRequiredSection("Document");
 
             var version = apiDoc.GetRequiredValue("Version");
+            options.AddScalarTransformers();
 
             options.AddDocumentTransformer((document, _, _) =>
             {
