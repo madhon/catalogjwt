@@ -15,8 +15,7 @@ internal static partial class LoginEndpoint
             .Produces<LoginResponse>(200, "application/json")
             .Produces<UnauthorizedHttpResult>()
             .Produces<ProblemHttpResult>()
-            .ProducesValidationProblem()
-            .WithOpenApi();
+            .ProducesValidationProblem();
 
         return app;
     }

@@ -33,7 +33,6 @@ internal static class AddBrandEndpoint
             .Produces<Ok>()
             .Produces<UnauthorizedHttpResult>()
             .ProducesProblem(400)
-            .WithOpenApi()
             .RequireAuthorization();
 
         return app;

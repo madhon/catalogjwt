@@ -1,13 +1,14 @@
 <Project>
   <PropertyGroup>
-    <NetRuntimeVersion>9.0.10</NetRuntimeVersion>
-    <NetExtensionVersion>9.10.0</NetExtensionVersion>
-    <AspireVersion>9.5.2</AspireVersion>
-    <MSIdentityClientVersion>4.78.0</MSIdentityClientVersion>
+    <NetRuntimeVersion>10.0.0</NetRuntimeVersion>
+    <NetExtensionVersion>10.0.0</NetExtensionVersion>
+    <AspireVersion>13.0.0</AspireVersion>
+    <MSIdentityClientVersion>4.79.0</MSIdentityClientVersion>
     <JwtTokenHandlerVersion>8.14.0</JwtTokenHandlerVersion>
     <RoslynatorVersion>4.14.1</RoslynatorVersion>
     <PollyVersion>8.6.4</PollyVersion>
     <FusionCacheVersion>2.4.0</FusionCacheVersion>
+    <ScalarVersion>2.10.3</ScalarVersion>
   </PropertyGroup>
   <ItemGroup>
     <!-- System packages -->
@@ -29,7 +30,7 @@
     <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="$(NetRuntimeVersion)" />
     <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="$(NetRuntimeVersion)" />
     <PackageVersion Include="Microsoft.Bcl.TimeProvider" Version="$(NetRuntimeVersion)" />
-    <PackageVersion Include="Microsoft.OpenApi" Version="[1.6.24,2)" />
+    <PackageVersion Include="Microsoft.OpenApi" Version="2.3.9" />
     <PackageVersion Include="Microsoft.Identity.Client" Version="$(MSIdentityClientVersion)" />
     <PackageVersion Include="Microsoft.Identity.Client.Extensions.Msal" Version="$(MSIdentityClientVersion)" />
     <PackageVersion Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="$(JwtTokenHandlerVersion)" />
@@ -53,7 +54,7 @@
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="$(NetExtensionVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="$(NetRuntimeVersion)" />
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
-    <PackageVersion Include="Azure.Core" Version="1.49.0" />
+    <PackageVersion Include="Azure.Core" Version="1.50.0" />
     <PackageVersion Include="Azure.Identity" Version="1.17.0" />
     <PackageVersion Include="Yarp.ReverseProxy" Version="2.3.0" />
     <!-- 3rd party packages -->
@@ -80,8 +81,8 @@
     <PackageVersion Include="ZiggyCreatures.FusionCache.OpenTelemetry" Version="$(FusionCacheVersion)" />
     <PackageVersion Include="Mediator.Abstractions" Version="3.0.1" />
     <PackageVersion Include="Mediator.SourceGenerator" Version="3.0.1" />
-    <PackageVersion Include="Scalar.AspNetCore" Version="2.10.1" />
-    <PackageVersion Include="Scalar.AspNetCore.Microsoft" Version="2.10.1" />
+    <PackageVersion Include="Scalar.AspNetCore" Version="$(ScalarVersion)" />
+    <PackageVersion Include="Scalar.AspNetCore.Microsoft" Version="$(ScalarVersion)" />
     <PackageVersion Include="EntityFrameworkCore.Exceptions.SqlServer" Version="8.1.3" />
     <PackageVersion Include="NetEscapades.AspNetCore.SecurityHeaders" Version="1.2.0" />
     <PackageVersion Include="StronglyTypedId" Version="1.0.0-beta08" />
@@ -96,7 +97,7 @@
     <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.13.1" />
     <PackageVersion Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="1.13.1-beta.1" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.13.0" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.SqlClient" Version="1.13.0-beta.1" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.SqlClient" Version="1.13.0-beta.2" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.13.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.13.0" />
     <!-- Analyzers -->
@@ -108,8 +109,8 @@
     <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.11.20" />
     <PackageVersion Include="SecurityCodeScan.VS2019" Version="5.6.7" />
     <!-- Aspire-->
-    <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="$(AspireVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="$(NetExtensionVersion)" />
     <PackageVersion Include="Aspire.Hosting.AppHost" Version="$(AspireVersion)" />
-    <PackageVersion Include="Aspire.Hosting.Docker" Version="9.5.2-preview.1.25522.3" />
+    <PackageVersion Include="Aspire.Hosting.Docker" Version="13.0.0-preview.1.25560.3" />
   </ItemGroup>
 </Project>

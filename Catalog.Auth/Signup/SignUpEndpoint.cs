@@ -13,7 +13,6 @@ internal static partial class SignUpEndpoint
             .Produces<SignupResponse>(200, "application/json")
             .Produces<BadRequest>()
             .ProducesValidationProblem()
-            .WithOpenApi()
             .RequireRateLimiting(RateLimiterPolicies.RlPoicy);
 
         return app;
@@ -25,9 +24,9 @@ internal static partial class SignUpEndpoint
         CancellationToken ct)
     {
         var logger = loggerFactory.CreateLogger("Catalog.Auth.Signup.SignUpEndpoint");
-            
+
         LogUserSignup(logger, request.Email);
-            
+
         var result = await authenticationService.CreateUser(request.Email, request.Password, request.Fullname, ct).ConfigureAwait(false);
 
         return !result.IsError ?
@@ -36,7 +35,7 @@ internal static partial class SignUpEndpoint
                 detail: result.Errors[0].Description,
                 statusCode: 400);
     }
-        
+
     [LoggerMessage(0, LogLevel.Information, "User Signed Up {userName}")]
     private static partial void LogUserSignup(ILogger logger, string userName);
 }

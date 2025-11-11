@@ -17,7 +17,7 @@ internal static class ApiStartup
 		services.Configure<ForwardedHeadersOptions>(opts =>
 		{
 			opts.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
-			opts.KnownNetworks.Clear();
+			opts.KnownIPNetworks.Clear();
 			opts.KnownProxies.Clear();
 		});
 

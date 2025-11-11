@@ -32,7 +32,6 @@ internal static class ProductsEndpoint
 			.Produces<PaginatedItemsViewModel<Product>>(200, "application/json")
 			.Produces<UnauthorizedHttpResult>()
 			.ProducesProblem(400)
-			.WithOpenApi()
 			.RequireAuthorization();
 
 		return app;

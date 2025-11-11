@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-	<TargetFramework>net9.0</TargetFramework>
+	<TargetFramework>net10.0</TargetFramework>
 	<LangVersion>13.0</LangVersion>
 	<Nullable>enable</Nullable>
 	<ImplicitUsings>enable</ImplicitUsings>
@@ -10,8 +10,6 @@
   <ItemGroup>
 	<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
 	<PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" />
-	<PackageReference Include="Microsoft.Extensions.Configuration.Binder" />
-	<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />	  
 	<PackageReference Include="Yarp.ReverseProxy" />
 	<PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" />
 	<PackageReference Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" />
@@ -27,7 +25,6 @@
 	<PackageReference Include="Serilog.Sinks.Async" />
 	<PackageReference Include="Serilog.Sinks.Console" />
 	<PackageReference Include="Serilog.Sinks.Seq" />
-	<PackageReference Include="System.Text.Encodings.Web" />
   </ItemGroup>
 
   <ItemGroup>

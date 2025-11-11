@@ -29,7 +29,6 @@ internal static class AddProductEndpoint
             .Produces<Ok>()
             .Produces<UnauthorizedHttpResult>()
             .ProducesProblem(400)
-            .WithOpenApi()
             .RequireAuthorization();
 
         return app;
