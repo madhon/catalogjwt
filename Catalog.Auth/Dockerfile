@@ -1,5 +1,5 @@
-ARG RUNTIMEVERSION=9.0-noble-chiseled-extra
-ARG SDKVERSION=9.0-noble
+ARG RUNTIMEVERSION=10.0-noble-chiseled-extra
+ARG SDKVERSION=10.0-noble
 
 FROM mcr.microsoft.com/dotnet/aspnet:$VERSION AS base
 WORKDIR /app
