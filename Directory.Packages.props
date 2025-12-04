@@ -2,7 +2,7 @@
   <PropertyGroup>
     <NetRuntimeVersion>10.0.0</NetRuntimeVersion>
     <NetExtensionVersion>10.0.0</NetExtensionVersion>
-    <AspireVersion>13.0.1</AspireVersion>
+    <AspireVersion>13.0.2</AspireVersion>
     <MSIdentityClientVersion>4.79.2</MSIdentityClientVersion>
     <JwtTokenHandlerVersion>8.15.0</JwtTokenHandlerVersion>
     <RoslynatorVersion>4.14.1</RoslynatorVersion>
@@ -60,7 +60,7 @@
     <!-- 3rd party packages -->
     <PackageVersion Include="AutoRegisterInject" Version="1.4.1" />
     <PackageVersion Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
-    <PackageVersion Include="FluentValidation" Version="12.1.0" />
+    <PackageVersion Include="FluentValidation" Version="12.1.1" />
     <PackageVersion Include="Riok.Mapperly" Version="4.3.0" />
     <PackageVersion Include="Ulid" Version="1.3.3" />
     <PackageVersion Include="Sodium.Core" Version="1.4.0" />
