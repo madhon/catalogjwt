@@ -8,7 +8,7 @@
     <RoslynatorVersion>4.14.1</RoslynatorVersion>
     <PollyVersion>8.6.4</PollyVersion>
     <FusionCacheVersion>2.4.0</FusionCacheVersion>
-    <ScalarVersion>2.10.3</ScalarVersion>
+    <ScalarVersion>2.11.1</ScalarVersion>
   </PropertyGroup>
   <ItemGroup>
     <!-- System packages -->
@@ -108,7 +108,7 @@
     <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.11.20" />
     <!-- Aspire-->
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="$(NetExtensionVersion)" />
-    <PackageVersion Include="Aspire.Hosting.Docker" Version="13.0.1-preview.1.25575.3" />
+    <PackageVersion Include="Aspire.Hosting.Docker" Version="13.0.2-preview.1.25603.5" />
     <PackageVersion Include="Aspire.Hosting.Yarp" Version="$(AspireVersion)" />
   </ItemGroup>
 </Project>
