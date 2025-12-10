@@ -1,14 +1,14 @@
 <Project>
   <PropertyGroup>
-    <NetRuntimeVersion>10.0.0</NetRuntimeVersion>
-    <NetExtensionVersion>10.0.0</NetExtensionVersion>
+    <NetRuntimeVersion>10.0.1</NetRuntimeVersion>
+    <NetExtensionVersion>10.1.0</NetExtensionVersion>
     <AspireVersion>13.0.2</AspireVersion>
     <MSIdentityClientVersion>4.79.2</MSIdentityClientVersion>
     <JwtTokenHandlerVersion>8.15.0</JwtTokenHandlerVersion>
     <RoslynatorVersion>4.14.1</RoslynatorVersion>
     <PollyVersion>8.6.4</PollyVersion>
     <FusionCacheVersion>2.4.0</FusionCacheVersion>
-    <ScalarVersion>2.11.1</ScalarVersion>
+    <ScalarVersion>2.11.3</ScalarVersion>
   </PropertyGroup>
   <ItemGroup>
     <!-- System packages -->
