@@ -1,0 +1,30 @@
+meta {
+  name: Auth Login Direct
+  type: http
+  seq: 1
+}
+
+post {
+  url: https://localhost:7074/api/v1/auth/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email" : "madhon@madhon.co.uk",
+    "password" : "Password1!"
+  }
+}
+
+script:post-response {
+  if (res.body.access_token)
+  {
+  bru.setVar("access_token", res.body.access_token);
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

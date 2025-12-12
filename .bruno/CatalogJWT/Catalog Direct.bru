@@ -1,0 +1,20 @@
+meta {
+  name: Catalog Direct
+  type: http
+  seq: 2
+}
+
+get {
+  url: https://localhost:7046/api/v1/catalog/products/20/0
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
