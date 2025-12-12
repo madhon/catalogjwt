@@ -35,7 +35,8 @@ builder.AddYarp("gateway-yarp")
         // Catalog Routes
         yarp.AddRoute("/gateway/products/{pageSize}/{pageIndex}", catalogService)
             .WithMatchMethods("GET")
-            .WithTransformPathSet("/api/v1/catalog/products/{pageSize}/{pageIndex}");
+            .WithTransformPathRemovePrefix("/gateway")
+            .WithTransformPathPrefix("/api/v1/catalog");
 
         yarp.AddRoute("/gateway/brands/add", catalogService)
             .WithMatchMethods("POST")

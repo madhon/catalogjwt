@@ -8,7 +8,7 @@
     <RoslynatorVersion>4.14.1</RoslynatorVersion>
     <PollyVersion>8.6.4</PollyVersion>
     <FusionCacheVersion>2.4.0</FusionCacheVersion>
-    <ScalarVersion>2.11.3</ScalarVersion>
+    <ScalarVersion>2.11.6</ScalarVersion>
   </PropertyGroup>
   <ItemGroup>
     <!-- System packages -->
@@ -90,7 +90,7 @@
     <PackageVersion Include="Polly.Core" Version="$(PollyVersion)" />
     <PackageVersion Include="Polly.Extensions" Version="$(PollyVersion)" />
     <PackageVersion Include="Polly.RateLimiting" Version="$(PollyVersion)" />
-    <PackageVersion Include="NodaTime" Version="3.2.2" />
+    <PackageVersion Include="NodaTime" Version="3.2.3" />
     <PackageVersion Include="ServiceScan.SourceGenerator" Version="2.4.1" />
     <!-- OpenTelemetry-->
     <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.14.0" />
