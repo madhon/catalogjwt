@@ -2,13 +2,13 @@
   <PropertyGroup>
     <NetRuntimeVersion>10.0.1</NetRuntimeVersion>
     <NetExtensionVersion>10.1.0</NetExtensionVersion>
-    <AspireVersion>13.0.2</AspireVersion>
+    <AspireVersion>13.1.0</AspireVersion>
     <MSIdentityClientVersion>4.79.2</MSIdentityClientVersion>
     <JwtTokenHandlerVersion>8.15.0</JwtTokenHandlerVersion>
     <RoslynatorVersion>4.15.0</RoslynatorVersion>
     <PollyVersion>8.6.4</PollyVersion>
-    <FusionCacheVersion>2.4.0</FusionCacheVersion>
-    <ScalarVersion>2.11.6</ScalarVersion>
+    <FusionCacheVersion>2.5.0</FusionCacheVersion>
+    <ScalarVersion>2.11.9</ScalarVersion>
   </PropertyGroup>
   <ItemGroup>
     <!-- System packages -->
@@ -30,7 +30,7 @@
     <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="$(NetRuntimeVersion)" />
     <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="$(NetRuntimeVersion)" />
     <PackageVersion Include="Microsoft.Bcl.TimeProvider" Version="$(NetRuntimeVersion)" />
-    <PackageVersion Include="Microsoft.OpenApi" Version="2.3.9" />
+    <PackageVersion Include="Microsoft.OpenApi" Version="2.4.1" />
     <PackageVersion Include="Microsoft.Identity.Client" Version="$(MSIdentityClientVersion)" />
     <PackageVersion Include="Microsoft.Identity.Client.Extensions.Msal" Version="$(MSIdentityClientVersion)" />
     <PackageVersion Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="$(JwtTokenHandlerVersion)" />
@@ -61,7 +61,7 @@
     <PackageVersion Include="AutoRegisterInject" Version="1.4.1" />
     <PackageVersion Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
     <PackageVersion Include="FluentValidation" Version="12.1.1" />
-    <PackageVersion Include="Riok.Mapperly" Version="4.3.0" />
+    <PackageVersion Include="Riok.Mapperly" Version="4.3.1" />
     <PackageVersion Include="Ulid" Version="1.3.3" />
     <PackageVersion Include="Sodium.Core" Version="1.4.0" />
     <PackageVersion Include="Serilog" Version="4.3.0" />
@@ -84,7 +84,7 @@
     <PackageVersion Include="Scalar.AspNetCore" Version="$(ScalarVersion)" />
     <PackageVersion Include="Scalar.AspNetCore.Microsoft" Version="$(ScalarVersion)" />
     <PackageVersion Include="EntityFrameworkCore.Exceptions.SqlServer" Version="8.1.3" />
-    <PackageVersion Include="NetEscapades.AspNetCore.SecurityHeaders" Version="1.3.0" />
+    <PackageVersion Include="NetEscapades.AspNetCore.SecurityHeaders" Version="1.3.1" />
     <PackageVersion Include="StronglyTypedId" Version="1.0.0-beta08" />
     <PackageVersion Include="StronglyTypedId.Templates" Version="1.0.0-beta08" />
     <PackageVersion Include="Polly.Core" Version="$(PollyVersion)" />
@@ -101,7 +101,7 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.14.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.14.0" />
     <!-- Analyzers -->
-    <PackageVersion Include="Meziantou.Analyzer" Version="2.0.260" />
+    <PackageVersion Include="Meziantou.Analyzer" Version="2.0.264" />
     <PackageVersion Include="Roslynator.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.Formatting.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.CodeFixes" Version="$(RoslynatorVersion)" />
