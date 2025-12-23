@@ -1,4 +1,4 @@
 ﻿namespace Catalog.API.Domain.Entities;
 
-[StronglyTypedId(Template.Int, "int-efcore")]
-public partial struct BrandId;
+[ValueObject<int>(conversions: Conversions.EfCoreValueConverter | Conversions.SystemTextJson)]
+public partial class BrandId;

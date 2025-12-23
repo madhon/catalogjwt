@@ -15,8 +15,7 @@ public class ProductEntityTypeConfiguration : IEntityTypeConfiguration<Product>
         builder.HasKey(p => p.Id);
         builder.Property(p => p.Id)
             .ValueGeneratedOnAdd()
-            .IsRequired()
-            .HasConversion<ProductId.EfCoreValueConverter>();
+            .IsRequired();
 
         builder.Property(p => p.Name).IsRequired().HasMaxLength(50);
         builder.Property(p => p.Description).IsRequired().HasMaxLength(int.MaxValue);
@@ -27,8 +26,7 @@ public class ProductEntityTypeConfiguration : IEntityTypeConfiguration<Product>
             .HasConversion<string>()
             .HasMaxLength(int.MaxValue);
 
-        builder.Property(b => b.BrandId).IsRequired()
-            .HasConversion<BrandId.EfCoreValueConverter>();
+        builder.Property(b => b.BrandId).IsRequired();
         builder.HasOne(p => p.Brand).WithMany().HasForeignKey(p => p.BrandId);
     }
 }

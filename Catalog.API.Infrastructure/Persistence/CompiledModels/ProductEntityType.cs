@@ -3,6 +3,7 @@ using System;
 using System.Reflection;
 using Catalog.API.Domain.Common;
 using Catalog.API.Domain.Entities;
+using Catalog.API.Infrastructure.Persistence.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -34,8 +35,8 @@ namespace Catalog.API.Infrastructure.Persistence.CompiledModels
                 fieldInfo: typeof(BaseEntity<ProductId>).GetField("<Id>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 valueGenerated: ValueGenerated.OnAdd,
                 afterSaveBehavior: PropertySaveBehavior.Throw,
-                valueConverter: new ProductId.EfCoreValueConverter());
-            id.SetSentinelFromProviderValue(0);
+                valueConverter: new VogenEfCoreConverters.ProductIdEfCoreValueConverter(),
+                valueComparer: new VogenEfCoreConverters.ProductIdEfCoreValueComparer());
             id.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             var brandId = runtimeEntityType.AddProperty(
@@ -43,8 +44,8 @@ namespace Catalog.API.Infrastructure.Persistence.CompiledModels
                 typeof(BrandId),
                 propertyInfo: typeof(Product).GetProperty("BrandId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(Product).GetField("<BrandId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                valueConverter: new BrandId.EfCoreValueConverter());
-            brandId.SetSentinelFromProviderValue(0);
+                valueConverter: new VogenEfCoreConverters.BrandIdEfCoreValueConverter(),
+                valueComparer: new VogenEfCoreConverters.BrandIdEfCoreValueComparer());
             brandId.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
             var description = runtimeEntityType.AddProperty(

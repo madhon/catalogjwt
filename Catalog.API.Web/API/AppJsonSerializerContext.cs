@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 [JsonSerializable(typeof(AddProductRequest))]
 [JsonSerializable(typeof(Product))]
 [JsonSerializable(typeof(Brand))]
+[JsonSerializable(typeof(BrandId))]
+[JsonSerializable(typeof(ProductId))]
 [JsonSerializable(typeof(PaginatedItemsViewModel<Product>))]
 [JsonSerializable(typeof(PaginatedItemsViewModel<Brand>))]
 
@@ -20,4 +22,9 @@ using Microsoft.AspNetCore.Mvc;
 [JsonSerializable(typeof(bool))]
 [JsonSerializable(typeof(double))]
 [JsonSerializable(typeof(int))]
+[JsonSerializable(typeof(bool?))]
+[JsonSerializable(typeof(double?))]
+[JsonSerializable(typeof(int?))]
+[JsonSerializable(typeof(string))]
+
 internal sealed partial class AppJsonSerializerContext : JsonSerializerContext;

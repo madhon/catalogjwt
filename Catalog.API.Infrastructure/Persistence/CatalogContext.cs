@@ -25,6 +25,12 @@ public class CatalogContext : DbContext, ICatalogDbContext
         modelBuilder.ApplyConfiguration(new ProductEntityTypeConfiguration());
     }
 
+    protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+    {
+        base.ConfigureConventions(configurationBuilder);
+        configurationBuilder.RegisterAllInVogenEfCoreConverters();
+    }
+
     private static readonly Func<CatalogContext, int, int, IEnumerable<Product>> GetProductsInternal =
         EF.CompileQuery(
             (CatalogContext context, int pageSize, int pageIndex) =>

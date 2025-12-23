@@ -24,6 +24,8 @@ internal static class ApiStartup
 		services.ConfigureHttpJsonOptions(options =>
 		{
 			options.SerializerOptions.TypeInfoResolverChain.Insert(0, AppJsonSerializerContext.Default);
+			options.SerializerOptions.Converters.Add(new BrandId.BrandIdSystemTextJsonConverter());
+			options.SerializerOptions.Converters.Add(new ProductId.ProductIdSystemTextJsonConverter());
 		});
 
 		services.AddRateLimiter(rlo => {

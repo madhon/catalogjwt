@@ -3,6 +3,7 @@ using System;
 using System.Reflection;
 using Catalog.API.Domain.Common;
 using Catalog.API.Domain.Entities;
+using Catalog.API.Infrastructure.Persistence.EntityConfigurations;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -29,8 +30,8 @@ namespace Catalog.API.Infrastructure.Persistence.CompiledModels
                 propertyInfo: typeof(BaseEntity<BrandId>).GetProperty("Id", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(BaseEntity<BrandId>).GetField("<Id>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 afterSaveBehavior: PropertySaveBehavior.Throw,
-                valueConverter: new BrandId.EfCoreValueConverter());
-            id.SetSentinelFromProviderValue(0);
+                valueConverter: new BrandId.EfCoreValueConverter(),
+                valueComparer: new VogenEfCoreConverters.BrandIdEfCoreValueComparer());
             id.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
             var brandName = runtimeEntityType.AddProperty(

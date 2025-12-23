@@ -11,7 +11,7 @@ namespace Catalog.API.Infrastructure.Persistence.CompiledModels
     public partial class CatalogContextModel
     {
         private CatalogContextModel()
-            : base(skipDetectChanges: false, modelId: new Guid("22275dc8-0be6-4a72-8f5b-0b3429e60335"), entityTypeCount: 2)
+            : base(skipDetectChanges: false, modelId: new Guid("852a822e-0bea-4a47-9633-3aa44a8dccf1"), entityTypeCount: 2)
         {
         }
 

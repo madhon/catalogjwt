@@ -87,6 +87,7 @@
     <PackageVersion Include="NetEscapades.AspNetCore.SecurityHeaders" Version="1.3.1" />
     <PackageVersion Include="StronglyTypedId" Version="1.0.0-beta08" />
     <PackageVersion Include="StronglyTypedId.Templates" Version="1.0.0-beta08" />
+    <PackageVersion Include="Vogen" Version="8.0.4" />
     <PackageVersion Include="Polly.Core" Version="$(PollyVersion)" />
     <PackageVersion Include="Polly.Extensions" Version="$(PollyVersion)" />
     <PackageVersion Include="Polly.RateLimiting" Version="$(PollyVersion)" />
@@ -108,7 +109,7 @@
     <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.11.20" />
     <!-- Aspire-->
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="$(NetExtensionVersion)" />
-    <PackageVersion Include="Aspire.Hosting.Docker" Version="13.0.2-preview.1.25603.5" />
+    <PackageVersion Include="Aspire.Hosting.Docker" Version="13.1.0-preview.1.25616.3" />
     <PackageVersion Include="Aspire.Hosting.Yarp" Version="$(AspireVersion)" />
   </ItemGroup>
 </Project>
