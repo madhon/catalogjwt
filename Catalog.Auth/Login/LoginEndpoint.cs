@@ -6,8 +6,6 @@ internal sealed class LoginEndpointLoggerCategory;
 
 internal static partial class LoginEndpoint
 {
-    
-
     public static IEndpointRouteBuilder MapLoginEndpoint(this IEndpointRouteBuilder app)
     {
         app.MapPost("auth/login", HandleLogin)
@@ -60,5 +58,5 @@ internal static partial class LoginEndpoint
     }
 
     [LoggerMessage(0, LogLevel.Information, "Authenticating {userName}")]
-    private static partial void LogAuthenticating(ILogger logger, string userName);
+    private static partial void LogAuthenticating(ILogger<LoginEndpointLoggerCategory> logger, string userName);
 }

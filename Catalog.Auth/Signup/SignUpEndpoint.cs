@@ -1,4 +1,8 @@
-﻿namespace Catalog.Auth.Signup;
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace Catalog.Auth.Signup;
+
+internal sealed class SignUpEndpointLoggerCategory;
 
 internal static partial class SignUpEndpoint
 {
@@ -11,23 +15,20 @@ internal static partial class SignUpEndpoint
             .WithTags("Auth")
             .Accepts<SignupRequest>("application/json")
             .Produces<SignupResponse>(200, "application/json")
-            .Produces<BadRequest>()
             .ProducesValidationProblem()
             .RequireRateLimiting(RateLimiterPolicies.RlPoicy);
 
         return app;
     }
 
-    private static async Task<Results<Ok<SignupResponse>, ProblemHttpResult, BadRequest>> HandleSignup(SignupRequest request,
+    private static async Task<Results<Ok<SignupResponse>, ProblemHttpResult>> HandleSignup(SignupRequest request,
         IAuthenticationService authenticationService,
-        ILoggerFactory loggerFactory,
+        [FromServices] ILogger<SignUpEndpointLoggerCategory> logger,
         CancellationToken ct)
     {
-        var logger = loggerFactory.CreateLogger("Catalog.Auth.Signup.SignUpEndpoint");
-
         LogUserSignup(logger, request.Email);
 
-        var result = await authenticationService.CreateUser(request.Email, request.Password, request.Fullname, ct).ConfigureAwait(false);
+        var result = await authenticationService.CreateUser(request.Email, request.Password, request.Fullname, ct);
 
         return !result.IsError ?
             TypedResults.Ok(new SignupResponse(true, "User created successfully")) :
@@ -37,5 +38,5 @@ internal static partial class SignUpEndpoint
     }
 
     [LoggerMessage(0, LogLevel.Information, "User Signed Up {userName}")]
-    private static partial void LogUserSignup(ILogger logger, string userName);
+    private static partial void LogUserSignup(ILogger<SignUpEndpointLoggerCategory> logger, string userName);
 }
