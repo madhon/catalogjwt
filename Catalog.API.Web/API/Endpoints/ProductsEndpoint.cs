@@ -1,12 +1,9 @@
 ﻿namespace Catalog.API.Web.API.Endpoints;
 
-using System.Globalization;
 using Catalog.API.Application.Features.ListProducts;
 using Catalog.API.Web.API.ViewModel;
 using Mediator;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Caching.Hybrid;
-using ZiggyCreatures.Caching.Fusion;
 
 internal static class ProductsEndpoint
 {
@@ -17,13 +14,20 @@ internal static class ProductsEndpoint
 					(
 						int pageSize,
 						int pageIndex,
-						HybridCache cache,
 						IMediator mediator,
 						CancellationToken ct
 					)
 					=>
 				{
-					var response = await mediator.Send(new ListProductsRequest(pageIndex, pageSize), ct).ConfigureAwait(false);
+                if (pageSize <= 0 || pageIndex < 0)
+                {
+                        return TypedResults.Problem(
+                            title: "Invalid paging parameters",
+                            detail: "pageSize must be > 0 and pageIndex must be >= 0",
+                            statusCode: 400);
+                }
+
+					var response = await mediator.Send(new ListProductsRequest(pageIndex, pageSize), ct);
 					var model = new PaginatedItemsViewModel<Product>(pageIndex, pageSize, response.TotalItems, response.Items);
 					return TypedResults.Ok(model);
 				})

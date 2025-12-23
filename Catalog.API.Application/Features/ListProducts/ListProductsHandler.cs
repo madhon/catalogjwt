@@ -17,7 +17,7 @@ public sealed class ListProductsHandler : IRequestHandler<ListProductsRequest, L
 
         var totalItem = await catalogDbContext.Products
             .AsNoTracking()
-            .LongCountAsync(cancellationToken).ConfigureAwait(false);
+            .LongCountAsync(cancellationToken);
 
         var itemsOnPage = catalogDbContext.GetAllProducts(request.PageSize, request.PageIndex).ToList();
 
