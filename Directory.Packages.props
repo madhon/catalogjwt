@@ -8,7 +8,7 @@
     <RoslynatorVersion>4.15.0</RoslynatorVersion>
     <PollyVersion>8.6.4</PollyVersion>
     <FusionCacheVersion>2.5.0</FusionCacheVersion>
-    <ScalarVersion>2.11.9</ScalarVersion>
+    <ScalarVersion>2.11.10</ScalarVersion>
   </PropertyGroup>
   <ItemGroup>
     <!-- System packages -->
