@@ -7,6 +7,9 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<UserSecretsId>113343d2-b754-461b-9c37-1ee407e3a607</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<PublishReadyToRun>true</PublishReadyToRun>
+		<TieredPGO>true</TieredPGO>
+		<TieredCompilation>true</TieredCompilation>
 	</PropertyGroup>
 	
 	<ItemGroup>

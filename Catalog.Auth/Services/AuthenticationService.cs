@@ -22,27 +22,26 @@ internal sealed class AuthenticationService : IAuthenticationService
             UserName = email,
         };
 
-        var result = await CreateUserAsync(user, password).ConfigureAwait(false);
-        if (result.Succeeded)
+        var createResult = await userManager.CreateAsync(user, password);
+        if (!createResult.Succeeded)
         {
-            result = await userManager.AddToRoleAsync(user, "read").ConfigureAwait(false);
-            if (result.Succeeded)
-            {
-                return result;
-            }
+            return Error.Failure("createuser.error", GenerateErrorString(createResult));
         }
 
-        return Error.Failure("createuser.error", GenerateErrorString(result));
-    }
+        var roleResult = await userManager.AddToRoleAsync(user, "read");
+        if (!roleResult.Succeeded)
+        {
+            // optional: keep things atomic
+            await userManager.DeleteAsync(user);
+            return Error.Failure("createuser.error", GenerateErrorString(roleResult));
+        }
 
-    private async Task<IdentityResult> CreateUserAsync(ApplicationUser user, string password)
-    {
-        return await userManager.CreateAsync(user, password).ConfigureAwait(false);
+        return roleResult;
     }
 
     private static string GenerateErrorString(IdentityResult result)
     {
-        var errorString = new StringBuilder();
+        var errorString = new StringBuilder(capacity: 128);
         foreach (var error in result.Errors)
         {
             errorString.AppendLine(error.Description);
@@ -53,10 +52,10 @@ internal sealed class AuthenticationService : IAuthenticationService
     public async Task<ErrorOr<TokenResult>> Authenticate(string email, string password)
     {
         var user = await userManager.FindByEmailAsync(email).ConfigureAwait(false);
-        if (user is not null && await userManager.CheckPasswordAsync(user, password).ConfigureAwait(false))
+        if (user is not null && await userManager.CheckPasswordAsync(user, password))
         {
             var additionalClaims = GenerateClaims(user, email);
-            var roles = await userManager.GetRolesAsync(user).ConfigureAwait(false);
+            var roles = await userManager.GetRolesAsync(user);
 
             return jwtTokenService.CreateToken(additionalClaims, roles);
         }
@@ -66,13 +65,13 @@ internal sealed class AuthenticationService : IAuthenticationService
 
     private static Dictionary<string, object> GenerateClaims(ApplicationUser user, string email)
     {
-        return new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase)
+        return new Dictionary<string, object>(capacity: 5, comparer: StringComparer.Ordinal)
         {
             { JwtRegisteredClaimNames.Sub, user.UserName! },
             { JwtClaimTypes.UserId, user.Id },
             { JwtRegisteredClaimNames.Azp, email },
             { JwtClaimTypes.GrantType, "password" },
-            { JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString() },
+            { JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N") },
         };
     }
 }

@@ -9,6 +9,7 @@ using System.Text;
 [RegisterScoped]
 internal sealed class JwtTokenService : IJwtTokenService
 {
+    private readonly JsonWebTokenHandler tokenHandler = new();
     private readonly SigningCredentials signingCredentials;
     private readonly string issuer;
     private readonly string audience;
@@ -29,9 +30,7 @@ internal sealed class JwtTokenService : IJwtTokenService
 
     public TokenResult CreateToken(IDictionary<string, object> claims, IEnumerable<string> roles, int expiresInMinutes = 120)
     {
-        var tokenHandler = new JsonWebTokenHandler();
-
-        var issuedAt = timeProvider.GetUtcNow().DateTime;
+        var issuedAt = timeProvider.GetUtcNow().UtcDateTime;
 
         var claimsIdentity = new ClaimsIdentity(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
