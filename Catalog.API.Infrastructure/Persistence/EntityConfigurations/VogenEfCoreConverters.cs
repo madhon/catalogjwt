@@ -5,4 +5,4 @@ using Catalog.API.Domain.Entities;
 
 [EfCoreConverter<BrandId>]
 [EfCoreConverter<ProductId>]
-public partial class VogenEfCoreConverters;
+public sealed partial class VogenEfCoreConverters;
