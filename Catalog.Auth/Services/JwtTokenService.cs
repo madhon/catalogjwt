@@ -19,18 +19,31 @@ internal sealed class JwtTokenService : IJwtTokenService
     public JwtTokenService(IOptions<JwtOptions> jwtOptions, TimeProvider timeProvider)
     {
         ArgumentNullException.ThrowIfNull(jwtOptions);
+        ArgumentNullException.ThrowIfNull(timeProvider);
+        var options = jwtOptions.Value ?? throw new ArgumentException("JwtOptions.Value must not be null.", nameof(jwtOptions));
 
-        var signingKeyBytes = Encoding.UTF8.GetBytes(jwtOptions.Value.Secret);
+        var signingKeyBytes = Encoding.UTF8.GetBytes(options.Secret);
+        if (signingKeyBytes.Length < 32) // recommended minimum for HS256
+        {
+            throw new ArgumentException("JwtOptions.Secret should be at least 32 bytes for HS256.", nameof(jwtOptions));
+        }
+
         var signingKey = new SymmetricSecurityKey(signingKeyBytes);
         signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
-        issuer = jwtOptions.Value.Issuer;
-        audience = jwtOptions.Value.Audience;
+
+        issuer = options.Issuer;
+        audience = options.Audience;
         this.timeProvider = timeProvider;
     }
 
     public TokenResult CreateToken(IDictionary<string, object> claims, IEnumerable<string> roles, int expiresInMinutes = 120)
     {
+        ArgumentNullException.ThrowIfNull(claims);
+        ArgumentNullException.ThrowIfNull(roles);
+        ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(expiresInMinutes, 0);
+
         var issuedAt = timeProvider.GetUtcNow().UtcDateTime;
+        var expiresAt = issuedAt.AddMinutes(expiresInMinutes);
 
         var claimsIdentity = new ClaimsIdentity(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
@@ -40,18 +53,16 @@ internal sealed class JwtTokenService : IJwtTokenService
             Audience = audience,
             IssuedAt = issuedAt,
             NotBefore = issuedAt,
-            Expires = issuedAt.AddMinutes(expiresInMinutes),
+            Expires = expiresAt,
             SigningCredentials = signingCredentials,
-            Claims = claims,
+            Claims = new Dictionary<string, object>(claims, StringComparer.OrdinalIgnoreCase),
             Subject = claimsIdentity,
         };
-
-        var expiresIn = TimeSpan.FromMinutes(expiresInMinutes);
 
         return new TokenResult
         {
             Token = tokenHandler.CreateToken(tokenDescriptor),
-            ExpiresIn = Convert.ToInt32(expiresIn.TotalSeconds),
+            ExpiresIn = checked(expiresInMinutes * 60),
         };
     }
 }

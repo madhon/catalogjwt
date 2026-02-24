@@ -10,12 +10,17 @@ internal sealed class AuthenticationService : IAuthenticationService
 
     public AuthenticationService(IJwtTokenService jwtTokenService, UserManager<ApplicationUser> userManager)
     {
+        ArgumentNullException.ThrowIfNull(jwtTokenService);
+        ArgumentNullException.ThrowIfNull(userManager);
+
         this.jwtTokenService = jwtTokenService;
         this.userManager = userManager;
     }
 
     public async Task<ErrorOr<IdentityResult>> CreateUser(string email, string password, string fullName, CancellationToken ct)
     {
+        ct.ThrowIfCancellationRequested();
+
         var user = new ApplicationUser
         {
             Email = email,
@@ -27,6 +32,8 @@ internal sealed class AuthenticationService : IAuthenticationService
         {
             return Error.Failure("createuser.error", GenerateErrorString(createResult));
         }
+
+        ct.ThrowIfCancellationRequested();
 
         var roleResult = await userManager.AddToRoleAsync(user, "read");
         if (!roleResult.Succeeded)
@@ -69,7 +76,7 @@ internal sealed class AuthenticationService : IAuthenticationService
         {
             { JwtRegisteredClaimNames.Sub, user.UserName! },
             { JwtClaimTypes.UserId, user.Id },
-            { JwtRegisteredClaimNames.Azp, email },
+            { JwtRegisteredClaimNames.Email, email },
             { JwtClaimTypes.GrantType, "password" },
             { JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N") },
         };

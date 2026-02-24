@@ -31,10 +31,10 @@ internal static partial class SignUpEndpoint
         var result = await authenticationService.CreateUser(request.Email, request.Password, request.Fullname, ct);
 
         return !result.IsError ?
-            TypedResults.Ok(new SignupResponse(true, "User created successfully")) :
-            TypedResults.Problem(title: "Error Creating User",
-                detail: result.Errors[0].Description,
-                statusCode: 400);
+            TypedResults.Ok(new SignupResponse(Success: true, "User created successfully")) :
+            TypedResults.Problem(detail: result.Errors[0].Description,
+                statusCode: 400,
+                title: "Error Creating User");
     }
 
     [LoggerMessage(0, LogLevel.Information, "User Signed Up {userName}")]
