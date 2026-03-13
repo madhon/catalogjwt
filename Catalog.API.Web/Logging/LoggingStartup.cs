@@ -23,10 +23,16 @@ internal static class LoggingStartup
             loggerConfiguration
                 .Enrich.WithProperty("Application", builder.Environment.ApplicationName)
                 .Enrich.FromLogContext()
+                .Enrich.WithMachineName()
+                .Enrich.WithProcessId()
+                .Enrich.WithThreadId()
                 .Enrich.WithExceptionDetails();
 
-            loggerConfiguration.MinimumLevel.Override("Microsoft", LogEventLevel.Information);
-            loggerConfiguration.MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning);
+            loggerConfiguration.MinimumLevel.Override("Microsoft", LogEventLevel.Warning);
+            loggerConfiguration.MinimumLevel.Override("Microsoft.AspNetCore.Hosting.Diagnostic", LogEventLevel.Error);
+            loggerConfiguration.MinimumLevel.Override("Microsoft.Hosting.Lifetime", LogEventLevel.Information);
+            loggerConfiguration.MinimumLevel.Override("Microsoft.EntityFrameworkCore.Database.Command", LogEventLevel.Warning);
+            loggerConfiguration.MinimumLevel.Override("System.Net.Http.HttpClient", LogEventLevel.Warning);
 
             if (builder.Environment.IsDevelopment())
             {
@@ -37,18 +43,18 @@ internal static class LoggingStartup
                 loggerConfiguration.MinimumLevel.Override("ZiggyCreatures.Caching.Fusion", LogEventLevel.Warning);
             }
 
-            if (serilogOptions.UseConsole)
+            loggerConfiguration.WriteTo.Async(writeTo =>
             {
-                loggerConfiguration.WriteTo.Async(writeTo =>
+                if (serilogOptions.UseConsole)
                 {
                     writeTo.Console(outputTemplate: serilogOptions.LogTemplate, formatProvider: CultureInfo.InvariantCulture);
-                });
-            }
+                }
 
-            if (!string.IsNullOrEmpty(serilogOptions.SeqUrl))
-            {
-                loggerConfiguration.WriteTo.Seq(serilogOptions.SeqUrl, formatProvider: CultureInfo.InvariantCulture);
-            }
+                if (!string.IsNullOrEmpty(serilogOptions.SeqUrl))
+                {
+                    writeTo.Seq(serilogOptions.SeqUrl, formatProvider: CultureInfo.InvariantCulture);
+                }
+            });
         });
 
         return builder;

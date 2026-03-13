@@ -32,6 +32,9 @@ internal static class SerilogExtensions
                 .MinimumLevel.Override("ZiggyCreatures.Caching.Fusion.FusionCache", LogEventLevel.Error)
                 .Enrich.WithProperty("Application", builder.Environment.ApplicationName)
                 .Enrich.FromLogContext()
+                .Enrich.WithMachineName()
+                .Enrich.WithProcessId()
+                .Enrich.WithThreadId()
                 .Enrich.WithUtcTime()
                 .Enrich.WithUserInfo()
                 .Enrich.WithExceptionDetails();
@@ -72,7 +75,7 @@ internal static class SerilogExtensions
         public string? SeqUrl { get; set; } = string.Empty;
 
         public string LogTemplate { get; set; } =
-            "[{Timestamp:HH:mm:ss} {Level:u3} {ClientIp}] - {Message:lj}{NewLine}{Exception}";
+            "[{Timestamp:HH:mm:ss}] {Level:u3} {ClientIp}] - {Message:lj}{NewLine}{Exception}";
     }
 }
 

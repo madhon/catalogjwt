@@ -25,15 +25,8 @@ internal static class LogHelper
 
     private static bool IsHealthCheckEndpoint(HttpContext ctx)
     {
-        var endpoint = ctx.GetEndpoint();
-        if (endpoint is not null)
-        {
-            return string.Equals(
-                endpoint.DisplayName,
-                "Health checks",
-                StringComparison.Ordinal);
-        }
-        // No endpoint, so not a health check endpoint
-        return false;
+        var path = ctx.Request.Path;
+        return path.StartsWithSegments("/healthz", StringComparison.OrdinalIgnoreCase)
+               || path.StartsWithSegments("/alive", StringComparison.OrdinalIgnoreCase);
     }
 }

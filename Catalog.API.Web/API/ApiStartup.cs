@@ -41,7 +41,17 @@ internal static class ApiStartup
 
 		services.AddHealthChecks();
 
-		services.AddProblemDetails();
+		services.AddProblemDetails(options =>
+		{
+			options.CustomizeProblemDetails = ctx =>
+			{
+				ctx.ProblemDetails.Extensions["traceId"] = ctx.HttpContext.TraceIdentifier;
+				ctx.ProblemDetails.Extensions["timestamp"] = DateTime.UtcNow;
+				ctx.ProblemDetails.Instance = $"{ctx.HttpContext.Request.Method} {ctx.HttpContext.Request.Path}";
+			};
+		});
+
+		services.AddExceptionHandler<GlobalExceptionHandler>();
 
 		services.AddHttpContextAccessor();
 

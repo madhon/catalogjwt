@@ -11,7 +11,7 @@ var authService = builder.AddProject<Projects.Catalog_Auth>("auth");
 var catalogService = builder.AddProject<Projects.Catalog_API_Web>("catalog")
     .WithReference(authService)
     .WaitFor(authService)
-    .PublishAsDockerComposeService((resource, service) => { });
+    .PublishAsDockerComposeService((_, _) => { });
 
 builder.AddYarp("gateway-yarp")
     .WithReference(authService)
