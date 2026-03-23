@@ -2,13 +2,12 @@
   <PropertyGroup>
     <NetRuntimeVersion>10.0.5</NetRuntimeVersion>
     <NetExtensionVersion>10.4.0</NetExtensionVersion>
-    <AspireVersion>13.1.2</AspireVersion>
     <MSIdentityClientVersion>4.83.1</MSIdentityClientVersion>
     <JwtTokenHandlerVersion>8.16.0</JwtTokenHandlerVersion>
     <RoslynatorVersion>4.15.0</RoslynatorVersion>
     <PollyVersion>8.6.6</PollyVersion>
     <FusionCacheVersion>2.6.0</FusionCacheVersion>
-    <ScalarVersion>2.13.11</ScalarVersion>
+    <ScalarVersion>2.13.13</ScalarVersion>
   </PropertyGroup>
   <ItemGroup>
     <!-- System packages -->
@@ -81,11 +80,11 @@
     <PackageVersion Include="ErrorOr" Version="2.0.1" />
     <PackageVersion Include="ZiggyCreatures.FusionCache" Version="$(FusionCacheVersion)" />
     <PackageVersion Include="ZiggyCreatures.FusionCache.OpenTelemetry" Version="$(FusionCacheVersion)" />
-    <PackageVersion Include="Mediator.Abstractions" Version="3.0.1" />
-    <PackageVersion Include="Mediator.SourceGenerator" Version="3.0.1" />
+    <PackageVersion Include="Mediator.Abstractions" Version="3.0.2" />
+    <PackageVersion Include="Mediator.SourceGenerator" Version="3.0.2" />
     <PackageVersion Include="Scalar.AspNetCore" Version="$(ScalarVersion)" />
     <PackageVersion Include="Scalar.AspNetCore.Microsoft" Version="$(ScalarVersion)" />
-    <PackageVersion Include="EntityFrameworkCore.Exceptions.SqlServer" Version="8.1.3" />
+    <PackageVersion Include="EntityFrameworkCore.Exceptions.SqlServer" Version="10.0.0" />
     <PackageVersion Include="NetEscapades.AspNetCore.SecurityHeaders" Version="1.3.1" />
     <PackageVersion Include="StronglyTypedId" Version="1.0.0-beta08" />
     <PackageVersion Include="StronglyTypedId.Templates" Version="1.0.0-beta08" />
@@ -105,14 +104,14 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.15.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.15.0" />
     <!-- Analyzers -->
-    <PackageVersion Include="Meziantou.Analyzer" Version="3.0.25" />
+    <PackageVersion Include="Meziantou.Analyzer" Version="3.0.26" />
     <PackageVersion Include="Roslynator.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.Formatting.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.CodeFixes" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.11.20" />
     <!-- Aspire-->
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="$(NetExtensionVersion)" />
-    <PackageVersion Include="Aspire.Hosting.Docker" Version="13.1.2-preview.1.26125.13" />
-    <PackageVersion Include="Aspire.Hosting.Yarp" Version="$(AspireVersion)" />
+    <PackageVersion Include="Aspire.Hosting.Docker" Version="13.2.0" />
+    <PackageVersion Include="Aspire.Hosting.Yarp" Version="13.2.0" />
   </ItemGroup>
 </Project>

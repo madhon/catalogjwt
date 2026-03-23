@@ -64,7 +64,6 @@ internal static class ApiStartup
 			})
 			.AsHybridCache();
 
-		services.AddScoped<IValidator<AddBrandRequest>, AddBrandValidator>();
 		services.AddValidators();
 
 		services.AddMediator(opts => opts.ServiceLifetime = ServiceLifetime.Scoped);

@@ -3,11 +3,12 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-public sealed partial class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger, IProblemDetailsService problemDetailsService) : IExceptionHandler
+internal sealed partial class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger, IProblemDetailsService problemDetailsService) : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(httpContext);
+        ArgumentNullException.ThrowIfNull(exception);
 
         LogError(exception, httpContext.TraceIdentifier);
 
@@ -20,7 +21,7 @@ public sealed partial class GlobalExceptionHandler(ILogger<GlobalExceptionHandle
             Title = title,
             Type = GetProblemType(statusCode),
             Instance = httpContext.Request.Path,
-            Detail = GetSafeErrorMessage(exception, httpContext)
+            Detail = GetSafeErrorMessage(exception, httpContext),
         };
 
         return await problemDetailsService.TryWriteAsync(new ProblemDetailsContext
