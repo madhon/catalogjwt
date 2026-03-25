@@ -3,11 +3,11 @@
     <NetRuntimeVersion>10.0.5</NetRuntimeVersion>
     <NetExtensionVersion>10.4.0</NetExtensionVersion>
     <MSIdentityClientVersion>4.83.1</MSIdentityClientVersion>
-    <JwtTokenHandlerVersion>8.16.0</JwtTokenHandlerVersion>
+    <JwtTokenHandlerVersion>8.17.0</JwtTokenHandlerVersion>
     <RoslynatorVersion>4.15.0</RoslynatorVersion>
     <PollyVersion>8.6.6</PollyVersion>
     <FusionCacheVersion>2.6.0</FusionCacheVersion>
-    <ScalarVersion>2.13.13</ScalarVersion>
+    <ScalarVersion>2.13.15</ScalarVersion>
   </PropertyGroup>
   <ItemGroup>
     <!-- System packages -->
@@ -29,7 +29,7 @@
     <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="$(NetRuntimeVersion)" />
     <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="$(NetRuntimeVersion)" />
     <PackageVersion Include="Microsoft.Bcl.TimeProvider" Version="$(NetRuntimeVersion)" />
-    <PackageVersion Include="Microsoft.OpenApi" Version="2.7.0" />
+    <PackageVersion Include="Microsoft.OpenApi" Version="2.7.1" />
     <PackageVersion Include="Microsoft.Identity.Client" Version="$(MSIdentityClientVersion)" />
     <PackageVersion Include="Microsoft.Identity.Client.Extensions.Msal" Version="$(MSIdentityClientVersion)" />
     <PackageVersion Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="$(JwtTokenHandlerVersion)" />
@@ -104,7 +104,7 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.15.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.15.0" />
     <!-- Analyzers -->
-    <PackageVersion Include="Meziantou.Analyzer" Version="3.0.26" />
+    <PackageVersion Include="Meziantou.Analyzer" Version="3.0.27" />
     <PackageVersion Include="Roslynator.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.Formatting.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.CodeFixes" Version="$(RoslynatorVersion)" />
