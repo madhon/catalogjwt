@@ -30,7 +30,7 @@ public static class OpenApiExtensions
         return app;
     }
 
-    public static IHostApplicationBuilder  AddDefaultOpenApi(this IHostApplicationBuilder  builder)
+    public static TBuilder  AddDefaultOpenApi<TBuilder>(this TBuilder  builder) where TBuilder : IHostApplicationBuilder
     {
         ArgumentNullException.ThrowIfNull(builder);
 

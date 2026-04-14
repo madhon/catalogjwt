@@ -15,7 +15,7 @@ public static partial class ServiceDefaultsExtensions
     private const string HealthEndpointPath = "/healthz";
     private const string AlivenessEndpointPath = "/alive";
 
-    public static IHostApplicationBuilder AddServiceDefaults(this IHostApplicationBuilder builder)
+    public static TBuilder AddServiceDefaults<TBuilder>(this TBuilder builder) where TBuilder : IHostApplicationBuilder
     {
         ArgumentNullException.ThrowIfNull(builder);
 
@@ -41,7 +41,7 @@ public static partial class ServiceDefaultsExtensions
     /// <remarks>
     /// This allows for things like Polly to be trimmed out of the app if it isn't used.
     /// </remarks>
-    public static IHostApplicationBuilder AddBasicServiceDefaults(this IHostApplicationBuilder builder)
+    public static TBuilder AddBasicServiceDefaults<TBuilder>(this TBuilder builder) where TBuilder : IHostApplicationBuilder
     {
         ArgumentNullException.ThrowIfNull(builder);
 
@@ -52,7 +52,7 @@ public static partial class ServiceDefaultsExtensions
         return builder;
     }
 
-    private static IHostApplicationBuilder ConfigureOpenTelemetry(this IHostApplicationBuilder builder)
+    public static TBuilder ConfigureOpenTelemetry<TBuilder>(this TBuilder builder) where TBuilder : IHostApplicationBuilder
     {
         builder.Logging.AddOpenTelemetry(logging =>
         {
@@ -101,7 +101,7 @@ public static partial class ServiceDefaultsExtensions
         return builder;
     }
 
-    private static IHostApplicationBuilder AddOpenTelemetryExporters(this IHostApplicationBuilder builder)
+    private static TBuilder AddOpenTelemetryExporters<TBuilder>(this TBuilder builder) where TBuilder : IHostApplicationBuilder
     {
         var useOtlpExporter = !string.IsNullOrWhiteSpace(builder.Configuration["OTEL_EXPORTER_OTLP_ENDPOINT"]);
         if (useOtlpExporter)
@@ -116,7 +116,7 @@ public static partial class ServiceDefaultsExtensions
         return builder;
     }
 
-    public static IHostApplicationBuilder AddDefaultHealthChecks(this IHostApplicationBuilder builder)
+    public static TBuilder AddDefaultHealthChecks<TBuilder>(this TBuilder builder) where TBuilder : IHostApplicationBuilder
     {
         ArgumentNullException.ThrowIfNull(builder);
 
