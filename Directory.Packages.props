@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
-    <NetRuntimeVersion>10.0.5</NetRuntimeVersion>
-    <NetExtensionVersion>10.4.0</NetExtensionVersion>
+    <NetRuntimeVersion>10.0.6</NetRuntimeVersion>
+    <NetExtensionVersion>10.5.0</NetExtensionVersion>
     <MSIdentityClientVersion>4.83.1</MSIdentityClientVersion>
     <JwtTokenHandlerVersion>8.17.0</JwtTokenHandlerVersion>
     <RoslynatorVersion>4.15.0</RoslynatorVersion>
@@ -29,7 +29,7 @@
     <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="$(NetRuntimeVersion)" />
     <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="$(NetRuntimeVersion)" />
     <PackageVersion Include="Microsoft.Bcl.TimeProvider" Version="$(NetRuntimeVersion)" />
-    <PackageVersion Include="Microsoft.OpenApi" Version="2.7.2" />
+    <PackageVersion Include="Microsoft.OpenApi" Version="2.7.3" />
     <PackageVersion Include="Microsoft.Identity.Client" Version="$(MSIdentityClientVersion)" />
     <PackageVersion Include="Microsoft.Identity.Client.Extensions.Msal" Version="$(MSIdentityClientVersion)" />
     <PackageVersion Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="$(JwtTokenHandlerVersion)" />
