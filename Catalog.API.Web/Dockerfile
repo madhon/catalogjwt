@@ -19,13 +19,13 @@ COPY ["Catalog.API.Application/Catalog.API.Application.csproj", "Catalog.API.App
 COPY ["Catalog.API.Domain/Catalog.API.Domain.csproj", "Catalog.API.Domain/Catalog.API.Domain.csproj"]
 COPY ["Catalog.API.Infrastructure/Catalog.API.Infrastructure.csproj", "Catalog.API.Infrastructure/Catalog.API.Infrastructure.csproj"]
 COPY ["Catalog.API.Web/Catalog.API.Web.csproj", "Catalog.API.Web/Catalog.API.Web.csproj"]
-COPY ["Services.Common/Services.Common.csproj", "Services.Common/Services.Common.csproj"]
+COPY ["Catalog.ServiceDefaults/Catalog.ServiceDefaults.csproj", "Catalog.ServiceDefaults/Catalog.ServiceDefaults.csproj"]
 
-RUN dotnet restore "Catalog.API.Web/Catalog.API.Web.csproj"
+RUN dotnet restore "Catalog.API.Web/Catalog.API.Web.csproj" --runtime linux-x64
 
 COPY . .
 WORKDIR /src/Catalog.API.Web
-RUN dotnet publish "Catalog.API.Web.csproj" --no-restore -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Catalog.API.Web.csproj" -c Release -r linux-x64 --no-self-contained --no-restore  -o /app/publish /p:UseAppHost=false
 
 FROM build AS publish
 

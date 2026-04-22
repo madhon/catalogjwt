@@ -12,7 +12,9 @@ internal static class Startup
     public static IServiceCollection ConfigureServices(this IServiceCollection services)
     {
         services.AddOptions<AuthenticationSettings>()
-            .BindConfiguration(AuthenticationSettings.SectionName);
+            .BindConfiguration(AuthenticationSettings.SectionName)
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
 
         services.AddSingleton<IValidateOptions<AuthenticationSettings>, AuthenticationSettingsValidator>();
 

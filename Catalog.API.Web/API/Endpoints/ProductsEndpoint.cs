@@ -22,20 +22,19 @@ internal static class ProductsEndpoint
                 if (pageSize <= 0 || pageIndex < 0)
                 {
                         return TypedResults.Problem(
-                            title: "Invalid paging parameters",
                             detail: "pageSize must be > 0 and pageIndex must be >= 0",
-                            statusCode: 400);
+                            statusCode: 400,
+                            title: "Invalid paging parameters");
                 }
-
-					var response = await mediator.Send(new ListProductsRequest(pageIndex, pageSize), ct);
-					var model = new PaginatedItemsViewModel<Product>(pageIndex, pageSize, response.TotalItems, response.Items);
-					return TypedResults.Ok(model);
+                var response = await mediator.Send(new ListProductsRequest(pageIndex, pageSize), ct); 
+                var model = new PaginatedItemsViewModel<Product>(pageIndex, pageSize, response.TotalItems, response.Items);
+                return TypedResults.Ok(model);
 				})
 			.WithName("products.get")
 			.WithTags("products")
-			.Produces<PaginatedItemsViewModel<Product>>(200, "application/json")
+			.Produces<PaginatedItemsViewModel<Product>>(StatusCodes.Status200OK, "application/json")
 			.Produces<UnauthorizedHttpResult>()
-			.ProducesProblem(400)
+			.ProducesProblem(StatusCodes.Status400BadRequest)
 			.RequireAuthorization();
 
 		return app;

@@ -15,14 +15,14 @@ WORKDIR /src
 COPY "Directory.Packages.props" "Directory.Packages.props"
 COPY "Directory.Build.props" "Directory.Build.props"
 COPY "NuGet.config" "NuGet.config"
-COPY ["Services.Common/Services.Common.csproj", "Services.Common/Services.Common.csproj"]
 COPY ["Catalog.Auth/Catalog.Auth.csproj", "Catalog.Auth/Catalog.Auth.csproj"]
+COPY ["Catalog.ServiceDefaults/Catalog.ServiceDefaults.csproj", "Catalog.ServiceDefaults/Catalog.ServiceDefaults.csproj"]
 
-RUN dotnet restore "Catalog.Auth/Catalog.Auth.csproj"
+RUN dotnet restore "Catalog.Auth/Catalog.Auth.csproj" --runtime linux-x64
 
 COPY . .
 WORKDIR /src/Catalog.Auth
-RUN dotnet publish "Catalog.Auth.csproj" -c Release -o /app/publish
+RUN dotnet publish "Catalog.Auth.csproj" -c Release -r linux-x64 --no-self-contained --no-restore  -o /app/publish /p:UseAppHost=false
 
 FROM build AS publish
 

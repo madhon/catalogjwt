@@ -15,6 +15,7 @@ COPY "Directory.Packages.props" "Directory.Packages.props"
 COPY "Directory.Build.props" "Directory.Build.props"
 COPY "NuGet.config" "NuGet.config"
 COPY ["Catalog.Gateway/Catalog.Gateway.csproj", "Catalog.Gateway/Catalog.Gateway.csproj"]
+COPY ["Catalog.ServiceDefaults/Catalog.ServiceDefaults.csproj", "Catalog.ServiceDefaults/Catalog.ServiceDefaults.csproj"]
 
 RUN dotnet restore "Catalog.Gateway/Catalog.Gateway.csproj"
 
