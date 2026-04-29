@@ -1,5 +1,6 @@
 <Project>
   <PropertyGroup>
+    <AspireVersion>13.2.4</AspireVersion>
     <NetRuntimeVersion>10.0.7</NetRuntimeVersion>
     <NetExtensionVersion>10.5.0</NetExtensionVersion>
     <MSIdentityClientVersion>4.83.1</MSIdentityClientVersion>
@@ -7,7 +8,7 @@
     <RoslynatorVersion>4.15.0</RoslynatorVersion>
     <PollyVersion>8.6.6</PollyVersion>
     <FusionCacheVersion>2.6.0</FusionCacheVersion>
-    <ScalarVersion>2.14.3</ScalarVersion>
+    <ScalarVersion>2.14.6</ScalarVersion>
   </PropertyGroup>
   <ItemGroup>
     <!-- System packages -->
@@ -29,12 +30,12 @@
     <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="$(NetRuntimeVersion)" />
     <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="$(NetRuntimeVersion)" />
     <PackageVersion Include="Microsoft.Bcl.TimeProvider" Version="$(NetRuntimeVersion)" />
-    <PackageVersion Include="Microsoft.OpenApi" Version="2.7.3" />
+    <PackageVersion Include="Microsoft.OpenApi" Version="[2.7.4,3)" />
     <PackageVersion Include="Microsoft.Identity.Client" Version="$(MSIdentityClientVersion)" />
     <PackageVersion Include="Microsoft.Identity.Client.Extensions.Msal" Version="$(MSIdentityClientVersion)" />
     <PackageVersion Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="$(JwtTokenHandlerVersion)" />
     <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="$(JwtTokenHandlerVersion)" />
-    <PackageVersion Include="Microsoft.Data.SqlClient" Version="7.0.0" />
+    <PackageVersion Include="Microsoft.Data.SqlClient" Version="7.0.1" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(NetRuntimeVersion)" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="$(NetRuntimeVersion)" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(NetRuntimeVersion)" />
@@ -59,7 +60,9 @@
     <PackageVersion Include="Yarp.ReverseProxy" Version="2.3.0" />
     <!-- 3rd party packages -->
     <PackageVersion Include="AutoRegisterInject" Version="1.4.1" />
+    <PackageVersion Include="Asp.Versioning.Http" Version="10.0.0" />
     <PackageVersion Include="Asp.Versioning.Mvc.ApiExplorer" Version="10.0.0" />
+    <PackageVersion Include="Asp.Versioning.OpenApi" Version="10.0.0-rc.1" />    
     <PackageVersion Include="FluentValidation" Version="12.1.1" />
     <PackageVersion Include="Riok.Mapperly" Version="4.3.1" />
     <PackageVersion Include="Ulid" Version="1.3.3" />
@@ -91,7 +94,7 @@
     <PackageVersion Include="Polly.Core" Version="$(PollyVersion)" />
     <PackageVersion Include="Polly.Extensions" Version="$(PollyVersion)" />
     <PackageVersion Include="Polly.RateLimiting" Version="$(PollyVersion)" />
-    <PackageVersion Include="NodaTime" Version="3.3.1" />
+    <PackageVersion Include="NodaTime" Version="3.3.2" />
     <PackageVersion Include="ServiceScan.SourceGenerator" Version="3.1.4" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.4" />
     <!-- OpenTelemetry-->
@@ -103,14 +106,14 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.15.1" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.15.1" />
     <!-- Analyzers -->
-    <PackageVersion Include="Meziantou.Analyzer" Version="3.0.50" />
+    <PackageVersion Include="Meziantou.Analyzer" Version="3.0.58" />
     <PackageVersion Include="Roslynator.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.Formatting.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.CodeFixes" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.11.20" />
     <!-- Aspire-->
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="$(NetExtensionVersion)" />
-    <PackageVersion Include="Aspire.Hosting.Docker" Version="13.2.3" />
-    <PackageVersion Include="Aspire.Hosting.Yarp" Version="13.2.3" />
+    <PackageVersion Include="Aspire.Hosting.Docker" Version="$(AspireVersion)" />
+    <PackageVersion Include="Aspire.Hosting.Yarp" Version="$(AspireVersion)" />
   </ItemGroup>
 </Project>
