@@ -4,7 +4,7 @@
     <NetRuntimeVersion>10.0.7</NetRuntimeVersion>
     <NetExtensionVersion>10.5.0</NetExtensionVersion>
     <MSIdentityClientVersion>4.83.1</MSIdentityClientVersion>
-    <JwtTokenHandlerVersion>8.17.0</JwtTokenHandlerVersion>
+    <JwtTokenHandlerVersion>8.18.0</JwtTokenHandlerVersion>
     <RoslynatorVersion>4.15.0</RoslynatorVersion>
     <PollyVersion>8.6.6</PollyVersion>
     <FusionCacheVersion>2.6.0</FusionCacheVersion>
