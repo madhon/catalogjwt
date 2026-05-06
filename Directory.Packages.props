@@ -106,7 +106,7 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.15.1" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.15.1" />
     <!-- Analyzers -->
-    <PackageVersion Include="Meziantou.Analyzer" Version="3.0.63" />
+    <PackageVersion Include="Meziantou.Analyzer" Version="3.0.70" />
     <PackageVersion Include="Roslynator.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.Formatting.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.CodeFixes" Version="$(RoslynatorVersion)" />
