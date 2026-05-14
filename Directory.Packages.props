@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <AspireVersion>13.3.1</AspireVersion>
+    <AspireVersion>13.3.2</AspireVersion>
     <NetRuntimeVersion>10.0.8</NetRuntimeVersion>
     <NetExtensionVersion>10.6.0</NetExtensionVersion>
     <MSIdentityClientVersion>4.83.1</MSIdentityClientVersion>
