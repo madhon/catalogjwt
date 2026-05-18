@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace Catalog.Auth.Signup;
+﻿namespace Catalog.Auth.Signup;
 
 internal sealed class SignUpEndpointLoggerCategory;
 
@@ -16,25 +14,27 @@ internal static partial class SignUpEndpoint
             .Accepts<SignupRequest>("application/json")
             .Produces<SignupResponse>(200, "application/json")
             .ProducesValidationProblem()
-            .RequireRateLimiting(RateLimiterPolicies.RlPoicy);
+            .RequireRateLimiting(RateLimiterPolicies.RlPolicy);
 
         return app;
     }
 
     private static async Task<Results<Ok<SignupResponse>, ProblemHttpResult>> HandleSignup(SignupRequest request,
         IAuthenticationService authenticationService,
-        [FromServices] ILogger<SignUpEndpointLoggerCategory> logger,
+        ILogger<SignUpEndpointLoggerCategory> logger,
         CancellationToken ct)
     {
         LogUserSignup(logger, request.Email);
 
         var result = await authenticationService.CreateUser(request.Email, request.Password, request.Fullname, ct);
 
-        return !result.IsError ?
-            TypedResults.Ok(new SignupResponse(Success: true, "User created successfully")) :
-            TypedResults.Problem(detail: result.Errors[0].Description,
+        return result.IsError
+            ? TypedResults.Problem(
+                detail: result.Errors[0].Description,
                 statusCode: 400,
-                title: "Error Creating User");
+                title: "Error Creating User")
+            : TypedResults.Ok(new SignupResponse(Success: true, "User created successfully"));
+
     }
 
     [LoggerMessage(0, LogLevel.Information, "User Signed Up {userName}")]

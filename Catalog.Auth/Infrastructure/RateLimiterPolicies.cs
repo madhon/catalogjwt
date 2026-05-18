@@ -2,5 +2,5 @@
 
 internal static class RateLimiterPolicies
 {
-    public const string RlPoicy = "rlPolicy";
+    public const string RlPolicy = "rlPolicy";
 }

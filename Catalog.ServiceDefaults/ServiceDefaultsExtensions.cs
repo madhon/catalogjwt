@@ -70,6 +70,8 @@ public static partial class ServiceDefaultsExtensions
                     .AddFusionCacheInstrumentation()
                     .AddBuiltInMeters()
                     .AddCustomMeters();
+                // do dot output metrics for this counter as it has issues and floods the output
+                metrics.AddView("http.client.open_connections", MetricStreamConfiguration.Drop);
             })
             .WithTracing(tracing =>
             {

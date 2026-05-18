@@ -10,15 +10,15 @@ internal static class RateLimitExtensions
 		{
 			opts.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
 
-			opts.AddPolicy(RateLimiterPolicies.RlPoicy, context => RateLimitPartition.GetFixedWindowLimiter(
+			opts.AddPolicy(RateLimiterPolicies.RlPolicy, context => RateLimitPartition.GetFixedWindowLimiter(
 				partitionKey: context.User.Identity?.Name ?? context.Request.Headers.Host.ToString(),
-				factory: partition => new FixedWindowRateLimiterOptions
+				factory: _ => new FixedWindowRateLimiterOptions
 				{
 					AutoReplenishment = true,
 					PermitLimit = 5,
 					QueueLimit = 0,
 					QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
-					Window = TimeSpan.FromMinutes(1)
+					Window = TimeSpan.FromMinutes(1),
 				}));
 		});
 

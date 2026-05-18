@@ -1,7 +1,5 @@
 ﻿namespace Catalog.Auth.Login;
 
-using Microsoft.AspNetCore.Mvc;
-
 internal sealed class LoginEndpointLoggerCategory;
 
 internal static partial class LoginEndpoint
@@ -22,11 +20,12 @@ internal static partial class LoginEndpoint
         return app;
     }
 
-    private static async Task<Results<Ok<LoginResponse>, ValidationProblem, ProblemHttpResult, UnauthorizedHttpResult>> HandleLogin(LoginRequest request,
-        [FromServices] IValidator<LoginRequest> loginValidator,
-        [FromServices] IAuthenticationService authenticationService,
-        [FromServices] ILogger<LoginEndpointLoggerCategory> logger,
-        [FromServices] ApiMetrics metrics,
+    private static async Task<Results<Ok<LoginResponse>, ValidationProblem, ProblemHttpResult, UnauthorizedHttpResult>> HandleLogin(
+        LoginRequest request,
+        IValidator<LoginRequest> loginValidator,
+        IAuthenticationService authenticationService,
+        ILogger<LoginEndpointLoggerCategory> logger,
+        ApiMetrics metrics,
         CancellationToken ct)
     {
         LogAuthenticating(logger, request.Email);

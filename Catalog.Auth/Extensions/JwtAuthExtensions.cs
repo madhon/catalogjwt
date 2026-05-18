@@ -6,11 +6,11 @@ internal static class JwtAuthExtensions
     {
         services.AddOptions<JwtOptions>()
             .BindConfiguration(JwtOptions.Jwt);
-        
+
         services.AddSingleton<IValidateOptions<JwtOptions>, ValidateJwtOptions>();
 
         services.AddSingleton<IConfigureOptions<JwtBearerOptions>, ConfigureJwtBearerOptions>();
-        
+
         return services.AddAuthentication(auth =>
             {
                 auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
