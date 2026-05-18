@@ -61,4 +61,7 @@
 	  <ProjectReference Include="..\Catalog.ServiceDefaults\Catalog.ServiceDefaults.csproj" />
 	</ItemGroup>
 
+  <!-- CodeGen Targets ================================================= -->
+  <Import Project="$(ToolsDir)targets\GenerateThisAssemblyCs.targets" />
+
 </Project>

@@ -36,6 +36,14 @@
     <NoWarn>$(NoWarn);MA0004;MA0048;CA1812;CA2007;IDE0290;MA0097</NoWarn>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <ProjectDir>$(MSBuildThisFileDirectory)</ProjectDir>
+    <RepoRoot>$(ProjectDir)\</RepoRoot>
+    <Artifacts>$(RepoRoot)artifacts\$(ReferenceType)\</Artifacts>
+    <ToolsDir Condition="'$(ToolsDir)'==''">$(RepoRoot)tools\</ToolsDir>
+  </PropertyGroup>
+
+
   <ItemGroup>
     <PackageReference Include="Meziantou.Analyzer">
       <PrivateAssets>all</PrivateAssets>
