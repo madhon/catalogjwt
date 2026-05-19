@@ -13,9 +13,8 @@
 	</PropertyGroup>
 	
 	<ItemGroup>
-        
 		<PackageReference Include="Microsoft.Bcl.TimeProvider" />
-		<PackageReference Include="Sodium.Core" />
+        <PackageReference Include="NSec.Cryptography" />
 		<PackageReference Include="Microsoft.AspNetCore.HeaderPropagation" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
 		<PackageReference Include="Microsoft.AspNetCore.DataProtection.EntityFrameworkCore" />
@@ -62,6 +61,6 @@
 	</ItemGroup>
 
   <!-- CodeGen Targets ================================================= -->
-  <Import Project="$(ToolsDir)targets\GenerateThisAssemblyCs.targets" />
+  <!--<Import Project="$(ToolsDir)targets\GenerateThisAssemblyCs.targets" />-->
 
 </Project>

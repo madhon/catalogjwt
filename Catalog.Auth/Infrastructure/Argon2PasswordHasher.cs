@@ -1,27 +1,36 @@
 ﻿namespace Catalog.Auth.Infrastructure;
 
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
-using Sodium;
+using System.Security.Cryptography;
+using NSec.Cryptography;
 
 internal sealed class Argon2PasswordHasher<TUser> : IPasswordHasher<TUser> where TUser : class
-{
-    private readonly Argon2PasswordHasherOptions options;
 
-    /// <summary>
-    /// Creates a new Argon2PasswordHasher.
-    /// </summary>
-    /// <param name="optionsAccessor">optional Argon2PasswordHasherOptions</param>
+{
+  // PHC string format prefix so we can identify our own hashes
+    private const string HashPrefix = "$argon2id$v=19$";
+    private const int SaltSize = 16;  // 16 bytes = libsodium's required salt length for Argon2id
+    private const int HashSize = 32;  // 32 bytes output, matches sodium-core default
+
+    private readonly Argon2PasswordHasherOptions _options;
+
     public Argon2PasswordHasher(IOptions<Argon2PasswordHasherOptions>? optionsAccessor = null)
     {
-        options = optionsAccessor?.Value ?? new Argon2PasswordHasherOptions();
+        _options = optionsAccessor?.Value ?? new Argon2PasswordHasherOptions();
     }
 
     public string HashPassword(TUser user, string password)
     {
         ArgumentNullException.ThrowIfNullOrEmpty(password);
 
-        return PasswordHash.ArgonHashString(password, options.Strength.ToStrengthArgon()).TrimEnd('\0');
+        var salt = RandomNumberGenerator.GetBytes(SaltSize);
+        var argon2 = GetArgon2id(_options.Strength);
+        var passwordBytes = Encoding.UTF8.GetBytes(password);
+        var hash = argon2.DeriveBytes(passwordBytes, salt, HashSize);
+
+        // Encode as a simple portable format: "prefix|b64salt|b64hash"
+        // This replicates the self-describing hash string sodium-core produced.
+        var encoded = $"{HashPrefix}{_options.Strength}${Convert.ToBase64String(salt)}${Convert.ToBase64String(hash)}";
+        return encoded;
     }
 
     public PasswordVerificationResult VerifyHashedPassword(TUser user, string hashedPassword, string providedPassword)
@@ -29,31 +38,74 @@ internal sealed class Argon2PasswordHasher<TUser> : IPasswordHasher<TUser> where
         ArgumentNullException.ThrowIfNull(hashedPassword);
         ArgumentNullException.ThrowIfNull(providedPassword);
 
-        var isValid = PasswordHash.ArgonHashStringVerify(hashedPassword, providedPassword);
+        if (!TryParseHash(hashedPassword, out var storedStrength, out var salt, out var storedHash))
+        {
+            return PasswordVerificationResult.Failed;
+        }
 
-        if (isValid && PasswordHash.ArgonPasswordNeedsRehash(hashedPassword, options.Strength.ToStrengthArgon()))
+        var argon2 = GetArgon2id(storedStrength);
+        var passwordBytes = Encoding.UTF8.GetBytes(providedPassword);
+        var candidateHash = argon2.DeriveBytes(passwordBytes, salt, HashSize);
+
+        if (!CryptographicOperations.FixedTimeEquals(candidateHash, storedHash))
+        {
+            return PasswordVerificationResult.Failed;
+        }
+
+        // Rehash needed if the stored strength differs from the current configured strength
+        if (storedStrength != _options.Strength)
         {
             return PasswordVerificationResult.SuccessRehashNeeded;
         }
 
-        return isValid ? PasswordVerificationResult.Success : PasswordVerificationResult.Failed;
+        return PasswordVerificationResult.Success;
     }
-}
 
-// Extension method to convert Argon2HashStrength to PasswordHash.StrengthArgon
-#pragma warning disable MA0048
-internal static class Argon2HashStrengthExtensions
-#pragma warning restore MA0048
-{
-    public static PasswordHash.StrengthArgon ToStrengthArgon(this Argon2HashStrength strength)
+    private static bool TryParseHash(
+        string hashedPassword,
+        out Argon2HashStrength strength,
+        out byte[] salt,
+        out byte[] hash)
     {
-        return strength switch
+        strength = default;
+        salt = [];
+        hash = [];
+
+        // Expected format: "$argon2id$v=19$<Strength>$<b64salt>$<b64hash>"
+        if (!hashedPassword.StartsWith(HashPrefix, StringComparison.Ordinal))
         {
-            Argon2HashStrength.Interactive => PasswordHash.StrengthArgon.Interactive,
-            Argon2HashStrength.Moderate => PasswordHash.StrengthArgon.Moderate,
-            Argon2HashStrength.Sensitive => PasswordHash.StrengthArgon.Sensitive,
-            Argon2HashStrength.Medium => PasswordHash.StrengthArgon.Medium,
-            _ => PasswordHash.StrengthArgon.Medium,
-        };
+            return false;
+        }
+
+        var remainder = hashedPassword[HashPrefix.Length..];
+        var parts = remainder.Split('$');
+
+        if (parts.Length != 3)
+        {
+            return false;
+        }
+
+        if (!Enum.TryParse<Argon2HashStrength>(parts[0], out strength))
+        {
+            return false;
+        }
+
+        try
+        {
+            salt = Convert.FromBase64String(parts[1]);
+            hash = Convert.FromBase64String(parts[2]);
+        }
+        catch (FormatException)
+        {
+            return false;
+        }
+
+        return salt.Length == SaltSize && hash.Length == HashSize;
+    }
+
+    private static Argon2id GetArgon2id(Argon2HashStrength strength)
+    {
+        var parameters = strength.ToArgon2Parameters();
+        return PasswordBasedKeyDerivationAlgorithm.Argon2id(parameters);
     }
 }
