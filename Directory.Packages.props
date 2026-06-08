@@ -56,7 +56,7 @@
     <PackageVersion Include="Azure.Identity" Version="1.19.0" />
     <PackageVersion Include="Yarp.ReverseProxy" Version="2.3.0" />
     <!-- 3rd party packages -->
-    <PackageVersion Include="AutoRegisterInject" Version="1.4.1" />
+    <PackageVersion Include="AutoRegisterInject" Version="2.0.1" />
     <PackageVersion Include="Asp.Versioning.Http" Version="10.0.0" />
     <PackageVersion Include="Asp.Versioning.Mvc.ApiExplorer" Version="10.0.0" />
     <PackageVersion Include="Asp.Versioning.OpenApi" Version="10.0.0-rc.1" />    
