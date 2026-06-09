@@ -2,7 +2,7 @@
 
 public class Product : BaseEntity<ProductId>
 {
-    public BrandId BrandId { get; set; }
+    public BrandId BrandId { get; set; } = null!;
     public string Name { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public decimal Price { get; set; }
