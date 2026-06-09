@@ -1,9 +1,9 @@
 <Project>
   <PropertyGroup>
-    <AspireVersion>13.3.5</AspireVersion>
+    <AspireVersion>13.4.3</AspireVersion>
     <NetRuntimeVersion>10.0.8</NetRuntimeVersion>
     <NetExtensionVersion>10.6.0</NetExtensionVersion>
-    <JwtTokenHandlerVersion>8.18.0</JwtTokenHandlerVersion>
+    <JwtTokenHandlerVersion>8.19.1</JwtTokenHandlerVersion>
     <RoslynatorVersion>4.15.0</RoslynatorVersion>
     <PollyVersion>8.6.6</PollyVersion>
     <FusionCacheVersion>2.6.0</FusionCacheVersion>
@@ -56,7 +56,7 @@
     <PackageVersion Include="Azure.Identity" Version="1.19.0" />
     <PackageVersion Include="Yarp.ReverseProxy" Version="2.3.0" />
     <!-- 3rd party packages -->
-    <PackageVersion Include="AutoRegisterInject" Version="1.4.1" />
+    <PackageVersion Include="AutoRegisterInject" Version="2.0.1" />
     <PackageVersion Include="Asp.Versioning.Http" Version="10.0.0" />
     <PackageVersion Include="Asp.Versioning.Mvc.ApiExplorer" Version="10.0.0" />
     <PackageVersion Include="Asp.Versioning.OpenApi" Version="10.0.0-rc.1" />    
@@ -103,7 +103,7 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.15.1" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.15.1" />
     <!-- Analyzers -->
-    <PackageVersion Include="Meziantou.Analyzer" Version="3.0.98" />
+    <PackageVersion Include="Meziantou.Analyzer" Version="3.0.102" />
     <PackageVersion Include="Roslynator.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.Formatting.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.CodeFixes" Version="$(RoslynatorVersion)" />
