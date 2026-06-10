@@ -1,13 +1,13 @@
 <Project>
   <PropertyGroup>
     <AspireVersion>13.4.3</AspireVersion>
-    <NetRuntimeVersion>10.0.8</NetRuntimeVersion>
-    <NetExtensionVersion>10.6.0</NetExtensionVersion>
+    <NetRuntimeVersion>10.0.9</NetRuntimeVersion>
+    <NetExtensionVersion>10.7.0</NetExtensionVersion>
     <JwtTokenHandlerVersion>8.19.1</JwtTokenHandlerVersion>
     <RoslynatorVersion>4.15.0</RoslynatorVersion>
     <PollyVersion>8.6.6</PollyVersion>
     <FusionCacheVersion>2.6.0</FusionCacheVersion>
-    <ScalarVersion>2.14.14</ScalarVersion>
+    <ScalarVersion>2.16.2</ScalarVersion>
   </PropertyGroup>
   <ItemGroup>
     <!-- System packages -->
