@@ -38,7 +38,7 @@ public sealed partial class FusionCacheBehaviour<TRequest, TResponse> : IPipelin
 
     [LoggerMessage(
         eventId: 223343,
-        level: LogLevel.Information,
+        level: LogLevel.Debug,
         message: "Handling request of type {requestType} with cache key {cacheKey}"
     )]
     private partial void LogHandlingRequest(string requestType, string cacheKey);

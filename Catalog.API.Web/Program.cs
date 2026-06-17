@@ -1,3 +1,5 @@
+using Catalog.API.Application.Features.Products;
+
 var builder = WebApplication.CreateSlimBuilder(args);
 
 builder.WebHost.UseKestrelHttpsConfiguration();
@@ -6,6 +8,9 @@ builder.AddServiceDefaults();
 builder.AddDefaultOpenApi();
 
 builder.AddMySerilogLogging();
+
+builder.Services.Configure<AddProductChannelOptions>(
+    builder.Configuration.GetSection(AddProductChannelOptions.SectionName));
 
 builder.Services.AddMyApi()
     .AddMyInfrastructureDependencies()

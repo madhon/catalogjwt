@@ -1,5 +1,6 @@
 ﻿namespace Catalog.Auth.Infrastructure;
 
+using System.Collections.Frozen;
 using System.Security.Cryptography;
 using NSec.Cryptography;
 
@@ -103,9 +104,18 @@ internal sealed class Argon2PasswordHasher<TUser> : IPasswordHasher<TUser> where
         return salt.Length == SaltSize && hash.Length == HashSize;
     }
 
-    private static Argon2id GetArgon2id(Argon2HashStrength strength)
-    {
-        var parameters = strength.ToArgon2Parameters();
-        return PasswordBasedKeyDerivationAlgorithm.Argon2id(parameters);
-    }
+    // private static Argon2id GetArgon2id(Argon2HashStrength strength)
+    // {
+    //     var parameters = strength.ToArgon2Parameters();
+    //     return PasswordBasedKeyDerivationAlgorithm.Argon2id(parameters);
+    // }
+
+    private static readonly FrozenDictionary<Argon2HashStrength, Argon2id> Argon2Algorithms =
+        Enum.GetValues<Argon2HashStrength>()
+            .ToFrozenDictionary(
+                strength => strength,
+                strength => PasswordBasedKeyDerivationAlgorithm.Argon2id(strength.ToArgon2Parameters()));
+
+    private static Argon2id GetArgon2id(Argon2HashStrength strength) =>
+        Argon2Algorithms[strength];
 }

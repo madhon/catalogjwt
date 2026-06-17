@@ -8,6 +8,7 @@ internal static class AddBrandEndpoint
             async Task<Results<Ok, ProblemHttpResult, UnauthorizedHttpResult, ValidationProblem>>
                 (
                     AddBrandRequest request,
+                    BrandMapper mapper,
                     ICatalogDbContext catalogContext,
                     IValidator<AddBrandRequest> validator,
                     CancellationToken ct
@@ -20,7 +21,6 @@ internal static class AddBrandEndpoint
                     return TypedResults.ValidationProblem(validationResult.ToDictionary());
                 }
 
-                var mapper = new BrandMapper();
                 var item = mapper.MapAddBrandRequestToBrand(request);
 
                 catalogContext.Brands.Add(item);

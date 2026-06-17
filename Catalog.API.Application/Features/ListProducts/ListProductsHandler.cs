@@ -19,21 +19,7 @@ public sealed class ListProductsHandler : IRequestHandler<ListProductsRequest, L
             .AsNoTracking()
             .LongCountAsync(cancellationToken);
 
-        var itemsOnPage = catalogDbContext.GetAllProducts(request.PageSize, request.PageIndex).ToList();
-
-#pragma warning disable S125
-        //var itemsOnPage = await catalogDbContext.Products
-        //    .AsNoTracking()
-        //    .Where(x =>
-        //        catalogDbContext.Products
-        //            .OrderBy(c => c.Name)
-        //            .Select(y => y.Id)
-        //            .Skip(request.PageSize * request.PageIndex)
-        //            .Take(request.PageSize)
-        //            .Contains(x.Id))
-        //    .ToListAsync(cancellationToken)
-        //    .ConfigureAwait(false);
-#pragma warning restore S125
+        var itemsOnPage = await catalogDbContext.GetAllProducts(request.PageSize, request.PageIndex,  cancellationToken);
 
         return new ListProductsResponse(totalItem, itemsOnPage);
     }

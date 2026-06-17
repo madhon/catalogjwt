@@ -3,9 +3,7 @@
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.RateLimiting;
 using System.Threading.RateLimiting;
-using Catalog.API.Web.API.Validators;
 using Catalog.API.Web.Extensions;
-using FluentValidation;
 using ZiggyCreatures.Caching.Fusion;
 
 internal static class ApiStartup
@@ -65,6 +63,9 @@ internal static class ApiStartup
 			.AsHybridCache();
 
 		services.AddValidators();
+
+        services.AddSingleton<ProductMapper>();
+        services.AddSingleton<BrandMapper>();
 
 		services.AddMediator(opts => opts.ServiceLifetime = ServiceLifetime.Scoped);
 

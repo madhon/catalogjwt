@@ -21,9 +21,6 @@ internal static class SerilogExtensions
 
         builder.Services.AddSerilog(loggerConfiguration =>
         {
-#pragma warning disable S125
-            //var options = new ConfigurationReaderOptions { SectionName = "Serilog" };
-#pragma warning restore S125
             loggerConfiguration
                 .MinimumLevel.Override("Microsoft.AspNetCore.Hosting", LogEventLevel.Warning)
                 .MinimumLevel.Override("Microsoft.AspNetCore.Mvc", LogEventLevel.Warning)
@@ -107,12 +104,19 @@ internal sealed class UserInfoEnricher : ILogEventEnricher
     {
         var userName = _httpContextAccessor.HttpContext?.User?.Identity?.Name ?? "";
         var headers = _httpContextAccessor.HttpContext?.Request?.Headers;
-        var clientIp = headers?.ContainsKey("X-Forwarded-For") == true
-            ? headers["X-Forwarded-For"].ToString().Split(',')[0].Trim()
-            : _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString() ?? "";
-        var clientAgent = headers?.ContainsKey("User-Agent") == true
-            ? headers.UserAgent.ToString()
-            : "";
+
+        string clientIp;
+        if (headers?.TryGetValue("X-Forwarded-For", out var forwarded) == true)
+        {
+            clientIp = forwarded.ToString().Split(',')[0].Trim();
+        }
+        else
+        {
+            clientIp = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString() ?? "";
+        }
+
+        var clientAgent = headers?.UserAgent.ToString() ?? "";
+
         var activity = _httpContextAccessor.HttpContext?.Features.Get<IHttpActivityFeature>()?.Activity;
         if (activity != null)
         {

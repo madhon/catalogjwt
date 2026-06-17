@@ -31,22 +31,20 @@ public class CatalogContext : DbContext, ICatalogDbContext
         configurationBuilder.RegisterAllInVogenEfCoreConverters();
     }
 
-    private static readonly Func<CatalogContext, int, int, IEnumerable<Product>> GetProductsInternal =
-        EF.CompileQuery(
+    private static readonly Func<CatalogContext, int, int, IAsyncEnumerable<Product>> GetProductsPageCompiled =
+        EF.CompileAsyncQuery(
             (CatalogContext context, int pageSize, int pageIndex) =>
                 context.Products
                     .AsNoTracking()
-                    .Where(x =>
-                        context.Products
-                            .OrderBy(c => c.Name)
-                            .Select(y => y.Id)
-                            .Skip(pageSize * pageIndex)
-                            .Take(pageSize)
-                            .Contains(x.Id)).Include(x=>x.Brand)
-        );
+                    .OrderBy(p => p.Name)
+                    .Skip(pageSize * pageIndex)
+                    .Take(pageSize)
+                    .Include(p => p.Brand));
 
-    public IEnumerable<Product> GetAllProducts(int pageSize, int pageIndex)
+    public async Task<IList<Product>> GetAllProducts(int pageSize, int pageIndex, CancellationToken cancellationToken)
     {
-        return GetProductsInternal(this, pageSize, pageIndex);
+        return await GetProductsPageCompiled(this, pageSize, pageIndex)
+            .ToListAsync(cancellationToken)
+            .ConfigureAwait(false);
     }
 }

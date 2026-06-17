@@ -51,6 +51,7 @@
     <PackageVersion Include="Microsoft.Extensions.Telemetry.Abstractions" Version="$(NetExtensionVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="$(NetExtensionVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="$(NetRuntimeVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Options" Version="$(NetRuntimeVersion)" />
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.23.0" />
     <PackageVersion Include="Azure.Core" Version="1.51.1" />
     <PackageVersion Include="Azure.Identity" Version="1.19.0" />

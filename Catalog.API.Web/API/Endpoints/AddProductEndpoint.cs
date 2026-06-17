@@ -12,11 +12,11 @@ internal static class AddProductEndpoint
                     (
                         AddProductRequest request,
                         Channel<Product> productChannel,
+                        ProductMapper mapper,
                         CancellationToken ct
                     )
                     =>
                 {
-                    var mapper = new ProductMapper();
                     var item = mapper.MapAddProductRequestToProduct(request);
                     item.Brand = null;
 

@@ -4,7 +4,7 @@ using System.Diagnostics;
 using Mediator;
 using Microsoft.Extensions.Logging;
 
-public partial class PerformanceBehaviour<TMessage, TResponse> : IPipelineBehavior<TMessage, TResponse>
+public sealed partial class PerformanceBehaviour<TMessage, TResponse> : IPipelineBehavior<TMessage, TResponse>
     where TMessage : IMessage
 {
     private readonly ILogger<PerformanceBehaviour<TMessage, TResponse>> logger;

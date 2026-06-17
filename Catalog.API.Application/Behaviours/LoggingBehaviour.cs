@@ -3,7 +3,7 @@
 using Mediator;
 using Microsoft.Extensions.Logging;
 
-public partial class LoggingBehaviour<TMessage, TResponse> : IPipelineBehavior<TMessage, TResponse>
+public sealed partial class LoggingBehaviour<TMessage, TResponse> : IPipelineBehavior<TMessage, TResponse>
     where TMessage : IMessage
 {
     private readonly ILogger<LoggingBehaviour<TMessage, TResponse>> logger;
@@ -22,6 +22,6 @@ public partial class LoggingBehaviour<TMessage, TResponse> : IPipelineBehavior<T
         return await next(message, cancellationToken).ConfigureAwait(false);
     }
 
-    [LoggerMessage(10000, LogLevel.Information, "Request: {requestName}")]
+    [LoggerMessage(10000, LogLevel.Debug, "Request: {requestName}")]
     private partial void LogRequestName(string requestName);
 }
