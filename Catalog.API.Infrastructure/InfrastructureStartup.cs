@@ -1,30 +1,26 @@
-﻿namespace Catalog.API.Infrastructure
+﻿namespace Catalog.API.Infrastructure;
+
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+
+public static class InfrastructureStartup
 {
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
-
-    public static class InfrastructureStartup
+    public static IServiceCollection AddMyInfrastructureDependencies(this IServiceCollection services)
     {
-        public static IServiceCollection AddMyInfrastructureDependencies(this IServiceCollection services)
-        {
-            ArgumentNullException.ThrowIfNull(services);
+        ArgumentNullException.ThrowIfNull(services);
 
-            Authentication.Startup.ConfigureServices(services);
-            Persistence.Startup.ConfigureServices(services);
+        Authentication.Startup.ConfigureServices(services);
+        Persistence.Startup.ConfigureServices(services);
 
-            return services;
-        }
+        return services;
+    }
 
-        public static IApplicationBuilder UseMyInfrastructure(this IApplicationBuilder app)
-        {
-            ArgumentNullException.ThrowIfNull(app);
+    public static IApplicationBuilder UseMyInfrastructure(this IApplicationBuilder app)
+    {
+        ArgumentNullException.ThrowIfNull(app);
 
-            Authentication.Startup.Configure(app);
+        Authentication.Startup.Configure(app);
 
-            return app;
-        }
+        return app;
     }
 }

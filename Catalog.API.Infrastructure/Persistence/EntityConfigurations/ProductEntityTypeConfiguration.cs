@@ -26,6 +26,8 @@ public class ProductEntityTypeConfiguration : IEntityTypeConfiguration<Product>
             .HasConversion<string>()
             .HasMaxLength(int.MaxValue);
 
+        builder.HasIndex(p => p.Name);
+
         builder.Property(b => b.BrandId).IsRequired();
         builder.HasOne(p => p.Brand).WithMany().HasForeignKey(p => p.BrandId);
     }

@@ -2,17 +2,38 @@
 
 internal static class AuthDbContextExtensions
 {
-    public static IServiceCollection AddAuthDbContext(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddAuthDbContext(this IServiceCollection services)
     {
-        services.AddDbContextPool<AuthDbContext>(options =>
+        services.AddOptions<PersistenceOptions>()
+            .BindConfiguration(PersistenceOptions.SectionName);
+
+        services.AddSingleton<IValidateOptions<PersistenceOptions>, PersistenceOptionsValidator>();
+
+        services.AddSingleton<SlowQueryInterceptor>();
+
+        services.AddDbContextPool<AuthDbContext>((sp, options) =>
         {
+            var persistenceOptions = sp.GetRequiredService<IOptions<PersistenceOptions>>().Value;
+
             options.UseModel(MyCompiledModels.AuthDbContextModel.Instance);
-            options.LogTo(Console.WriteLine, LogLevel.Information);
-            options.UseSqlServer(configuration["ConnectionString"], sqlOptions =>
+            options.UseSqlServer(persistenceOptions.AuthDb, sqlOptions =>
             {
                 sqlOptions.MigrationsAssembly(typeof(Program).GetTypeInfo().Assembly.GetName().Name);
-                sqlOptions.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
+                sqlOptions.EnableRetryOnFailure();
+                sqlOptions.UseCompatibilityLevel(160);
             });
+
+            options.AddInterceptors(sp.GetRequiredService<SlowQueryInterceptor>());
+
+            if (persistenceOptions.EnableDetailedErrors)
+            {
+                options.EnableDetailedErrors();
+            }
+
+            if (persistenceOptions.EnableSensitiveDataLogging)
+            {
+                options.EnableSensitiveDataLogging();
+            }
         });
 
         return services;

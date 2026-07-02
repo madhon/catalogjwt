@@ -31,6 +31,12 @@ public class CatalogContext : DbContext, ICatalogDbContext
         configurationBuilder.RegisterAllInVogenEfCoreConverters();
     }
 
+    private static readonly Func<CatalogContext, CancellationToken, Task<long>> GetProductCountCompiled =
+        EF.CompileAsyncQuery((CatalogContext catalogDbContext, CancellationToken cancellationToken) =>
+            catalogDbContext.Products
+                .AsNoTracking()
+                .LongCount());
+
     private static readonly Func<CatalogContext, int, int, IAsyncEnumerable<Product>> GetProductsPageCompiled =
         EF.CompileAsyncQuery(
             (CatalogContext context, int pageSize, int pageIndex) =>
@@ -40,6 +46,11 @@ public class CatalogContext : DbContext, ICatalogDbContext
                     .Skip(pageSize * pageIndex)
                     .Take(pageSize)
                     .Include(p => p.Brand));
+
+    public async Task<long> GetProductCountAsync(CancellationToken cancellationToken)
+    {
+        return await GetProductCountCompiled(this, cancellationToken);
+    }
 
     public async Task<IList<Product>> GetAllProducts(int pageSize, int pageIndex, CancellationToken cancellationToken)
     {

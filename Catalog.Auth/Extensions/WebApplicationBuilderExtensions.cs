@@ -33,9 +33,8 @@ internal static class WebApplicationBuilderExtensions
 		services.AddProblemDetails();
 
 		services.AddAuthorization();
-		services.AddJwtAuth(configuration);
 
-		services.AddAuthDbContext(configuration);
+		services.AddAuthDbContext();
 
 		services.AddDataProtection()
 			.PersistKeysToDbContext<AuthDbContext>();
@@ -54,9 +53,12 @@ internal static class WebApplicationBuilderExtensions
 			options.Password.RequiredUniqueChars = 1;
 		});
 
-		services.AddIdentity<ApplicationUser, IdentityRole>()
-			.AddEntityFrameworkStores<AuthDbContext>()
-			.AddDefaultTokenProviders();
+        services.AddIdentityCore<ApplicationUser>()
+            .AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<AuthDbContext>()
+            .AddDefaultTokenProviders();
+
+        services.AddJwtAuth(configuration);
 
 		services.AutoRegisterFromCatalogAuth();
 
