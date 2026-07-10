@@ -88,7 +88,7 @@
     <PackageVersion Include="Scalar.AspNetCore.Microsoft" Version="$(ScalarVersion)" />
     <PackageVersion Include="EntityFrameworkCore.Exceptions.SqlServer" Version="10.0.1" />
     <PackageVersion Include="NetEscapades.AspNetCore.SecurityHeaders" Version="1.3.1" />
-    <PackageVersion Include="Vogen" Version="8.0.5" />
+    <PackageVersion Include="Vogen" Version="8.0.6" />
     <PackageVersion Include="Polly.Core" Version="$(PollyVersion)" />
     <PackageVersion Include="Polly.Extensions" Version="$(PollyVersion)" />
     <PackageVersion Include="Polly.RateLimiting" Version="$(PollyVersion)" />
