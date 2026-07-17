@@ -3,8 +3,9 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Catalog.Auth.Login;
+using Catalog.Auth.Refresh;
 using Catalog.Auth.Signup;
-using Microsoft.AspNetCore.Mvc;
+
 
 [JsonSourceGenerationOptions(defaults: JsonSerializerDefaults.Web, GenerationMode = JsonSourceGenerationMode.Default)]
 [JsonSerializable(typeof(LoginRequest))]
@@ -12,7 +13,9 @@ using Microsoft.AspNetCore.Mvc;
 [JsonSerializable(typeof(SignupRequest))]
 [JsonSerializable(typeof(SignupResponse))]
 
-[JsonSerializable(typeof(ProblemDetails))]
+[JsonSerializable(typeof(RefreshRequest))]
+[JsonSerializable(typeof(RefreshResponse))]
+
 [JsonSerializable(typeof(HttpValidationProblemDetails))]
 [JsonSerializable(typeof(ValidationProblem))]
 [JsonSerializable(typeof(ProblemHttpResult))]

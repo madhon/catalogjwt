@@ -1,6 +1,6 @@
-﻿namespace Catalog.Auth.Login;
+﻿namespace Catalog.Auth.Refresh;
 
-internal sealed record LoginResponse
+internal sealed record RefreshResponse
 {
     [JsonPropertyName("access_token")]
     public string AccessToken { get; init; } = null!;
@@ -15,5 +15,5 @@ internal sealed record LoginResponse
     public DateTime RefreshExpiresAt { get; init; }
 
     [JsonPropertyName("token_type")]
-    public string TokenType { get; init; } = "Bearer";
+    public string TokenType { get; init; } = "Bearer";        
 }

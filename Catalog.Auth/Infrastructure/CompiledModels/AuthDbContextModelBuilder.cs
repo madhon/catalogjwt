@@ -11,13 +11,14 @@ namespace MyCompiledModels
     public partial class AuthDbContextModel
     {
         private AuthDbContextModel()
-            : base(skipDetectChanges: false, modelId: new Guid("de8162db-0a8d-4485-a034-f3f4388b0e58"), entityTypeCount: 8)
+            : base(skipDetectChanges: false, modelId: new Guid("7d95b0aa-c279-4844-b90f-1539a0e5c9cd"), entityTypeCount: 9)
         {
         }
 
         partial void Initialize()
         {
             var applicationUser = ApplicationUserEntityType.Create(this);
+            var refreshToken = RefreshTokenEntityType.Create(this);
             var dataProtectionKey = DataProtectionKeyEntityType.Create(this);
             var identityRole = IdentityRoleEntityType.Create(this);
             var identityRoleClaim = IdentityRoleClaimEntityType.Create(this);
@@ -34,6 +35,7 @@ namespace MyCompiledModels
             IdentityUserTokenEntityType.CreateForeignKey1(identityUserToken, applicationUser);
 
             ApplicationUserEntityType.CreateAnnotations(applicationUser);
+            RefreshTokenEntityType.CreateAnnotations(refreshToken);
             DataProtectionKeyEntityType.CreateAnnotations(dataProtectionKey);
             IdentityRoleEntityType.CreateAnnotations(identityRole);
             IdentityRoleClaimEntityType.CreateAnnotations(identityRoleClaim);
@@ -42,7 +44,7 @@ namespace MyCompiledModels
             IdentityUserRoleEntityType.CreateAnnotations(identityUserRole);
             IdentityUserTokenEntityType.CreateAnnotations(identityUserToken);
 
-            AddAnnotation("ProductVersion", "10.0.9");
+            AddAnnotation("ProductVersion", "10.0.10");
             AddAnnotation("Relational:MaxIdentifierLength", 128);
             AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
         }

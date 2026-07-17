@@ -1,6 +1,7 @@
 ﻿namespace Catalog.Auth.Infrastructure;
 
 using Catalog.Auth.Login;
+using Catalog.Auth.Refresh;
 using Catalog.Auth.Signup;
 
 internal static class AuthApiExtensions
@@ -9,7 +10,8 @@ internal static class AuthApiExtensions
     {
         app.MapGroup("api/v1/")
             .MapLoginEndpoint()
-            .MapSignUpEndpoint();
+            .MapSignUpEndpoint()
+            .MapRefreshEndpoint();
 
         return app;
     }

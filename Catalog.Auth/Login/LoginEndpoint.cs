@@ -49,6 +49,8 @@ internal static partial class LoginEndpoint
         {
             AccessToken = authenticationResult.Value.Token,
             ExpiresIn = authenticationResult.Value.ExpiresIn,
+            RefreshToken = authenticationResult.Value.RefreshToken,
+            RefreshExpiresAt = authenticationResult.Value.RefreshExpiresAt,
         };
 
         metrics.UserLoggedIn();

@@ -14,4 +14,14 @@ internal sealed class AuthDbContext : IdentityDbContext<ApplicationUser, Identit
     }
 
     public DbSet<DataProtectionKey> DataProtectionKeys => Set<DataProtectionKey>();
+    public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        ArgumentNullException.ThrowIfNull(modelBuilder);
+
+        modelBuilder.ApplyConfiguration(new RefreshTokenEntityConfiguration());
+
+        base.OnModelCreating(modelBuilder);
+    }
 }
