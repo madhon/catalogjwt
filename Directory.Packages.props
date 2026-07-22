@@ -3,7 +3,7 @@
     <AspireVersion>13.4.6</AspireVersion>
     <NetRuntimeVersion>10.0.10</NetRuntimeVersion>
     <NetExtensionVersion>10.8.0</NetExtensionVersion>
-    <JwtTokenHandlerVersion>8.19.2</JwtTokenHandlerVersion>
+    <JwtTokenHandlerVersion>8.20.0</JwtTokenHandlerVersion>
     <RoslynatorVersion>4.15.0</RoslynatorVersion>
     <PollyVersion>8.6.6</PollyVersion>
     <FusionCacheVersion>2.6.0</FusionCacheVersion>
