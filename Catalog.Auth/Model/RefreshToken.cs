@@ -1,6 +1,6 @@
 ﻿namespace Catalog.Auth.Model;
 
-public sealed class RefreshToken
+internal sealed class RefreshToken
 {
     public int Id { get; set; }
     public string Token { get; set; } = string.Empty;

@@ -1,6 +1,3 @@
 ﻿namespace Catalog.Auth.Refresh;
 
-public class RefreshRequest
-{
-    public string RefreshToken { get; set; }
-}
+internal sealed record RefreshRequest(string RefreshToken);
