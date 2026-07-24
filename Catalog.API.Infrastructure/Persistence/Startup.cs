@@ -23,6 +23,9 @@ internal static class Startup
             var persistenceOptions = sp.GetRequiredService<IOptions<PersistenceOptions>>().Value;
 
             options.UseModel(CatalogContextModel.Instance);
+
+            options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+
             options.UseSqlServer(persistenceOptions.CatalogDb, sqlOpts =>
             {
                 sqlOpts.EnableRetryOnFailure();
