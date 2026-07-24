@@ -14,5 +14,8 @@ internal sealed class RefreshTokenEntityConfiguration : IEntityTypeConfiguration
         builder.Property(rt => rt.Expires).IsRequired();
         builder.Property(rt => rt.Revoked);
         builder.Property(rt => rt.ReplacedByToken).HasMaxLength(128);
+
+        builder.HasIndex(rt => rt.Token).IsUnique();
+        builder.HasIndex(rt => new {rt.UserId, rt.Revoked});
     }
 }

@@ -25,10 +25,12 @@ internal static class RefreshEndpoint
             UserManager<ApplicationUser> userManager,
             AuthDbContext  dbContext,
             ApiMetrics metrics,
+            TimeProvider timeProvider,
             CancellationToken ct)
     {
         var existing = await dbContext.RefreshTokens
             .FirstOrDefaultAsync(t => t.Token == request.RefreshToken, ct);
+
         if (existing is null)
         {
             return TypedResults.Unauthorized();
@@ -59,7 +61,7 @@ internal static class RefreshEndpoint
             RefreshExpiresAt = result.RefreshExpiresAt,
         };
 
-        existing.Revoked = DateTime.UtcNow;
+        existing.Revoked = timeProvider.GetUtcNow().UtcDateTime;
         existing.ReplacedByToken = response.RefreshToken;
         await dbContext.SaveChangesAsync(ct);
 

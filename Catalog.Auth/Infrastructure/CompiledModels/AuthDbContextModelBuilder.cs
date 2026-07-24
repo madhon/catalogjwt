@@ -11,7 +11,7 @@ namespace MyCompiledModels
     public partial class AuthDbContextModel
     {
         private AuthDbContextModel()
-            : base(skipDetectChanges: false, modelId: new Guid("7d95b0aa-c279-4844-b90f-1539a0e5c9cd"), entityTypeCount: 9)
+            : base(skipDetectChanges: false, modelId: new Guid("a208395e-9322-4fd3-a089-de4bdcb1bbcf"), entityTypeCount: 9)
         {
         }
 

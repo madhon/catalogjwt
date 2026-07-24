@@ -20,6 +20,7 @@ namespace MyCompiledModels
                 typeof(RefreshToken),
                 baseEntityType,
                 propertyCount: 7,
+                unnamedIndexCount: 2,
                 keyCount: 1);
 
             var id = runtimeEntityType.AddProperty(
@@ -84,6 +85,13 @@ namespace MyCompiledModels
             var key = runtimeEntityType.AddKey(
                 new[] { id });
             runtimeEntityType.SetPrimaryKey(key);
+
+            var index = runtimeEntityType.AddIndex(
+                new[] { token },
+                unique: true);
+
+            var index0 = runtimeEntityType.AddIndex(
+                new[] { userId, revoked });
 
             return runtimeEntityType;
         }
