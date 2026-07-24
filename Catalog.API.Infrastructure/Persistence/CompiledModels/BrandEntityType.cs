@@ -29,10 +29,11 @@ namespace Catalog.API.Infrastructure.Persistence.CompiledModels
                 typeof(BrandId),
                 propertyInfo: typeof(BaseEntity<BrandId>).GetProperty("Id", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(BaseEntity<BrandId>).GetField("<Id>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                valueGenerated: ValueGenerated.OnAdd,
                 afterSaveBehavior: PropertySaveBehavior.Throw,
                 valueConverter: new BrandId.EfCoreValueConverter(),
                 valueComparer: new VogenEfCoreConverters.BrandIdEfCoreValueComparer());
-            id.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
+            id.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             var brandName = runtimeEntityType.AddProperty(
                 "BrandName",

@@ -29,6 +29,10 @@ public class ProductEntityTypeConfiguration : IEntityTypeConfiguration<Product>
         builder.HasIndex(p => p.Name);
 
         builder.Property(b => b.BrandId).IsRequired();
-        builder.HasOne(p => p.Brand).WithMany().HasForeignKey(p => p.BrandId);
+
+        builder.HasOne(p => p.Brand)
+            .WithMany()
+            .HasForeignKey(p => p.BrandId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
