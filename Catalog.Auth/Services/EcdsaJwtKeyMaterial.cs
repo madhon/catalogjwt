@@ -12,15 +12,24 @@ internal sealed class EcdsaJwtKeyMaterial : IDisposable
     {
         ecdsa = ECDsa.Create();
         ecdsa.ImportFromPem(pem.Replace("\\n", "\n", StringComparison.Ordinal));
-        SecurityKey = new ECDsaSecurityKey(ecdsa)
+        var key = new ECDsaSecurityKey(ecdsa)
         {
             KeyId = Convert.ToHexString(SHA256.HashData(ecdsa.ExportSubjectPublicKeyInfo()))[..16],
+            CryptoProviderFactory = new CryptoProviderFactory
+            {
+                CacheSignatureProviders = true,
+            },
         };
+
+        SecurityKey = key;
 
         SigningCredentials = isPrivate
             ? new SigningCredentials(SecurityKey, SecurityAlgorithms.EcdsaSha256)
+            {
+                CryptoProviderFactory = key.CryptoProviderFactory,
+            }
             : null;
-
     }
+
     public void Dispose() => ecdsa.Dispose();
 }
