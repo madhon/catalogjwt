@@ -5,7 +5,7 @@ using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 
-[RegisterScoped]
+[RegisterSingleton]
 internal sealed class JwtTokenService : IJwtTokenService
 {
     private readonly JsonWebTokenHandler tokenHandler = new();
