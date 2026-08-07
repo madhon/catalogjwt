@@ -28,8 +28,10 @@ internal static class RefreshEndpoint
             TimeProvider timeProvider,
             CancellationToken ct)
     {
+        var presentedHash = RefreshTokenHasher.Hash(request.RefreshToken);
+
         var existing = await dbContext.RefreshTokens
-            .FirstOrDefaultAsync(t => t.Token == request.RefreshToken, ct);
+            .FirstOrDefaultAsync(t => t.Token == presentedHash, ct);
 
         if (existing is null)
         {
@@ -62,7 +64,7 @@ internal static class RefreshEndpoint
         };
 
         existing.Revoked = timeProvider.GetUtcNow().UtcDateTime;
-        existing.ReplacedByToken = response.RefreshToken;
+        existing.ReplacedByToken = RefreshTokenHasher.Hash(response.RefreshToken);
         await dbContext.SaveChangesAsync(ct);
 
         return TypedResults.Ok(response);

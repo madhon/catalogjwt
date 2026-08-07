@@ -17,12 +17,15 @@ internal static class WebApplicationBuilderExtensions
         {
             x.TokenValidationParameters = new TokenValidationParameters
             {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(key),
                 ValidateIssuer = true,
-                ValidateAudience = true,
                 ValidIssuer = jwtOpts.Issuer,
+                ValidateAudience = true,
                 ValidAudience = jwtOpts.Audience,
+                ValidateIssuerSigningKey = true,
+                ValidateLifetime = true,
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidAlgorithms = [SecurityAlgorithms.HmacSha256],
+                ClockSkew = TimeSpan.FromSeconds(30),
             };
         });
 

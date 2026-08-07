@@ -11,7 +11,15 @@ internal sealed class AuthenticationService : IAuthenticationService
     private readonly TimeProvider timeProvider;
     private readonly AuthDbContext dbContext;
 
-    public AuthenticationService(IJwtTokenService jwtTokenService, UserManager<ApplicationUser> userManager, TimeProvider timeProvider, AuthDbContext dbContext)
+    private readonly int accessTokenMinutes;
+    private readonly int refreshTokenDays;
+
+    public AuthenticationService(
+        IJwtTokenService jwtTokenService,
+        UserManager<ApplicationUser> userManager,
+        TimeProvider timeProvider,
+        AuthDbContext dbContext,
+        IOptions<JwtOptions> options)
     {
         ArgumentNullException.ThrowIfNull(jwtTokenService);
         ArgumentNullException.ThrowIfNull(userManager);
@@ -22,6 +30,9 @@ internal sealed class AuthenticationService : IAuthenticationService
         this.userManager = userManager;
         this.timeProvider = timeProvider;
         this.dbContext = dbContext;
+
+        accessTokenMinutes = options.Value.AccessTokenMinutes;
+        refreshTokenDays = options.Value.RefreshTokenDays;
     }
 
     public async Task<ErrorOr<IdentityResult>> CreateUser(string email, string password, string fullName, CancellationToken ct)
@@ -71,16 +82,17 @@ internal sealed class AuthenticationService : IAuthenticationService
             var additionalClaims = GenerateClaims(user, email);
             var roles = await userManager.GetRolesAsync(user);
 
-            var result = jwtTokenService.CreateToken(additionalClaims, roles);
+            var result = jwtTokenService.CreateToken(additionalClaims, roles, accessTokenMinutes);
             var created = timeProvider.GetUtcNow().UtcDateTime;
 
-            result.RefreshToken = CreateRefreshToken();
-            result.RefreshExpiresAt = created.AddDays(3);
+            var rawRefresh = CreateRefreshToken();
+            result.RefreshToken = rawRefresh;
+            result.RefreshExpiresAt = created.AddDays(refreshTokenDays);
 
             // Save the refresh token to the database
             var refreshToken = new RefreshToken
             {
-                Token = result.RefreshToken,
+                Token = RefreshTokenHasher.Hash(rawRefresh),
                 UserId = user.Id,
                 Created = created,
                 Expires = result.RefreshExpiresAt,
@@ -104,13 +116,14 @@ internal sealed class AuthenticationService : IAuthenticationService
         var result = jwtTokenService.CreateToken(additionalClaims, roles);
         var created = timeProvider.GetUtcNow().UtcDateTime;
 
-        result.RefreshToken = CreateRefreshToken();
+        var rawRefresh = CreateRefreshToken();
+        result.RefreshToken = rawRefresh;
         result.RefreshExpiresAt = created.AddDays(3);
 
         // Save the refresh token to the database
         var refreshToken = new RefreshToken
         {
-            Token = result.RefreshToken,
+            Token = RefreshTokenHasher.Hash(rawRefresh),
             UserId = user.Id,
             Created = created,
             Expires = result.RefreshExpiresAt,

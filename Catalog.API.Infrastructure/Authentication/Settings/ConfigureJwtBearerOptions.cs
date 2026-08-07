@@ -41,7 +41,8 @@ public partial class ConfigureJwtBearerOptions(IOptions<AuthenticationSettings> 
             ValidateIssuerSigningKey = true,
             ValidateLifetime = true,
             IssuerSigningKey = new SymmetricSecurityKey(key),
-            ClockSkew = TimeSpan.FromSeconds(5),
+            ValidAlgorithms = [SecurityAlgorithms.HmacSha256],
+            ClockSkew = TimeSpan.FromSeconds(30),
         };
 
         options.Events = new JwtBearerEvents

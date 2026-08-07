@@ -21,6 +21,7 @@ internal sealed class ConfigureJwtBearerOptions(IOptions<JwtOptions> jwtOptions)
         var key = Encoding.ASCII.GetBytes(jwtOptions.Secret);
 
         options.SaveToken = true;
+
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
@@ -28,8 +29,10 @@ internal sealed class ConfigureJwtBearerOptions(IOptions<JwtOptions> jwtOptions)
             ValidateAudience = true,
             ValidAudience = jwtOptions.Audience,
             ValidateIssuerSigningKey = true,
+            ValidateLifetime = true,
             IssuerSigningKey = new SymmetricSecurityKey(key),
-            ClockSkew = TimeSpan.FromSeconds(15),
+            ValidAlgorithms = [SecurityAlgorithms.HmacSha256],
+            ClockSkew = TimeSpan.FromSeconds(30),
         };
 
         options.Events = new JwtBearerEvents

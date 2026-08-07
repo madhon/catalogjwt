@@ -36,7 +36,7 @@ internal sealed class JwtTokenService : IJwtTokenService
         this.timeProvider = timeProvider;
     }
 
-    public TokenResult CreateToken(IDictionary<string, object> claims, IEnumerable<string> roles, int expiresInMinutes = 120)
+    public TokenResult CreateToken(IDictionary<string, object> claims, IEnumerable<string> roles, int expiresInMinutes)
     {
         ArgumentNullException.ThrowIfNull(claims);
         ArgumentNullException.ThrowIfNull(roles);
