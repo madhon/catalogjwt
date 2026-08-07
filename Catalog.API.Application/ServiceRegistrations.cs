@@ -4,6 +4,7 @@ using System.Threading.Channels;
 using Catalog.API.Application.Behaviours;
 using Catalog.API.Application.Features.Products;
 using Mediator;
+using Microsoft.Extensions.Options;
 
 public static class ServiceRegistations
 {
@@ -13,12 +14,16 @@ public static class ServiceRegistations
 
         services.AddHostedService<AddProductChannelProcessor>();
 
-        services.AddSingleton<Channel<Product>>(
-            _=> Channel.CreateUnbounded<Product>(new UnboundedChannelOptions
+        services.AddSingleton<Channel<Product>>(sp =>
+        {
+            var capacity = Math.Max(1, sp.GetRequiredService<IOptions<AddProductChannelOptions>>().Value.Capacity);
+            return Channel.CreateBounded<Product>(new BoundedChannelOptions(capacity)
             {
                 SingleReader = true,
+                FullMode = BoundedChannelFullMode.Wait,
                 AllowSynchronousContinuations = false,
-            }));
+            });
+        });
 
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(PerformanceBehaviour<,>));

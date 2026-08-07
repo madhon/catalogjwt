@@ -27,7 +27,7 @@ public partial class ConfigureJwtBearerOptions(IOptions<AuthenticationSettings> 
             return;
         }
 
-        options.SaveToken = true;
+        options.SaveToken = false;
         // prevent from mapping "sub" claim to nameidentifier.
         JsonWebTokenHandler.DefaultInboundClaimTypeMap.Remove("sub");
 

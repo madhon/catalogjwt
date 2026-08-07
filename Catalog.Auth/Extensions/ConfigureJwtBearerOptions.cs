@@ -20,7 +20,7 @@ internal sealed class ConfigureJwtBearerOptions(IOptions<JwtOptions> jwtOptions,
 
         //var key = Encoding.ASCII.GetBytes(jwtOptions.Secret);
 
-        options.SaveToken = true;
+        options.SaveToken = false;
 
         options.TokenValidationParameters = new TokenValidationParameters
         {
