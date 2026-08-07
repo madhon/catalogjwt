@@ -47,6 +47,6 @@ internal static class Startup
             }
         }, poolSize: 128);
 
-        services.AddScoped<ICatalogDbContext, CatalogContext>();
+        services.AddScoped<ICatalogDbContext>(sp => sp.GetRequiredService<CatalogContext>());
     }
 }
