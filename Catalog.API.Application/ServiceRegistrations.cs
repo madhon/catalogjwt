@@ -6,7 +6,7 @@ using Catalog.API.Application.Features.Products;
 using Mediator;
 using Microsoft.Extensions.Options;
 
-public static class ServiceRegistations
+public static class ServiceRegistrations
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {

@@ -5,4 +5,6 @@ public sealed class AddProductChannelOptions
     public const string SectionName = "AddProductChannel";
 
     public int MaxBatchSize { get; set; } = 20;
+
+    public int Capacity { get; set; } = 500;
 }
