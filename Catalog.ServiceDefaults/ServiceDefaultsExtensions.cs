@@ -96,6 +96,8 @@ public static partial class ServiceDefaultsExtensions
                     {
                         sci.RecordException = true;
                     });
+
+                tracing.AddSource("Catalog.API.Mediator");
             });
 
         builder.AddOpenTelemetryExporters();
@@ -166,6 +168,7 @@ public static partial class ServiceDefaultsExtensions
 
     private static MeterProviderBuilder AddCustomMeters(this MeterProviderBuilder meterProviderBuilder) =>
         meterProviderBuilder.AddMeter(
-            "Catalog.Auth");
+            "Catalog.Auth",
+            "Catalog.API.Mediator");
 
 }
