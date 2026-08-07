@@ -113,7 +113,7 @@ internal sealed class AuthenticationService : IAuthenticationService
         var additionalClaims = GenerateClaims(user!, user!.Email!);
         var roles = await userManager.GetRolesAsync(user);
 
-        var result = jwtTokenService.CreateToken(additionalClaims, roles);
+        var result = jwtTokenService.CreateToken(additionalClaims, roles, accessTokenMinutes);
         var created = timeProvider.GetUtcNow().UtcDateTime;
 
         var rawRefresh = CreateRefreshToken();
