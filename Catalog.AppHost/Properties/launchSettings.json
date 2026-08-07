@@ -9,7 +9,9 @@
         "ASPIRE_DASHBOARD_AI_DISABLED": "true",
         "ASPNETCORE_ENVIRONMENT": "Development",
         "DOTNET_ENVIRONMENT": "Development",
-        "DOTNET_DASHBOARD_OTLP_ENDPOINT_URL": "https://localhost:16031",
+        "DOTNET_DASHBOARD_OTLP_ENDPOINT_URL": "http://localhost:16031",
+        "ASPIRE_ALLOW_UNSECURED_TRANSPORT": "true",
+        "DOTNET_DASHBOARD_OTLP_ENDPOINT_URL2": "https://localhost:16031",
         "DOTNET_RESOURCE_SERVICE_ENDPOINT_URL": "https://localhost:17037"
       }
     },

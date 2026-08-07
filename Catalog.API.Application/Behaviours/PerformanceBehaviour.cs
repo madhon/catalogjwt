@@ -1,16 +1,23 @@
 ﻿namespace Catalog.API.Application.Behaviours;
 
 using System.Diagnostics;
+using Catalog.API.Application.Diagnostics;
 using Mediator;
 using Microsoft.Extensions.Logging;
 
 public sealed partial class PerformanceBehaviour<TMessage, TResponse> : IPipelineBehavior<TMessage, TResponse>
     where TMessage : IMessage
 {
+    private const long SlowRequestThresholdMs = 500;
+
+    private static readonly string HandlerName = typeof(TMessage).Name;
+    private readonly MediatorMetrics metrics;
+
     private readonly ILogger<PerformanceBehaviour<TMessage, TResponse>> logger;
 
-    public PerformanceBehaviour(ILogger<PerformanceBehaviour<TMessage, TResponse>> logger)
+    public PerformanceBehaviour(MediatorMetrics metrics, ILogger<PerformanceBehaviour<TMessage, TResponse>> logger)
     {
+        this.metrics = metrics;
         this.logger = logger;
     }
 
@@ -18,36 +25,39 @@ public sealed partial class PerformanceBehaviour<TMessage, TResponse> : IPipelin
     {
         ArgumentNullException.ThrowIfNull(next);
 
-        Stopwatch? timer = null;
+        using var activity = MediatorActivity.Source.StartActivity(
+            HandlerName,
+            ActivityKind.Internal);
 
-        Interlocked.Increment(ref RequestCounter.ExecutionCount);
-        if (RequestCounter.ExecutionCount > 3)
+        var start = Stopwatch.GetTimestamp();
+
+        try
         {
-            timer = Stopwatch.StartNew();
+            var response = await next(message, cancellationToken).ConfigureAwait(false);
+            activity?.SetStatus(ActivityStatusCode.Ok);
+            return response;
         }
-
-        var response = await next(message, cancellationToken).ConfigureAwait(false);
-
-        timer?.Stop();
-        var elapsedMilliseconds = timer?.ElapsedMilliseconds;
-
-        if (elapsedMilliseconds > 500)
+        catch (Exception e)
         {
-            var requestName = typeof(TMessage).Name;
-            LogLongRunningRequest(requestName, elapsedMilliseconds, message);
+            activity?.SetStatus(ActivityStatusCode.Error, e.Message);
+            activity?.AddException(e);
+            throw;
         }
+        finally
+        {
+            var elapsedMs = Stopwatch.GetElapsedTime(start).TotalMilliseconds;
+            metrics.RecordHandlerDuration(HandlerName, elapsedMs);
+            activity?.SetTag("mediator.handler", HandlerName);
+            activity?.SetTag("mediator.duration_ms", elapsedMs);
 
-        return response;
+            if (elapsedMs > SlowRequestThresholdMs)
+            {
+                LogLongRunningRequest(typeof(TMessage).Name, elapsedMs);
+            }
+        }
     }
 
-    [LoggerMessage(10001, LogLevel.Warning, "{requestName} long running request ({ElapsedMilliseconds} milliseconds) with {message}")]
-    public partial void LogLongRunningRequest(string requestName, long? elapsedMilliseconds, TMessage message);
-
-    internal static class RequestCounter
-    {
-        // ReSharper disable once StaticMemberInGenericType
-#pragma warning disable S2223, S2743
-        public static int ExecutionCount;
-#pragma warning restore S2743, S2223
-    }
+    [LoggerMessage(10001, LogLevel.Warning,
+        "{RequestName} long running request ({ElapsedMilliseconds} ms)")]
+    private partial void LogLongRunningRequest(string requestName, double elapsedMilliseconds);
 }

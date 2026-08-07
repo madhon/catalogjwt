@@ -2,6 +2,7 @@
 
 using System.Threading.Channels;
 using Catalog.API.Application.Behaviours;
+using Catalog.API.Application.Diagnostics;
 using Catalog.API.Application.Features.Products;
 using Mediator;
 using Microsoft.Extensions.Options;
@@ -13,6 +14,8 @@ public static class ServiceRegistrations
         ArgumentNullException.ThrowIfNull(services);
 
         services.AddHostedService<AddProductChannelProcessor>();
+
+        services.AddSingleton<MediatorMetrics>();
 
         services.AddSingleton<Channel<Product>>(sp =>
         {
