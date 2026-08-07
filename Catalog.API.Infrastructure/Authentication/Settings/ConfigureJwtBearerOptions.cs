@@ -1,5 +1,6 @@
 ﻿namespace Catalog.API.Infrastructure.Authentication.Settings;
 
+using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
@@ -8,7 +9,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 
-public partial class ConfigureJwtBearerOptions(IOptions<AuthenticationSettings> jwtOptions, ILogger<ConfigureJwtBearerOptions> logger) : IConfigureNamedOptions<JwtBearerOptions>
+public partial class ConfigureJwtBearerOptions(IOptions<AuthenticationSettings> jwtOptions, EcdsaJwtKeyMaterial ecdsaJwtKeyMaterial, ILogger<ConfigureJwtBearerOptions> logger) : IConfigureNamedOptions<JwtBearerOptions>
 {
     private readonly AuthenticationSettings jwtOptions = jwtOptions.Value;
 
@@ -26,8 +27,6 @@ public partial class ConfigureJwtBearerOptions(IOptions<AuthenticationSettings> 
             return;
         }
 
-        var key = Encoding.UTF8.GetBytes(jwtOptions.Secret);
-
         options.SaveToken = true;
         // prevent from mapping "sub" claim to nameidentifier.
         JsonWebTokenHandler.DefaultInboundClaimTypeMap.Remove("sub");
@@ -40,8 +39,8 @@ public partial class ConfigureJwtBearerOptions(IOptions<AuthenticationSettings> 
             ValidAudience = jwtOptions.Audience,
             ValidateIssuerSigningKey = true,
             ValidateLifetime = true,
-            IssuerSigningKey = new SymmetricSecurityKey(key),
-            ValidAlgorithms = [SecurityAlgorithms.HmacSha256],
+            IssuerSigningKey = ecdsaJwtKeyMaterial.SecurityKey,
+            ValidAlgorithms = [SecurityAlgorithms.EcdsaSha256],
             ClockSkew = TimeSpan.FromSeconds(30),
         };
 

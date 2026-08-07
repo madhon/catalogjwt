@@ -4,7 +4,6 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
-using System.Text;
 
 [RegisterScoped]
 internal sealed class JwtTokenService : IJwtTokenService
@@ -16,21 +15,15 @@ internal sealed class JwtTokenService : IJwtTokenService
 
     private readonly TimeProvider timeProvider;
 
-    public JwtTokenService(IOptions<JwtOptions> jwtOptions, TimeProvider timeProvider)
+    public JwtTokenService(IOptions<JwtOptions> jwtOptions, EcdsaJwtKeyMaterial ecdsaJwtKeyMaterial, TimeProvider timeProvider)
     {
         ArgumentNullException.ThrowIfNull(jwtOptions);
+        ArgumentNullException.ThrowIfNull(ecdsaJwtKeyMaterial);
         ArgumentNullException.ThrowIfNull(timeProvider);
+
         var options = jwtOptions.Value ?? throw new ArgumentException("JwtOptions.Value must not be null.", nameof(jwtOptions));
 
-        var signingKeyBytes = Encoding.UTF8.GetBytes(options.Secret);
-        if (signingKeyBytes.Length < 32) // recommended minimum for HS256
-        {
-            throw new ArgumentException("JwtOptions.Secret should be at least 32 bytes for HS256.", nameof(jwtOptions));
-        }
-
-        var signingKey = new SymmetricSecurityKey(signingKeyBytes);
-        signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
-
+        signingCredentials = ecdsaJwtKeyMaterial.SigningCredentials!;
         issuer = options.Issuer;
         audience = options.Audience;
         this.timeProvider = timeProvider;

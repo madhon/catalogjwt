@@ -8,8 +8,10 @@ using ZiggyCreatures.Caching.Fusion;
 
 internal static class ApiStartup
 {
-	public static IServiceCollection AddMyApi(this IServiceCollection services)
-	{
+#pragma warning disable MA0051
+    public static IServiceCollection AddMyApi(this IServiceCollection services)
+#pragma warning restore MA0051
+    {
 		ArgumentNullException.ThrowIfNull(services);
 
 		services.Configure<ForwardedHeadersOptions>(opts =>

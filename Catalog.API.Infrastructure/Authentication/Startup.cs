@@ -20,6 +20,12 @@ internal static class Startup
 
         services.AddSingleton<IConfigureOptions<JwtBearerOptions>, ConfigureJwtBearerOptions>();
 
+        services.AddSingleton<EcdsaJwtKeyMaterial>(sp =>
+        {
+            var opts = sp.GetRequiredService<IOptions<AuthenticationSettings>>().Value;
+            return new EcdsaJwtKeyMaterial(opts.PublicKeyPem, isPrivate: false);
+        });
+
         services.AddAuthorization();
         services.AddAuthentication(auth =>
             {

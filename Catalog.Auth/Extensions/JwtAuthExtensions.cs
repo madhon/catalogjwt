@@ -11,6 +11,12 @@ internal static class JwtAuthExtensions
 
         services.AddSingleton<IConfigureOptions<JwtBearerOptions>, ConfigureJwtBearerOptions>();
 
+        services.AddSingleton<EcdsaJwtKeyMaterial>(sp =>
+        {
+            var opts = sp.GetRequiredService<IOptions<JwtOptions>>().Value;
+            return new EcdsaJwtKeyMaterial(opts.PrivateKeyPem, isPrivate: true);
+        });
+
         return services.AddAuthentication(auth =>
             {
                 auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

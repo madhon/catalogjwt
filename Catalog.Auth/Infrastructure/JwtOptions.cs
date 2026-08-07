@@ -7,7 +7,8 @@ internal sealed class JwtOptions
     public const string Jwt = "jwt";
 
     [Required]
-    public string Secret { get; set; } = null!;
+    public string PrivateKeyPem { get; set; } = null!;
+    public string SigningAlgorithm { get; set; } = SecurityAlgorithms.EcdsaSha256;
 
     [Required]
     public string Audience { get; set; } = null!;

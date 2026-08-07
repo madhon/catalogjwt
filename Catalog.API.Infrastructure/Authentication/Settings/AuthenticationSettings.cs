@@ -7,7 +7,7 @@ public class AuthenticationSettings
     public const string SectionName = "AuthenticationSettings";
 
     [Required, MinLength(10)]
-    public string Secret{ get; set; } = null!;
+    public string PublicKeyPem { get; set; } = null!;
 
     [Required, MinLength(1)]
     public string Audience { get; set; } = null!;
