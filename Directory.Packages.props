@@ -4,10 +4,10 @@
     <NetRuntimeVersion>10.0.10</NetRuntimeVersion>
     <NetExtensionVersion>10.8.0</NetExtensionVersion>
     <JwtTokenHandlerVersion>8.22.0</JwtTokenHandlerVersion>
-    <RoslynatorVersion>4.15.0</RoslynatorVersion>
+    <RoslynatorVersion>4.16.0</RoslynatorVersion>
     <PollyVersion>8.6.6</PollyVersion>
     <FusionCacheVersion>2.6.0</FusionCacheVersion>
-    <ScalarVersion>2.16.17</ScalarVersion>
+    <ScalarVersion>2.16.18</ScalarVersion>
   </PropertyGroup>
   <ItemGroup>
     <!-- System packages -->
@@ -104,7 +104,7 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.17.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.17.0" />
     <!-- Analyzers -->
-    <PackageVersion Include="Meziantou.Analyzer" Version="3.0.140" />
+    <PackageVersion Include="Meziantou.Analyzer" Version="3.0.141" />
     <PackageVersion Include="Roslynator.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.Formatting.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.CodeFixes" Version="$(RoslynatorVersion)" />
