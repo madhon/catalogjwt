@@ -15,15 +15,15 @@ public static class OpenApiExtensions
     {
         ArgumentNullException.ThrowIfNull(app);
 
-        var configuration = app.Configuration;
-        var openApiSection = configuration.GetSection("OpenApi");
+        // var configuration = app.Configuration;
+        // var openApiSection = configuration.GetSection("OpenApi");
+        //
+        // if (!openApiSection.Exists())
+        // {
+        //     return app;
+        // }
 
-        if (!openApiSection.Exists())
-        {
-            return app;
-        }
-
-        app.MapOpenApi();
+        app.MapOpenApi().WithDocumentPerVersion();
         app.MapScalarApiReference(opts => opts.DefaultFonts = false);
         app.MapGet("/", () => Results.Redirect("~/scalar/v1")).ExcludeFromDescription();
 
@@ -41,15 +41,22 @@ public static class OpenApiExtensions
         }
 
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddApiVersioning()
+        builder.Services.AddApiVersioning(options =>
+            {
+                options.ApiVersionReader = new UrlSegmentApiVersionReader();
+            })
             .AddApiExplorer(options =>
             {
                 options.GroupNameFormat = "'v'VV";
                 options.SubstituteApiVersionInUrl = true;
-                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.DefaultApiVersion = ApiVersion.Default;
+
+            }).AddOpenApi(options =>
+            {
+                options.Document.AddScalarTransformers();
             });
 
-        builder.Services.AddOpenApi(options =>
+        /*builder.Services.AddOpenApi(options =>
         {
             var apiDoc = openApi.GetRequiredSection("Document");
 
@@ -73,7 +80,7 @@ public static class OpenApiExtensions
 
                 return Task.CompletedTask;
             });
-        });
+        });*/
 
         return builder;
     }

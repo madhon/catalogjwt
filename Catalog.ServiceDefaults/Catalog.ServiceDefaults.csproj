@@ -11,7 +11,7 @@
 
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
-		<PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" />
+        <PackageReference Include="Asp.Versioning.OpenApi" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" />
 		<PackageReference Include="Microsoft.Extensions.Http.Resilience" />
 		<PackageReference Include="Microsoft.Extensions.ServiceDiscovery" />		
@@ -23,7 +23,6 @@
 		<PackageReference Include="OpenTelemetry.Instrumentation.Http" />
 		<PackageReference Include="OpenTelemetry.Instrumentation.Runtime" />
 		<PackageReference Include="NetEscapades.AspNetCore.SecurityHeaders" />
-        <PackageReference Include="Serilog.AspNetCore" />
         <PackageReference Include="Scalar.AspNetCore.Microsoft" />
 		<PackageReference Include="ZiggyCreatures.FusionCache.OpenTelemetry" />
 	</ItemGroup>
