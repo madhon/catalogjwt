@@ -42,6 +42,7 @@ internal sealed class JwtTokenService : IJwtTokenService
 
         var tokenDescriptor = new SecurityTokenDescriptor
         {
+            TokenType = "at+jwt",
             Issuer = issuer,
             Audience = audience,
             IssuedAt = issuedAt,

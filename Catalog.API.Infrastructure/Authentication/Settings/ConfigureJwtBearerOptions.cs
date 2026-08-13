@@ -33,6 +33,7 @@ public partial class ConfigureJwtBearerOptions(IOptions<AuthenticationSettings> 
 
         options.TokenValidationParameters = new TokenValidationParameters
         {
+            ValidTypes = ["at+jwt"],
             ValidateIssuer = true,
             ValidIssuer = jwtOptions.Issuer,
             ValidateAudience = true,

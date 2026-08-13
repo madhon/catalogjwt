@@ -24,6 +24,7 @@ internal sealed class ConfigureJwtBearerOptions(IOptions<JwtOptions> jwtOptions,
 
         options.TokenValidationParameters = new TokenValidationParameters
         {
+            ValidTypes = ["at+jwt"],
             ValidateIssuer = true,
             ValidIssuer = jwtOptions.Issuer,
             ValidateAudience = true,

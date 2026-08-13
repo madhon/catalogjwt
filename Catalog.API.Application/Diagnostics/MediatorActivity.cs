@@ -2,7 +2,7 @@
 
 using System.Diagnostics;
 
-public class MediatorActivity
+public static class MediatorActivity
 {
     public static readonly ActivitySource Source = new("Catalog.API.Mediator");
 }
