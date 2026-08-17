@@ -4,7 +4,7 @@
     <NetRuntimeVersion>10.0.11</NetRuntimeVersion>
     <NetExtensionVersion>10.9.0</NetExtensionVersion>
     <JwtTokenHandlerVersion>8.22.0</JwtTokenHandlerVersion>
-    <RoslynatorVersion>4.16.0</RoslynatorVersion>
+    <RoslynatorVersion>4.16.1</RoslynatorVersion>
     <PollyVersion>8.6.6</PollyVersion>
     <FusionCacheVersion>2.6.0</FusionCacheVersion>
     <ScalarVersion>2.16.19</ScalarVersion>
