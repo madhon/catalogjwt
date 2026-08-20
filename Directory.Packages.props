@@ -6,7 +6,7 @@
     <JwtTokenHandlerVersion>8.22.0</JwtTokenHandlerVersion>
     <RoslynatorVersion>4.16.1</RoslynatorVersion>
     <PollyVersion>8.6.6</PollyVersion>
-    <FusionCacheVersion>2.6.0</FusionCacheVersion>
+    <FusionCacheVersion>2.7.0</FusionCacheVersion>
     <ScalarVersion>2.16.20</ScalarVersion>
   </PropertyGroup>
   <ItemGroup>
