@@ -1,13 +1,13 @@
 <Project>
   <PropertyGroup>
-    <AspireVersion>13.5.2</AspireVersion>
+    <AspireVersion>13.5.3</AspireVersion>
     <NetRuntimeVersion>10.0.11</NetRuntimeVersion>
     <NetExtensionVersion>10.9.0</NetExtensionVersion>
     <JwtTokenHandlerVersion>8.22.0</JwtTokenHandlerVersion>
     <RoslynatorVersion>5.0.0</RoslynatorVersion>
     <PollyVersion>8.6.6</PollyVersion>
-    <FusionCacheVersion>2.7.1</FusionCacheVersion>
-    <ScalarVersion>2.17.1</ScalarVersion>
+    <FusionCacheVersion>2.7.2</FusionCacheVersion>
+    <ScalarVersion>2.17.2</ScalarVersion>
   </PropertyGroup>
   <ItemGroup>
     <!-- System packages -->
@@ -82,7 +82,7 @@
     <PackageVersion Include="Serilog.Sinks.PeriodicBatching" Version="4.1.0" />
     <PackageVersion Include="ErrorOr" Version="2.1.1" />
     <PackageVersion Include="ZiggyCreatures.FusionCache" Version="$(FusionCacheVersion)" />
-    <PackageVersion Include="ZiggyCreatures.FusionCache.OpenTelemetry" Version="2.7.0" />
+    <PackageVersion Include="ZiggyCreatures.FusionCache.OpenTelemetry" Version="$(FusionCacheVersion)" />
     <PackageVersion Include="Mediator.Abstractions" Version="3.0.2" />
     <PackageVersion Include="Mediator.SourceGenerator" Version="3.0.2" />
     <PackageVersion Include="Scalar.AspNetCore" Version="$(ScalarVersion)" />
@@ -105,7 +105,7 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.18.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.18.0" />
     <!-- Analyzers -->
-    <PackageVersion Include="Meziantou.Analyzer" Version="3.0.177" />
+    <PackageVersion Include="Meziantou.Analyzer" Version="3.0.190" />
     <PackageVersion Include="Roslynator.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.Formatting.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.CodeFixes" Version="$(RoslynatorVersion)" />
