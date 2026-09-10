@@ -11,7 +11,7 @@ namespace Catalog.API.Infrastructure.Persistence.CompiledModels
     public partial class CatalogContextModel
     {
         private CatalogContextModel()
-            : base(skipDetectChanges: false, modelId: new Guid("8e2b6cad-fff8-4243-a95b-02020cc365c7"), entityTypeCount: 2)
+            : base(skipDetectChanges: false, modelId: new Guid("8d93d966-85b3-4a57-b32d-397dc7f2d14c"), entityTypeCount: 2)
         {
         }
 
@@ -25,7 +25,7 @@ namespace Catalog.API.Infrastructure.Persistence.CompiledModels
             BrandEntityType.CreateAnnotations(brand);
             ProductEntityType.CreateAnnotations(product);
 
-            AddAnnotation("ProductVersion", "10.0.10");
+            AddAnnotation("ProductVersion", "10.0.12");
             AddAnnotation("Relational:MaxIdentifierLength", 128);
             AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
         }
