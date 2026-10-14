@@ -1,8 +1,8 @@
 <Project>
   <PropertyGroup>
     <AspireVersion>13.6.1</AspireVersion>
-    <NetRuntimeVersion>10.0.12</NetRuntimeVersion>
-    <NetExtensionVersion>10.10.0</NetExtensionVersion>
+    <NetRuntimeVersion>10.0.13</NetRuntimeVersion>
+    <NetExtensionVersion>10.11.0</NetExtensionVersion>
     <JwtTokenHandlerVersion>8.23.0</JwtTokenHandlerVersion>
     <RoslynatorVersion>5.0.1</RoslynatorVersion>
     <PollyVersion>8.8.0</PollyVersion>
@@ -106,7 +106,7 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.19.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.19.0" />
     <!-- Analyzers -->
-    <PackageVersion Include="Meziantou.Analyzer" Version="3.0.302" />
+    <PackageVersion Include="Meziantou.Analyzer" Version="3.0.303" />
     <PackageVersion Include="Roslynator.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.Formatting.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.CodeFixes" Version="$(RoslynatorVersion)" />
