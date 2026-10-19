@@ -15,9 +15,11 @@
     <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="$(JwtTokenHandlerVersion)" />
     <PackageVersion Include="System.Runtime.Caching" Version="$(NetRuntimeVersion)" />
     <PackageVersion Include="System.Security.Cryptography.Pkcs" Version="$(NetRuntimeVersion)" />
+    <PackageVersion Include="System.Security.Cryptography.ProtectedData" Version="$(NetRuntimeVersion)" />
     <PackageVersion Include="System.Text.Json" Version="$(NetRuntimeVersion)" />
     <PackageVersion Include="System.Formats.Asn1" Version="$(NetRuntimeVersion)" />
     <PackageVersion Include="System.IO.Pipelines" Version="$(NetRuntimeVersion)" />
+    <PackageVersion Include="System.IO.Hashing" Version="$(NetRuntimeVersion)" />
     <PackageVersion Include="System.Memory" Version="4.6.3" />
     <PackageVersion Include="System.Threading.Channels" Version="$(NetRuntimeVersion)" />
     <PackageVersion Include="System.Threading.RateLimiting" Version="$(NetRuntimeVersion)" />
@@ -98,15 +100,15 @@
     <PackageVersion Include="ServiceScan.SourceGenerator" Version="3.2.2" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.4" />
     <!-- OpenTelemetry-->
-    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.19.1" />
-    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.19.1" />
-    <PackageVersion Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="1.19.1-beta.1" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.19.0" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.SqlClient" Version="1.19.0" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.19.0" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.19.0" />
+    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.20.0" />
+    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.20.0" />
+    <PackageVersion Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="1.20.0-beta.1" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.20.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.SqlClient" Version="1.20.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.20.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.20.0" />
     <!-- Analyzers -->
-    <PackageVersion Include="Meziantou.Analyzer" Version="3.0.303" />
+    <PackageVersion Include="Meziantou.Analyzer" Version="3.0.312" />
     <PackageVersion Include="Roslynator.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.Formatting.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.CodeFixes" Version="$(RoslynatorVersion)" />
