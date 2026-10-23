@@ -1,13 +1,13 @@
 <Project>
   <PropertyGroup>
-    <AspireVersion>13.6.2</AspireVersion>
+    <AspireVersion>13.6.3</AspireVersion>
     <NetRuntimeVersion>10.0.13</NetRuntimeVersion>
     <NetExtensionVersion>10.11.0</NetExtensionVersion>
     <JwtTokenHandlerVersion>8.23.0</JwtTokenHandlerVersion>
     <RoslynatorVersion>5.0.1</RoslynatorVersion>
     <PollyVersion>8.8.0</PollyVersion>
     <FusionCacheVersion>2.9.0</FusionCacheVersion>
-    <ScalarVersion>2.18.2</ScalarVersion>
+    <ScalarVersion>2.18.3</ScalarVersion>
   </PropertyGroup>
   <ItemGroup>
     <!-- System packages -->
@@ -96,7 +96,7 @@
     <PackageVersion Include="Polly.Core" Version="$(PollyVersion)" />
     <PackageVersion Include="Polly.Extensions" Version="$(PollyVersion)" />
     <PackageVersion Include="Polly.RateLimiting" Version="$(PollyVersion)" />
-    <PackageVersion Include="NodaTime" Version="3.3.5" />
+    <PackageVersion Include="NodaTime" Version="3.3.6" />
     <PackageVersion Include="ServiceScan.SourceGenerator" Version="3.2.2" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.4" />
     <!-- OpenTelemetry-->
@@ -108,7 +108,7 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.20.1" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.20.1" />
     <!-- Analyzers -->
-    <PackageVersion Include="Meziantou.Analyzer" Version="3.0.315" />
+    <PackageVersion Include="Meziantou.Analyzer" Version="3.0.316" />
     <PackageVersion Include="Roslynator.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.Formatting.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.CodeFixes" Version="$(RoslynatorVersion)" />
