@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <AspireVersion>13.6.3</AspireVersion>
+    <AspireVersion>13.6.4</AspireVersion>
     <NetRuntimeVersion>10.0.13</NetRuntimeVersion>
     <NetExtensionVersion>10.11.0</NetExtensionVersion>
     <JwtTokenHandlerVersion>8.23.0</JwtTokenHandlerVersion>
