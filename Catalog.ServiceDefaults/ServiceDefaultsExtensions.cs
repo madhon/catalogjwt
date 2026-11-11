@@ -26,7 +26,7 @@ public static partial class ServiceDefaultsExtensions
         builder.Services.ConfigureHttpClientDefaults(http =>
         {
             // Turn on resilience by default
-            http.AddStandardResilienceHandler();
+            http.AddStandardShield();
 
             // Turn on service discovery by default
             http.AddServiceDiscovery();
