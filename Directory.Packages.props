@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <AspireVersion>13.6.5</AspireVersion>
-    <NetRuntimeVersion>10.0.15</NetRuntimeVersion>
+    <NetRuntimeVersion>11.0.0</NetRuntimeVersion>
     <NetExtensionVersion>10.11.0</NetExtensionVersion>
     <JwtTokenHandlerVersion>8.23.0</JwtTokenHandlerVersion>
     <RoslynatorVersion>5.0.1</RoslynatorVersion>
