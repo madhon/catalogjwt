@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi;
 using Scalar.AspNetCore;
 
 public static class OpenApiExtensions
@@ -23,7 +22,7 @@ public static class OpenApiExtensions
         //     return app;
         // }
 
-        app.MapOpenApi().WithDocumentPerVersion();
+        app.MapOpenApi();
         app.MapScalarApiReference(opts => opts.DefaultFonts = false);
         app.MapGet("/", () => Results.Redirect("~/scalar/v1")).ExcludeFromDescription();
 
@@ -51,10 +50,12 @@ public static class OpenApiExtensions
                 options.SubstituteApiVersionInUrl = true;
                 options.DefaultApiVersion = ApiVersion.Default;
 
-            }).AddOpenApi(options =>
-            {
-                options.Document.AddScalarTransformers();
             });
+
+        builder.Services.AddOpenApi(options =>
+        {
+            options.AddScalarTransformers();
+        });
 
         /*builder.Services.AddOpenApi(options =>
         {

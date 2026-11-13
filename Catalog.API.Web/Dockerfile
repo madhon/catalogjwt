@@ -1,7 +1,7 @@
-ARG RUNTIMEVERSION=10.0-noble-chiseled-extra
-ARG SDKVERSION=10.0-noble
+ARG RUNTIMEVERSION=11.0-noble-chiseled-extra
+ARG SDKVERSION=11.0-noble
 
-FROM mcr.microsoft.com/dotnet/aspnet:$VERSION AS base
+FROM mcr.microsoft.com/dotnet/aspnet:$RUNTIMEVERSION AS base
 WORKDIR /app
 ENV ASPNETCORE_HTTP_PORTS="8080"
 ENV ASPNETCORE_ENVIRONMENT="Development"
