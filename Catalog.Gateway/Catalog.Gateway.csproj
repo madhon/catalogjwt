@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-	<TargetFramework>net10.0</TargetFramework>
+	<TargetFramework>net11.0</TargetFramework>
 	<LangVersion>13.0</LangVersion>
 	<Nullable>enable</Nullable>
 	<ImplicitUsings>enable</ImplicitUsings>
@@ -38,5 +38,20 @@
   <ItemGroup>
     <ProjectReference Include="..\Catalog.ServiceDefaults\Catalog.ServiceDefaults.csproj" />
   </ItemGroup>
+
+  <!-- Solution build order (slnx BuildDependency) is surfaced as a project reference.
+       Static web assets from those web apps include .NET 11 hot-reload modules whose
+       endpoints are not defined in this project. Keep assets only from direct references. -->
+  <Target Name="IgnoreSolutionBuildOrderStaticWebAssets"
+          BeforeTargets="ResolveReferencedProjectsStaticWebAssets"
+          DependsOnTargets="ResolveReferencedProjectsStaticWebAssetsConfiguration">
+    <PropertyGroup>
+      <_DirectProjectReferencePaths>@(ProjectReference->'%(FullPath)', '|')</_DirectProjectReferencePaths>
+    </PropertyGroup>
+    <ItemGroup>
+      <StaticWebAssetProjectConfiguration Remove="@(StaticWebAssetProjectConfiguration)"
+        Condition="!$([System.String]::Copy('$(_DirectProjectReferencePaths)').Contains('%(Identity)'))" />
+    </ItemGroup>
+  </Target>
 
 </Project>

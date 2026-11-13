@@ -4,14 +4,16 @@ using System.Threading.Channels;
 using Catalog.API.Application.Abstractions;
 using Catalog.API.Application.Features.ListProducts;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ZiggyCreatures.Caching.Fusion;
 
-public sealed class AddProductChannelProcessor : BackgroundService
+public sealed partial class AddProductChannelProcessor : BackgroundService
 {
     private readonly Channel<Product> channel;
     private readonly IServiceProvider services;
     private readonly IFusionCache fusionCache;
+    private readonly ILogger<AddProductChannelProcessor> logger;
     private readonly int maxBatchSize;
     private readonly List<Product> batch;
 
@@ -19,33 +21,50 @@ public sealed class AddProductChannelProcessor : BackgroundService
         Channel<Product> channel,
         IServiceProvider services,
         IFusionCache fusionCache,
-        IOptions<AddProductChannelOptions> options)
+        IOptions<AddProductChannelOptions> options,
+        ILogger<AddProductChannelProcessor> logger)
     {
         ArgumentNullException.ThrowIfNull(options);
 
         this.channel = channel;
         this.services = services;
         this.fusionCache = fusionCache;
+        this.logger = logger;
         maxBatchSize = Math.Max(1, options.Value.MaxBatchSize);
         batch = new List<Product>(maxBatchSize);
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        while (await channel.Reader.WaitToReadAsync(stoppingToken).ConfigureAwait(false))
+        try
         {
-            batch.Clear();
-
-            batch.Add(await channel.Reader.ReadAsync(stoppingToken).ConfigureAwait(false));
-
-            while (batch.Count < maxBatchSize && channel.Reader.TryRead(out var item))
+            while (await channel.Reader.WaitToReadAsync(stoppingToken).ConfigureAwait(false))
             {
-                batch.Add(item);
-            }
+                batch.Clear();
 
-            await PersistBatchAsync(stoppingToken).ConfigureAwait(false);
+                batch.Add(await channel.Reader.ReadAsync(stoppingToken).ConfigureAwait(false));
+
+                while (batch.Count < maxBatchSize && channel.Reader.TryRead(out var item))
+                {
+                    batch.Add(item);
+                }
+
+                await PersistBatchAsync(stoppingToken).ConfigureAwait(false);
+            }
+        }
+        catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested)
+        {
+        }
+#pragma warning disable CA1031 // A fault in this hosted service must not stop the process.
+        catch (Exception ex)
+#pragma warning restore CA1031
+        {
+            LogProcessingFailed(logger, ex);
         }
     }
+
+    [LoggerMessage(Level = LogLevel.Error, Message = "Product channel processor failed")]
+    private static partial void LogProcessingFailed(ILogger logger, Exception exception);
 
     public override async Task StopAsync(CancellationToken cancellationToken)
     {
