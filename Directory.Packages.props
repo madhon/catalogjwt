@@ -7,7 +7,7 @@
     <RoslynatorVersion>5.0.1</RoslynatorVersion>
     <PollyVersion>8.9.1</PollyVersion>
     <FusionCacheVersion>2.9.0</FusionCacheVersion>
-    <ScalarVersion>2.21.0</ScalarVersion>
+    <ScalarVersion>3.0.0</ScalarVersion>
   </PropertyGroup>
   <ItemGroup>
     <!-- System packages -->
@@ -107,7 +107,7 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.21.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.21.0" />
     <!-- Analyzers -->
-    <PackageVersion Include="Meziantou.Analyzer" Version="3.0.339" />
+    <PackageVersion Include="Meziantou.Analyzer" Version="3.0.341" />
     <PackageVersion Include="Roslynator.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.Formatting.Analyzers" Version="$(RoslynatorVersion)" />
     <PackageVersion Include="Roslynator.CodeFixes" Version="$(RoslynatorVersion)" />

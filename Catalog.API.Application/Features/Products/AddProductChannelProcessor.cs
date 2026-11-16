@@ -55,11 +55,10 @@ public sealed partial class AddProductChannelProcessor : BackgroundService
         catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested)
         {
         }
-#pragma warning disable CA1031 // A fault in this hosted service must not stop the process.
         catch (Exception ex)
-#pragma warning restore CA1031
         {
             LogProcessingFailed(logger, ex);
+            throw;
         }
     }
 
