@@ -6,9 +6,11 @@ var builder = DistributedApplication.CreateBuilder(args);
 
 builder.AddForwardedHeaders();
 
-var authService = builder.AddProject<Projects.Catalog_Auth>("auth");
+var authService = builder
+    .AddDotnetProject("auth", "../Catalog.Auth/Catalog.Auth.csproj");
 
-var catalogService = builder.AddProject<Projects.Catalog_API_Web>("catalog")
+var catalogService = builder
+    .AddDotnetProject("catalog", "../Catalog.API.Web/Catalog.API.Web.csproj")
     .WithReference(authService)
     .WaitFor(authService)
     .PublishAsDockerComposeService((_, _) => { });
