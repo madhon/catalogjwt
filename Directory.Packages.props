@@ -2,7 +2,7 @@
   <PropertyGroup>
     <AspireVersion>17.0.0</AspireVersion>
     <NetRuntimeVersion>11.0.0</NetRuntimeVersion>
-    <NetExtensionVersion>11.0.0</NetExtensionVersion>
+    <NetExtensionVersion>11.0.1</NetExtensionVersion>
     <JwtTokenHandlerVersion>8.23.0</JwtTokenHandlerVersion>
     <RoslynatorVersion>5.0.1</RoslynatorVersion>
     <PollyVersion>8.9.1</PollyVersion>
