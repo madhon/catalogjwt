@@ -85,3 +85,8 @@ dotnet_style_prefer_compound_assignment = true:suggestion
 
 dotnet_code_quality.CA1062.excluded_type_names_with_derived_types = T:Microsoft.EntityFrameworkCore.Migrations.Migration
 dotnet_code_quality.IDE0065.excluded_type_names_with_derived_types = T:Microsoft.EntityFrameworkCore.Migrations.Migration
+
+
+# Path-based exclusion is required for IDE0065
+[**/Migrations/*.cs]
+dotnet_diagnostic.IDE0065.severity = none
