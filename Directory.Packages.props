@@ -34,7 +34,7 @@
     <PackageVersion Include="Microsoft.OpenApi" Version="[3.11.0,4.0.0)" />
     <PackageVersion Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="$(JwtTokenHandlerVersion)" />
     <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="$(JwtTokenHandlerVersion)" />
-    <PackageVersion Include="Microsoft.Data.SqlClient" Version="7.1.2" />
+    <PackageVersion Include="Microsoft.Data.SqlClient" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Data.SqlClient.Extensions.Azure" Version="7.1.1" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(NetRuntimeVersion)" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="$(NetRuntimeVersion)" />
